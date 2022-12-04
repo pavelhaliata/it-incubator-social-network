@@ -1,16 +1,18 @@
 import React from 'react';
 // import logo from './logo.svg';
-import './App.css';
+import s from './App.module.scss'
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
+import Main from './components/Main/Main';
+import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
-    <div className="container">
-      <Navbar />
-      <Header />
-      <Profile/>
+    <div className={s.container}>
+      <Header className={s.header}/>
+      <Main className={s.main}/>
+      <Sidebar className={s.sidebar}/>
+      <Footer className={s.footer}/>
     </div>
   );
 }
