@@ -69,14 +69,14 @@
 .top_header_author{
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 45%;
 	transform: translate(-50%, 0);
 	max-width: 200px;
 	text-align: center;
 	z-index: 4;
-	
-	
-
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 .autor_img{
 	display: block;
@@ -96,7 +96,7 @@
 	}
 }
 .author_content{
-
+	// text-align: center;
 }
 
 .author_name{
