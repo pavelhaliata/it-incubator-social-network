@@ -9,10 +9,10 @@ import Sidebar from './components/Sidebar/Sidebar';
 function App() {
   return (
     <div className={s.container}>
-      <Header className={s.header}/>
-      <Main className={s.main}/>
-      <Sidebar className={s.sidebar}/>
-      <Footer className={s.footer}/>
+      <Header className={s.header} />
+      <Sidebar className={s.sidebar} />
+      <Main className={s.main} />
+      <Footer className={s.footer} />
     </div>
   );
 }

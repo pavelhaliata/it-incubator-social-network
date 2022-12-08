@@ -1,17 +1,20 @@
 import React from "react";
-import Profile from "../Profile/Profile";
+import TopHeader from "./TopHeader/TopHeader";
 import s from "./Main.module.scss";
+import MainContent from "./MainContent/MainContent";
 
 interface IProps {
     className?: string
 }
 
 
-function Main({className}:IProps){
-    return(
+function Main({ className }: IProps) {
+    return (
         <div className={`${s.container} ${className}`}>
             <div className={s.main}>
-                <Profile/>
+                {/* Top Header Profile */}
+                <TopHeader className={s.topHeader} />
+                <MainContent/>
             </div>
         </div>
     );
