@@ -1,17 +1,28 @@
 import React from "react";
-import Profile from "../Profile/Profile";
+import { Friends } from "../Friends/Friends";
+import Dialogs from "../Dialogs/Dialogs";
 import s from "./MainContent.module.scss";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 interface IProps {
-    className?: string
+	className?: string
 }
 
 
 function MainContent({ className }: IProps) {
-    return (
-		<div className={`${s.container} ${className}`}>
-			<Profile />
-		</div>
+	return (
+
+		<BrowserRouter>
+			<div className={`${s.container} ${className}`}>
+				<Routes>
+					<Route path='/dialogs' element={<Dialogs />} />
+					<Route path='/friends' element={<Friends />} />
+				</Routes>
+			</div>
+		</BrowserRouter>
+
+
+
 	)
 }
 

@@ -1,0 +1,78 @@
+.message {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.message__avatar {
+    border: #E5E5EA solid 1px;
+    max-width: 52px;
+    max-height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+img {
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.message__body {
+    max-width: 255px;
+    word-wrap: break-word;
+    line-height: 24px;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #ffff;
+}
+
+.message__body::after,
+.message__body::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+}
+
+.message__body::before {
+    left: -7px;
+    width: 20px;
+    background-color: #ffff;
+    border-bottom-right-radius: 16px 14px;
+
+}
+
+.message__body::after {
+    left: -26px;
+    width: 26px;
+	background-color: #edf2f6;
+    border-bottom-right-radius: 10px;
+}
+
+.message__autor {
+    color: rgb(71, 110, 237);
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.message__text {
+    color: black;
+
+}
+
+.message__time {
+    color: rgb(128, 128, 128);
+    font-size: 15px;
+    text-align: end;
+    margin-top: -10px;
+    position: relative;
+    z-index: 2;
+    padding: 5px;
+}

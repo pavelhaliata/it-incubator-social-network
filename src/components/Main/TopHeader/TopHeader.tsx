@@ -15,9 +15,9 @@ function TopHeader({className}:IPrors) {
 				<div className={s.profile__section_item}>
 					<div className={s.section_item}>
 						<ul className={s.profile_menu}>
-							<li>Friends</li>
-							<li>Dialogs</li>
-							<li>Photos</li>
+							<li><a href="/friends">Friends</a></li>
+							<li><a href="/dialogs">Dialogs</a></li>
+							<li><a href="#">Photos</a></li>
 						</ul>
 					</div>
 					<div className={`${s.section_item} ${s.ml_auto}`}>

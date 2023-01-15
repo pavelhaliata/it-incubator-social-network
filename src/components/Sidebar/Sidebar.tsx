@@ -10,10 +10,10 @@ function Sidebar({className}:IProps) {
         <div className={`${s.container} ${className}`}>
             <nav className={s.sidebar}>
                 <ul className={s.sidebar__link}>
-                    <li className={s.link}>Profile</li>
-                    <li className={s.link}>Dialogs</li>
-                    <li className={s.link}>Friends</li>
-                    <li className={s.link}>Photos</li>
+                    <li className={s.link}><a href="#">Profile</a></li>
+                    <li className={s.link}><a href="/dialogs">Dialogs</a></li>
+                    <li className={s.link}><a href="/friends">Friends</a></li>
+                    <li className={s.link}><a href="">Photos</a></li>
                 </ul>
             </nav>
         </div>
