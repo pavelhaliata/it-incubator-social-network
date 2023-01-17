@@ -56,13 +56,17 @@
 	justify-content: space-evenly;
 	align-items: center;
 
-	li {
+	li a{
 		font-size: 14px;
 		font-weight: 700;
 		cursor: pointer;
-		&:hover {
-			color: #515365;
+		color: #515365;
+		&:not(.active):hover {
+			filter: brightness(50%);
 		}
+	}
+	li a.active{
+		color: #ff5e3a;
 	}
 }
 

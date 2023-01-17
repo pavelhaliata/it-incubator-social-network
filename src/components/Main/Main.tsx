@@ -6,9 +6,11 @@ import MainContent from "./MainContent/MainContent";
 interface IProps {
     className?: string
 }
+type MainPropsType={
+    className?: string
+}
 
-
-function Main({ className }: IProps) {
+function Main({ className }: MainPropsType) {
     return (
         <div className={`${s.container} ${className}`}>
             <div className={s.main}>

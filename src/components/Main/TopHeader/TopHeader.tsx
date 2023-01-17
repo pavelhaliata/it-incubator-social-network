@@ -1,11 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from "./TopHeader.module.scss";
 
-interface IPrors{
+interface IPrors {
 	className?: string
 }
 
-function TopHeader({className}:IPrors) {
+function TopHeader({ className }: IPrors) {
 	return (
 		<div className={`${s.container} ${className}`}>
 			<div className={s.top_header}>
@@ -15,22 +16,22 @@ function TopHeader({className}:IPrors) {
 				<div className={s.profile__section_item}>
 					<div className={s.section_item}>
 						<ul className={s.profile_menu}>
-							<li><a href="/friends">Friends</a></li>
-							<li><a href="/dialogs">Dialogs</a></li>
+							<li><NavLink to="/friends" className={navData => navData.isActive ? s.active : ''}>Friends</NavLink></li>
+							<li><NavLink to="/dialogs" className={navData => navData.isActive ? s.active : ''}>Dialogs</NavLink></li>
 							<li><a href="#">Photos</a></li>
 						</ul>
 					</div>
 					<div className={`${s.section_item} ${s.ml_auto}`}>
 						<ul className={s.profile_menu}>
-							<li>Friends</li>
-							<li>Dialogs</li>
+							<li><NavLink to="/friends">Friends</NavLink></li>
+							<li><NavLink to="/dialogs">Dialogs</NavLink></li>
 							<li>...</li>
 						</ul>
 					</div>
 				</div>
 				<div className={s.top_header_author}>
 					<a href="#" className={s.autor_img}>
-						<img src="https://html.crumina.net/html-olympus/img/author-main1.webp" alt="author"  width='124px' height='124px'
+						<img src="https://html.crumina.net/html-olympus/img/author-main1.webp" alt="author" width='124px' height='124px'
 						/>
 					</a>
 					<div className={s.author_content}>

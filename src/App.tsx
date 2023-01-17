@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import s from './App.module.scss'
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -8,14 +8,14 @@ import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
-
-    <div className={s.container}>
-      <Header className={s.header} />
-      <Sidebar className={s.sidebar} />
-      <Main className={s.main} />
-      <Footer className={s.footer} />
-    </div>
-
+    <BrowserRouter>
+      <div className={s.container}>
+        <Header className={s.header} />
+        <Sidebar className={s.sidebar} />
+        <Main className={s.main} />
+        <Footer className={s.footer} />
+      </div>
+    </BrowserRouter>
   );
 }
 
