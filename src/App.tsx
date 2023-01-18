@@ -1,21 +1,24 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import s from './App.module.scss'
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import { Blogpage } from './components/Blogpage/Blogpage';
+import { Layout } from './components/Layout';
+import Dialogs from './components/Main/Dialogs/Dialogs';
+import { Friends } from './components/Main/Friends/Friends';
 import Main from './components/Main/Main';
-import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className={s.container}>
-        <Header className={s.header} />
-        <Sidebar className={s.sidebar} />
-        <Main className={s.main} />
-        <Footer className={s.footer} />
-      </div>
-    </BrowserRouter>
+    <>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path='Blogpage' element={<Blogpage />}/>
+          <Route path='Main' element={<Main />}/>
+          <Route path='friends' element={<Friends />}/>
+          <Route path='dialogs' element={<Dialogs />} />
+        </Route>
+      </Routes>
+    </>
+
   );
 }
 

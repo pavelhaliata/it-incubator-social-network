@@ -14,7 +14,6 @@ function Main({ className }: MainPropsType) {
     return (
         <div className={`${s.container} ${className}`}>
             <div className={s.main}>
-                {/* Top Header Profile */}
                 <TopHeader className={s.topHeader} />
                 <MainContent/>
             </div>
