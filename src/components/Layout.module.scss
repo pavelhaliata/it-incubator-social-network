@@ -10,12 +10,13 @@
 	background-color: #edf2f6;
 }
 
-.header {
+header {
 	grid-area: header;
 }
 
-.main {
+main {
 	grid-area: main;
+	padding: 10px;
 	// border: 1px darkgray solid;
 }
 
@@ -25,6 +26,6 @@
 	padding: 1rem;
 }
 
-.footer {
+footer {
 	grid-area: footer;
 }

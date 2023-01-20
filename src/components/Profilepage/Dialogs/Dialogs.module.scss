@@ -1,0 +1,23 @@
+.container {}
+
+.dialogs {
+	max-width: 600px;
+	// border: 1px solid red;
+
+
+	.item {
+		display: flex;
+	}
+
+	.author {
+		&>div {
+			margin-right: auto;
+		}
+	}
+
+	.companion {
+		&>div {
+			margin-left: auto;
+		}
+	}
+}

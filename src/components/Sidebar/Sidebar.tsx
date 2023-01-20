@@ -1,9 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import s from "./Sidebar.module.scss";
 
 interface IProps {
-    className: string
+    className?: string
 }
 
 function Sidebar({ className }: IProps) {
@@ -11,11 +11,10 @@ function Sidebar({ className }: IProps) {
         <div className={`${s.container} ${className}`}>
             <nav className={s.sidebar}>
                 <ul className={s.sidebar__link}>
-                    <li className={s.link}><a href="#">Profile</a></li>
-                    <li className={s.link}><NavLink to={"/dialogs"}>Dialogs</NavLink></li>
-                    <li className={s.link}><NavLink to={"/friends"}>Friends</NavLink></li>
-                    <li className={s.link}><a href="#">Photos</a></li>
-
+                    <li className={s.link}><Link to="/">Profile</Link></li>
+                    <li className={s.link}><a href="#">News</a></li>
+                    <li className={s.link}><Link to="/blogpage">Blog</Link></li>
+                    <li className={s.link}><a href="#">more info</a></li>
                 </ul>
             </nav>
         </div>
