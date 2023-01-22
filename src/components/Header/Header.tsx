@@ -10,7 +10,7 @@ function Header({ className }: IProps) {
 
     return (
         <div className={`${s.container} ${className}`}>
-            <header className={s.header}>
+            <div className={s.header}>
                 <div className={s.page_title}>
                     <h6>Profile Page</h6>
                 </div>
@@ -22,13 +22,13 @@ function Header({ className }: IProps) {
                     <a href="#" className={s.link_find_friend}>Find Friends</a>
                     <div className={s.header_controll_block}>
                         <div className={s.controll_icon}>
-                            <img src="https://img.icons8.com/wired/2x/speech-bubble.png" alt="icon" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776860.png" alt="icon" />
                         </div>
                         <div className={s.controll_icon}>
-                            <img src="https://img.icons8.com/wired/2x/speech-bubble.png" alt="icon" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776739.png" alt="icon" />
                         </div>
                         <div className={s.controll_icon}>
-                            <img src="https://img.icons8.com/wired/2x/speech-bubble.png" alt="icon" />
+                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776834.png" alt="icon" />
                         </div>
                         <div className={s.author_page}>
                             <div className={s.author_thumb}>
@@ -44,8 +44,8 @@ function Header({ className }: IProps) {
                         </div>
                     </div>
                 </div>
-            </header>
-            <div className={s.header_spacer}></div>
+            </div>
+            {/* <div className={s.header_spacer}></div> */}
 
 
             {/* <div className="svg_icon">

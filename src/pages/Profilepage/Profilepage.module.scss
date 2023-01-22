@@ -8,7 +8,7 @@
 	position: relative;
 	border-radius: .5rem;
 	overflow: hidden;
-	width: 100%;
+	min-width: 100%;
 	background-color: #ffff;
 }
 
@@ -59,9 +59,10 @@
 		font-weight: 700;
 		cursor: pointer;
 		color: #515365;
-
+		transition: all .15s ease;
+		
 		&:not(.active):hover {
-			filter: brightness(50%);
+			color: #ff5e3a;
 		}
 	}
 
@@ -115,8 +116,7 @@
 .profileContent {
 	
 	&>div {
-		width: 700px;
-		height: 500px;
+		max-width: 800px;
 		// border: 1px solid red;
 		margin: 20px auto;
 

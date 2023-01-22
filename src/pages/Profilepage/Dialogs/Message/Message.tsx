@@ -1,15 +1,17 @@
+import React from "react";
+import { MessageDataPropsType } from '../Dialogs';
 import s from "./Message.module.scss"
 
-
-type MessagePropsType = {
-    avatar: string,
-    name: string,
-    message: string,
-    time: string,
+type propsType ={
+    // message: MessageDataPropsType
+    avatar: string
+	name: string
+	message: string
+	time: string
 }
 
 
-function Message({avatar, name, message, time}: MessagePropsType) {
+function Message({avatar, name, message,time}: propsType) {
     return (
         <div className={s.message}>
             <div className={s.message__avatar}>

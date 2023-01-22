@@ -7,7 +7,7 @@ import Sidebar from './Sidebar/Sidebar';
 
 export const Layout = () => {
 	return (
-		<div className={s.container}>
+		<div className={s.wrapper}>
 			<header>
 				<Header className={s.header} />
 			</header>
@@ -24,4 +24,3 @@ export const Layout = () => {
 
 	)
 }
-
