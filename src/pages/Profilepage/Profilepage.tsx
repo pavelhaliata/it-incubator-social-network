@@ -46,7 +46,7 @@ function Profilepage({ className }: MainPropsType) {
                     </div>
                 </div>
                 <div className={`${s.profileContent}`}>
-                    <div>
+                    <div className={s.container_fluid}>
                         <Outlet />
                     </div>
 

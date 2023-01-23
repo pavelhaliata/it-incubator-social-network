@@ -1,10 +1,12 @@
 .friend_item {
     background-color: #fff;
-    width: 250px;
     height: 400px;
     text-align: center;
     border-radius: 5px;
     overflow: hidden;
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 10px;
 }
 .friend_header{
     object-fit: contain;
@@ -48,4 +50,8 @@
     font-weight: 400;
     line-height: 1.5;
     color: #888da8;
+}
+.container_fluid{
+    display: flex;
+    flex-wrap: wrap;
 }

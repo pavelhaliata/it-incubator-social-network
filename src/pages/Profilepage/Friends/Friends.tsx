@@ -1,26 +1,32 @@
+import { type } from "@testing-library/user-event/dist/type";
 import react from "react";
 import s from "./Friends.module.scss"
-type FriendsPropsType= {
 
+export type PersonPropsType = {
+    backgroudImg: string
+    avatar: string
+    name: string
+    country: string
+}
+type IProps = {
+    person: Array<PersonPropsType>
 }
 
-export function Friends ({}: FriendsPropsType) {
-
-    
-    return(
-        <div>
+const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
+    return (
+        <>
             <div className={s.friend_item}>
                 <div className={s.friend_header}>
-                    <img src="https://html.crumina.net/html-olympus/img/friend1.webp" alt="background" />
+                    <img src={backgroudImg} alt="background" />
                 </div>
                 <div className={s.friend_content}>
                     <div className={s.friend_avatar}>
                         <div className={s.author_thumb}>
-                            <img src="https://html.crumina.net/html-olympus/img/avatar1.webp" alt="avatar" />
+                            <img src={avatar} alt="avatar" />
                         </div>
                         <div className={s.author_content}>
-                            <a className={s.author_name} href="#">Nicholas Grissom</a>
-                            <div className={s.country}>San Francisco, CA</div>
+                            <a className={s.author_name} href="#">{name}</a>
+                            <div className={s.country}>{country}</div>
                         </div>
                     </div>
                     <div className={s.swiper_container}>
@@ -28,6 +34,24 @@ export function Friends ({}: FriendsPropsType) {
                     </div>
                 </div>
             </div>
+        </>
+    )
+}
+
+
+export function Friends({ person }: IProps) {
+    return (
+        <div>
+            <div className={s.container_fluid}>
+                {person.map((p) => {
+                    return <Person
+                        backgroudImg={p.backgroudImg}
+                        avatar={p.avatar}
+                        name={p.name}
+                        country={p.country} />
+                })}
+            </div>
+
         </div>
     )
 } 
