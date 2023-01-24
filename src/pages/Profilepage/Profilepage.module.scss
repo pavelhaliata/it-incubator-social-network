@@ -1,4 +1,7 @@
-.container {}
+.container {
+	padding: 10px;
+	border: #ff5e3a 1px solid;
+}
 
 .top_header {
 	position: relative;
@@ -124,5 +127,5 @@
 }
 
 .container_fluid{
-	
+	// padding: 10px;
 }

@@ -1,12 +1,15 @@
-.friend_item {
+.friend_item{
+    width: 25%;
+    flex: 0 0 auto;
+    // padding: 10px;
+}
+
+.friend_card{
     background-color: #fff;
     height: 400px;
     text-align: center;
     border-radius: 5px;
     overflow: hidden;
-    flex: 0 0 auto;
-    width: 25%;
-    padding: 10px;
 }
 .friend_header{
     object-fit: contain;
@@ -51,7 +54,9 @@
     line-height: 1.5;
     color: #888da8;
 }
+
 .container_fluid{
     display: flex;
     flex-wrap: wrap;
+    gap: 0px;
 }

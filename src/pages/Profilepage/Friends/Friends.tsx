@@ -12,10 +12,27 @@ type IProps = {
     person: Array<PersonPropsType>
 }
 
-const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
+
+export const Friends = ({ person }: IProps)=> {
     return (
         <>
-            <div className={s.friend_item}>
+            <div className={s.container_fluid}>
+                {person.map((p) => {
+                    return <Person
+                        backgroudImg={p.backgroudImg}
+                        avatar={p.avatar}
+                        name={p.name}
+                        country={p.country} />
+                })}
+            </div>
+        </>
+    )
+} 
+
+const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
+    return (
+        <div className={s.friend_item}>
+            <div className={s.friend_card}>
                 <div className={s.friend_header}>
                     <img src={backgroudImg} alt="background" />
                 </div>
@@ -34,24 +51,6 @@ const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
                     </div>
                 </div>
             </div>
-        </>
-    )
-}
-
-
-export function Friends({ person }: IProps) {
-    return (
-        <div>
-            <div className={s.container_fluid}>
-                {person.map((p) => {
-                    return <Person
-                        backgroudImg={p.backgroudImg}
-                        avatar={p.avatar}
-                        name={p.name}
-                        country={p.country} />
-                })}
-            </div>
-
         </div>
     )
-} 
+}

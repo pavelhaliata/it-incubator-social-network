@@ -12,8 +12,8 @@ type MainPropsType = {
 
 function Profilepage({ className }: MainPropsType) {
     return (
-        <div className={`${s.container} ${className}`}>
-            <div>
+        <div className={`${className}`}>
+            <div className={`${s.container}`}>
                 <div className={s.top_header}>
                     <div className={s.top_header_banner}>
                         <img className={s.banner} src="https://html.crumina.net/html-olympus/img/top-header1.webp" alt="img" />
