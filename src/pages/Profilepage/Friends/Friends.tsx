@@ -46,7 +46,7 @@ const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
                         </div>
                     </div>
                     <div className={s.swiper_container}>
-
+                       
                     </div>
                 </div>
             </div>

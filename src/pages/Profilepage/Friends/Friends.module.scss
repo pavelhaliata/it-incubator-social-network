@@ -1,20 +1,30 @@
-.friend_item{
-    width: 25%;
-    flex: 0 0 auto;
-    padding: 0px 0px;
+.friend_item {
+    flex: 0 1 auto;
+    padding: 0px 5px;
+    width: 100%;
+
+    @media (min-width: 1200px) {
+        max-width: 25%;
+    }
+
+    @media (min-width: 768px) {
+        width: 50%;
+    }
 }
 
-.friend_card{
+.friend_card {
     background-color: #fff;
-    height: 400px;
+    min-height: 100%;
     text-align: center;
     border-radius: 5px;
     overflow: hidden;
 }
-.friend_header{
+
+.friend_header {
     object-fit: contain;
     object-position: center;
-    img{
+
+    img {
         display: block;
         width: 100%;
     }
@@ -55,7 +65,7 @@
     color: #888da8;
 }
 
-.container_fluid{
+.container_fluid {
     display: flex;
     flex-wrap: wrap;
 }
