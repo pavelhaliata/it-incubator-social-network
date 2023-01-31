@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import react from "react";
 import s from "./Friends.module.scss"
 
@@ -9,21 +8,21 @@ export type PersonPropsType = {
     country: string
 }
 type IProps = {
-    person: Array<PersonPropsType>
+    personData?: Array<PersonPropsType>
 }
 
 
-export const Friends = ({ person }: IProps)=> {
+export const Friends = ({ personData: person }: IProps)=> {
     return (
         <>
             <div className={s.container_fluid}>
-                {person.map((p) => {
+                { person ? person.map((p) => {
                     return <Person
                         backgroudImg={p.backgroudImg}
                         avatar={p.avatar}
                         name={p.name}
                         country={p.country} />
-                })}
+                }) : 'You do not have fried yet'}
             </div>
         </>
     )

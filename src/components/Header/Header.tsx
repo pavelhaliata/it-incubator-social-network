@@ -3,16 +3,17 @@ import s from "./Header.module.scss";
 
 interface IProps {
     className?: string
+    statePage: string
 }
 
 
-function Header({ className }: IProps) {
+function Header({ className, statePage }: IProps) {
 
     return (
         <div className={`${s.container} ${className}`}>
             <div className={s.header}>
                 <div className={s.page_title}>
-                    <h6>Profile Page</h6>
+                    <h6>{statePage}</h6>
                 </div>
                 <div className={s.header_wrapper}>
 

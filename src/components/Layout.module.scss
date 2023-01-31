@@ -11,6 +11,11 @@
 
 }
 
+.container {
+	max-width: 1274px;
+	margin: 0 auto;
+}
+
 header {
 	grid-area: header;
 	padding: 0px;
@@ -19,8 +24,6 @@ header {
 
 main {
 	grid-area: main;
-	width: 1274px;
-	margin: 0 auto;
 	padding: 110px 90px 0px;
 	// border: 1px darkgray solid;
 }

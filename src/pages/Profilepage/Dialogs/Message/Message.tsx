@@ -2,8 +2,7 @@ import React from "react";
 import { MessageDataPropsType } from '../Dialogs';
 import s from "./Message.module.scss"
 
-type propsType ={
-    // message: MessageDataPropsType
+type IProps ={
     avatar: string
 	name: string
 	message: string
@@ -11,11 +10,11 @@ type propsType ={
 }
 
 
-function Message({avatar, name, message,time}: propsType) {
+function Message({avatar, name, message,time}: IProps) {
     return (
         <div className={s.message}>
             <div className={s.message__avatar}>
-                <img src={avatar} alt="avatar" />
+                <img src={avatar} alt={name} />
             </div>
             <div className={s.message__body}>
                 <div className={s.message__autor}>{name}</div>

@@ -11,34 +11,37 @@ export type MessageDataPropsType = {
 }
 
 type DialogsPropsType = {
-	messageData: Array<MessageDataPropsType>
+	messageData?: Array<MessageDataPropsType>
 }
 
-function Dialogs(props: DialogsPropsType) {
+function Dialogs({ messageData }: DialogsPropsType) {
 
 
 	return (
-		<div>
 			<div className={`${s.dialogs}`}>
 				<div className={`${s.item} ${s.author}`}>
 					<div>
-						{props.messageData.map((t: MessageDataPropsType) => {
+						{messageData ? messageData.map((data: MessageDataPropsType) => {
 							return <Message
-								avatar={t.avatar}
-								name={t.name}
-								message={t.message}
-								time={t.time} />
-						})}
+								avatar={data.avatar}
+								name={data.name}
+								message={data.message}
+								time={data.time} />
+						}) : 'no message'}
 					</div>
 				</div>
 				<div className={`${s.item} ${s.companion}`}>
 					<div>
-						{/* {props.messageData.map((message:MessageDataPropsType) => {
-							return <Message message={message} />})} */}
+					{messageData ? messageData.map((data: MessageDataPropsType) => {
+							return <Message
+								avatar={data.avatar}
+								name={data.name}
+								message={data.message}
+								time={data.time} />
+						}) : 'no message'}
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 }
 

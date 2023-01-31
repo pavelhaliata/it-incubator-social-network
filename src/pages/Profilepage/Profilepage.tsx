@@ -1,16 +1,24 @@
 import s from "./Profilepage.module.scss";
-import { NavLink, Outlet, Route, Routes } from "react-router-dom";
-import Dialogs from "./Dialogs/Dialogs";
-import { Friends } from "./Friends/Friends";
+import { NavLink, Outlet } from "react-router-dom";
+import { useEffect } from "react";
 
 interface IProps {
     className?: string
 }
 type MainPropsType = {
     className?: string
+    setStatePage: (value: string) => void
 }
 
-function Profilepage({ className }: MainPropsType) {
+const navLinkActive = ({ isActive }: any) => isActive ? s.active : '';
+
+function Profilepage({ className, setStatePage }: MainPropsType) {
+
+    useEffect(() => {
+        document.title = 'My Profile'
+        setStatePage('profilepage')
+    }, [])
+
     return (
         <div className={`${className}`}>
             <div className={`${s.container}`}>
@@ -21,15 +29,15 @@ function Profilepage({ className }: MainPropsType) {
                     <div className={s.profile__section_item}>
                         <div className={s.section_item}>
                             <ul className={s.profile_menu}>
-                                <li><NavLink to="/friends" className={({ isActive }) => isActive ? s.active : ''}>Friends</NavLink></li>
-                                <li><NavLink to="/dialogs" className={({ isActive }) => isActive ? s.active : ''}>Dialogs</NavLink></li>
+                                <li><NavLink to="/friends" className={navLinkActive}>Friends</NavLink></li>
+                                <li><NavLink to="/dialogs" className={navLinkActive}>Dialogs</NavLink></li>
                                 <li><a href="#">Photos</a></li>
                             </ul>
                         </div>
                         <div className={`${s.section_item} ${s.ml_auto}`}>
                             <ul className={s.profile_menu}>
-                                <li><NavLink to="/news" className={({ isActive }) => isActive ? s.active : ''}>News</NavLink></li>
-                                <li><NavLink to="/posts" className={({ isActive }) => isActive ? s.active : ''}>Posts</NavLink></li>
+                                <li><NavLink to="/news" className={navLinkActive}>News</NavLink></li>
+                                <li><NavLink to="/posts" className={navLinkActive}>Posts</NavLink></li>
                                 <li>...</li>
                             </ul>
                         </div>
@@ -49,7 +57,6 @@ function Profilepage({ className }: MainPropsType) {
                     <div className={s.container_fluid}>
                         <Outlet />
                     </div>
-
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 .friend_item{
     width: 25%;
     flex: 0 0 auto;
-    // padding: 10px;
+    padding: 0px 0px;
 }
 
 .friend_card{
@@ -58,5 +58,4 @@
 .container_fluid{
     display: flex;
     flex-wrap: wrap;
-    gap: 0px;
 }
