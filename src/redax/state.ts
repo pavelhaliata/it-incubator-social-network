@@ -1,5 +1,31 @@
 
-let state = {
+type MessageType = {
+    avatar: string
+    name: string
+    message: string
+    time: string
+}
+type PersonType = {
+    backgroudImg: string
+    avatar: string
+    name: string
+    country: string
+}
+
+type MessageDataType = {
+    messageData: Array<MessageType>
+}
+
+type PersonDataType = {
+    personData: Array<PersonType>
+}
+
+type RootStateType = {
+    messageData: MessageDataType
+    personData: PersonDataType
+}
+
+const state: RootStateType = {
     messageData: [
         {
             avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
