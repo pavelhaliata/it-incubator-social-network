@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import s from './App.module.scss'
 import { Blogpage } from './pages/Blogpage/Blogpage';
 import { Layout } from './components/Layout';
 import Dialogs, { MessageDataPropsType } from './pages/Profilepage/Dialogs/Dialogs';

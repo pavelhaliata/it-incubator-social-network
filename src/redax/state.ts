@@ -11,22 +11,13 @@ type PersonType = {
     name: string
     country: string
 }
-
-type MessageDataType = {
-    messageData: Array<MessageType>
-}
-
-type PersonDataType = {
-    personData: Array<PersonType>
-}
-
 type RootStateType = {
-    messageData: MessageDataType
-    personData: PersonDataType
+    messagesData: Array<MessageType>
+    personsData: Array<PersonType>
 }
 
 const state: RootStateType = {
-    messageData: [
+    messagesData: [
         {
             avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
             name: 'James Spiegel',
@@ -41,7 +32,7 @@ const state: RootStateType = {
         }
     ],
 
-    personData: [
+    personsData: [
         {
             backgroudImg: 'https://html.crumina.net/html-olympus/img/friend1.webp',
             avatar: 'https://html.crumina.net/html-olympus/img/avatar1.webp',
@@ -66,6 +57,13 @@ const state: RootStateType = {
             name: 'Chris Greyson',
             country: 'Austin, TX',
         },
+        {
+            backgroudImg: 'https://html.crumina.net/html-olympus/img/friend4.webp',
+            avatar: 'https://html.crumina.net/html-olympus/img/avatar4.webp',
+            name: 'Chris Greyson',
+            country: 'Austin, TX',
+        },
+        
     ]
 }
 

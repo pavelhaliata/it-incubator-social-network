@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state from './redax/state'
+import state from './redax/state';
+
 
 
 
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <App messageData={state.messageData} personData={state.personData}/>
+      <App messageData={state.messagesData} personData={state.personsData}/>
     </React.StrictMode>
   </BrowserRouter>
 );
