@@ -4,10 +4,10 @@ import Header from './Header/Header';
 import s from './Layout.module.scss'
 import Sidebar from './Sidebar/Sidebar';
 
-type IProps={
+type IProps = {
 	statePage: string
 }
-export const Layout = ({statePage}:IProps) => {
+export const Layout = ({ statePage }: IProps) => {
 	return (
 		<div className={s.wrapper}>
 			<header>

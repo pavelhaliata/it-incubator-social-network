@@ -6,6 +6,7 @@ import Dialogs, { MessageDataPropsType } from './pages/Profilepage/Dialogs/Dialo
 import { Friends, PersonPropsType } from './pages/Profilepage/Friends/Friends';
 import Profilepage from './pages/Profilepage/Profilepage';
 import { useState } from 'react';
+import { Weather } from './pages/Weather/Weather';
 
 type AppPropsType = {
 	messageData?: Array<MessageDataPropsType>
@@ -25,6 +26,7 @@ function App({ messageData,personData }: AppPropsType) {
 						<Route path='friends' element={<Friends personData={personData} />} />
 					</Route>
 					<Route path='blogpage' element={<Blogpage setStatePage={setStatePage} />} />
+					<Route path='weather' element={<Weather setStatePage={setStatePage} />} />
 				</Route>
 			</Routes>
 		</>

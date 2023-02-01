@@ -14,7 +14,7 @@ function Sidebar({ className }: IProps) {
                     <li className={s.link}><Link to="/">P</Link></li>
                     <li className={s.link}><Link to="#">N</Link></li>
                     <li className={s.link}><Link to="/blogpage">B</Link></li>
-                    <li className={s.link}><Link to="#">M</Link></li>
+                    <li className={s.link}><Link to="/weather">W</Link></li>
                 </ul>
             </nav>
         </div>
