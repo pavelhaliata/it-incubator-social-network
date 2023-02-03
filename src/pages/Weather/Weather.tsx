@@ -55,7 +55,7 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 	const feelsLike = Math.round(weatherInfo.main.feels_like)
 	const description = weatherInfo.weather[0].description
 	let string = 'overcast clouds'
-	let arr = string.split(', ');
+	let arr = string.split(' ');
 	// console.log(typeof description)
 	// console.log(description)
 	console.log(arr)
@@ -63,7 +63,7 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 	console.log(capitalizeFirstLetter(arr))
 
 	function capitalizeFirstLetter(word: string[]){
-		return word.map(t => t.charAt(0).toUpperCase() + word.slice(1))
+		return word.map(t => t.charAt(1).toUpperCase() + word.slice(1))
 	}
 	const icon = weatherInfo.weather[0].icon
 	// console.log(weatherInfo)
