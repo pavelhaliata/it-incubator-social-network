@@ -1,0 +1,38 @@
+.weather{
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	max-width: 100%;
+	padding: 10px;
+	border-radius: .3rem;
+	background-color: #38a9ff;
+	background-image: url('https://html.crumina.net/html-olympus/img/bg-wethear.webp');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	@media (min-width: 992px){
+		max-width: 220px;
+	}
+}
+.weather__now{
+	// display: flex;
+}
+.temperature_sensor{
+	font-size: 46px;
+}
+.max_min_temperature{
+	
+	& span{
+		display: block;
+	}
+}
+.weather__now__description{
+	
+	&>span{
+		margin-left:10px;
+		font-size: 11px;
+	}
+}
+.climat{
+	
+}

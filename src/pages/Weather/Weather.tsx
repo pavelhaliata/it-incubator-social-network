@@ -1,10 +1,12 @@
-import { type } from "@testing-library/user-event/dist/type"
 import { ChangeEvent, useEffect, useState } from "react"
-
+import s from "./Weather.module.scss"
 
 type TemperatureType = {
 	feels_like: number
+	humidity: number
 	temp: number
+	temp_max: number
+	temp_min: number
 }
 type Description = {
 	description: string
@@ -24,6 +26,7 @@ type WeatherPropsType = {
 export const Weather = ({ setStatePage }: WeatherPropsType) => {
 
 	const API_KEY = 'bd4d8697c2213442afba131cd703e05a'
+
 	const date = new Date();
 	const today = date.toLocaleString('en-us', { day: 'numeric', weekday: 'long', month: 'long' })
 
@@ -34,7 +37,10 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 			name: '',
 			main: {
 				feels_like: 0,
-				temp: 0
+				humidity: 0,
+				temp: 0,
+				temp_max: 0,
+				temp_min: 0,
 			},
 			weather: [{
 				description: '',
@@ -42,11 +48,25 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 			}]
 		}
 	)
-	const temperature = Math.round(weatherInfo.main.temp)
+	const temperature = Math.round(weatherInfo.main.temp_max)
+	const temperatureMax = Math.round(weatherInfo.main.temp_min)
+	const temperatureMin = Math.round(weatherInfo.main.temp)
+	const humidity = weatherInfo.main.humidity
 	const feelsLike = Math.round(weatherInfo.main.feels_like)
 	const description = weatherInfo.weather[0].description
+	let string = 'overcast clouds'
+	let arr = string.split(', ');
+	// console.log(typeof description)
+	// console.log(description)
+	console.log(arr)
+
+	console.log(capitalizeFirstLetter(arr))
+
+	function capitalizeFirstLetter(word: string[]){
+		return word.map(t => t.charAt(0).toUpperCase() + word.slice(1))
+	}
 	const icon = weatherInfo.weather[0].icon
-		console.log(weatherInfo)
+	// console.log(weatherInfo)
 	// https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
 	// console.log(weatherInfo)
 
@@ -64,19 +84,29 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 	const onClickHandler = () => {
 		if (title.length !== 0) {
 			setCity(title.trim())
+			setTitle('')
 		}
-		setTitle('')
+		return
 	}
 	return (
 
 		<>
 			<input type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
 			<button onClick={onClickHandler}>enter</button>
-			<div className="weather">
-				<div className="weather__now">Temp: {temperature}&deg;</div>
-				<div className="weather__now__description">Real Feel: {feelsLike}&deg;</div>
-				<div>{description}</div>
-				<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="icon" />
+			<div className={s.weather}>
+				<div className={s.weather__now}>
+					<div className={s.temperature_sensor}>{temperature}&deg;</div>
+					<div className={s.max_min_temperature}>
+						<span>{temperatureMax}&deg;</span>
+						<span>{temperatureMin}&deg;</span>
+					</div>
+					<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="icon" />
+				</div>
+				<div className={s.weather__now__description}>
+					<div className={s.climat}>{description}</div>
+					<span>Real Feel: <span>{feelsLike}&deg;</span></span>
+					<span>Humidity: <span>{humidity}&deg;</span></span>
+				</div>
 				<ul className="weekly-forecast">
 					<li></li>
 					<li></li>
