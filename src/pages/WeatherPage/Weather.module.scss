@@ -1,38 +1,44 @@
-.weather{
+.weather {
 	color: white;
 	font-size: 18px;
 	text-align: center;
 	max-width: 100%;
-	padding: 10px;
-	border-radius: .3rem;
+	padding: 25px;
 	background-color: #38a9ff;
 	background-image: url('https://html.crumina.net/html-olympus/img/bg-wethear.webp');
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: cover;
-	@media (min-width: 992px){
-		max-width: 220px;
+
+	@media (min-width: 992px) {
+		max-width: 350px;
 	}
 }
-.weather__now{
-	// display: flex;
+
+.weather__now {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.temperature_sensor{
-	font-size: 46px;
+
+.temperature_sensor {
+	font-size: 60px;
+
 }
-.max_min_temperature{
-	
-	& span{
+
+.temperature_max_min {
+	& span {
 		display: block;
+		font-size: 16px;
 	}
 }
-.weather__now__description{
-	
-	&>span{
-		margin-left:10px;
+
+.weather_description {
+
+	&>span {
+		margin-left: 10px;
 		font-size: 11px;
 	}
 }
-.climat{
-	
-}
+
+.climat {}

@@ -1,5 +1,4 @@
 import React from "react";
-import { MessageDataPropsType } from '../Dialogs';
 import s from "./Message.module.scss"
 
 type IProps ={

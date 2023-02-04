@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.scss";
 
 
-export type MessageDataPropsType = {
+export type MessagePropsType = {
 	avatar: string
 	name: string
 	message: string
@@ -11,7 +10,7 @@ export type MessageDataPropsType = {
 }
 
 type DialogsPropsType = {
-	messageData?: Array<MessageDataPropsType>
+	messageData?: Array<MessagePropsType>
 }
 
 function Dialogs({ messageData }: DialogsPropsType) {
@@ -21,24 +20,24 @@ function Dialogs({ messageData }: DialogsPropsType) {
 			<div className={`${s.dialogs}`}>
 				<div className={`${s.item} ${s.author}`}>
 					<div>
-						{messageData ? messageData.map((data: MessageDataPropsType) => {
+						{messageData && messageData.map((data: MessagePropsType) => {
 							return <Message
 								avatar={data.avatar}
 								name={data.name}
 								message={data.message}
 								time={data.time} />
-						}) : 'no message'}
+						})}
 					</div>
 				</div>
 				<div className={`${s.item} ${s.companion}`}>
 					<div>
-					{messageData ? messageData.map((data: MessageDataPropsType) => {
+					{messageData && messageData.map((data: MessagePropsType) => {
 							return <Message
 								avatar={data.avatar}
 								name={data.name}
 								message={data.message}
 								time={data.time} />
-						}) : 'no message'}
+						})}
 					</div>
 				</div>
 			</div>

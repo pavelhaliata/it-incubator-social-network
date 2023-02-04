@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import state from './redax/state';
-
-
-
+import 'normalize.css';
+import { addPost } from './redax/state';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,11 +14,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <App messageData={state.messagesData} personData={state.personsData}/>
-    </React.StrictMode>
-  </BrowserRouter>
+  <React.StrictMode>
+    <App
+      messageData={state.messagesData}
+      personData={state.personsData}
+      postsData={state.postsData}
+      addPost={addPost}
+    />
+  </React.StrictMode>
+</BrowserRouter>
 );
-
-
-reportWebVitals();

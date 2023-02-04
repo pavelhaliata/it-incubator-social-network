@@ -1,3 +1,4 @@
+import { rerenderEntireTree } from "./render"
 
 type MessageType = {
     avatar: string
@@ -11,9 +12,13 @@ type PersonType = {
     name: string
     country: string
 }
-type RootStateType = {
+type PostsType = {
+    post: string
+}
+export type RootStateType = {
     messagesData: Array<MessageType>
     personsData: Array<PersonType>
+    postsData: Array<PostsType>
 }
 
 const state: RootStateType = {
@@ -64,8 +69,20 @@ const state: RootStateType = {
             country: 'Austin, TX',
         },
         
+    ],
+    postsData:[
+        {
+           post:''
+        },
     ]
 }
 
+export function addPost (post: string){
+    let postCreate= {
+        post: post
+    }
+    state.postsData.push(postCreate)
+    rerenderEntireTree(state)
+}
 
 export default state

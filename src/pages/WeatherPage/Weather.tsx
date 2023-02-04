@@ -23,7 +23,7 @@ type WeatherPropsType = {
 }
 
 
-export const Weather = ({ setStatePage }: WeatherPropsType) => {
+export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 
 	const API_KEY = 'bd4d8697c2213442afba131cd703e05a'
 
@@ -53,26 +53,19 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 	const temperatureMin = Math.round(weatherInfo.main.temp)
 	const humidity = weatherInfo.main.humidity
 	const feelsLike = Math.round(weatherInfo.main.feels_like)
-	const description = weatherInfo.weather[0].description
-	let string = 'overcast clouds'
-	let arr = string.split(' ');
-	// console.log(typeof description)
-	// console.log(description)
-	console.log(arr)
-
-	console.log(capitalizeFirstLetter(arr))
-
-	function capitalizeFirstLetter(word: string[]){
-		return word.map(t => t.charAt(1).toUpperCase() + word.slice(1))
-	}
 	const icon = weatherInfo.weather[0].icon
-	// console.log(weatherInfo)
-	// https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
-	// console.log(weatherInfo)
+	const description = capitalizeFirstLetter(weatherInfo.weather[0].description)
+	
 
+	function capitalizeFirstLetter(word: string) {
+		return word.split(' ').map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(' ')
+	}
+
+	// https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
 	useEffect(() => {
 		setStatePage('Weather')
-		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+
+		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city ? city : 'Minsk'}&appid=${API_KEY}&units=metric`)
 			.then(response => response.json())
 			.then(data => setWeatherInfo(data))
 
@@ -88,21 +81,23 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 		}
 		return
 	}
+
 	return (
 
-		<>
+		<div>
 			<input type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
 			<button onClick={onClickHandler}>enter</button>
+
 			<div className={s.weather}>
 				<div className={s.weather__now}>
 					<div className={s.temperature_sensor}>{temperature}&deg;</div>
-					<div className={s.max_min_temperature}>
+					<div className={s.temperature_max_min}>
 						<span>{temperatureMax}&deg;</span>
 						<span>{temperatureMin}&deg;</span>
 					</div>
-					<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="icon" />
+					<img src={`http://openweathermap.org/img/wn/${icon ? icon : '01d'}@2x.png`} alt="icon" />
 				</div>
-				<div className={s.weather__now__description}>
+				<div className={s.weather_description}>
 					<div className={s.climat}>{description}</div>
 					<span>Real Feel: <span>{feelsLike}&deg;</span></span>
 					<span>Humidity: <span>{humidity}&deg;</span></span>
@@ -116,11 +111,11 @@ export const Weather = ({ setStatePage }: WeatherPropsType) => {
 					<li></li>
 					<li></li>
 				</ul>
-				<div className="date_and_place">
-					<div className="date">{today}th</div>
-					<div className="place">{weatherInfo.name}</div>
+				<div className={s.date_and_place}>
+					<div className={s.date}>{today}th</div>
+					<div className={s.place}>{weatherInfo.name}</div>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 } 

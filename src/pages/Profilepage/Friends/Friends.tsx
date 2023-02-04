@@ -1,5 +1,4 @@
-import react from "react";
-import s from "./Friends.module.scss"
+import style from "./Friends.module.scss"
 
 export type PersonPropsType = {
     backgroudImg: string
@@ -7,46 +6,46 @@ export type PersonPropsType = {
     name: string
     country: string
 }
-type IProps = {
+type FrindsPropsType = {
     personData?: Array<PersonPropsType>
 }
 
 
-export const Friends = ({ personData: person }: IProps)=> {
+export const Friends = ({ personData }: FrindsPropsType) => {
     return (
         <>
-            <div className={s.container_fluid}>
-                { person ? person.map((p) => {
+            <div className={style.container_fluid}>
+                {personData && personData.map((p) => {
                     return <Person
                         backgroudImg={p.backgroudImg}
                         avatar={p.avatar}
                         name={p.name}
                         country={p.country} />
-                }) : 'You do not have fried yet'}
+                })}
             </div>
         </>
     )
-} 
+}
 
 const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
     return (
-        <div className={s.friend_item}>
-            <div className={s.friend_card}>
-                <div className={s.friend_header}>
+        <div className={style.friend_item}>
+            <div className={style.friend_card}>
+                <div className={style.friend_header}>
                     <img src={backgroudImg} alt="background" />
                 </div>
-                <div className={s.friend_content}>
-                    <div className={s.friend_avatar}>
-                        <div className={s.author_thumb}>
+                <div className={style.friend_content}>
+                    <div className={style.friend_avatar}>
+                        <div className={style.author_thumb}>
                             <img src={avatar} alt="avatar" />
                         </div>
-                        <div className={s.author_content}>
-                            <a className={s.author_name} href="#">{name}</a>
-                            <div className={s.country}>{country}</div>
+                        <div className={style.author_content}>
+                            <a className={style.author_name} href="#">{name}</a>
+                            <div className={style.country}>{country}</div>
                         </div>
                     </div>
-                    <div className={s.swiper_container}>
-                       
+                    <div className={style.swiper_container}>
+
                     </div>
                 </div>
             </div>
