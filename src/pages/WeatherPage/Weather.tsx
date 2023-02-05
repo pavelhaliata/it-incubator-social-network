@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react"
-import s from "./Weather.module.scss"
+import style from "./Weather.module.scss"
 
 type TemperatureType = {
 	feels_like: number
@@ -48,6 +48,8 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 			}]
 		}
 	)
+	
+
 	const temperature = Math.round(weatherInfo.main.temp_max)
 	const temperatureMax = Math.round(weatherInfo.main.temp_min)
 	const temperatureMin = Math.round(weatherInfo.main.temp)
@@ -55,7 +57,7 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 	const feelsLike = Math.round(weatherInfo.main.feels_like)
 	const icon = weatherInfo.weather[0].icon
 	const description = capitalizeFirstLetter(weatherInfo.weather[0].description)
-	
+
 
 	function capitalizeFirstLetter(word: string) {
 		return word.split(' ').map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(' ')
@@ -65,13 +67,22 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 	useEffect(() => {
 		setStatePage('Weather')
 
-		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city ? city : 'Minsk'}&appid=${API_KEY}&units=metric`)
+		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
 			.then(response => response.json())
-			.then(data => setWeatherInfo(data))
+			.then(data => {
+				if (data.cod !== '404') {
+					setWeatherInfo(data)
+				}else{
+					
+				}
+
+			})
+
 
 	}, [city])
 
 	const onChangeVaueHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		setTitle('')
 		setTitle(event.currentTarget.value)
 	}
 	const onClickHandler = () => {
@@ -88,17 +99,17 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 			<input type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
 			<button onClick={onClickHandler}>enter</button>
 
-			<div className={s.weather}>
-				<div className={s.weather__now}>
-					<div className={s.temperature_sensor}>{temperature}&deg;</div>
-					<div className={s.temperature_max_min}>
+			<div className={style.weather}>
+				<div className={style.weather__now}>
+					<div className={style.temperature_sensor}>{temperature}&deg;</div>
+					<div className={style.temperature_max_min}>
 						<span>{temperatureMax}&deg;</span>
 						<span>{temperatureMin}&deg;</span>
 					</div>
 					<img src={`http://openweathermap.org/img/wn/${icon ? icon : '01d'}@2x.png`} alt="icon" />
 				</div>
-				<div className={s.weather_description}>
-					<div className={s.climat}>{description}</div>
+				<div className={style.weather_description}>
+					<div className={style.climat}>{description}</div>
 					<span>Real Feel: <span>{feelsLike}&deg;</span></span>
 					<span>Humidity: <span>{humidity}&deg;</span></span>
 				</div>
@@ -111,9 +122,9 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 					<li></li>
 					<li></li>
 				</ul>
-				<div className={s.date_and_place}>
-					<div className={s.date}>{today}th</div>
-					<div className={s.place}>{weatherInfo.name}</div>
+				<div className={style.date_and_place}>
+					<div className={style.date}>{today}th</div>
+					<div className={style.place}>{weatherInfo.name}</div>
 				</div>
 			</div>
 		</div>

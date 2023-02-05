@@ -1,7 +1,7 @@
 import { rerenderEntireTree } from "../render"
 
 
-type MessageType = {
+export type MessageType = {
     avatar: string
     name: string
     message: string
@@ -20,7 +20,7 @@ export type RootStateType = {
     messagesData: Array<MessageType>
     personsData: Array<PersonType>
     postsData: Array<PostsType>
-    newPostData: any
+    newPostData: string
 }
 
 const state: RootStateType = {
@@ -73,21 +73,21 @@ const state: RootStateType = {
 
     ],
     postsData: [
-        { post: 'some text' }
+        { post: '' }
     ],
     newPostData: ''
 }
 
-export function addPost(post: string) {
+
+
+
+export function addPost() {
     let postCreate = {
-        post: post
+        post: state.newPostData
     }
-    if (post.length) {
-        state.postsData.push(postCreate)
-        rerenderEntireTree(state)
-    } else {
-        console.log('not pass!!')
-    }
+    state.postsData.push(postCreate)
+    rerenderEntireTree(state)
+
 
 }
 export function addNewPost(newtext: string) {

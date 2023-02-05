@@ -6,20 +6,21 @@ import { Friends, PersonPropsType } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/Weather';
 import { BlogPage, PostsType } from './pages/BlogPage/Blogpage';
+import { MessageType } from './redax/state';
 
 
 type AppPropsType = {
-	messageData?: Array<MessagePropsType>
-	personData?: Array<PersonPropsType>
-	postsData?: Array<PostsType>
-	addPost?: (value: string) => void
-	newPostData?: any
+	messageData:  Array<MessageType>
+	personData: Array<PersonPropsType>
+	postsData: Array<PostsType>
+	addPost: () => void
+	newPostData: string
 }
 
-function App({ messageData, personData, postsData, addPost, newPostData }: AppPropsType) {
-
+function App(props: AppPropsType) {
+const { messageData, personData, postsData, addPost, newPostData } = props
 	const [statePage, setStatePage] = useState<string>('')
-
+console.log(props)
 	return (
 		<>
 			<Routes>
