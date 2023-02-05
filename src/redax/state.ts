@@ -1,4 +1,5 @@
-import { rerenderEntireTree } from "./render"
+import { rerenderEntireTree } from "../render"
+
 
 type MessageType = {
     avatar: string
@@ -19,6 +20,7 @@ export type RootStateType = {
     messagesData: Array<MessageType>
     personsData: Array<PersonType>
     postsData: Array<PostsType>
+    newPostData: any
 }
 
 const state: RootStateType = {
@@ -68,21 +70,31 @@ const state: RootStateType = {
             name: 'Chris Greyson',
             country: 'Austin, TX',
         },
-        
+
     ],
-    postsData:[
-        {
-           post:''
-        },
-    ]
+    postsData: [
+        { post: 'some text' }
+    ],
+    newPostData: ''
 }
 
-export function addPost (post: string){
-    let postCreate= {
+export function addPost(post: string) {
+    let postCreate = {
         post: post
     }
-    state.postsData.push(postCreate)
-    rerenderEntireTree(state)
+    if (post.length) {
+        state.postsData.push(postCreate)
+        rerenderEntireTree(state)
+    } else {
+        console.log('not pass!!')
+    }
+
+}
+export function addNewPost(newtext: string) {
+    console.log(newtext)
+    state.newPostData = newtext
+    // rerenderEntireTree(state)
+
 }
 
 export default state

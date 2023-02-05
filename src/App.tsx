@@ -13,9 +13,10 @@ type AppPropsType = {
 	personData?: Array<PersonPropsType>
 	postsData?: Array<PostsType>
 	addPost?: (value: string) => void
+	newPostData?: any
 }
 
-function App({ messageData, personData, postsData, addPost }: AppPropsType) {
+function App({ messageData, personData, postsData, addPost, newPostData }: AppPropsType) {
 
 	const [statePage, setStatePage] = useState<string>('')
 
@@ -27,7 +28,7 @@ function App({ messageData, personData, postsData, addPost }: AppPropsType) {
 						<Route path='dialogs' element={<Dialogs messageData={messageData} />} />
 						<Route path='friends' element={<Friends personData={personData} />} />
 					</Route>
-					<Route path='blogpage' element={<BlogPage setStatePage={setStatePage} postsData={postsData} addPost={addPost} />} />
+					<Route path='blogpage' element={<BlogPage setStatePage={setStatePage} postsData={postsData} addPost={addPost} newPostData={newPostData} />} />
 					<Route path='weather' element={<WeatherPage setStatePage={setStatePage} />} />
 				</Route>
 			</Routes>

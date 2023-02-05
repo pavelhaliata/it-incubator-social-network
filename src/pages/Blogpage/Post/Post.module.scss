@@ -1,0 +1,16 @@
+.post_item {
+    max-width: 450px;
+    height: auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #e6ecf5;
+    margin-bottom: 15px;
+}
+
+.post {
+    p {
+        white-space: pre-wrap; //В тексте сохраняются все пробелы и переносы
+        overflow-wrap: break-word;
+    }
+}
