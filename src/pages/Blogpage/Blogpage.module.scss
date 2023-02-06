@@ -4,7 +4,8 @@
     // align-items: center;
     // border: 1px solid rgb(64, 65, 64);
 }
-.form_inner{
+
+.form_inner {
     max-width: 450px;
     padding: 15px;
     background-color: #fff;
@@ -14,27 +15,32 @@
     display: flex;
     flex-direction: column;
 }
-.form_group{
+
+.form_group {
     border-bottom: #e6ecf5 1px solid;
     margin-bottom: 15px;
     flex: 1 1 auto;
 }
+
 .form_control {
     resize: none;
     width: 100%;
     min-height: 160px;
 }
-.form_button{
+
+.form_button {
     display: flex;
-& button{
-    margin-left: auto;
-    background-color: #ff5e3a;
-    color: #fff;
-    padding: 0.8rem 2.1rem;
-    font-size: .688rem;
-    border-radius: 0.3rem;
-    &:hover{
-        cursor: pointer;
+
+    & button {
+        margin-left: auto;
+        background-color: #ff5e3a;
+        color: #fff;
+        padding: 0.8rem 2.1rem;
+        font-size: .688rem;
+        border-radius: 0.3rem;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
-}
 }

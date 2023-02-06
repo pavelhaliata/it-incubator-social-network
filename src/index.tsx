@@ -1,8 +1,9 @@
-import state from './redax/state';
-import 'normalize.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import state from './redax/state';
+import 'normalize.css';
 import './index.css';
 import App from './App';
 import { addNewPost, RootStateType, updateNewPostText, subscribe } from './redax/state';
@@ -13,8 +14,7 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 
-function rerenderEntireTree(state: RootStateType) {
-	console.log('render in app')
+let rerenderEntireTree = (state: RootStateType) => {
 	root.render(
 		<BrowserRouter>
 			<React.StrictMode>
@@ -31,8 +31,8 @@ function rerenderEntireTree(state: RootStateType) {
 	);
 }
 
+rerenderEntireTree(state);
+subscribe(rerenderEntireTree);
 
-rerenderEntireTree(state)
 
-subscribe(rerenderEntireTree)
 

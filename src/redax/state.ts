@@ -1,6 +1,5 @@
 
-let rerenderEntireTree = () => {
-    console.log('rerender state 1')
+let rerenderEntireTree = (value: RootStateType) => {
 }
 
 
@@ -88,7 +87,7 @@ export function addNewPost() {
     if (state.newPostTextData) {
         state.postsData.push(postCreate)
         state.newPostTextData = ''
-        rerenderEntireTree()
+        rerenderEntireTree(state)
 
     }
 }
@@ -96,15 +95,11 @@ export function addNewPost() {
 export function updateNewPostText(newtext: string) {
     console.log(newtext)
     state.newPostTextData = newtext
-    rerenderEntireTree()
-
+    rerenderEntireTree(state)
 }
 
-
-
-export const subscribe = (observer: any) => {
+export let subscribe = (observer: any) => {
     rerenderEntireTree = observer
-    console.log('rerender state 2')
 }
 
 export default state

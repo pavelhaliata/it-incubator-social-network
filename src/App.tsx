@@ -4,7 +4,7 @@ import { Layout } from './components/Layout';
 import Dialogs, { MessagePropsType } from './pages/Profilepage/Dialogs/Dialogs';
 import { Friends, PersonPropsType } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
-import { WeatherPage } from './pages/WeatherPage/Weather';
+import { WeatherPage } from './pages/WeatherPage/WeatherPage';
 import { BlogPage, PostsType } from './pages/Blogpage/Blogpage';
 import { MessageType } from './redax/state';
 

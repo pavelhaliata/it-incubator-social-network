@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import style from './Blogpage.module.scss';
 import { ChangeEvent } from 'react';
 import { Post } from './Post/Post';
+import { Button } from '../../components/Button/Button';
 
 export type PostsType = {
 	post: string
@@ -47,6 +48,9 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 					<button
 						onClick={createPostHandler}>create post
 					</button>
+					<Button>
+						create post double
+					</Button>
 				</div>
 			</div>
 			<div className={style.postline_items}>
