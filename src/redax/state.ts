@@ -1,4 +1,7 @@
-import { rerenderEntireTree } from "../render"
+
+let rerenderEntireTree = () => {
+    console.log('rerender state 1')
+}
 
 
 export type MessageType = {
@@ -7,13 +10,13 @@ export type MessageType = {
     message: string
     time: string
 }
-type PersonType = {
+export type PersonType = {
     backgroudImg: string
     avatar: string
     name: string
     country: string
 }
-type PostsType = {
+export type PostsType = {
     post: string
 }
 export type RootStateType = {
@@ -22,6 +25,7 @@ export type RootStateType = {
     postsData: Array<PostsType>
     newPostTextData: string
 }
+
 
 const state: RootStateType = {
     messagesData: [
@@ -75,26 +79,32 @@ const state: RootStateType = {
     postsData: [
     ],
     newPostTextData: '',
-
-    
-
-
 }
-export  function addNewPost () {
+
+export function addNewPost() {
     let postCreate = {
         post: state.newPostTextData
     }
     if (state.newPostTextData) {
         state.postsData.push(postCreate)
         state.newPostTextData = ''
-        rerenderEntireTree(state)
+        rerenderEntireTree()
+
     }
 }
 
 export function updateNewPostText(newtext: string) {
     console.log(newtext)
     state.newPostTextData = newtext
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+
+}
+
+
+
+export const subscribe = (observer: any) => {
+    rerenderEntireTree = observer
+    console.log('rerender state 2')
 }
 
 export default state
