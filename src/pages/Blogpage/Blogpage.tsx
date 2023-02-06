@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import style from './Blogpage.module.scss';
-import { ChangeEvent, useState } from 'react';
-import { Post, } from './Post/Post';
-import { addNewPost } from '../../redax/state';
+import { ChangeEvent } from 'react';
+import { Post } from './Post/Post';
 
 export type PostsType = {
 	post: string
@@ -11,12 +10,13 @@ export type PostsType = {
 type BlogPageProps = {
 	setStatePage: (value: string) => void
 	postsData: Array<PostsType>
-	addPost: () => void
-	newPostData: string
+	addNewPost: () => void
+	newPostTextData: string
+	updateNewPostText: (value: string) => void
 }
 
 
-export const BlogPage = ({ setStatePage, postsData, addPost, newPostData }: BlogPageProps) => {
+export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData, updateNewPostText }: BlogPageProps) => {
 
 	useEffect(() => {
 		document.title = 'My Blog'
@@ -25,11 +25,10 @@ export const BlogPage = ({ setStatePage, postsData, addPost, newPostData }: Blog
 
 
 	const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		addNewPost(event.currentTarget.value)
-
+		updateNewPostText(event.currentTarget.value)
 	}
 	const createPostHandler = () => {
-		addPost()
+		addNewPost()
 	}
 
 	return (
@@ -39,10 +38,10 @@ export const BlogPage = ({ setStatePage, postsData, addPost, newPostData }: Blog
 					<textarea
 						className={style.form_control}
 						name="text"
-						value={newPostData}
+						value={newPostTextData}
 						placeholder="Share what you are thinking here..."
 						onChange={onChangeHandler}
-						/>
+					/>
 				</div>
 				<div className={style.form_button}>
 					<button
@@ -51,7 +50,7 @@ export const BlogPage = ({ setStatePage, postsData, addPost, newPostData }: Blog
 				</div>
 			</div>
 			<div className={style.postline_items}>
-				{postsData.map(data => <Post post={data.post} />)}
+				{postsData ? postsData.map(data => <Post post={data.post} />) : ''}
 			</div>
 		</div>
 

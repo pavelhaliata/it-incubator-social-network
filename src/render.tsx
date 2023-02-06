@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { addPost, RootStateType } from './redax/state';
+import { addNewPost, RootStateType, updateNewPostText } from './redax/state';
 
 
-export function rerenderEntireTree(value: RootStateType){
+export function rerenderEntireTree(state: RootStateType){
   
     const root = ReactDOM.createRoot(
         document.getElementById('root') as HTMLElement
@@ -18,11 +18,12 @@ export function rerenderEntireTree(value: RootStateType){
         <BrowserRouter>
         <React.StrictMode>
           <App
-            messageData={value.messagesData}
-            personData={value.personsData}
-            postsData={value.postsData}
-            newPostData={value.newPostData}
-            addPost={addPost}
+            messageData={state.messagesData}
+            personData={state.personsData}
+            postsData={state.postsData} 
+            newPostTextData={state.newPostTextData}
+            addNewPost={addNewPost}
+            updateNewPostText={updateNewPostText}
           />
         </React.StrictMode>
       </BrowserRouter>

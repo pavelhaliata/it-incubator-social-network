@@ -20,7 +20,7 @@ export type RootStateType = {
     messagesData: Array<MessageType>
     personsData: Array<PersonType>
     postsData: Array<PostsType>
-    newPostData: string
+    newPostTextData: string
 }
 
 const state: RootStateType = {
@@ -73,28 +73,28 @@ const state: RootStateType = {
 
     ],
     postsData: [
-        { post: '' }
     ],
-    newPostData: ''
+    newPostTextData: '',
+
+    
+
+
 }
-
-
-
-
-export function addPost() {
+export  function addNewPost () {
     let postCreate = {
-        post: state.newPostData
+        post: state.newPostTextData
     }
-    state.postsData.push(postCreate)
-    rerenderEntireTree(state)
-
-
+    if (state.newPostTextData) {
+        state.postsData.push(postCreate)
+        state.newPostTextData = ''
+        rerenderEntireTree(state)
+    }
 }
-export function addNewPost(newtext: string) {
-    console.log(newtext)
-    state.newPostData = newtext
-    // rerenderEntireTree(state)
 
+export function updateNewPostText(newtext: string) {
+    console.log(newtext)
+    state.newPostTextData = newtext
+    rerenderEntireTree(state)
 }
 
 export default state
