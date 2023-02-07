@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps} from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import style from "./Button.module.scss";
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
@@ -11,11 +11,11 @@ export const Button: React.FC<ButtonPropsType> = ({
 	...restProps
 }) => {
 	const callBack = (fn: any) => {
-	
+
 	}
-		return (
-	
-			<button className={`${style.button}`} {...restProps}/>
-	
+	return (
+
+		<button className={`${style.button}`} {...restProps} />
+
 	)
 }
