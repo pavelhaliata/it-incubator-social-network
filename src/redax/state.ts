@@ -77,24 +77,25 @@ const state: RootStateType = {
     ],
     postsData: [
     ],
-    newPostTextData: '' ,
+    newPostTextData: '',
 
-    addNewPost: function () {
+    
+}
+export  function addNewPost () {
 
-        let postCreate = {
-            post: state.newPostTextData
-        }
-        if (state.newPostTextData) {
-            state.postsData.push(postCreate)
-            state.newPostTextData = ''
-            rerenderEntireTree(state)
+    let postCreate: PostsType = {
+        post: state.newPostTextData
+    }
+    if (state.newPostTextData) {
+        state.postsData.push(postCreate)
+        state.newPostTextData = ''
+        rerenderEntireTree(state)
 
-        }
     }
 }
 
     export function updateNewPostText(newtext: string) {
-    console.log(newtext)
+    // console.log(newtext)
     state.newPostTextData = newtext
     rerenderEntireTree(state)
 }

@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import { Layout } from './components/Layout';
-import Dialogs, { MessagePropsType } from './pages/Profilepage/Dialogs/Dialogs';
+import Dialogs from './pages/Profilepage/Dialogs/Dialogs';
 import { Friends, PersonPropsType } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
-import { BlogPage, PostsType } from './pages/Blogpage/Blogpage';
+import { BlogPage, PostsType } from './pages/BlogPage/Blogpage';
 import { MessageType } from './redax/state';
 
 

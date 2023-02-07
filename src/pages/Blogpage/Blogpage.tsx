@@ -30,6 +30,7 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 	}
 	const createPostHandler = () => {
 		addNewPost()
+		
 	}
 
 	return (
@@ -48,7 +49,7 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 					<button
 						onClick={createPostHandler}>create post
 					</button>
-					<div  className={style.block_btn}>
+					<div className={style.block_btn}>
 						<Button className={style.btn}>
 							<span>create post</span>
 						</Button>
