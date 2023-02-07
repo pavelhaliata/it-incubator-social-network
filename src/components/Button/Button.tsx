@@ -1,13 +1,21 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import style from "./Button.module.scss";
 
-type ButtonPropsType={
-	children: string
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type ButtonPropsType = DefaultButtonPropsType & {
+	className?: string
 }
 
-export const Button = ({children}: ButtonPropsType) =>{
-	return(
-		<>
-			<button>{children}</button>
-		</>
+export const Button: React.FC<ButtonPropsType> = ({
+	className,
+	...restProps
+}) => {
+	const callBack = (fn: any) => {
+	
+	}
+		return (
+	
+			<button className={`${style.button}`} {...restProps}/>
+	
 	)
 }

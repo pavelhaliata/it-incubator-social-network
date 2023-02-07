@@ -48,9 +48,11 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 					<button
 						onClick={createPostHandler}>create post
 					</button>
-					<Button>
-						create post double
-					</Button>
+					<div  className={style.block_btn}>
+						<Button className={style.btn}>
+							<span>create post</span>
+						</Button>
+					</div>
 				</div>
 			</div>
 			<div className={style.postline_items}>

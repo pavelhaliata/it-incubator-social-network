@@ -30,17 +30,11 @@
 
 .form_button {
     display: flex;
-
-    & button {
+    & .block_btn{
         margin-left: auto;
-        background-color: #ff5e3a;
-        color: #fff;
-        padding: 0.8rem 2.1rem;
-        font-size: .688rem;
-        border-radius: 0.3rem;
-
-        &:hover {
-            cursor: pointer;
-        }
     }
+}
+.btn{
+    color: rgb(0, 4, 255);
+    border: 1px solid black;
 }
