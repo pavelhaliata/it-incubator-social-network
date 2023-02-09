@@ -2,11 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import state from './redax/state';
+import store, { RootStoreType } from './redax/state';
 import 'normalize.css';
 import './index.css';
 import App from './App';
-import { addNewPost, RootStateType, updateNewPostText, subscribe } from './redax/state';
+
 
 
 
@@ -14,25 +14,26 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 
-let rerenderEntireTree = (state: RootStateType) => {
+const rerenderEntireTree = (value: any) => {
 	root.render(
 		<BrowserRouter>
 			<React.StrictMode>
 				<App
-					messageData={state.messagesData}
-					personData={state.personsData}
-					postsData={state.postsData}
-					newPostTextData={state.newPostTextData}
-					addNewPost={addNewPost}
-					updateNewPostText={updateNewPostText}
+					messageData={store._state.messagesData}
+					personData={store._state.personsData}
+					postsData={store._state.postsData}
+					newPostTextData={store._state.newPostTextData}
+					addNewPost={store.addNewPost.bind(store)}
+					updateNewPostText={store.updateNewPostText.bind(store)}
 				/>
 			</React.StrictMode>
 		</BrowserRouter>
 	);
 }
 
-rerenderEntireTree(state);
-subscribe(rerenderEntireTree);
+rerenderEntireTree(store.getState());
+
+store.subscribe(rerenderEntireTree);
 
 
 

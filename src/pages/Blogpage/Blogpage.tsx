@@ -3,10 +3,9 @@ import style from './Blogpage.module.scss';
 import { ChangeEvent } from 'react';
 import { Post } from './Post/Post';
 import { Button } from '../../components/Button/Button';
+import { PostsType } from '../../redax/state';
 
-export type PostsType = {
-	post: string
-}
+
 
 type BlogPageProps = {
 	setStatePage: (value: string) => void
@@ -39,18 +38,15 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 				<div className={style.form_group} >
 					<textarea
 						className={style.form_control}
-						name="text"
+						name="text" 
 						value={newPostTextData}
-						placeholder="Share what you are thinking here..."
+						placeholder="Remember to be very polite to each other ;)"
 						onChange={onChangeHandler}
 					/>
 				</div>
 				<div className={style.form_button}>
-					<button
-						onClick={createPostHandler}>create post
-					</button>
 					<div className={style.block_btn}>
-						<Button className={style.btn}>
+						<Button className={style.btn} onClick={createPostHandler}>
 							<span>create post</span>
 						</Button>
 					</div>

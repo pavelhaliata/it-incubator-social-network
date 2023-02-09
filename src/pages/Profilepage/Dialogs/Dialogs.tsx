@@ -1,16 +1,11 @@
 import Message from "./Message/Message";
 import s from "./Dialogs.module.scss";
+import { MessageType } from "../../../redax/state";
 
 
-export type MessagePropsType = {
-	avatar: string
-	name: string
-	message: string
-	time: string
-}
 
 type DialogsPropsType = {
-	messageData?: Array<MessagePropsType>
+	messageData?: Array<MessageType>
 }
 
 function Dialogs({ messageData }: DialogsPropsType) {
@@ -20,7 +15,7 @@ function Dialogs({ messageData }: DialogsPropsType) {
 			<div className={`${s.dialogs}`}>
 				<div className={`${s.item} ${s.author}`}>
 					<div>
-						{messageData && messageData.map((data: MessagePropsType) => {
+						{messageData && messageData.map((data: MessageType) => {
 							return <Message
 								avatar={data.avatar}
 								name={data.name}
@@ -31,7 +26,7 @@ function Dialogs({ messageData }: DialogsPropsType) {
 				</div>
 				<div className={`${s.item} ${s.companion}`}>
 					<div>
-					{messageData && messageData.map((data: MessagePropsType) => {
+					{messageData && messageData.map((data: MessageType) => {
 							return <Message
 								avatar={data.avatar}
 								name={data.name}

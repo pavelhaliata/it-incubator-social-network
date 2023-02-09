@@ -1,15 +1,9 @@
+import { PersonType } from "../../../redax/state"
 import style from "./Friends.module.scss"
 
-export type PersonPropsType = {
-    backgroudImg: string
-    avatar: string
-    name: string
-    country: string
-}
 type FrindsPropsType = {
-    personData?: Array<PersonPropsType>
+    personData: Array<PersonType>
 }
-
 
 export const Friends = ({ personData }: FrindsPropsType) => {
     return (
@@ -27,7 +21,7 @@ export const Friends = ({ personData }: FrindsPropsType) => {
     )
 }
 
-const Person = ({ backgroudImg, avatar, name, country }: PersonPropsType) => {
+const Person = ({ backgroudImg, avatar, name, country }: PersonType) => {
     return (
         <div className={style.friend_item}>
             <div className={style.friend_card}>

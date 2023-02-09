@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react"
+import { Button } from "../../components/Button/Button"
 import style from "./Weather.module.scss"
 
 type TemperatureType = {
@@ -73,7 +74,7 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 				if (data.cod !== '404') {
 					setWeatherInfo(data)
 				}else{
-					
+					window.alert('City not found')
 				}
 
 			})
@@ -97,7 +98,7 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 
 		<div>
 			<input type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
-			<button onClick={onClickHandler}>enter</button>
+			<Button onClick={onClickHandler}>enter</Button>
 
 			<div className={style.weather}>
 				<div className={style.weather__now}>

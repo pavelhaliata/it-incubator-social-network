@@ -2,16 +2,16 @@ import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import { Layout } from './components/Layout';
 import Dialogs from './pages/Profilepage/Dialogs/Dialogs';
-import { Friends, PersonPropsType } from './pages/Profilepage/Friends/Friends';
+import { Friends } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
-import { BlogPage, PostsType } from './pages/BlogPage/Blogpage';
-import { MessageType } from './redax/state';
+import { BlogPage } from './pages/BlogPage/Blogpage';
+import { MessageType, PersonType, PostsType } from './redax/state';
 
 
 type AppPropsType = {
 	messageData: Array<MessageType>
-	personData: Array<PersonPropsType>
+	personData: Array<PersonType>
 	postsData: Array<PostsType>
 	addNewPost: () => void
 	updateNewPostText: (value: string) => void
@@ -31,7 +31,7 @@ function App({ messageData, personData, postsData, addNewPost, newPostTextData, 
 						<Route path='friends' element={<Friends personData={personData} />} />
 					</Route>
 					<Route path='blogpage'
-						element={<BlogPage
+							element={<BlogPage
 							setStatePage={setStatePage}
 							postsData={postsData}
 							addNewPost={addNewPost}
