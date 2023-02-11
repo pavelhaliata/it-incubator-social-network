@@ -10,13 +10,12 @@ import { PostsType } from '../../redax/state';
 type BlogPageProps = {
 	setStatePage: (value: string) => void
 	postsData: Array<PostsType>
-	addNewPost: () => void
 	newPostTextData: string
-	updateNewPostText: (value: string) => void
+	dispatch: (action: object) => void
 }
 
 
-export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData, updateNewPostText }: BlogPageProps) => {
+export const BlogPage = ({ setStatePage, postsData, newPostTextData, dispatch }: BlogPageProps) => {
 
 	useEffect(() => {
 		document.title = 'My Blog'
@@ -25,11 +24,10 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 
 
 	const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		updateNewPostText(event.currentTarget.value)
+		dispatch({type: 'APDATE-NEW-POST-TEXT', newtext: event.currentTarget.value})
 	}
 	const createPostHandler = () => {
-		addNewPost()
-		
+		dispatch({type: 'ADD-NEW-POST'})
 	}
 
 	return (
@@ -38,7 +36,7 @@ export const BlogPage = ({ setStatePage, postsData, addNewPost, newPostTextData,
 				<div className={style.form_group} >
 					<textarea
 						className={style.form_control}
-						name="text" 
+						name="text"
 						value={newPostTextData}
 						placeholder="Remember to be very polite to each other ;)"
 						onChange={onChangeHandler}

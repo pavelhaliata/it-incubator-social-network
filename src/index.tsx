@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import store, { RootStoreType } from './redax/state';
+import store from './redax/state';
 import 'normalize.css';
 import './index.css';
 import App from './App';
@@ -23,8 +23,7 @@ const rerenderEntireTree = (value: any) => {
 					personData={store._state.personsData}
 					postsData={store._state.postsData}
 					newPostTextData={store._state.newPostTextData}
-					addNewPost={store.addNewPost.bind(store)}
-					updateNewPostText={store.updateNewPostText.bind(store)}
+					dispatch={store.dispatch.bind(store)}
 				/>
 			</React.StrictMode>
 		</BrowserRouter>

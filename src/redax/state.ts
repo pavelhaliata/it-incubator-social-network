@@ -24,13 +24,15 @@ type StateDataType = {
     newPostTextData: string
 }
 
+
 export type RootStoreType = {
     _state: StateDataType
-    rerenderEntireTree: (value: StateDataType) => void
-    addNewPost: () => void
-    updateNewPostText: (newtext: string) => void
+    _rerenderEntireTree: (value: StateDataType) => void
+    // addNewPost: () => void
+    // updateNewPostText: (newtext: string) => void
     subscribe: (observer: any) => void
     getState: () => void
+    dispatch: (action: any) => void
 }
 
 const store: RootStoreType = {
@@ -90,29 +92,46 @@ const store: RootStoreType = {
         return this._state;
     },
 
-    rerenderEntireTree() {
+    _rerenderEntireTree() {
     },
 
-    subscribe(observer: ()=> void) {
-        this.rerenderEntireTree = observer
+    subscribe(observer: () => void) {
+        this._rerenderEntireTree = observer
     },
 
-    addNewPost() {
-        let postCreate: PostsType = {
-            post: this._state.newPostTextData
+    // addNewPost() {
+    //     let postCreate: PostsType = {
+    //         post: this._state.newPostTextData
+    //     }
+    //     if (this._state.newPostTextData) {
+    //         this._state.postsData.push(postCreate)
+    //         this._state.newPostTextData = ''
+    //         this.rerenderEntireTree(this._state)
+    //     }
+    // },
+
+    // updateNewPostText(newtext: string) {
+    //     // console.log(newtext)
+    //     // this._state.newPostTextData = newtext
+    //     // this.rerenderEntireTree(this._state)
+    // },
+    dispatch(action) {
+        if (action.type === 'APDATE-NEW-POST-TEXT') {
+            this._state.newPostTextData = action.newtext
+            this._rerenderEntireTree(this._state)
+
+        } else if (action.type === 'ADD-NEW-POST') {
+            let postCreate: PostsType = {
+                post: this._state.newPostTextData
+            }
+            if (this._state.newPostTextData) {
+                this._state.postsData.push(postCreate)
+                this._state.newPostTextData = ''
+                this._rerenderEntireTree(this._state)
+            }
         }
-        if (this._state.newPostTextData) {
-            this._state.postsData.push(postCreate)
-            this._state.newPostTextData = ''
-            this.rerenderEntireTree(this._state)
-        }
-    },
 
-    updateNewPostText(newtext: string) {
-        console.log(newtext)
-        this._state.newPostTextData = newtext
-        this.rerenderEntireTree(this._state)
-    },
+    }
 }
 
 export default store

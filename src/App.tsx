@@ -13,13 +13,12 @@ type AppPropsType = {
 	messageData: Array<MessageType>
 	personData: Array<PersonType>
 	postsData: Array<PostsType>
-	addNewPost: () => void
-	updateNewPostText: (value: string) => void
 	newPostTextData: string
+	dispatch: (action: object) => void
 }
 
-function App({ messageData, personData, postsData, addNewPost, newPostTextData, updateNewPostText }: AppPropsType) {
-	
+function App({ messageData, personData, postsData, newPostTextData,  dispatch }: AppPropsType) {
+
 	const [statePage, setStatePage] = useState<string>('')
 
 	return (
@@ -31,12 +30,12 @@ function App({ messageData, personData, postsData, addNewPost, newPostTextData, 
 						<Route path='friends' element={<Friends personData={personData} />} />
 					</Route>
 					<Route path='blogpage'
-							element={<BlogPage
+						element={<BlogPage
 							setStatePage={setStatePage}
 							postsData={postsData}
-							addNewPost={addNewPost}
 							newPostTextData={newPostTextData}
-							updateNewPostText={updateNewPostText} />}
+							dispatch={dispatch}
+							/>}
 					/>
 					<Route path='weather' element={<WeatherPage setStatePage={setStatePage} />} />
 				</Route>
