@@ -124,7 +124,7 @@ const store: RootStoreType = {
             let postCreate: PostsType = {
                 post: this._state.newPostTextData
             }
-            if (this._state.newPostTextData) {
+            if (this._state.newPostTextData.trim() !== '') {
                 this._state.postsData.push(postCreate)
                 this._state.newPostTextData = ''
                 this._rerenderEntireTree(this._state)

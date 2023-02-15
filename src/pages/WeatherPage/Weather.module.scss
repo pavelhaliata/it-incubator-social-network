@@ -1,3 +1,10 @@
+
+.input__location{
+	padding: 10px 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
 .weather {
 	color: white;
 	font-size: 18px;
@@ -7,7 +14,7 @@
 	background-color: #38a9ff;
 	background-image: url('https://html.crumina.net/html-olympus/img/bg-wethear.webp');
 	background-repeat: no-repeat;
-	background-position: 50% 50%;
+	background-position: 50% 20%;
 	background-size: cover;
 
 	@media (min-width: 992px) {

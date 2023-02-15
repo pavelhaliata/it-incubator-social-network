@@ -74,7 +74,7 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 				if (data.cod !== '404') {
 					setWeatherInfo(data)
 				}else{
-					window.alert('City not found')
+					window.alert('City is not found')
 				}
 
 			})
@@ -87,8 +87,8 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 		setTitle(event.currentTarget.value)
 	}
 	const onClickHandler = () => {
-		if (title.length !== 0) {
-			setCity(title.trim())
+		if (title.trim() !== '') {
+			setCity(title)
 			setTitle('')
 		}
 		return
@@ -97,8 +97,8 @@ export const WeatherPage = ({ setStatePage }: WeatherPropsType) => {
 	return (
 
 		<div>
-			<input type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
-			<Button onClick={onClickHandler}>enter</Button>
+			<input className={style.input__location} type="text" value={title} onChange={onChangeVaueHandler} placeholder="Search city" />
+			<Button callback={onClickHandler}><span>enter</span></Button>
 
 			<div className={style.weather}>
 				<div className={style.weather__now}>
