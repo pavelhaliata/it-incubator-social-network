@@ -1,8 +1,6 @@
 .postline_items {
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    // border: 1px solid rgb(64, 65, 64);
 }
 
 .form_inner {
@@ -35,6 +33,5 @@
     }
 }
 .btn{
-    color: rgb(0, 4, 255);
-    border: 1px solid black;
+    color: red;
 }

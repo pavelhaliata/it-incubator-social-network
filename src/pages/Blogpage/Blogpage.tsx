@@ -6,7 +6,6 @@ import { Button } from '../../components/Button/Button';
 import { PostsType } from '../../redax/state';
 
 
-
 type BlogPageProps = {
 	setStatePage: (value: string) => void
 	postsData: Array<PostsType>
@@ -49,9 +48,10 @@ export const BlogPage = ({ setStatePage, postsData, newPostTextData, dispatch }:
 						onKeyPress={onKeyPressHandler}
 					/>
 				</div>
+
 				<div className={style.form_button}>
 					<div className={style.block_btn}>
-						<Button className={style.btn} callback={createPostHandler}>
+						<Button callback={createPostHandler}>
 							<span>create post</span>
 						</Button>
 					</div>
