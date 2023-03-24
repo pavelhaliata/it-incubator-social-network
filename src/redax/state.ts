@@ -1,3 +1,4 @@
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
 export type MessageType = {
     avatar: string
@@ -23,7 +24,6 @@ type StateDataType = {
     postsData: Array<PostsType>
     newPostTextData: string
 }
-
 
 export type RootStoreType = {
     _state: StateDataType
@@ -116,7 +116,7 @@ const store: RootStoreType = {
     //     // this.rerenderEntireTree(this._state)
     // },
     dispatch(action) {
-        if (action.type === 'APDATE-NEW-POST-TEXT') {
+        if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.newPostTextData = action.newtext
             this._rerenderEntireTree(this._state)
 
@@ -132,6 +132,10 @@ const store: RootStoreType = {
         }
 
     }
+}
+
+export const updateNewPostText = (newtext: string) => {
+   store.dispatch({type: UPDATE_NEW_POST_TEXT, newtext: newtext})
 }
 
 export default store

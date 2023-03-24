@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import style from './Blogpage.module.scss';
 import { ChangeEvent, KeyboardEvent } from 'react';
 import { Button } from '../../components/Button/Button';
-import { PostsType } from '../../redax/state';
+import { PostsType, updateNewPostText } from '../../redax/state';
 import { Post } from './Post/Post';
 
 
@@ -25,7 +25,8 @@ export const BlogPage = ({ setStatePage, postsData, newPostTextData, dispatch }:
 
 	const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		event.preventDefault()
-		dispatch({ type: 'APDATE-NEW-POST-TEXT', newtext: event.currentTarget.value })
+		updateNewPostText(event.currentTarget.value)
+		// dispatch({ type: 'UPDATE-NEW-POST-TEXT', newtext: event.currentTarget.value })
 	}
 	const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (event.ctrlKey && event.key === 'Enter') {
