@@ -1,51 +1,71 @@
 
-.input__location{
-	padding: 10px 5px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
 .weather {
-	color: white;
-	font-size: 18px;
-	text-align: center;
-	max-width: 100%;
-	padding: 25px;
-	background-color: #38a9ff;
-	background-image: url('https://html.crumina.net/html-olympus/img/bg-wethear.webp');
-	background-repeat: no-repeat;
-	background-position: 50% 20%;
-	background-size: cover;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  max-width: 100%;
+  padding: 25px;
+  background-color: #38a9ff;
+  background-image: url('https://html.crumina.net/html-olympus/img/bg-wethear.webp');
+  background-repeat: no-repeat;
+  background-position: 50% 20%;
+  background-size: cover;
 
-	@media (min-width: 992px) {
-		max-width: 350px;
-	}
+  @media (min-width: 992px) {
+    max-width: 350px;
+  }
 }
 
 .weather__now {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .temperature_sensor {
-	font-size: 60px;
+  font-size: 60px;
 
 }
 
 .temperature_max_min {
-	& span {
-		display: block;
-		font-size: 16px;
-	}
+  & span {
+    display: block;
+    font-size: 16px;
+  }
 }
 
 .weather_description {
 
-	&>span {
-		margin-left: 10px;
-		font-size: 11px;
-	}
+  & > span {
+    margin-left: 10px;
+    font-size: 11px;
+  }
 }
 
-.climat {}
+.climat {
+
+}
+
+.date_and_place {
+  margin-bottom: 10px;
+  &.date {
+  }
+
+  &.place {
+  }
+}
+
+.search_place {
+  display: flex;
+  //width: 100%;
+}
+
+.input_location {
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.search_btn {
+  max-width: 90px;
+  width: 100%;
+}

@@ -5,9 +5,8 @@ import Dialogs from './pages/Profilepage/Dialogs/Dialogs';
 import { Friends } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
-
 import { MessageType, PersonType, PostsType } from './redax/state';
-import { BlogPage } from './pages/Blogpage/Blogpage';
+import {BlogPage} from "./pages/BlogPage/Blogpage";
 
 
 type AppPropsType = {
@@ -31,7 +30,7 @@ function App({ messageData, personData, postsData, newPostTextData,  dispatch }:
 						<Route path='friends' element={<Friends personData={personData} />} />
 					</Route>
 					<Route path='blogpage'
-						element={<BlogPage
+						   	element={<BlogPage
 							setStatePage={setStatePage}
 							postsData={postsData}
 							newPostTextData={newPostTextData}

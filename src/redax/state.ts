@@ -1,4 +1,11 @@
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+// const ADD_NEW_POST = 'ADD-NEW-POST'
+
+enum POST {
+    UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
+    ADD_NEW_POST = 'ADD-NEW-POST'
+}
+
 
 export type MessageType = {
     avatar: string
@@ -8,7 +15,7 @@ export type MessageType = {
 }
 
 export type PersonType = {
-    backgroudImg: string
+    backgroundImg: string
     avatar: string
     name: string
     country: string
@@ -28,8 +35,6 @@ type StateDataType = {
 export type RootStoreType = {
     _state: StateDataType
     _rerenderEntireTree: (value: StateDataType) => void
-    // addNewPost: () => void
-    // updateNewPostText: (newtext: string) => void
     subscribe: (observer: any) => void
     getState: () => void
     dispatch: (action: any) => void
@@ -54,31 +59,31 @@ const store: RootStoreType = {
 
         personsData: [
             {
-                backgroudImg: 'https://html.crumina.net/html-olympus/img/friend1.webp',
+                backgroundImg: 'https://html.crumina.net/html-olympus/img/friend1.webp',
                 avatar: 'https://html.crumina.net/html-olympus/img/avatar1.webp',
                 name: 'Nicholas Grissom',
                 country: 'San Francisco, CA',
             },
             {
-                backgroudImg: 'https://html.crumina.net/html-olympus/img/friend2.webp',
+                backgroundImg: 'https://html.crumina.net/html-olympus/img/friend2.webp',
                 avatar: 'https://html.crumina.net/html-olympus/img/avatar2.webp',
                 name: 'Marina Valentine',
                 country: 'Long Island, NY',
             },
             {
-                backgroudImg: 'https://html.crumina.net/html-olympus/img/friend3.webp',
+                backgroundImg: 'https://html.crumina.net/html-olympus/img/friend3.webp',
                 avatar: 'https://html.crumina.net/html-olympus/img/avatar3.webp',
                 name: 'Nicholas Grissom',
                 country: 'Los Angeles, CA',
             },
             {
-                backgroudImg: 'https://html.crumina.net/html-olympus/img/friend4.webp',
+                backgroundImg: 'https://html.crumina.net/html-olympus/img/friend4.webp',
                 avatar: 'https://html.crumina.net/html-olympus/img/avatar4.webp',
                 name: 'Chris Greyson',
                 country: 'Austin, TX',
             },
             {
-                backgroudImg: 'https://html.crumina.net/html-olympus/img/friend4.webp',
+                backgroundImg: 'https://html.crumina.net/html-olympus/img/friend4.webp',
                 avatar: 'https://html.crumina.net/html-olympus/img/avatar4.webp',
                 name: 'Chris Greyson',
                 country: 'Austin, TX',
@@ -98,29 +103,12 @@ const store: RootStoreType = {
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
     },
-
-    // addNewPost() {
-    //     let postCreate: PostsType = {
-    //         post: this._state.newPostTextData
-    //     }
-    //     if (this._state.newPostTextData) {
-    //         this._state.postsData.push(postCreate)
-    //         this._state.newPostTextData = ''
-    //         this.rerenderEntireTree(this._state)
-    //     }
-    // },
-
-    // updateNewPostText(newtext: string) {
-    //     // console.log(newtext)
-    //     // this._state.newPostTextData = newtext
-    //     // this.rerenderEntireTree(this._state)
-    // },
     dispatch(action) {
-        if (action.type === UPDATE_NEW_POST_TEXT) {
+        if (action.type === POST.UPDATE_NEW_POST_TEXT) {
             this._state.newPostTextData = action.newtext
             this._rerenderEntireTree(this._state)
 
-        } else if (action.type === 'ADD-NEW-POST') {
+        } else if (action.type === POST.ADD_NEW_POST) {
             let postCreate: PostsType = {
                 post: this._state.newPostTextData
             }
@@ -135,7 +123,11 @@ const store: RootStoreType = {
 }
 
 export const updateNewPostText = (newtext: string) => {
-   store.dispatch({type: UPDATE_NEW_POST_TEXT, newtext: newtext})
+    store.dispatch({type: POST.UPDATE_NEW_POST_TEXT, newtext: newtext})
 }
+export const createNewPost = () => {
+    store.dispatch({type: POST.ADD_NEW_POST})
+}
+
 
 export default store
