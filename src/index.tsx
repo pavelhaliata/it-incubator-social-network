@@ -24,6 +24,7 @@ const rerenderEntireTree = (value: any) => {
 					postsData={store._state.postsData}
 					newPostTextData={store._state.newPostTextData}
 					dispatch={store.dispatch.bind(store)}
+					state={store.getState}
 				/>
 			</React.StrictMode>
 		</BrowserRouter>

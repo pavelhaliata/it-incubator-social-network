@@ -3,7 +3,9 @@
 
 enum POST {
     UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
-    ADD_NEW_POST = 'ADD-NEW-POST'
+    ADD_NEW_POST = "ADD-NEW-POST",
+    UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+    
 }
 
 
@@ -30,6 +32,7 @@ type StateDataType = {
     personsData: Array<PersonType>
     postsData: Array<PostsType>
     newPostTextData: string
+    newMessageTextData: string
 }
 
 export type RootStoreType = {
@@ -90,7 +93,8 @@ const store: RootStoreType = {
             },
         ],
         postsData: [],
-        newPostTextData: ''
+        newPostTextData: '',
+        newMessageTextData: 'dddd',
     },
 
     getState() {
@@ -117,6 +121,9 @@ const store: RootStoreType = {
                 this._state.newPostTextData = ''
                 this._rerenderEntireTree(this._state)
             }
+        }else if(action.type === POST.UPDATE_NEW_MESSAGE_TEXT){
+            this._state.newMessageTextData = action.newtext
+            this._rerenderEntireTree(this._state)
         }
 
     }
@@ -127,6 +134,10 @@ export const updateNewPostText = (newtext: string) => {
 }
 export const createNewPost = () => {
     store.dispatch({type: POST.ADD_NEW_POST})
+}
+
+export const updateNewMessageText = (newtext: string) => {
+    store.dispatch({type: POST.UPDATE_NEW_MESSAGE_TEXT, newtext: newtext})
 }
 
 

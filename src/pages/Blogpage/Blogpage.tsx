@@ -3,7 +3,8 @@ import style from './Blogpage.module.scss';
 import { ChangeEvent, KeyboardEvent } from 'react';
 import { Button } from '../../components/Button/Button';
 import {createNewPost, PostsType, updateNewPostText} from '../../redax/state';
-import {Post} from "./Post/Post";
+import { Post } from './Post/Post';
+
 
 
 type BlogPageProps = {

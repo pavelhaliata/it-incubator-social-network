@@ -6,9 +6,10 @@ import { MessageType } from "../../../redax/state";
 
 type DialogsPropsType = {
 	messageData?: Array<MessageType>
+	state: any
 }
 
-function Dialogs({ messageData }: DialogsPropsType) {
+function Dialogs({ messageData, state }: DialogsPropsType) {
 
 
 	return (
@@ -35,6 +36,7 @@ function Dialogs({ messageData }: DialogsPropsType) {
 						})}
 					</div>
 				</div>
+				<div><textarea value={state.newMessageTextData}/>dddd</div>
 			</div>
 	);
 }
