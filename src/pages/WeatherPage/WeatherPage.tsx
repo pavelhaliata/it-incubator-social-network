@@ -113,7 +113,7 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
                                      alt="icon"/> : "...loading"}
                         </div>
                         <div className={style.weather_description}>
-                            <div className={style.climat}>{description}</div>
+                            <div>{description}</div>
                             <span>Real Feel: <span>{feelsLike}&deg;</span></span>
                             <span>Humidity: <span>{humidity}&deg;</span></span>
                         </div>
@@ -127,8 +127,8 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
                             <li></li>
                         </ul>
                         <div className={style.date_and_place}>
-                            <div className={style.date}>{today}th</div>
-                            <div className={style.place}>{weatherInfo.name}</div>
+                            <div >{today}th</div>
+                            <div >{weatherInfo.name}</div>
                         </div>
                     </>}
 

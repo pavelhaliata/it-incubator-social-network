@@ -1,11 +1,13 @@
 // const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 // const ADD_NEW_POST = 'ADD-NEW-POST'
 
+import message from "../pages/Profilepage/Dialogs/Message/Message";
+
 enum POST {
     UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
     ADD_NEW_POST = "ADD-NEW-POST",
-    UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
-    
+    UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
+    ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE"
 }
 
 
@@ -13,7 +15,7 @@ export type MessageType = {
     avatar: string
     name: string
     message: string
-    time: string
+    time: any
 }
 
 export type PersonType = {
@@ -94,7 +96,7 @@ const store: RootStoreType = {
         ],
         postsData: [],
         newPostTextData: '',
-        newMessageTextData: 'dddd',
+        newMessageTextData: '',
     },
 
     getState() {
@@ -121,9 +123,20 @@ const store: RootStoreType = {
                 this._state.newPostTextData = ''
                 this._rerenderEntireTree(this._state)
             }
-        }else if(action.type === POST.UPDATE_NEW_MESSAGE_TEXT){
-            this._state.newMessageTextData = action.newtext
+        } else if (action.type === POST.UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.newMessageTextData = action.newText
+            //console.log(this._state.newMessageTextData)
             this._rerenderEntireTree(this._state)
+
+        } else if (action.type === POST.ADD_NEW_MESSAGE) {
+            this._state.messagesData.push
+                ({
+                    avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
+                    name: 'James Spiegel',
+                    message: this._state.newMessageTextData,
+                    time: new Date(),
+                })
+            this._state.newMessageTextData = ''
         }
 
     }
@@ -136,8 +149,11 @@ export const createNewPost = () => {
     store.dispatch({type: POST.ADD_NEW_POST})
 }
 
-export const updateNewMessageText = (newtext: string) => {
-    store.dispatch({type: POST.UPDATE_NEW_MESSAGE_TEXT, newtext: newtext})
+export const updateNewMessageText = (newText: string) => {
+    store.dispatch({type: POST.UPDATE_NEW_MESSAGE_TEXT, newText: newText})
+}
+export const addNewMessage = () => {
+    store.dispatch({type: POST.ADD_NEW_MESSAGE})
 }
 
 
