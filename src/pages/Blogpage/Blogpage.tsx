@@ -11,11 +11,10 @@ type BlogPageProps = {
 	setStatePage: (value: string) => void
 	postsData: Array<PostsType>
 	newPostTextData: string
-	dispatch: (action: object) => void
 }
 
 
-export const BlogPage = ({ setStatePage, postsData, newPostTextData, dispatch }: BlogPageProps) => {
+export const BlogPage = ({ setStatePage, postsData, newPostTextData, }: BlogPageProps) => {
 
 	useEffect(() => {
 		document.title = 'My Blog'
@@ -59,7 +58,7 @@ export const BlogPage = ({ setStatePage, postsData, newPostTextData, dispatch }:
 				</div>
 			</div>
 			<div className={style.post_items}>
-				{postsData ? postsData.map(data => <Post post={data.post} />) : ''}
+				{postsData ? postsData.map(data => <Post key={data.id} post={data.post} />) : ''}
 			</div>
 		</>
 
