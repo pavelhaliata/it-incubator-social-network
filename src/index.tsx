@@ -21,8 +21,8 @@ const rerenderEntireTree = (value: any) => {
 				<App
 					messageData={store._state.messagesData}
 					personData={store._state.personsData}
-					postsData={store._state.postsData}
-					newPostTextData={store._state.newPostTextData}
+					postsData={store._state.blogPage.postsData}
+					newPostTextData={store._state.blogPage.newPostTextData}
 					dispatch={store.dispatch.bind(store)}
 					store={store.getState()}
 				/>

@@ -107,23 +107,11 @@ const store: RootStoreType = {
     this._rerenderEntireTree = observer;
   },
   dispatch(action) {
+
     this._state.blogPage = postReducer(this._state.blogPage, action)
+    this._rerenderEntireTree(this._state);
 
-
-    if (action.type === POST.UPDATE_NEW_POST_TEXT) {
-      this._state.newPostTextData = action.newText;
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === POST.ADD_NEW_POST) {
-      const postCreate: PostsType = {
-        id: uuidv4(),
-        post: this._state.newPostTextData,
-      };
-      if (this._state.newPostTextData.trim() !== "") {
-        this._state.postsData.push(postCreate);
-        this._state.newPostTextData = "";
-        this._rerenderEntireTree(this._state);
-      }
-    } else if (action.type === POST.UPDATE_NEW_MESSAGE_TEXT) {
+     if (action.type === POST.UPDATE_NEW_MESSAGE_TEXT) {
       this._state.newMessageTextData = action.newText;
       this._rerenderEntireTree(this._state);
     } else if (action.type === POST.ADD_NEW_MESSAGE) {
@@ -158,3 +146,18 @@ export const addNewMessage = () => {
 };
 
 export default store;
+
+//if (action.type === POST.UPDATE_NEW_POST_TEXT) {
+//       this._state.newPostTextData = action.newText;
+//       this._rerenderEntireTree(this._state);
+//     } else if (action.type === POST.ADD_NEW_POST) {
+//       const postCreate: PostsType = {
+//         id: uuidv4(),
+//         post: this._state.newPostTextData,
+//       };
+//       if (this._state.newPostTextData.trim() !== "") {
+//         this._state.postsData.push(postCreate);
+//         this._state.newPostTextData = "";
+//         this._rerenderEntireTree(this._state);
+//       }
+//     } else

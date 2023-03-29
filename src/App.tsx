@@ -6,7 +6,8 @@ import { Friends } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
 import { MessageType, PersonType, PostsType } from './redax/state';
-import { BlogPage } from './pages/Blogpage/Blogpage';
+import {BlogPage} from "./pages/BlogPage/Blogpage";
+
 
 
 
@@ -37,7 +38,6 @@ function App({ messageData, personData, postsData, newPostTextData,  dispatch, s
 							setStatePage={setStatePage}
 							postsData={postsData}
 							newPostTextData={newPostTextData}
-							store={store.blogpage}
 							/>}
 					/>
 					<Route path='weather' element={<WeatherPage setStatePage={setStatePage} />} />
