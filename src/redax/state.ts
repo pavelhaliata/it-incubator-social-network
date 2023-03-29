@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
+import { postReducer } from "./post_reducer";
 
-enum POST {
+export enum POST {
   UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
   ADD_NEW_POST = "ADD-NEW-POST",
   UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
@@ -16,6 +17,7 @@ export type MessageType = {
 };
 
 export type PersonType = {
+  id: string;
   backgroundImg: string;
   avatar: string;
   name: string;
@@ -46,33 +48,37 @@ export type RootStoreType = {
 const store: RootStoreType = {
   _state: {
     messagesData: [],
-
     personsData: [
       {
+        id: uuidv4(),
         backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
         avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
         name: "Nicholas Grissom",
         country: "San Francisco, CA",
       },
       {
+        id: uuidv4(),
         backgroundImg: "https://html.crumina.net/html-olympus/img/friend2.webp",
         avatar: "https://html.crumina.net/html-olympus/img/avatar2.webp",
         name: "Marina Valentine",
         country: "Long Island, NY",
       },
       {
+        id: uuidv4(),
         backgroundImg: "https://html.crumina.net/html-olympus/img/friend3.webp",
         avatar: "https://html.crumina.net/html-olympus/img/avatar3.webp",
         name: "Nicholas Grissom",
         country: "Los Angeles, CA",
       },
       {
+        id: uuidv4(),
         backgroundImg: "https://html.crumina.net/html-olympus/img/friend4.webp",
         avatar: "https://html.crumina.net/html-olympus/img/avatar4.webp",
         name: "Chris Greyson",
         country: "Austin, TX",
       },
       {
+        id: uuidv4(),
         backgroundImg: "https://html.crumina.net/html-olympus/img/friend4.webp",
         avatar: "https://html.crumina.net/html-olympus/img/avatar4.webp",
         name: "Chris Greyson",
@@ -94,6 +100,9 @@ const store: RootStoreType = {
     this._rerenderEntireTree = observer;
   },
   dispatch(action) {
+    this._state.newPostTextData = postReducer(this._state.newPostTextData, action)
+
+
     if (action.type === POST.UPDATE_NEW_POST_TEXT) {
       this._state.newPostTextData = action.newText;
       this._rerenderEntireTree(this._state);
@@ -125,6 +134,7 @@ const store: RootStoreType = {
       }
     }
   },
+
 };
 
 export const updateNewPostText = (newText: string) => {
@@ -133,7 +143,6 @@ export const updateNewPostText = (newText: string) => {
 export const createNewPost = () => {
   store.dispatch({ type: POST.ADD_NEW_POST });
 };
-
 export const updateNewMessageText = (newText: string) => {
   store.dispatch({ type: POST.UPDATE_NEW_MESSAGE_TEXT, newText: newText });
 };

@@ -11,6 +11,8 @@ export const Friends = ({ personData }: FrindsPropsType) => {
             <div className={style.container_fluid}>
                 {personData && personData.map((p) => {
                     return <Person
+                        id={p.id}
+                        key={p.id}
                         backgroundImg={p.backgroundImg}
                         avatar={p.avatar}
                         name={p.name}
@@ -21,7 +23,7 @@ export const Friends = ({ personData }: FrindsPropsType) => {
     )
 }
 
-const Person = ({ backgroundImg, avatar, name, country }: PersonType) => {
+const Person = ({backgroundImg, avatar, name, country }: PersonType) => {
     return (
         <div className={style.friend_item}>
             <div className={style.friend_card}>

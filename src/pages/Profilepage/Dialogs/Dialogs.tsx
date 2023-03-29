@@ -14,9 +14,9 @@ type DialogsPropsType = {
 };
 
 function Dialogs({ messageData, store }: DialogsPropsType) {
-
-
-  const updateNewMessageTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const updateNewMessageTextHandler = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ) => {
     event.preventDefault();
     updateNewMessageText(event.currentTarget.value);
   };
@@ -24,37 +24,35 @@ function Dialogs({ messageData, store }: DialogsPropsType) {
     addNewMessage();
   };
   const onKeyDownSendMessageHandler = (event: KeyboardEvent) => {
-	if(event.key === 'Enter' && event.ctrlKey){
-		addNewMessage();
-	}
-  }
+    if (event.key === "Enter" && event.ctrlKey) {
+      addNewMessage();
+    }
+  };
 
   return (
     <div className={`${style.dialogs}`}>
-      <div className={`${style.dialogs_item} ${style.author}`}>
-        <div>
-          {messageData &&
-            messageData.map((data: MessageType) => {
-              return (
-                <Message
-                  key={data.id}
-                  avatar={data.avatar}
-                  name={data.name}
-                  message={data.message}
-                  time={data.time}
-                />
-              );
-            })}
-        </div>
+      <div className={`${style.dialog_item} ${style.author}`}>
+        {messageData &&
+          messageData.map((data: MessageType) => {
+            return (
+              <Message
+                key={data.id}
+                avatar={data.avatar}
+                name={data.name}
+                message={data.message}
+                time={data.time}
+              />
+            );
+          })}
       </div>
-      <div className={`${style.item} ${style.companion}`}></div>
-      <div className={style.input_message}>
+      {/* <div className={`${style.item} ${style.companion}`}></div> */}
+      <div className={style.dialog_input}>
         <textarea
           className=""
           placeholder="Enter your message..."
           value={store.newMessageTextData}
           onChange={updateNewMessageTextHandler}
-		  onKeyDown={onKeyDownSendMessageHandler}
+          onKeyDown={onKeyDownSendMessageHandler}
         />
         <Button callback={sendMessageHandler}>Send</Button>
       </div>

@@ -8,24 +8,23 @@
 		'sidebar main'
 		'sidebar footer';
 	background-color: #edf2f6;
-
+	
 }
 
 .container {
 	max-width: 1274px;
 	margin: 0 auto;
+	height: 100%;
+	// border: 1px solid red
 }
 
 header {
 	grid-area: header;
-	padding: 0px;
-	margin: 0px;
 }
 
 main {
 	grid-area: main;
 	padding: 110px 90px 0px;
-	// border: 1px darkgray solid;
 }
 
 .sidebar {
@@ -41,4 +40,5 @@ main {
 
 footer {
 	grid-area: footer;
+	margin: 0 auto;
 }

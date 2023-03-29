@@ -1,8 +1,10 @@
-.top_header {
-	position: relative;
+.profile_container{
+	min-height: 100%;
+	// border: #000000 2px solid;
 }
 
-.top_header {
+.profile_header {
+	position: relative;
 	position: relative;
 	border-radius: .5rem;
 	overflow: hidden;
@@ -10,7 +12,9 @@
 	background-color: #ffff;
 }
 
-.top_header_banner {
+
+
+.header_banner {
 	height: 300px;
 	position: relative;
 
@@ -33,7 +37,7 @@
 	}
 }
 
-.top_header_profile {
+.profile {
 	display: flex;
 	padding: 20px;
 
@@ -112,8 +116,7 @@
 .country {}
 
 // ===================
-.profileContent {}
-
-.container_fluid {
-	margin: 5px -5px 0px -5px;
+.profile_content {
+	// border: #ff0000 2px dashed;
+	padding: 10px 0px;
 }
