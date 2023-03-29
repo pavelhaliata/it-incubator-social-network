@@ -29,12 +29,18 @@ export type PostsType = {
   post: string;
 };
 
+type BlogPageType = {
+  newPostTextData: string;
+  postsData: Array<PostsType>;
+}
+
 type StateDataType = {
   messagesData: Array<MessageType>;
   personsData: Array<PersonType>;
   postsData: Array<PostsType>;
   newPostTextData: string;
   newMessageTextData: string;
+  blogPage: BlogPageType;
 };
 
 export type RootStoreType = {
@@ -47,7 +53,6 @@ export type RootStoreType = {
 
 const store: RootStoreType = {
   _state: {
-    messagesData: [],
     personsData: [
       {
         id: uuidv4(),
@@ -85,9 +90,11 @@ const store: RootStoreType = {
         country: "Austin, TX",
       },
     ],
+    messagesData: [],
     postsData: [],
     newPostTextData: "",
     newMessageTextData: "",
+    blogPage: {newPostTextData: "", postsData: [],}
   },
 
   getState() {
@@ -100,7 +107,7 @@ const store: RootStoreType = {
     this._rerenderEntireTree = observer;
   },
   dispatch(action) {
-    this._state.newPostTextData = postReducer(this._state.newPostTextData, action)
+    this._state.blogPage = postReducer(this._state.blogPage, action)
 
 
     if (action.type === POST.UPDATE_NEW_POST_TEXT) {

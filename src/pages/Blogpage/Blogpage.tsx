@@ -11,10 +11,14 @@ type BlogPageProps = {
 	setStatePage: (value: string) => void
 	postsData: Array<PostsType>
 	newPostTextData: string
+	store: any
 }
 
 
-export const BlogPage = ({ setStatePage, postsData, newPostTextData, }: BlogPageProps) => {
+export const BlogPage = ({ setStatePage, postsData, newPostTextData, store}: BlogPageProps) => {
+	console.log('====================================');
+console.log(store.newPostTextData);
+console.log('====================================');
 
 	useEffect(() => {
 		document.title = 'My Blog'

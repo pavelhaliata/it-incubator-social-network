@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { POST, PostsType } from "./state";
+import { POST, PostsType, RootStoreType } from "./state";
 
 export const postReducer = (state: any, action: any) => {
   if (action.type === POST.UPDATE_NEW_POST_TEXT) {

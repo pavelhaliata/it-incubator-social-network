@@ -37,6 +37,7 @@ function App({ messageData, personData, postsData, newPostTextData,  dispatch, s
 							setStatePage={setStatePage}
 							postsData={postsData}
 							newPostTextData={newPostTextData}
+							store={store.blogpage}
 							/>}
 					/>
 					<Route path='weather' element={<WeatherPage setStatePage={setStatePage} />} />
