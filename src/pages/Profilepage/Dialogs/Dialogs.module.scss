@@ -1,41 +1,42 @@
 .dialogs {
-	
+  display: block;
+  height: 100%;
 }
 
 .dialog_item {
-	height: 50vh; // решить вопрос с тем чтобы прижать input
+  height: 50%; // решить вопрос с тем чтобы прижать input
 }
 
 .author {
-	&>div {
-		margin-right: auto;
-	}
+  & > div {
+    margin-right: auto;
+  }
 }
 
 .companion {
-	&>div {
-		margin-left: auto;
-	}
+  & > div {
+    margin-left: auto;
+  }
 }
 
 
 .dialog_input {
-	display: flex;
-	border-radius: .3rem;
-	border-top-right-radius: .3rem;
-	border-bottom-right-radius: .3rem;
-	overflow: hidden;
+  display: flex;
+  //border-radius: .3rem;
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  overflow: hidden;
 
-	& textarea {
-		resize: none;
-		width: 100%;
-		padding: 10px;
-		border-top-left-radius: .3rem;
-		border-bottom-left-radius: .3rem;
-		border: 1px solid transparent;
+  & textarea {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+    border: 1px solid transparent;
 
-		&:focus {
-			border: 1px solid #ff5e3a;
-		}
-	}
+    &:focus {
+      border: 1px solid #ff5e3a;
+    }
+  }
 }

@@ -3,19 +3,17 @@ import style from "./Blogpage.module.scss";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { Button } from "../../components/Button/Button";
 import { createNewPost, updateNewPostText } from "../../redax/post_reducer";
-import { PostsType } from "../../redax/state";
+import {ActionType, BlogPageType} from "../../redax/state";
 import { Post } from "./Post/Post";
 
 
 type BlogPageProps = {
   setStatePage: (value: string) => void;
-  postsData: Array<PostsType>;
-  newPostTextData: string;
-  dispatch: (Value: any) => void
-  store?: any;
+  dispatch: (Value: ActionType) => void
+  state: BlogPageType;
 };
 
-export const BlogPage = ({setStatePage, postsData, newPostTextData, dispatch, store }: BlogPageProps) => {
+export const BlogPage = ({setStatePage, dispatch, state }: BlogPageProps) => {
   
   useEffect(() => {
     document.title = "My Blog";
@@ -42,7 +40,7 @@ export const BlogPage = ({setStatePage, postsData, newPostTextData, dispatch, st
           <textarea
             className={style.form_control}
             name="text"
-            value={newPostTextData}
+            value={state.newPostTextData}
             placeholder="Remember, to be very polite to each other ;)"
             onChange={onChangeHandler}
             onKeyDown={onKeyPressHandler}
@@ -56,8 +54,8 @@ export const BlogPage = ({setStatePage, postsData, newPostTextData, dispatch, st
         </div>
       </div>
       <div className={style.post_items}>
-        {postsData
-          ? postsData.map((data) => <Post key={data.id} post={data.post} />)
+        {state.postsData
+          ? state.postsData.map((data) => <Post key={data.id} post={data.post} />)
           : ""}
       </div>
     </>

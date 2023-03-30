@@ -1,26 +1,26 @@
 import { v4 as uuidv4 } from "uuid";
-import { MessageType } from "./state";
+import {ActionType, MessageType} from "./state";
 
 enum MESSAGE {
   UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
   ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
 }
 
-export const messageReducer = (state: any, action: any) => {
+export const messageReducer = (state: any, action: ActionType) => {
   switch (action.type) {
     case MESSAGE.UPDATE_NEW_MESSAGE_TEXT:
       state.newMessageTextData = action.newText;
       return state;
     case MESSAGE.ADD_NEW_MESSAGE:
       if (state.newMessageTextData.trim() !== "") {
-        const newMessageData: MessageType = {
+        const messageData: MessageType = {
           id: uuidv4(),
           avatar: "https://html.crumina.net/html-olympus/img/author-main1.webp",
           name: "James Spiegel",
           message: state.newMessageTextData,
           time: new Date().toLocaleTimeString().slice(0, -3),
         };
-        state.messagesData.push(newMessageData);
+        state.messagesData.push(messageData);
         state.newMessageTextData = "";
       }
       return state;

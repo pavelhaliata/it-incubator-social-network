@@ -5,24 +5,15 @@ import Dialogs from './pages/Profilepage/Dialogs/Dialogs';
 import { Friends } from './pages/Profilepage/Friends/Friends';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
-import { ActionType, MessageType, PersonType, PostsType, StateDataType } from './redax/state';
-import { BlogPage } from './pages/Blogpage/Blogpage';
-
-
-
-
-
+import {ActionType, StateDataType,} from './redax/state';
+import {BlogPage} from "./pages/BlogPage/Blogpage";
 
 type AppPropsType = {
-	messageData: Array<MessageType>
-	personData: Array<PersonType>
-	postsData: Array<PostsType>
-	newPostTextData: string
 	dispatch: (action: ActionType) => void
-	store?: any
+	state: StateDataType
 }
 
-function App({ messageData, personData, postsData, newPostTextData,  dispatch, store}: AppPropsType) {
+function App({ dispatch, state}: AppPropsType) {
 
 	const [statePage, setStatePage] = useState<string>('')
 
@@ -31,17 +22,10 @@ function App({ messageData, personData, postsData, newPostTextData,  dispatch, s
 			<Routes>
 				<Route path='/*' element={<Layout statePage={statePage} />}>
 					<Route path='/*' element={<ProfilePage setStatePage={setStatePage} />}>
-						<Route path='dialogs' element={<Dialogs messageData={messageData} store={store} dispatch={dispatch}/>} />
-						<Route path='friends' element={<Friends personData={personData} />} />
+						<Route path='dialogs' element={<Dialogs state={state.profilePage} dispatch={dispatch}/>} />
+						<Route path='friends' element={<Friends state={state.personsData} />} />
 					</Route>
-					<Route path='blogpage'
-						   	element={<BlogPage
-							setStatePage={setStatePage}
-							postsData={postsData}
-							newPostTextData={newPostTextData}
-							dispatch={dispatch}
-							/>}
-					/>
+					<Route path='blog-page' element={<BlogPage setStatePage={setStatePage} state={state.blogPage} dispatch={dispatch}/>}/>
 					<Route path='weather' element={<WeatherPage setStatePage={setStatePage} />} />
 				</Route>
 			</Routes>

@@ -1,17 +1,16 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import Message from "./Message/Message";
 import style from "./Dialogs.module.scss";
-import { ActionType,MessageType } from "../../../redax/state";
+import {ActionType, MessageType, ProfilePageType} from "../../../redax/state";
 import { addNewMessage, updateNewMessageText } from "../../../redax/message_reducer";
 import { Button } from "../../../components/Button/Button";
 
 type DialogsPropsType = {
-  messageData?: Array<MessageType>;
   dispatch: (action: ActionType) => void
-  store: any;
+  state: ProfilePageType;
 };
 
-function Dialogs({ messageData, store, dispatch }: DialogsPropsType) {
+function Dialogs({ state, dispatch }: DialogsPropsType) {
   const updateNewMessageTextHandler = (
     event: ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -30,8 +29,7 @@ function Dialogs({ messageData, store, dispatch }: DialogsPropsType) {
   return (
     <div className={`${style.dialogs}`}>
       <div className={`${style.dialog_item} ${style.author}`}>
-        {messageData &&
-          messageData.map((data: MessageType) => {
+        {state.messagesData && state.messagesData.map((data: MessageType) => {
             return (
               <Message
                 key={data.id}
@@ -48,7 +46,7 @@ function Dialogs({ messageData, store, dispatch }: DialogsPropsType) {
         <textarea
           className=""
           placeholder="Enter your message..."
-          value={store.newMessageTextData}
+          value={state.newMessageTextData}
           onChange={updateNewMessageTextHandler}
           onKeyDown={onKeyDownSendMessageHandler}
         />

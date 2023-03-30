@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import s from "./Sidebar.module.scss";
+import style from "./Sidebar.module.scss";
 
 interface IProps {
     className?: string
@@ -8,13 +8,13 @@ interface IProps {
 
 function Sidebar({ className }: IProps) {
     return (
-        <div className={`${s.container} ${className}`}>
-            <nav className={s.sidebar}>
-                <ul className={s.sidebar__link}>
-                    <li className={s.link}><Link to="/">P</Link></li>
-                    <li className={s.link}><Link to="#">N</Link></li>
-                    <li className={s.link}><Link to="/blogpage">B</Link></li>
-                    <li className={s.link}><Link to="/weather">W</Link></li>
+        <div className={`${className}`}>
+            <nav className={style.sidebar}>
+                <ul className={style.sidebar_menu}>
+                    <li className={style.menu_link}><Link to="/">Profile</Link></li>
+                    <li className={style.menu_link}><Link to="#">News</Link></li>
+                    <li className={style.menu_link}><Link to="/blog-page">Blog</Link></li>
+                    <li className={style.menu_link}><Link to="/weather">Weather</Link></li>
                 </ul>
             </nav>
         </div>
