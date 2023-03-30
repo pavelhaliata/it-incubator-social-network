@@ -1,12 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
+import { messageReducer } from "./message_reducer";
 import { postReducer } from "./post_reducer";
 
-export enum POST {
-  UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
-  ADD_NEW_POST = "ADD-NEW-POST",
-  UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
-  ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
-}
+
 
 export type MessageType = {
   id: string;
@@ -34,12 +30,13 @@ type BlogPageType = {
   postsData: Array<PostsType>;
 }
 
-type StateDataType = {
+export type StateDataType = {
   messagesData: Array<MessageType>;
   personsData: Array<PersonType>;
   postsData: Array<PostsType>;
   newPostTextData: string;
   newMessageTextData: string;
+  profilePage: { newMessageTextData: string, messagesData: Array<MessageType>;}
   blogPage: BlogPageType;
 };
 
@@ -50,7 +47,10 @@ export type RootStoreType = {
   getState: () => void;
   dispatch: (action: any) => void;
 };
-
+export type ActionType = {
+  type: string
+  newText?: string
+}
 const store: RootStoreType = {
   _state: {
     personsData: [
@@ -94,7 +94,9 @@ const store: RootStoreType = {
     postsData: [],
     newPostTextData: "",
     newMessageTextData: "",
-    blogPage: {newPostTextData: "", postsData: [],}
+    profilePage: {newMessageTextData: "", messagesData: []},
+    blogPage: {newPostTextData: "", postsData: [],} 
+
   },
 
   getState() {
@@ -106,44 +108,16 @@ const store: RootStoreType = {
   subscribe(observer: () => void) {
     this._rerenderEntireTree = observer;
   },
-  dispatch(action) {
+  dispatch(action: ActionType) {
 
     this._state.blogPage = postReducer(this._state.blogPage, action)
+    this._state.profilePage = messageReducer(this._state.profilePage, action)
     this._rerenderEntireTree(this._state);
 
-     if (action.type === POST.UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.newMessageTextData = action.newText;
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === POST.ADD_NEW_MESSAGE) {
-      if (this._state.newMessageTextData.trim() !== "") {
-        const newMessageData: MessageType = {
-          id: uuidv4(),
-          avatar: "https://html.crumina.net/html-olympus/img/author-main1.webp",
-          name: "James Spiegel",
-          message: this._state.newMessageTextData,
-          time: new Date().toLocaleTimeString().slice(0, -3),
-        };
-        this._state.messagesData.push(newMessageData);
-        this._state.newMessageTextData = "";
-        this._rerenderEntireTree(this._state);
-      }
-    }
   },
 
 };
 
-export const updateNewPostText = (newText: string) => {
-  store.dispatch({ type: POST.UPDATE_NEW_POST_TEXT, newText: newText });
-};
-export const createNewPost = () => {
-  store.dispatch({ type: POST.ADD_NEW_POST });
-};
-export const updateNewMessageText = (newText: string) => {
-  store.dispatch({ type: POST.UPDATE_NEW_MESSAGE_TEXT, newText: newText });
-};
-export const addNewMessage = () => {
-  store.dispatch({ type: POST.ADD_NEW_MESSAGE });
-};
 
 export default store;
 

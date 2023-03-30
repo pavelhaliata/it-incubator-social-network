@@ -1,21 +1,33 @@
 import { v4 as uuidv4 } from "uuid";
-import { POST, PostsType } from "./state";
+import { PostsType } from "./state";
+
+enum POST {
+  UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
+  ADD_NEW_POST = "ADD-NEW-POST",
+}
 
 export const postReducer = (state: any, action: any) => {
-
-  if (action.type === POST.UPDATE_NEW_POST_TEXT) {
-    state.newPostTextData = action.newText;
-    return state;
-  } else if (action.type === POST.ADD_NEW_POST) {
-    const postCreate: PostsType = {
-      id: uuidv4(),
-      post: state.newPostTextData,
-    };
-    if (state.newPostTextData.trim() !== "") {
-      state.postsData.push(postCreate);
-      state.newPostTextData = "";
+  switch (action.type) {
+    case POST.UPDATE_NEW_POST_TEXT:
+      state.newPostTextData = action.newText;
       return state;
-    }
+    case POST.ADD_NEW_POST:
+      const postCreate: PostsType = {
+        id: uuidv4(),
+        post: state.newPostTextData,
+      };
+      if (state.newPostTextData.trim() !== "") {
+        state.postsData.push(postCreate);
+        state.newPostTextData = "";
+      }
+      return state;
+    default:
+      return state;
   }
-  return state;
 };
+
+export const updateNewPostText = (newText: string) => ({
+  type: POST.UPDATE_NEW_POST_TEXT,
+  newText: newText,
+});
+export const createNewPost = () => ({ type: POST.ADD_NEW_POST });

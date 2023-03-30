@@ -19,10 +19,10 @@ const rerenderEntireTree = (value: any) => {
 		<BrowserRouter>
 			<React.StrictMode>
 				<App
-					messageData={store._state.messagesData}
-					personData={store._state.personsData}
-					postsData={store._state.blogPage.postsData}
-					newPostTextData={store._state.blogPage.newPostTextData}
+					messageData={value.messagesData}
+					personData={value.personsData}
+					postsData={value.blogPage.postsData}
+					newPostTextData={value.blogPage.newPostTextData}
 					dispatch={store.dispatch.bind(store)}
 					store={store.getState()}
 				/>
