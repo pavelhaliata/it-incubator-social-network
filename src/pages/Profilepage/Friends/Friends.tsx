@@ -1,4 +1,4 @@
-import { PersonType } from "../../../redax/state"
+import { PersonType } from "../../../redax/store"
 import style from "./Friends.module.scss"
 import {Person} from "./Person/Person";
 

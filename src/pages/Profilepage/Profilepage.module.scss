@@ -1,10 +1,9 @@
 .profile_container{
-	min-height: 100%;
+	height: 100%;
 	// border: #000000 2px solid;
 }
 
 .profile_header {
-	position: relative;
 	position: relative;
 	border-radius: .5rem;
 	overflow: hidden;
@@ -117,6 +116,7 @@
 
 // ===================
 .profile_content {
-	// border: #ff0000 2px dashed;
+	height: 64%;
+	// border: #ff0000 2px solid;
 	padding: 10px 0px;
 }

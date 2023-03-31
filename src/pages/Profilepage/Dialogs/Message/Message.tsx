@@ -9,7 +9,7 @@ type IProps ={
 }
 
 
-function Message({avatar, name, message,time}: IProps) {
+function Message({avatar, name, message, time}: IProps) {
     return (
         <div className={s.message}>
             <div className={s.message__avatar}>

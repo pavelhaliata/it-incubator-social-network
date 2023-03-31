@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import style from "./Blogpage.module.scss";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { Button } from "../../components/Button/Button";
-import { createNewPost, updateNewPostText } from "../../redax/post_reducer";
-import {ActionType, BlogPageType} from "../../redax/state";
+import { newPostActionCreate, newPostTextActionCreater } from "../../redax/blogPage_reducer";
+import {ActionType, BlogPageType} from "../../redax/store";
 import { Post } from "./Post/Post";
 
 
@@ -22,15 +22,15 @@ export const BlogPage = ({setStatePage, dispatch, state }: BlogPageProps) => {
 
   const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
-    dispatch(updateNewPostText(event.currentTarget.value));
+    dispatch(newPostTextActionCreater(event.currentTarget.value));
   };
   const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.ctrlKey && event.key === "Enter") {
-		dispatch(createNewPost());
+		dispatch(newPostActionCreate());
     }
   };
   const createPostHandler = () => {
-    dispatch(createNewPost());
+    dispatch(newPostActionCreate());
   };
 
   return (

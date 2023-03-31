@@ -12,7 +12,7 @@ function Sidebar({ className }: IProps) {
             <nav className={style.sidebar}>
                 <ul className={style.sidebar_menu}>
                     <li className={style.menu_link}><Link to="/">Profile</Link></li>
-                    <li className={style.menu_link}><Link to="#">News</Link></li>
+                    <li className={style.menu_link}><Link to="/news">News</Link></li>
                     <li className={style.menu_link}><Link to="/blog-page">Blog</Link></li>
                     <li className={style.menu_link}><Link to="/weather">Weather</Link></li>
                 </ul>

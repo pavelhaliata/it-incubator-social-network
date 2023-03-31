@@ -1,12 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-import {ActionType, MessageType} from "./state";
+import { ActionType, MessageType, ProfilePageType } from "./store";
 
 enum MESSAGE {
   UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
   ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
 }
 
-export const messageReducer = (state: any, action: ActionType) => {
+const initialState: ProfilePageType = {
+  newMessageTextData: "",
+  messagesData: [],
+};
+
+export const profilePageReducer = (state: any = initialState, action: ActionType) => {
   switch (action.type) {
     case MESSAGE.UPDATE_NEW_MESSAGE_TEXT:
       state.newMessageTextData = action.newText;
@@ -29,5 +34,10 @@ export const messageReducer = (state: any, action: ActionType) => {
   }
 };
 
-export const updateNewMessageText = (newText: string) => ({type: MESSAGE.UPDATE_NEW_MESSAGE_TEXT, newText: newText });
-export const addNewMessage = () => ({ type: MESSAGE.ADD_NEW_MESSAGE });
+export const newMessageTextActionCreater = (newText: string) => ({
+  type: MESSAGE.UPDATE_NEW_MESSAGE_TEXT,
+  newText: newText,
+});
+export const newMessageActionCreater = () => ({
+  type: MESSAGE.ADD_NEW_MESSAGE,
+});

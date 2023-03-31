@@ -1,0 +1,21 @@
+.container{
+	height: 100%
+}
+
+.news_container {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.news_neader {
+}
+
+.news_main {
+	border: solid black 1px;
+	flex: 1 1 auto;
+}
+
+.news_footer {
+
+}

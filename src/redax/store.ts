@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
-import {messageReducer} from "./message_reducer";
-import {postReducer} from "./post_reducer";
+import {profilePageReducer} from "./profilePage_reducer";
+import {postReducer} from "./blogPage_reducer";
 
 export type PersonType = {
     id: string;
@@ -100,7 +100,7 @@ const store: RootStoreType = {
     },
     dispatch(action: ActionType) {
         this._state.blogPage = postReducer(this._state.blogPage, action)
-        this._state.profilePage = messageReducer(this._state.profilePage, action)
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action)
         this._rerenderEntireTree(this._state);
     },
 

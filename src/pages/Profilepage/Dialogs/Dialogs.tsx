@@ -1,8 +1,8 @@
 import { ChangeEvent, KeyboardEvent } from "react";
 import Message from "./Message/Message";
 import style from "./Dialogs.module.scss";
-import {ActionType, MessageType, ProfilePageType} from "../../../redax/state";
-import { addNewMessage, updateNewMessageText } from "../../../redax/message_reducer";
+import {ActionType, MessageType, ProfilePageType} from "../../../redax/store";
+import { newMessageActionCreater, newMessageTextActionCreater } from "../../../redax/profilePage_reducer";
 import { Button } from "../../../components/Button/Button";
 
 type DialogsPropsType = {
@@ -15,14 +15,14 @@ function Dialogs({ state, dispatch }: DialogsPropsType) {
     event: ChangeEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    dispatch(updateNewMessageText(event.currentTarget.value));
+    dispatch(newMessageTextActionCreater(event.currentTarget.value));
   };
   const sendMessageHandler = () => {
-    dispatch(addNewMessage());
+    dispatch(newMessageActionCreater());
   };
   const onKeyDownSendMessageHandler = (event: KeyboardEvent) => {
     if (event.key === "Enter" && event.ctrlKey) {
-      dispatch(addNewMessage());
+      dispatch(newMessageActionCreater());
     }
   };
 

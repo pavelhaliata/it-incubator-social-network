@@ -14,18 +14,19 @@
     overflow: hidden;
     position: relative;
     z-index: 2;
+    img {
+       max-width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
 }
 
-img {
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center;
-}
+
 
 .message__body {
-    max-width: 100%;
+    max-width: 300px;
     word-wrap: break-word;
-    line-height: 24px;
+    line-height: 1.3rem;
     position: relative;
     padding: 10px 20px;
     border-radius: 25px;
@@ -45,7 +46,6 @@ img {
     width: 20px;
     background-color: #ffff;
     border-bottom-right-radius: 16px 14px;
-
 }
 
 .message__body::after {
@@ -57,21 +57,19 @@ img {
 
 .message__autor {
     color: rgb(71, 110, 237);
-    margin-bottom: 10px;
-    font-size: 15px;
+    margin-bottom: 5px;
+    font-size: .9rem;
     font-weight: 600;
 }
 
 .message__text {
     color: black;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
 }
 
 .message__time {
     color: rgb(128, 128, 128);
-    font-size: 15px;
+    font-size: .9rem;
     text-align: end;
-    margin-top: -10px;
-    position: relative;
-    z-index: 2;
-    padding: 5px;
 }
