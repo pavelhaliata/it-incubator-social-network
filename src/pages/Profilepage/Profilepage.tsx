@@ -2,9 +2,7 @@ import style from "./Profilepage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect } from "react";
 
-interface IProps {
-  className?: string;
-}
+
 type MainPropsType = {
   setStatePage: (value: string) => void;
 };
@@ -27,8 +25,8 @@ function Profilepage({ setStatePage }: MainPropsType) {
             alt="img"
           />
         </div>
-        <div className={style.profile}>
-          <div className={style.profile_item}>
+        <div className={style.header_nav}>
+          <div className={style.nav_item}>
             <ul className={style.item_menu}>
               <li>
                 <NavLink to="/friends" className={navLinkActive}>
@@ -45,7 +43,7 @@ function Profilepage({ setStatePage }: MainPropsType) {
               </li>
             </ul>
           </div>
-          <div className={`${style.profile_item} ${style.ml_auto}`}>
+          <div className={`${style.nav_item} ${style.ml_auto}`}>
             <ul className={style.item_menu}>
               <li>
                 <NavLink to="/news" className={navLinkActive}>
@@ -61,8 +59,8 @@ function Profilepage({ setStatePage }: MainPropsType) {
             </ul>
           </div>
         </div>
-        <div className={style.top_header_author}>
-          <a href="#" className={style.autor_img}>
+        <div className={style.header_author}>
+          <a href="#" className={style.author_img}>
             <img
               src="https://html.crumina.net/html-olympus/img/author-main1.webp"
               alt="author"

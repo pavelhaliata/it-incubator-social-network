@@ -1,35 +1,35 @@
 import { ChangeEvent, KeyboardEvent } from "react";
 import Message from "./Message/Message";
 import style from "./Dialogs.module.scss";
-import {ActionType, MessageType, ProfilePageType} from "../../../redax/store";
-import { newMessageActionCreater, newMessageTextActionCreater } from "../../../redax/profilePage_reducer";
+import {MessageType} from "../../../redux/store";
 import { Button } from "../../../components/Button/Button";
 
 type DialogsPropsType = {
-  dispatch: (action: ActionType) => void
-  state: ProfilePageType;
+  messageTextValue: string
+  updateNewMessageText: (value: string) => void
+  addNewMessage: () => void
+  messagesData: Array<MessageType>
 };
 
-function Dialogs({ state, dispatch }: DialogsPropsType) {
-  const updateNewMessageTextHandler = (
-    event: ChangeEvent<HTMLTextAreaElement>
-  ) => {
+function Dialogs({ messageTextValue, updateNewMessageText, messagesData, addNewMessage }: DialogsPropsType) {
+
+  const onChangeTextInputHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
-    dispatch(newMessageTextActionCreater(event.currentTarget.value));
+    updateNewMessageText(event.currentTarget.value)
   };
   const sendMessageHandler = () => {
-    dispatch(newMessageActionCreater());
+    addNewMessage()
   };
   const onKeyDownSendMessageHandler = (event: KeyboardEvent) => {
     if (event.key === "Enter" && event.ctrlKey) {
-      dispatch(newMessageActionCreater());
+      addNewMessage()
     }
   };
 
   return (
     <div className={`${style.dialogs}`}>
       <div className={`${style.dialog_item} ${style.author}`}>
-        {state.messagesData && state.messagesData.map((data: MessageType) => {
+        {messagesData && messagesData.map((data: MessageType) => {
             return (
               <Message
                 key={data.id}
@@ -46,8 +46,8 @@ function Dialogs({ state, dispatch }: DialogsPropsType) {
         <textarea
           className=""
           placeholder="Enter your message..."
-          value={state.newMessageTextData}
-          onChange={updateNewMessageTextHandler}
+          value={messageTextValue}
+          onChange={onChangeTextInputHandler}
           onKeyDown={onKeyDownSendMessageHandler}
         />
         <Button callback={sendMessageHandler}>Send</Button>

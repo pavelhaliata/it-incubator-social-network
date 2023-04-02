@@ -1,4 +1,4 @@
-import {PersonType} from "../../../../redax/store";
+import {PersonType} from "../../../../redux/store";
 import style from "./Person.module.scss"
 
 export const Person = ({backgroundImg, avatar, name, country }: PersonType) => {

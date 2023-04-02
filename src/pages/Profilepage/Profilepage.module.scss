@@ -36,11 +36,11 @@
 	}
 }
 
-.profile {
+.header_nav {
 	display: flex;
 	padding: 20px;
 
-	.profile_item {
+	.nav_item {
 		flex: 0 0 auto;
 		width: 41.66667%;
 	}
@@ -72,7 +72,7 @@
 	}
 }
 
-.top_header_author {
+.header_author {
 	position: absolute;
 	left: 50%;
 	top: 45%;
@@ -85,7 +85,7 @@
 	flex-direction: column;
 }
 
-.autor_img {
+.author_img {
 	display: block;
 	border-radius: 100%;
 	border: 6px solid white;
@@ -118,5 +118,5 @@
 .profile_content {
 	height: 64%;
 	// border: #ff0000 2px solid;
-	padding: 10px 0px;
+	padding: 10px 0;
 }

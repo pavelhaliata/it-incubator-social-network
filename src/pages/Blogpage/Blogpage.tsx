@@ -1,36 +1,31 @@
-import React, { useEffect } from "react";
-import style from "./Blogpage.module.scss";
 import { ChangeEvent, KeyboardEvent } from "react";
+import style from "./BlogPage.module.scss";
 import { Button } from "../../components/Button/Button";
-import { newPostActionCreate, newPostTextActionCreater } from "../../redax/blogPage_reducer";
-import {ActionType, BlogPageType} from "../../redax/store";
-import { Post } from "./Post/Post";
+import {Post} from "./Post/Post";
+import {PostType} from "../../redux/store";
+
 
 
 type BlogPageProps = {
-  setStatePage: (value: string) => void;
-  dispatch: (Value: ActionType) => void
-  state: BlogPageType;
+  postTextValue: string
+  updatePostText:(value: string) => void
+  addNewPost: () => void
+  postsData: Array<PostType>
 };
 
-export const BlogPage = ({setStatePage, dispatch, state }: BlogPageProps) => {
-  
-  useEffect(() => {
-    document.title = "My Blog";
-    setStatePage("blogpage");
-  }, []);
+export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost }: BlogPageProps) => {
 
-  const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeTextInputHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
-    dispatch(newPostTextActionCreater(event.currentTarget.value));
+    updatePostText(event.currentTarget.value)
   };
-  const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+  const onKeyDownCreatePostHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.ctrlKey && event.key === "Enter") {
-		dispatch(newPostActionCreate());
+      addNewPost()
     }
   };
   const createPostHandler = () => {
-    dispatch(newPostActionCreate());
+    addNewPost()
   };
 
   return (
@@ -40,10 +35,10 @@ export const BlogPage = ({setStatePage, dispatch, state }: BlogPageProps) => {
           <textarea
             className={style.form_control}
             name="text"
-            value={state.newPostTextData}
+            value={postTextValue}
             placeholder="Remember, to be very polite to each other ;)"
-            onChange={onChangeHandler}
-            onKeyDown={onKeyPressHandler}
+            onChange={onChangeTextInputHandler}
+            onKeyDown={onKeyDownCreatePostHandler}
           />
         </div>
 
@@ -54,8 +49,8 @@ export const BlogPage = ({setStatePage, dispatch, state }: BlogPageProps) => {
         </div>
       </div>
       <div className={style.post_items}>
-        {state.postsData
-          ? state.postsData.map((data) => <Post key={data.id} post={data.post} />)
+        {postsData
+          ? postsData.map((data) => <Post key={data.id} post={data.post} />)
           : ""}
       </div>
     </>
