@@ -6,6 +6,10 @@ enum MESSAGE {
     ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
 }
 
+type NewMessageTextActionCreatorType = ReturnType<typeof newMessageTextActionCreator>;
+type NewMessageActionCreatorType = ReturnType<typeof newMessageActionCreator>;
+type ActionCreatorTypeProfilePage = NewMessageTextActionCreatorType | NewMessageActionCreatorType;
+
 const initialState: ProfilePageType = {
     newMessageTextData: "",
     messagesData: [],
@@ -40,7 +44,7 @@ const initialState: ProfilePageType = {
         }]
 };
 
-export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionCreatorType) => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionCreatorTypeProfilePage) => {
     switch (action.type) {
         case MESSAGE.UPDATE_NEW_MESSAGE_TEXT:
             if (action.newText)
@@ -67,7 +71,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
 export const newMessageTextActionCreator = (newText: string) => ({
     type: MESSAGE.UPDATE_NEW_MESSAGE_TEXT,
     newText: newText,
-});
+}as const);
 export const newMessageActionCreator = () => ({
     type: MESSAGE.ADD_NEW_MESSAGE,
-});
+} as const);

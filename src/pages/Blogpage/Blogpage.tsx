@@ -1,8 +1,9 @@
 import { ChangeEvent, KeyboardEvent } from "react";
-import style from "./BlogPage.module.scss";
+import style from "./Blogpage.module.scss";
 import { Button } from "../../components/Button/Button";
-import {Post} from "./Post/Post";
+
 import {PostType} from "../../redux/store";
+import { Post } from "./Post/Post";
 
 
 

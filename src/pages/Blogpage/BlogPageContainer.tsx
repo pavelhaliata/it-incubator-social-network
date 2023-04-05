@@ -1,7 +1,7 @@
-import {BlogPage} from "./BlogPage";
 import {StateDataType} from "../../redux/store";
 import {useEffect} from "react";
 import {newPostActionCreator, newPostTextActionCreator} from "../../redux/blogPage_reducer";
+import { BlogPage } from "./Blogpage";
 
 
 type BlogPageContainerProps = {

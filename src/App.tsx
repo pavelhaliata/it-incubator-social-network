@@ -5,13 +5,13 @@ import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
 import {ActionCreatorType, StateDataType,} from './redux/store';
 import { Newspage } from './pages/Newspage/Newspage';
-import {BlogPageContainer} from "./pages/BlogPage/BlogPageContainer";
 import {DialogsContainer} from "./pages/Profilepage/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./pages/Profilepage/Friends/FriendsContainer";
+import { BlogPageContainer } from './pages/Blogpage/BlogPageContainer';
 
 
 type AppPropsType = {
-	dispatch: (action: ActionCreatorType) => void
+	dispatch: (action: any) => void
 	state: StateDataType
 	store: any
 }

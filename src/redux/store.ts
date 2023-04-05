@@ -69,8 +69,8 @@ const store: RootStoreType = {
         this._rerenderEntireTree = observer;
     },
     dispatch(action: ActionCreatorType) {
-        this._state.blogPage = blogPageReducer(this._state.blogPage, action)
-        this._state.profilePage = profilePageReducer(this._state.profilePage, action)
+        //this._state.blogPage = blogPageReducer(this._state.blogPage, action)
+        //this._state.profilePage = profilePageReducer(this._state.profilePage, action)
         this._rerenderEntireTree(this._state);
     },
 
