@@ -1,20 +1,17 @@
 import {StateDataType} from "../../../redux/store";
 import {newMessageActionCreator, newMessageTextActionCreator} from "../../../redux/profilePage_reducer";
 import Dialogs from "./Dialogs";
-import { StoreContext } from "../../../StoreContext";
+import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
+import {ReduxStateType} from "../../../redux/redux-store";
+import {Store} from "redux";
 
-
-type DialogsPropsType = {
-
-};
 
 export const DialogsContainer = () => {
 
     return (
         <StoreContext.Consumer>
             {
-                (store: any) => {
-
+                (store:  Store<ReduxStateType, ActionCreatorsTypes>) => {
                     const state: StateDataType = store.getState()
                     const updateNewMessageText = (value: string) => {
                         store.dispatch(newMessageTextActionCreator(value));

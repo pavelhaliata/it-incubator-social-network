@@ -43,8 +43,14 @@ export type ActionCreatorType = {
     type: string
     newText?: string
 };
+ type RootReduxStoreType = {
+    _state: StateDataType;
+    subscribe: (observer: any) => void;
+    getState: () => void;
+    dispatch: (action: ActionCreatorType) => void;
+};
 
-export type RootStoreType = {
+ type RootStoreType = {
     _state: StateDataType;
     _rerenderEntireTree: (value: StateDataType) => void;
     subscribe: (observer: any) => void;
@@ -71,7 +77,7 @@ const store: RootStoreType = {
     dispatch(action: ActionCreatorType) {
         //this._state.blogPage = blogPageReducer(this._state.blogPage, action)
         //this._state.profilePage = profilePageReducer(this._state.profilePage, action)
-        this._rerenderEntireTree(this._state);
+        //this._rerenderEntireTree(this._state);
     },
 
 };

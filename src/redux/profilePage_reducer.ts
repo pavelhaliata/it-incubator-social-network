@@ -8,7 +8,7 @@ enum MESSAGE {
 
 type NewMessageTextActionCreatorType = ReturnType<typeof newMessageTextActionCreator>;
 type NewMessageActionCreatorType = ReturnType<typeof newMessageActionCreator>;
-type ActionCreatorTypeProfilePage = NewMessageTextActionCreatorType | NewMessageActionCreatorType;
+export type ActionCreatorTypeProfilePage = NewMessageTextActionCreatorType | NewMessageActionCreatorType;
 
 const initialState: ProfilePageType = {
     newMessageTextData: "",

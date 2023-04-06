@@ -1,5 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
-import { BlogPageType, PostType } from "./store";
+
+type PostType = {
+  id: string;
+  post: string;
+};
+
+type BlogPageType = {
+  newPostTextData: string;
+  postsData: Array<PostType>;
+};
 
 enum POST {
   UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
@@ -8,7 +17,7 @@ enum POST {
 
 type NewPostTextActionCreatorType = ReturnType<typeof newPostTextActionCreator>;
 type NewPostActionCreatorType = ReturnType<typeof newPostActionCreator>;
-type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
+export type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
 
 const initialState: BlogPageType = {
   newPostTextData: "",
