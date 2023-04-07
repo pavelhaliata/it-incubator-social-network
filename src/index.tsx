@@ -5,8 +5,9 @@ import 'normalize.css';
 import './index.css';
 import App from './App';
 import {StateDataType} from './redux/store';
-import {Provider} from './StoreContext';
+// import {Provider} from './StoreContext';
 import store from "./redux/redux-store";
+import { Provider } from 'react-redux';
 
 
 

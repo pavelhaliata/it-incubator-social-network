@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from "uuid";
-import {ActionCreatorType, MessageType, ProfilePageType} from "./store";
+import { MessageType, ProfilePageType} from "./store";
 
 enum MESSAGE {
     UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",

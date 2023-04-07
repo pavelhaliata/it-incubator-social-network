@@ -4,9 +4,10 @@ import Dialogs from "./Dialogs";
 import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
 import {ReduxStateType} from "../../../redux/redux-store";
 import {Store} from "redux";
+import { connect } from "react-redux";
 
 
-export const DialogsContainer = () => {
+export const DialogsContainer_block = () => {
 
     return (
         <StoreContext.Consumer>
@@ -32,4 +33,17 @@ export const DialogsContainer = () => {
     );
 }
 
+const mapStateToProps = (state: StateDataType) =>{
+    return{
+        messageTextValue : state.profilePage.newMessageTextData,
+        messagesData: state.profilePage.messagesData
+    }
+}
 
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        updateNewMessageText: (value: string) => {dispatch(newMessageTextActionCreator(value))},
+        addNewMessage: () => {dispatch(newMessageActionCreator());}
+    }
+}
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
