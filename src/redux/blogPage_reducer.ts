@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 
-type PostType = {
+export type PostType = {
   id: string;
   post: string;
+  time: string
 };
 
-type BlogPageType = {
+export type BlogPageType = {
   newPostTextData: string;
   postsData: Array<PostType>;
 };
@@ -27,17 +28,22 @@ const initialState: BlogPageType = {
 export const blogPageReducer = (state: BlogPageType = initialState, action: ActionCreatorBlogPageType) => {
   switch (action.type) {
     case POST.UPDATE_NEW_POST_TEXT:
-      if (action.newText) 
-      state.newPostTextData = action.newText;
-      return state;
+        return {
+          ...state,
+          newPostTextData: action.newText
+        }
     case POST.ADD_NEW_POST:
       const postCreate: PostType = {
         id: uuidv4(),
         post: state.newPostTextData,
+        time: new Date().toLocaleTimeString().slice(0, -3)
       };
       if (state.newPostTextData.trim() !== "") {
-        state.postsData.push(postCreate);
-        state.newPostTextData = "";
+        return{
+          ...state,
+          postsData: [...state.postsData.map(p => ({...p})), postCreate],
+          newPostTextData: ""
+        }
       }
       return state;
     default:

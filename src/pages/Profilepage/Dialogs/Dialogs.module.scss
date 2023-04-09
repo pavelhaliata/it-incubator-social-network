@@ -1,14 +1,11 @@
 .dialogs {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  overflow-y: auto;
+  height: 50vh;
+  margin-bottom: 55px;
 }
 
 .dialog_item {
-  flex: 1 1 100px;
-  overflow-y: auto;
-  // height: 54px;
-   // решить вопрос с тем чтобы прижать input
+
 }
 
 .author {
@@ -25,6 +22,11 @@
 
 
 .dialog_input {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
   display: flex;
   border-top-right-radius: .3rem;
   border-bottom-right-radius: .3rem;

@@ -1,22 +1,22 @@
-import { StateDataType } from "../../redux/store";
-import { useEffect } from "react";
-import {
-  newPostActionCreator,
-  newPostTextActionCreator,
-} from "../../redux/blogPage_reducer";
-import { BlogPage } from "./Blogpage";
-import { Store } from "redux";
-import { ReduxStateType } from "../../redux/redux-store";
-import { ActionCreatorsTypes } from "../../StoreContext";
-import { connect } from "react-redux";
+import {StateDataType} from "../../redux/store";
+import {useEffect} from "react";
+import {newPostActionCreator, newPostTextActionCreator} from "../../redux/blogPage_reducer";
+import {ActionCreatorsTypes} from "../../StoreContext";
+import {ReduxStateType} from "../../redux/redux-store";
+import {Store, Dispatch } from "redux";
+import {connect} from "react-redux";
+import {BlogPage} from "./Blogpage";
+
+
 
 type BlogPageContainerProps = {
   //setStatePage: (value: string) => void;
   store: Store<ReduxStateType, ActionCreatorsTypes>;
+
 };
 
 export const BlogPageContainer_block = ({store}: BlogPageContainerProps) => {
-  const state: StateDataType = store.getState();
+  const state: StateDataType = store.getState(); //!!! типизация state из redux/store
 
   useEffect(() => {
     document.title = "My Blog";
@@ -42,7 +42,8 @@ export const BlogPageContainer_block = ({store}: BlogPageContainerProps) => {
   );
 };
 //==================================================================
-const mapStateToProps = (state: StateDataType) => {
+//!!! типизация state из redux/store
+const mapStateToProps = (state: StateDataType ) => {
   return {
     postTextValue: state.blogPage.newPostTextData,
     postsData: state.blogPage.postsData,

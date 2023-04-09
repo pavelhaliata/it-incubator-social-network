@@ -7,13 +7,16 @@ type MainPropsType = {
   setStatePage: (value: string) => void;
 };
 
-const navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");
+
 
 function Profilepage({ setStatePage }: MainPropsType) {
+
   useEffect(() => {
     document.title = "My Profile";
     setStatePage("profilepage");
   }, []);
+
+  const navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");
 
   return (
     <div className={`${style.profile_container}`}>

@@ -1,10 +1,8 @@
 import { ChangeEvent, KeyboardEvent } from "react";
-import style from "./Blogpage.module.scss";
+import style from "./BlogPage.module.scss"
 import { Button } from "../../components/Button/Button";
-
-import {PostType} from "../../redux/store";
 import { Post } from "./Post/Post";
-
+import {PostType} from "../../redux/blogPage_reducer";
 
 
 type BlogPageProps = {
@@ -51,7 +49,7 @@ export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost 
       </div>
       <div className={style.post_items}>
         {postsData
-          ? postsData.map((data) => <Post key={data.id} post={data.post} />)
+          ? postsData.map((data) => <Post key={data.id} post={data.post} time={data.time} />)
           : ""}
       </div>
     </>

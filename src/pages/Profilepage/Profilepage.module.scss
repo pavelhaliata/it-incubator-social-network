@@ -1,13 +1,12 @@
 .profile_container{
-	height: 100%;
-	// border: #000000 2px solid;
+	min-height: 100%;
+	position: relative;
 }
 
 .profile_header {
 	position: relative;
 	border-radius: .5rem;
 	overflow: hidden;
-	min-width: 100%;
 	background-color: #ffff;
 }
 
@@ -38,8 +37,11 @@
 
 .header_nav {
 	display: flex;
-	padding: 20px;
+	padding: 35px 0;
+	justify-content: center;
+	@media screen and (min-width: 992px) {
 
+	}
 	.nav_item {
 		flex: 0 0 auto;
 		width: 41.66667%;
@@ -47,23 +49,31 @@
 }
 
 .ml_auto {
-	margin-left: auto;
+	@media screen and (min-width: 992px) {
+		margin-left: auto;
+	}
+
 }
 
 .item_menu {
+	//border: black solid 1px;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
+	@media screen and (min-width: 992px) {
+		justify-content: space-evenly;
+	}
 
 	li a {
 		font-size: 14px;
 		font-weight: 700;
 		cursor: pointer;
-		color: #515365;
+		color: #9a9fbf;
+
 		transition: all .15s ease;
 
 		&:not(.active):hover {
-			color: #ff5e3a;
+			color: #515365;
 		}
 	}
 
@@ -73,16 +83,25 @@
 }
 
 .header_author {
-	position: absolute;
-	left: 50%;
-	top: 45%;
-	transform: translate(-50%, 0);
 	max-width: 200px;
+	width: 100%;
 	text-align: center;
-	z-index: 4;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	position: relative;
+	left: 50%;
+	top: 0;
+	transform: translate(-50%, 0);
+	margin-bottom: 10px;
+	@media screen and (min-width: 992px) {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, 0);
+		z-index: 4;
+	}
+
 }
 
 .author_img {
@@ -104,7 +123,12 @@
 	}
 }
 
-.author_content {}
+.author_content {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 
 .author_name {
 	font-size: calc(1.2625rem + .15vw);
@@ -116,7 +140,6 @@
 
 // ===================
 .profile_content {
-	height: 64%;
-	// border: #ff0000 2px solid;
+	max-height: 100%;
 	padding: 10px 0;
 }

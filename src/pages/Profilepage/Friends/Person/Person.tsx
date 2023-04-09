@@ -1,5 +1,5 @@
-import {PersonType} from "../../../../redux/store";
 import style from "./Person.module.scss"
+import {PersonType} from "../../../../redux/profilePage_reducer";
 
 export const Person = ({backgroundImg, avatar, name, country }: PersonType) => {
     return (

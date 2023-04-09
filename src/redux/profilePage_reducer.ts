@@ -1,7 +1,26 @@
 import {v4 as uuidv4} from "uuid";
-import { MessageType, ProfilePageType} from "./store";
 
-enum MESSAGE {
+export type PersonType = {
+    id: string;
+    backgroundImg: string;
+    avatar: string;
+    name: string;
+    country: string;
+};
+export type MessageType = {
+    id: string;
+    avatar: string;
+    name: string;
+    message: string;
+    time: string;
+};
+export type ProfilePageType = {
+    newMessageTextData: string
+    messagesData: Array<MessageType>
+    personsData: Array<PersonType>;
+};
+
+enum PROFILE_PAGE {
     UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT",
     ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
 }
@@ -46,11 +65,13 @@ const initialState: ProfilePageType = {
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionCreatorTypeProfilePage) => {
     switch (action.type) {
-        case MESSAGE.UPDATE_NEW_MESSAGE_TEXT:
-            if (action.newText)
-                state.newMessageTextData = action.newText;
+        case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
+            return {
+                ...state,
+                newMessageTextData: action.newText
+            }
             return state;
-        case MESSAGE.ADD_NEW_MESSAGE:
+        case PROFILE_PAGE.ADD_NEW_MESSAGE:
             if (state.newMessageTextData.trim() !== "") {
                 const messageData: MessageType = {
                     id: uuidv4(),
@@ -59,8 +80,11 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
                     message: state.newMessageTextData,
                     time: new Date().toLocaleTimeString().slice(0, -3),
                 };
-                state.messagesData.push(messageData);
-                state.newMessageTextData = "";
+                return {
+                    ...state,
+                    messagesData: [...state.messagesData.map(i => ({...i})), messageData],
+                    newMessageTextData: ""
+                }
             }
             return state;
         default:
@@ -69,9 +93,9 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
 };
 
 export const newMessageTextActionCreator = (newText: string) => ({
-    type: MESSAGE.UPDATE_NEW_MESSAGE_TEXT,
+    type: PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT,
     newText: newText,
-}as const);
+} as const);
 export const newMessageActionCreator = () => ({
-    type: MESSAGE.ADD_NEW_MESSAGE,
+    type: PROFILE_PAGE.ADD_NEW_MESSAGE,
 } as const);

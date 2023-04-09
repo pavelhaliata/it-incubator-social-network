@@ -1,8 +1,8 @@
 import { ChangeEvent, KeyboardEvent } from "react";
 import Message from "./Message/Message";
 import style from "./Dialogs.module.scss";
-import {MessageType} from "../../../redux/store";
 import { Button } from "../../../components/Button/Button";
+import {MessageType} from "../../../redux/profilePage_reducer";
 
 type DialogsPropsType = {
   messageTextValue: string
@@ -30,22 +30,22 @@ function Dialogs({ messageTextValue, updateNewMessageText, messagesData, addNewM
     <div className={`${style.dialogs}`}>
       <div className={`${style.dialog_item} ${style.author}`}>
         {messagesData && messagesData.map((data: MessageType) => {
-            return (
+          return (
               <Message
-                key={data.id}
-                avatar={data.avatar}
-                name={data.name}
-                message={data.message}
-                time={data.time}
+                  key={data.id}
+                  avatar={data.avatar}
+                  name={data.name}
+                  message={data.message}
+                  time={data.time}
               />
-            );
-          })}
+          );
+        })}
       </div>
       {/* <div className={`${style.item} ${style.companion}`}></div> */}
       <div className={style.dialog_input}>
         <textarea
           className=""
-          placeholder="Enter your message..."
+          placeholder="Write message..."
           value={messageTextValue}
           onChange={onChangeTextInputHandler}
           onKeyDown={onKeyDownSendMessageHandler}

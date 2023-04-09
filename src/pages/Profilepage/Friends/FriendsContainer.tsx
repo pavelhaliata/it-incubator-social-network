@@ -1,18 +1,29 @@
 import {StateDataType} from "../../../redux/store"
 import {Friends} from "./Friends";
+import {connect} from "react-redux";
 
 
 type FriendsContainerProps = {
     store: any
 }
 
-export const FriendsContainer = ({ store }: FriendsContainerProps) => {
+ const FriendsContainer_block = ({store}: FriendsContainerProps) => {
     const state: StateDataType = store.getState()
     return (
         <>
-            <Friends state={state.profilePage.personsData}/>
+            <Friends personsData={state.profilePage.personsData}/>
         </>
     )
 }
+//!!! типизация state из redux/store
 
+const mapStateToProps = (state: StateDataType) => {
+    return {
+        personsData: state.profilePage.personsData
+    }
+}
+const mapDispatchToProps = (dispatch: any) => {
+    return {}
+}
 
+export const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends)

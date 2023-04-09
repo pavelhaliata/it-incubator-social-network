@@ -3,7 +3,7 @@ import {profilePageReducer} from "./profilePage_reducer";
 import {blogPageReducer} from "./blogPage_reducer";
 import { ActionCreatorsTypes } from "../StoreContext";
 
-export type PersonType = {
+type PersonType = {
     id: string;
     backgroundImg: string;
     avatar: string;
@@ -11,7 +11,7 @@ export type PersonType = {
     country: string;
 };
 
-export type MessageType = {
+type MessageType = {
     id: string;
     avatar: string;
     name: string;
@@ -19,18 +19,18 @@ export type MessageType = {
     time: string;
 };
 
-export type PostType = {
+ type PostType = {
     id: string;
     post: string;
+    time: string
 };
 
-export type ProfilePageType = {
+ type ProfilePageType = {
     newMessageTextData: string
     messagesData: Array<MessageType>
     personsData: Array<PersonType>;
 };
-
-export type BlogPageType = {
+ type BlogPageType = {
     newPostTextData: string;
     postsData: Array<PostType>;
 };
@@ -76,9 +76,9 @@ const store: RootStoreType = {
         this._rerenderEntireTree = observer;
     },
     dispatch(action: any) {
-        this._state.blogPage = blogPageReducer(this._state.blogPage, action)
-        this._state.profilePage = profilePageReducer(this._state.profilePage, action)
-        this._rerenderEntireTree(this._state);
+        //this._state.blogPage = blogPageReducer(this._state.blogPage, action)
+        //this._state.profilePage = profilePageReducer(this._state.profilePage, action)
+        //this._rerenderEntireTree(this._state);
     },
 
 };

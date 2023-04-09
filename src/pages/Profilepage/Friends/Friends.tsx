@@ -1,23 +1,23 @@
-import {PersonType} from "../../../redux/store"
 import style from "./Friends.module.scss"
 import {Person} from "./Person/Person";
+import {PersonType} from "../../../redux/profilePage_reducer";
 
 type FriendsPropsType = {
-    state: Array<PersonType>
+    personsData: Array<PersonType>
 }
 
-export const Friends = ({state}: FriendsPropsType) => {
+export const Friends = ({personsData}: FriendsPropsType) => {
 
     return (
         <div className={style.container_fluid}>
-            {state && state.map((p) => {
+            {personsData && personsData.map((data) => {
                 return <Person
-                    id={p.id}
-                    key={p.id}
-                    backgroundImg={p.backgroundImg}
-                    avatar={p.avatar}
-                    name={p.name}
-                    country={p.country}/>
+                    id={data.id}
+                    key={data.id}
+                    backgroundImg={data.backgroundImg}
+                    avatar={data.avatar}
+                    name={data.name}
+                    country={data.country}/>
             })}
         </div>
     )
