@@ -33,7 +33,7 @@ export const blogPageReducer = (state: BlogPageType = initialState, action: Acti
           newPostTextData: action.newText
         }
     case POST.ADD_NEW_POST:
-      const postCreate: PostType = {
+      const post: PostType = {
         id: uuidv4(),
         post: state.newPostTextData,
         time: new Date().toLocaleTimeString().slice(0, -3)
@@ -41,7 +41,7 @@ export const blogPageReducer = (state: BlogPageType = initialState, action: Acti
       if (state.newPostTextData.trim() !== "") {
         return{
           ...state,
-          postsData: [...state.postsData.map(p => ({...p})), postCreate],
+          postsData: [...state.postsData.map(p => ({...p})), post], //!!! уточнить по поводу глубокой копии с помощью map
           newPostTextData: ""
         }
       }

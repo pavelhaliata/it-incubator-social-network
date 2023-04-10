@@ -10,7 +10,7 @@ import {FriendsContainer} from "./pages/Profilepage/Friends/FriendsContainer";
 import {ActionCreatorsTypes} from "./StoreContext";
 import {ReduxStateType} from "./redux/redux-store";
 import {Store} from "redux";
-import {BlogPageContainer} from "./pages/BlogPage/BlogPageContainer";
+import { BlogPageContainer } from './pages/Blogpage/BlogPageContainer';
 
 function App() {
 

@@ -3,7 +3,7 @@
 *::after {
   padding: 0;
   margin: 0;
-  border: 0; /*!!!*/
+  border: 0; /*!!! */
   outline: none;
 	-moz-appearance: none;
   box-sizing: border-box;
@@ -31,8 +31,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  font-size: clamp(0.813rem, 0.7395rem + 0.3266vw, 1rem);
+  font-size: clamp(0.875rem, 0.794rem + 0.258vw, 1rem);
   font-weight: 400;
   line-height: 1.5;
   color: #888da8;

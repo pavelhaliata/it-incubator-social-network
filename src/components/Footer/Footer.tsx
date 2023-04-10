@@ -13,7 +13,7 @@ function Footer({className}:IProps){
     return(
         <div className={`${s.container} ${className}`}>
             <div className={s.footer}>
-                content here
+                footer well be here
             </div>
         </div>
     );

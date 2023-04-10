@@ -3,13 +3,13 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useEffect } from "react";
 
 
-type MainPropsType = {
+type ProfilepageType = {
   setStatePage: (value: string) => void;
 };
 
 
 
-function Profilepage({ setStatePage }: MainPropsType) {
+function ProfilePage({ setStatePage }: ProfilepageType) {
 
   useEffect(() => {
     document.title = "My Profile";
@@ -86,4 +86,4 @@ function Profilepage({ setStatePage }: MainPropsType) {
   );
 }
 
-export default Profilepage;
+export default ProfilePage;

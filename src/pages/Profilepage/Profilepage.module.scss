@@ -1,3 +1,6 @@
+@import "../../Style/breakpoints.scss";
+
+
 .profile_container{
 	min-height: 100%;
 	position: relative;
@@ -13,8 +16,13 @@
 
 
 .header_banner {
-	height: 300px;
+	height: 190px;
 	position: relative;
+
+	@include lg {
+		height: 300px;
+	}
+	
 
 	&::after {
 		content: '';
@@ -36,20 +44,21 @@
 }
 
 .header_nav {
-	display: flex;
-	padding: 35px 0;
-	justify-content: center;
-	@media screen and (min-width: 992px) {
-
+	padding: 15px 0px;
+	@include lg {
+		display: flex;
+		padding: 35px 0px;
 	}
 	.nav_item {
-		flex: 0 0 auto;
-		width: 41.66667%;
+		flex: 0 1 41.66667%;
+		@include lg {
+			flex: 1 1 100%;
+		}
 	}
 }
 
 .ml_auto {
-	@media screen and (min-width: 992px) {
+	@include lg {
 		margin-left: auto;
 	}
 
@@ -58,10 +67,10 @@
 .item_menu {
 	//border: black solid 1px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
-	@media screen and (min-width: 992px) {
-		justify-content: space-evenly;
+	@include lg {
+		
 	}
 
 	li a {
@@ -94,7 +103,7 @@
 	top: 0;
 	transform: translate(-50%, 0);
 	margin-bottom: 10px;
-	@media screen and (min-width: 992px) {
+	@include lg {
 		position: absolute;
 		left: 50%;
 		top: 50%;
@@ -108,9 +117,13 @@
 	display: block;
 	border-radius: 100%;
 	border: 6px solid white;
-	width: 132px;
-	height: 132px;
+	width: 96px;
+	height: 96px;
 	overflow: hidden;
+	@include lg {
+		width: 132px;
+		height: 132px;
+	}
 
 	img {
 		display: block;
@@ -131,12 +144,14 @@
 }
 
 .author_name {
-	font-size: calc(1.2625rem + .15vw);
+	font-size: clamp(1rem, 0.853rem + 0.734vw, 1.438rem);
 	font-weight: 700;
 	color: #515365;
 }
 
-.country {}
+.country {
+	font-size: clamp(0.625rem, 0.383rem + 0.775vw, 1rem);
+}
 
 // ===================
 .profile_content {
