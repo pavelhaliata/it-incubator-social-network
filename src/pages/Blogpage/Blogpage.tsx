@@ -1,5 +1,5 @@
-import { ChangeEvent, KeyboardEvent } from "react";
-import style from "./Blogpage.module.scss"
+import {ChangeEvent, KeyboardEvent, useEffect} from "react";
+import style from "./BlogPage.module.scss"
 import { Button } from "../../components/Button/Button";
 import { Post } from "./Post/Post";
 import {PostType} from "../../redux/blogPage_reducer";
@@ -10,9 +10,15 @@ type BlogPageProps = {
   updatePostText:(value: string) => void
   addNewPost: () => void
   postsData: Array<PostType>
+  setUpHeaderTitle: (title: string)=> void
 };
 
-export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost }: BlogPageProps) => {
+export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost, setUpHeaderTitle }: BlogPageProps) => {
+
+    useEffect(()=>{
+      document.title = "Blog page"
+      setUpHeaderTitle("blogpage")
+    }, [])
 
   const onChangeTextInputHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();

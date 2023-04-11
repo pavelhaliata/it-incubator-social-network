@@ -11,11 +11,16 @@
 .post {
     display: flex;
     flex-direction: column;
-    p {
-        white-space: pre-wrap; //В тексте сохраняются все пробелы и переносы
+    display: flex;
+    flex-direction: column;
+    & p {
+        white-space: pre-wrap;
         overflow-wrap: break-word;
     }
     span{
         margin-left: auto;
+    }
+    & span {
+      margin-left: auto;
     }
 }

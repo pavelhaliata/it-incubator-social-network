@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Header.module.scss";
+import style from "./Header.module.scss";
 
 interface IProps {
     className?: string
@@ -10,37 +10,37 @@ interface IProps {
 function Header({ className, statePage }: IProps) {
 
     return (
-        <div className={`${s.container} ${className}`}>
-            <div className={s.header}>
-                <div className={s.page_title}>
+        <div className={`${style.container} ${className}`}>
+            <div className={style.header}>
+                <div className={style.page_title}>
                     <h6>{statePage}</h6>
                 </div>
-                <div className={s.header_wrapper}>
+                <div className={style.header_wrapper}>
 
                     {/* <form className={s.header_search_bar}>
                         <input type="text" placeholder="Search here people or pages..." />
                     </form> */}
-                    <a href="#" className={s.link_find_friend}>Find Friends</a>
-                    <div className={s.header_controll_block}>
-                        <div className={s.controll_icon}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776860.png" alt="icon" />
+                    <a href="#" className={style.link_find_friend}>Find Friends</a>
+                    <div className={style.header_controll_block}>
+                        <div className={style.controll_icon}>
+                            <img src="" alt="icon" />
                         </div>
-                        <div className={s.controll_icon}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776739.png" alt="icon" />
+                        <div className={style.controll_icon}>
+                            <img src="" alt="icon" />
                         </div>
-                        <div className={s.controll_icon}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/8776/8776834.png" alt="icon" />
+                        <div className={style.controll_icon}>
+                            <img src="" alt="icon" />
                         </div>
-                        <div className={s.author_page}>
-                            <div className={s.author_thumb}>
+                        <div className={style.author_page}>
+                            <div className={style.author_thumb}>
                                 <img src="https://html.crumina.net/html-olympus/img/author-page.webp" alt="img author" />
-                                <span className={`${s.icon_status} ${s.online}`}></span>
+                                <span className={`${style.icon_status} ${style.online}`}></span>
                             </div>
-                            <a href="#" className={s.author_name}>
-                                <div className={s.author_title}>
+                            <a href="#" className={style.author_name}>
+                                <div className={style.author_title}>
                                     James Spiegel
                                 </div>
-                                <span className={s.author_subtitle}>space cowboy</span>
+                                <span className={style.author_subtitle}>space cowboy</span>
                             </a>
                         </div>
                     </div>

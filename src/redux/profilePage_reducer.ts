@@ -31,16 +31,16 @@ enum PROFILE_PAGE {
 
 type NewMessageTextACType = ReturnType<typeof newMessageTextAC>;
 type NewMessageACType = ReturnType<typeof newMessageAC>;
-type followACType = ReturnType<typeof followAC>;
-type unFollowACType = ReturnType<typeof unFollowAC>;
-type setUsersACType = ReturnType<typeof setUsersAC>;
+type FollowACType = ReturnType<typeof followAC>;
+type UnFollowACType = ReturnType<typeof unFollowAC>;
+type SetUsersACType = ReturnType<typeof setUsersAC>;
 
 export type ActionCreatorTypeProfilePage =
   | NewMessageTextACType
   | NewMessageACType
-  | followACType
-  | unFollowACType
-  | setUsersACType;
+  | FollowACType
+  | UnFollowACType
+  | SetUsersACType;
 
 const initialState: ProfilePageType = {
   newMessageTextData: "",
@@ -48,10 +48,7 @@ const initialState: ProfilePageType = {
   usersData: [],
 };
 
-export const profilePageReducer = (
-  state: ProfilePageType = initialState,
-  action: ActionCreatorTypeProfilePage
-) => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionCreatorTypeProfilePage) => {
   switch (action.type) {
     case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
       return {

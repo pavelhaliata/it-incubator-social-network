@@ -6,7 +6,7 @@ import { WeatherPage } from './pages/WeatherPage/WeatherPage';
 import { Newspage } from './pages/Newspage/Newspage';
 import {DialogsContainer} from "./pages/Profilepage/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./pages/Profilepage/Friends/FriendsContainer";
-import { BlogPageContainer } from './pages/Blogpage/BlogPageContainer';
+import {BlogPageContainer} from "./pages/BlogPage/BlogPageContainer";
 
 function App() {
 
