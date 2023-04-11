@@ -1,8 +1,7 @@
-import {StateDataType} from "../../../redux/store";
-import {newMessageActionCreator, newMessageTextActionCreator} from "../../../redux/profilePage_reducer";
+import {newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
 import Dialogs from "./Dialogs";
 import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
-import {ReduxStateType} from "../../../redux/redux-store";
+import {ReduxStateType, StateDataType} from "../../../redux/redux-store";
 import {Store} from "redux";
 import { connect } from "react-redux";
 
@@ -15,10 +14,10 @@ export const DialogsContainer_block = () => {
                 (store:  Store<ReduxStateType, ActionCreatorsTypes>) => {
                     const state: StateDataType = store.getState()
                     const updateNewMessageText = (value: string) => {
-                        store.dispatch(newMessageTextActionCreator(value));
+                        store.dispatch(newMessageTextAC(value));
                     };
                     const addNewMessage = () => {
-                        store.dispatch(newMessageActionCreator());
+                        store.dispatch(newMessageAC());
                     };
                     return <Dialogs
                         updateNewMessageText={updateNewMessageText}
@@ -42,8 +41,8 @@ const mapStateToProps = (state: StateDataType) =>{
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        updateNewMessageText: (value: string) => {dispatch(newMessageTextActionCreator(value))},
-        addNewMessage: () => {dispatch(newMessageActionCreator());}
+        updateNewMessageText: (value: string) => {dispatch(newMessageTextAC(value))},
+        addNewMessage: () => {dispatch(newMessageAC());}
     }
 }
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

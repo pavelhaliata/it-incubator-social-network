@@ -1,7 +1,18 @@
 import style from "./Person.module.scss"
-import {PersonType} from "../../../../redux/profilePage_reducer";
+import { Button } from "../../../../components/Button/Button";
+import { userDataType } from "../../../../redux/profilePage_reducer";
 
-export const Person = ({backgroundImg, avatar, name, country }: PersonType) => {
+type PersonPropsType  = {
+    followPerson: () => void
+    unFollowPerson: () => void
+    backgroundImg: string
+    avatar: string
+    name: string 
+    country: string 
+    followed: boolean
+}
+
+export const Person = ({backgroundImg, avatar, name, country, followed, followPerson, unFollowPerson}: PersonPropsType) => {   
     return (
         <div className={style.friend_item}>
             <div className={style.friend_card}>
@@ -18,9 +29,8 @@ export const Person = ({backgroundImg, avatar, name, country }: PersonType) => {
                             <div className={style.country}>{country}</div>
                         </div>
                     </div>
-                    <div className={style.swiper_container}>
-
-                    </div>
+                    <div>{followed ? <Button callback={unFollowPerson}>Unfollow</Button> : <Button callback={followPerson}>Follow</Button>}</div>
+                    <div className={style.swiper_container}></div>
                 </div>
             </div>
         </div>

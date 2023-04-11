@@ -1,8 +1,7 @@
-import {StateDataType} from "../../redux/store";
 import {useEffect} from "react";
 import {newPostActionCreator, newPostTextActionCreator} from "../../redux/blogPage_reducer";
 import {ActionCreatorsTypes} from "../../StoreContext";
-import {ReduxStateType} from "../../redux/redux-store";
+import {ReduxStateType, StateDataType} from "../../redux/redux-store";
 import {Store, Dispatch } from "redux";
 import {connect} from "react-redux";
 import {BlogPage} from "./Blogpage";
@@ -16,7 +15,7 @@ type BlogPageContainerProps = {
 };
 
 export const BlogPageContainer_block = ({store}: BlogPageContainerProps) => {
-  const state: StateDataType = store.getState(); //!!! типизация state из redux/store
+  const state: StateDataType = store.getState();
 
   useEffect(() => {
     document.title = "My Blog";

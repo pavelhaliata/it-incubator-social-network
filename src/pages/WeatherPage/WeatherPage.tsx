@@ -67,6 +67,7 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
 
     // https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
     useEffect(() => {
+        document.title = "Weather Page";
         setStatePage('weatherpage')
 
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)

@@ -5,6 +5,7 @@ import { ActionCreatorsTypes } from "../StoreContext";
 
 type PersonType = {
     id: string;
+    followed: string;
     backgroundImg: string;
     avatar: string;
     name: string;
@@ -35,7 +36,7 @@ type MessageType = {
     postsData: Array<PostType>;
 };
 
-export type StateDataType = {
+type StateDataType = {
     profilePage: ProfilePageType;
     blogPage: BlogPageType;
 };

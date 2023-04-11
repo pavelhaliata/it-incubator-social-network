@@ -7,7 +7,7 @@ type NewapageType = {
 
 export const Newspage = ({ setStatePage }: NewapageType) => {
   useEffect(() => {
-    document.title = "News";
+    document.title = "News Page";
     setStatePage("newspage");
   }, []);
 

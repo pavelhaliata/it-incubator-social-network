@@ -40,7 +40,6 @@ export const blogPageReducer = (state: BlogPageType = initialState, action: Acti
       };
       if (state.newPostTextData.trim() !== "") {
         return{
-          ...state,
           postsData: [...state.postsData.map(p => ({...p})), post], //!!! уточнить по поводу глубокой копии с помощью map
           newPostTextData: ""
         }

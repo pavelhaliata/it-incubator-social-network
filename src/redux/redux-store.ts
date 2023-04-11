@@ -1,6 +1,12 @@
 import {combineReducers, legacy_createStore as createStore} from "redux";
-import { profilePageReducer } from "./profilePage_reducer";
-import { blogPageReducer } from "./blogPage_reducer";
+import { profilePageReducer, ProfilePageType } from "./profilePage_reducer";
+import { blogPageReducer, BlogPageType } from "./blogPage_reducer";
+
+
+export type StateDataType = {
+  profilePage: ProfilePageType;
+  blogPage: BlogPageType;
+};
 
 export type ReduxStateType = ReturnType<typeof rootReducers>
 

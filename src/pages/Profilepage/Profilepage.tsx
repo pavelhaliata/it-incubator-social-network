@@ -12,7 +12,7 @@ type ProfilepageType = {
 function ProfilePage({ setStatePage }: ProfilepageType) {
 
   useEffect(() => {
-    document.title = "My Profile";
+    document.title = "Profile Page";
     setStatePage("profilepage");
   }, []);
 

@@ -3,13 +3,9 @@ import { useState } from 'react';
 import { Layout } from './components/Layout';
 import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
-import { StateDataType} from './redux/store';
 import { Newspage } from './pages/Newspage/Newspage';
 import {DialogsContainer} from "./pages/Profilepage/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./pages/Profilepage/Friends/FriendsContainer";
-import {ActionCreatorsTypes} from "./StoreContext";
-import {ReduxStateType} from "./redux/redux-store";
-import {Store} from "redux";
 import { BlogPageContainer } from './pages/Blogpage/BlogPageContainer';
 
 function App() {
