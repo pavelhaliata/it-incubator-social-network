@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import { Layout } from './components/Layout';
-import ProfilePage from './pages/Profilepage/Profilepage';
 import { WeatherPage } from './pages/WeatherPage/WeatherPage';
 import { Newspage } from './pages/Newspage/Newspage';
 import {DialogsContainer} from "./pages/Profilepage/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./pages/Profilepage/Friends/FriendsContainer";
-import {BlogPageContainer} from "./pages/BlogPage/BlogPageContainer";
+import { BlogPageContainer } from './pages/Blogpage/BlogPageContainer';
+import { ProfilePageContainer } from './pages/Profilepage/ProfilePageContainer';
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
 		<>
 			<Routes>
 				<Route path='/*' element={<Layout statePage={statePage} />}>
-					<Route path='/*' element={<ProfilePage setStatePage={setStatePage} />}>
+					<Route path='/*' element={<ProfilePageContainer />}>
 						<Route path='dialogs' element={<DialogsContainer />} />
 						<Route path='friends' element={<FriendsContainer />} />
 					</Route>

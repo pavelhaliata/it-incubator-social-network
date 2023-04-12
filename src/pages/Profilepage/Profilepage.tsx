@@ -4,16 +4,16 @@ import { useEffect } from "react";
 
 
 type ProfilepageType = {
-  setStatePage: (value: string) => void;
+  setUpHeaderTitle: (value: string) => void;
 };
 
 
 
-function ProfilePage({ setStatePage }: ProfilepageType) {
+function ProfilePage({ setUpHeaderTitle}: ProfilepageType) {
 
   useEffect(() => {
     document.title = "Profile Page";
-    setStatePage("profilepage");
+    setUpHeaderTitle("profile page");
   }, []);
 
   const navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");

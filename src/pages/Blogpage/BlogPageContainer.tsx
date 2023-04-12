@@ -1,19 +1,13 @@
 import {useEffect} from "react";
-import {newPostActionCreator, newPostTextActionCreator} from "../../redux/blogPage_reducer";
+import {InitialBlogPageStateType, newPostActionCreator, newPostTextActionCreator, PostDataType} from "../../redux/blogPage_reducer";
 import {ActionCreatorsTypes} from "../../StoreContext";
-import {ReduxStateType, StateDataType} from "../../redux/redux-store";
-import {Store, Dispatch } from "redux";
+import {AppStateType, StateType} from "../../redux/redux-store";
+import {Dispatch, Store} from "redux";
 import {connect} from "react-redux";
-import {BlogPage} from "./Blogpage";
 import {headerTitleAC} from "../../redux/headerComponents_reducer";
+import { BlogPage } from "./Blogpage";
 
 
-
-type BlogPageContainerProps = {
-  //setStatePage: (value: string) => void;
-  store: Store<ReduxStateType, ActionCreatorsTypes>;
-
-};
 
 // const BlogPageContainer_block = ({store}: BlogPageContainerProps) => {
 //   const state: StateDataType = store.getState();
@@ -43,19 +37,31 @@ type BlogPageContainerProps = {
 // };
 //==================================================================
 //!!! типизация state из redux/store
-const mapStateToProps = (state: StateDataType ) => {
+/// узнать как лучше типизировать, экспортировать initialStateType или таким образом
+type MapStatePropsType = { 
+  postTextValue: string,
+  postsData: Array<PostDataType>
+}
+
+type MapDispatchPropsType = {
+  updatePostText: (value: string) => void
+  addNewPost: ()=> void
+  setupHeaderTitle: (title: string) => void
+}
+
+export type BlogPageProps = MapStatePropsType & MapDispatchPropsType
+
+const mapStateToProps = (state: AppStateType ): MapStatePropsType => {
   return {
     postTextValue: state.blogPage.newPostTextData,
-    postsData: state.blogPage.postsData,
-    headerTitle: state.headerTitle
-  };
+    postsData: state.blogPage.postsData
+  }; 
 };
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
   return {
     updatePostText: (value: string) => {dispatch(newPostTextActionCreator(value))},
     addNewPost: () => {dispatch(newPostActionCreator())},
-    setUpHeaderTitle: (title: string) => {dispatch(headerTitleAC(title))},
-
+    setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title))},
   };
 };
 export const BlogPageContainer = connect(mapStateToProps, mapDispatchToProps )(BlogPage);

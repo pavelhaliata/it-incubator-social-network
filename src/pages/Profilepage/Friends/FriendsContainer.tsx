@@ -1,6 +1,6 @@
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
-import { StateDataType } from "../../../redux/redux-store";
+import { StateType } from "../../../redux/redux-store";
 import { followAC, setUsersAC, unFollowAC, userDataType } from "../../../redux/profilePage_reducer";
 
 
@@ -17,7 +17,7 @@ import { followAC, setUsersAC, unFollowAC, userDataType } from "../../../redux/p
 //     )
 // }
 //!!! типизация state из redux/store
-const mapStateToProps = (state: StateDataType) => {
+const mapStateToProps = (state: StateType) => {
     return {
         usersData: state.profilePage.usersData
     }

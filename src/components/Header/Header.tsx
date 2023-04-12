@@ -3,17 +3,16 @@ import style from "./Header.module.scss";
 
 interface IProps {
     className?: string
-    statePage: string
+    headerTitle: string
 }
 
 
-function Header({ className, statePage }: IProps) {
-
+function Header({ className, headerTitle }: IProps) {
     return (
         <div className={`${style.container} ${className}`}>
             <div className={style.header}>
                 <div className={style.page_title}>
-                    <h6>{statePage}</h6>
+                    <h6>{headerTitle}</h6>
                 </div>
                 <div className={style.header_wrapper}>
 

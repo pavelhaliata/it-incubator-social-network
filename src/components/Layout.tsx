@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer/Footer';
-import Header from './Header/Header';
+import { HeaderContainer } from './Header/HeaderContainer';
 import style from './Layout.module.scss'
 import Sidebar from './Sidebar/Sidebar';
 
@@ -11,7 +11,7 @@ export const Layout = ({ statePage }: LayoutProps) => {
 	return (
 		<div className={style.wrapper}>
 			<header>
-				<Header className={style.header} statePage={statePage} />
+				<HeaderContainer/>
 			</header>
 			<div className={style.sidebar}>
 				<Sidebar className={''} />

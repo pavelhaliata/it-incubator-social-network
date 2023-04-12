@@ -1,31 +1,27 @@
 import { v4 as uuidv4 } from "uuid";
+enum POST {
+  UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
+  ADD_NEW_POST = "ADD-NEW-POST",
+}
+type NewPostTextActionCreatorType = ReturnType<typeof newPostTextActionCreator>;
+type NewPostActionCreatorType = ReturnType<typeof newPostActionCreator>;
+export type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
 
-export type PostType = {
+export type PostDataType = {
   id: string;
   post: string;
   time: string
 };
 
-export type BlogPageType = {
-  newPostTextData: string;
-  postsData: Array<PostType>;
+export type InitialBlogPageStateType = typeof initialState
+
+
+const initialState = {
+  newPostTextData: "" as string,
+  postsData: [] as Array<PostDataType>,
 };
 
-enum POST {
-  UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
-  ADD_NEW_POST = "ADD-NEW-POST",
-}
-
-type NewPostTextActionCreatorType = ReturnType<typeof newPostTextActionCreator>;
-type NewPostActionCreatorType = ReturnType<typeof newPostActionCreator>;
-export type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
-
-const initialState: BlogPageType = {
-  newPostTextData: "",
-  postsData: [],
-};
-
-export const blogPageReducer = (state: BlogPageType = initialState, action: ActionCreatorBlogPageType) => {
+export const blogPageReducer = (state: InitialBlogPageStateType = initialState, action: ActionCreatorBlogPageType): InitialBlogPageStateType => {
   switch (action.type) {
     case POST.UPDATE_NEW_POST_TEXT:
         return {
@@ -33,14 +29,15 @@ export const blogPageReducer = (state: BlogPageType = initialState, action: Acti
           newPostTextData: action.newText
         }
     case POST.ADD_NEW_POST:
-      const post: PostType = {
+      if (state.newPostTextData.trim() !== "") {
+      const postData: PostDataType = {
         id: uuidv4(),
         post: state.newPostTextData,
         time: new Date().toLocaleTimeString().slice(0, -3)
       };
-      if (state.newPostTextData.trim() !== "") {
         return{
-          postsData: [...state.postsData.map(p => ({...p})), post], //!!! уточнить по поводу глубокой копии с помощью map
+          ...state,
+          postsData: [...state.postsData.map(p => ({...p})), postData], //!!! уточнить по поводу глубокой копии с помощью map
           newPostTextData: ""
         }
       }

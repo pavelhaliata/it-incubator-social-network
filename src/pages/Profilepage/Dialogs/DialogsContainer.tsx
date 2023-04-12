@@ -1,45 +1,49 @@
 import {newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
 import Dialogs from "./Dialogs";
 import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
-import {ReduxStateType, StateDataType} from "../../../redux/redux-store";
-import {Store} from "redux";
+import {AppStateType, StateType} from "../../../redux/redux-store";
+import {Dispatch, Store} from "redux";
 import { connect } from "react-redux";
 
 
-export const DialogsContainer_block = () => {
+// const DialogsContainer_block = () => {
 
-    return (
-        <StoreContext.Consumer>
-            {
-                (store:  Store<ReduxStateType, ActionCreatorsTypes>) => {
-                    const state: StateDataType = store.getState()
-                    const updateNewMessageText = (value: string) => {
-                        store.dispatch(newMessageTextAC(value));
-                    };
-                    const addNewMessage = () => {
-                        store.dispatch(newMessageAC());
-                    };
-                    return <Dialogs
-                        updateNewMessageText={updateNewMessageText}
-                        messageTextValue={state.profilePage.newMessageTextData}
-                        messagesData={state.profilePage.messagesData}
-                        addNewMessage={addNewMessage}
-                    />
-                }
-            }
-        </StoreContext.Consumer>
+//     return (
+//         <StoreContext.Consumer>
+//             {
+//                 (store:  Store<AppStateType, ActionCreatorsTypes>) => {
+//                     const state: StateType = store.getState()
+//                     const updateNewMessageText = (value: string) => {
+//                         store.dispatch(newMessageTextAC(value));
+//                     };
+//                     const addNewMessage = () => {
+//                         store.dispatch(newMessageAC());
+//                     };
+//                     return <Dialogs
+//                         updateNewMessageText={updateNewMessageText}
+//                         messageTextValue={state.profilePage.newMessageTextData}
+//                         messagesData={state.profilePage.messagesData}
+//                         addNewMessage={addNewMessage}
+//                     />
+//                 }
+//             }
+//         </StoreContext.Consumer>
 
-    );
-}
+//     );
+// }
 
-const mapStateToProps = (state: StateDataType) =>{
+
+
+
+
+const mapStateToProps = (state: StateType) => {
     return{
         messageTextValue : state.profilePage.newMessageTextData,
         messagesData: state.profilePage.messagesData
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         updateNewMessageText: (value: string) => {dispatch(newMessageTextAC(value))},
         addNewMessage: () => {dispatch(newMessageAC());}

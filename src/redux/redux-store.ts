@@ -1,24 +1,24 @@
 import {combineReducers, legacy_createStore as createStore} from "redux";
 import { profilePageReducer, ProfilePageType } from "./profilePage_reducer";
-import { blogPageReducer, BlogPageType } from "./blogPage_reducer";
+import { blogPageReducer, InitialBlogPageStateType } from "./blogPage_reducer";
 import {headerComponentsReducer, HeaderTitleType} from "./headerComponents_reducer";
 
 
-export type StateDataType = {
+export type StateType = {
   headerTitle: HeaderTitleType,
   profilePage: ProfilePageType;
-  blogPage: BlogPageType;
+  blogPage: InitialBlogPageStateType;
 };
 
-export type ReduxStateType = ReturnType<typeof rootReducers>
+export type AppStateType = ReturnType<typeof rootReducer>
 
-const rootReducers = combineReducers({
+const rootReducer = combineReducers({
   headerTitle: headerComponentsReducer,
   blogPage: blogPageReducer,
   profilePage: profilePageReducer,
 
 });
-const store = createStore(rootReducers);
+const store = createStore(rootReducer);
 
 export default store;
 

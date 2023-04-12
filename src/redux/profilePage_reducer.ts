@@ -26,7 +26,7 @@ enum PROFILE_PAGE {
   ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE",
   FOLLOW = "FOLLOW",
   UNFOLLOW = "UNFOLLOW",
-  SET_USERS = "SET-USERS"
+  SET_USERS = "SET-USERS",
 }
 
 type NewMessageTextACType = ReturnType<typeof newMessageTextAC>;
@@ -48,7 +48,9 @@ const initialState: ProfilePageType = {
   usersData: [],
 };
 
-export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionCreatorTypeProfilePage) => {
+export const profilePageReducer = (state: ProfilePageType = initialState,action: ActionCreatorTypeProfilePage
+) => {
+  
   switch (action.type) {
     case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
       return {
@@ -57,7 +59,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
       };
     case PROFILE_PAGE.ADD_NEW_MESSAGE:
       if (state.newMessageTextData.trim() !== "") {
-        const messageData: MessageType = {
+        const message: MessageType = {
           id: uuidv4(),
           avatar: "https://html.crumina.net/html-olympus/img/author-main1.webp",
           name: "James Spiegel",
@@ -66,9 +68,8 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         };
         return {
           messagesData: [
-            ...state.messagesData.map((i) => ({ ...i })),
-            messageData,
-          ],
+            ...state.messagesData.map(i => ({ ...i })),
+            message],
           newMessageTextData: "",
         };
       }
@@ -82,19 +83,19 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
           return i;
         }),
       };
-      case PROFILE_PAGE.UNFOLLOW: 
-      return{
-        usersData: state.usersData.map(i => {
-            if(i.id === action.userId){
-                return {...i, followed: false}
-            }
-            return i
-        })
+    case PROFILE_PAGE.UNFOLLOW:
+      return {
+        usersData: state.usersData.map((i) => {
+          if (i.id === action.userId) {
+            return { ...i, followed: false };
+          }
+          return i;
+        }),
       };
-      case PROFILE_PAGE.SET_USERS:
-        return{
-            usersData: [...action.usersData]
-        }
+    case PROFILE_PAGE.SET_USERS:
+      return {
+        usersData: [...action.usersData],
+      };
     default:
       return state;
   }
@@ -114,12 +115,14 @@ export const newMessageAC = () =>
 export const followAC = (userId: string) =>
   ({ type: PROFILE_PAGE.FOLLOW, userId: userId } as const);
 
-export const unFollowAC = (userId: string ) => ({
+export const unFollowAC = (userId: string) =>
+  ({
     type: PROFILE_PAGE.UNFOLLOW,
-    userId: userId
-} as const)
+    userId: userId,
+  } as const);
 
-export const setUsersAC = (usersData: Array<userDataType>) => ({
+export const setUsersAC = (usersData: Array<userDataType>) =>
+  ({
     type: PROFILE_PAGE.SET_USERS,
-    usersData: usersData   
-} as const)
+    usersData: usersData,
+  } as const);
