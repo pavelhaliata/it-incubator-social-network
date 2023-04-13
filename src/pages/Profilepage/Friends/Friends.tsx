@@ -1,15 +1,9 @@
 import style from "./Friends.module.scss"
 import {Person} from "./Person/Person";
-import {userDataType} from "../../../redux/profilePage_reducer";
+import {UserType} from "../../../redux/profilePage_reducer";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-
-type FriendsPropsType = {
-    usersData: Array<userDataType>
-    followPerson: (userId: string)=> void
-    unFollowPerson : (userId: string)=> void
-    setUsers: (usersData: Array<userDataType>) => void
-}
+import { FriendsPropsType } from "./FriendsContainer";
 
 export const Friends = ({usersData, followPerson, unFollowPerson, setUsers}: FriendsPropsType) => {
    useEffect(()=>{

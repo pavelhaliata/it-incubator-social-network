@@ -1,11 +1,11 @@
 import React from "react";
-import {ActionCreatorTypeProfilePage} from "./redux/profilePage_reducer";
+import {ActionCreatorProfilePageType} from "./redux/profilePage_reducer";
 import {ActionCreatorBlogPageType} from "./redux/blogPage_reducer";
 import {AppStateType} from "./redux/redux-store";
 import {Store} from "redux";
 
 
-export type ActionCreatorsTypes = ActionCreatorTypeProfilePage | ActionCreatorBlogPageType
+export type ActionCreatorsTypes = ActionCreatorProfilePageType | ActionCreatorBlogPageType
 
 export const StoreContext = React.createContext({} as Store<AppStateType, ActionCreatorsTypes>)
 

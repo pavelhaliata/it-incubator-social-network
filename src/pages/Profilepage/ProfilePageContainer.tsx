@@ -1,15 +1,23 @@
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { headerTitleAC } from "../../redux/headerComponents_reducer";
-import { StateType } from "../../redux/redux-store";
+import { headerTitleAC } from "../../redux/headerComponent_reducer";
+import { AppStateType} from "../../redux/redux-store";
 import ProfilePage from "./Profilepage";
 
-const mapStateToProps = (state: StateType) => {
+type mapStatePropsType = {
+
+}
+type mapDispatchPropsPropsType = {
+  setupHeaderTitle: (title: string) => void
+}
+export type ProfilePagePropsType = mapStatePropsType & mapDispatchPropsPropsType
+
+const mapStateToProps = (state: AppStateType) => {
   return {};
 };
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsPropsType => {
   return {
-    setUpHeaderTitle: (title: string) => {dispatch(headerTitleAC(title));},
+    setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title));},
   };
 };
 

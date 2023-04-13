@@ -1,21 +1,19 @@
-export type HeaderTitleType = {
-    headerTitle: string
-}
 
 enum HEADER_PAGE_TITLE {
-    HEADER_PAGE_TITLE = 'HEADER-PAGE-TITLE'
+    HEADER_PAGE_TITLE = "HEADER-PAGE-TITLE"
 }
-
 type headerTitleAC = ReturnType<typeof headerTitleAC>
+type InitialState = typeof initialState
 
-const initialState: HeaderTitleType = {
-    headerTitle: ""
+const initialState = {
+    headerTitle: "" as string
 }
 
-export const headerComponentsReducer = (state: HeaderTitleType = initialState, action: headerTitleAC) => {
+export const headerComponentReducer = (state: InitialState = initialState, action: headerTitleAC): InitialState => {
     switch (action.type) {
         case HEADER_PAGE_TITLE.HEADER_PAGE_TITLE:
             return {
+                ...state,
                 headerTitle: action.title
             }
         default:

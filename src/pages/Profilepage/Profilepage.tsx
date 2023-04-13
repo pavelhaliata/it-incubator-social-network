@@ -1,19 +1,13 @@
 import style from "./Profilepage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect } from "react";
+import { ProfilePagePropsType } from "./ProfilePageContainer";
 
-
-type ProfilepageType = {
-  setUpHeaderTitle: (value: string) => void;
-};
-
-
-
-function ProfilePage({ setUpHeaderTitle}: ProfilepageType) {
+function ProfilePage({ setupHeaderTitle}: ProfilePagePropsType) {
 
   useEffect(() => {
     document.title = "Profile Page";
-    setUpHeaderTitle("profile page");
+    setupHeaderTitle("profile page");
   }, []);
 
   const navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");

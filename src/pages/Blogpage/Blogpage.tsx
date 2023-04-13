@@ -2,11 +2,11 @@ import {ChangeEvent, KeyboardEvent, useEffect} from "react";
 import style from "./Blogpage.module.scss"
 import { Button } from "../../components/Button/Button";
 import { Post } from "./Post/Post";
-import { BlogPageProps } from "./BlogPageContainer";
+import { BlogPagePropsType } from "./BlogPageContainer";
 
 
 
-export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost, setupHeaderTitle: setUpHeaderTitle }: BlogPageProps) => {
+export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost, setupHeaderTitle: setUpHeaderTitle }: BlogPagePropsType) => {
 
     useEffect(()=>{
       document.title = "Blog page"

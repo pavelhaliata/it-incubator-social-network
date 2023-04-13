@@ -1,3 +1,10 @@
+
+.btn_person{
+ width: 90px;
+ max-width: 100%;
+ padding: .8rem 0;
+}
+
 .friend_item {
   padding: 5px;
   width: 100%;
@@ -19,7 +26,7 @@
   overflow: hidden;
 }
 
-.friend_header {
+.card_header {
   object-fit: contain;
   object-position: center;
 
@@ -29,17 +36,20 @@
   }
 }
 
-.friend_content {
+.card_body {
   position: relative;
+  padding: 10px;
 }
 
-.friend_avatar {
+.author {
   position: relative;
   top: -35px;
 }
 
-.author_thumb {
+.author_avatar {
   img {
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     border: 4px solid #fff;
   }

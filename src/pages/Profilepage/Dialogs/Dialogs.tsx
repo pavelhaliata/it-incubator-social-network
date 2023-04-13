@@ -2,14 +2,7 @@ import { ChangeEvent, KeyboardEvent } from "react";
 import Message from "./Message/Message";
 import style from "./Dialogs.module.scss";
 import { Button } from "../../../components/Button/Button";
-import {MessageType} from "../../../redux/profilePage_reducer";
-
-type DialogsPropsType = {
-  messageTextValue: string
-  updateNewMessageText: (value: string) => void
-  addNewMessage: () => void
-  messagesData: Array<MessageType>
-};
+import { DialogsPropsType } from "./DialogsContainer";
 
 function Dialogs({ messageTextValue, updateNewMessageText, messagesData, addNewMessage }: DialogsPropsType) {
 
@@ -29,7 +22,7 @@ function Dialogs({ messageTextValue, updateNewMessageText, messagesData, addNewM
   return (
     <div className={`${style.dialogs}`}>
       <div className={`${style.dialog_item} ${style.author}`}>
-        {messagesData && messagesData.map((data: MessageType) => {
+        {messagesData && messagesData.map((data) => {
           return (
               <Message
                   key={data.id}

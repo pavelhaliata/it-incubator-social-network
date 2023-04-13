@@ -1,7 +1,7 @@
-import {newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
+import {MessageType, newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
 import Dialogs from "./Dialogs";
 import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
-import {AppStateType, StateType} from "../../../redux/redux-store";
+import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch, Store} from "redux";
 import { connect } from "react-redux";
 
@@ -32,18 +32,25 @@ import { connect } from "react-redux";
 //     );
 // }
 
+type mapStatePropsType = {
+    messageTextValue: string
+    messagesData: Array<MessageType>
+}
+type mapDispatchPropsProps = {
+    updateNewMessageText:(value: string) => void
+    addNewMessage: () => void
+} 
 
+export type DialogsPropsType = mapStatePropsType & mapDispatchPropsProps
 
-
-
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return{
         messageTextValue : state.profilePage.newMessageTextData,
         messagesData: state.profilePage.messagesData
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
     return {
         updateNewMessageText: (value: string) => {dispatch(newMessageTextAC(value))},
         addNewMessage: () => {dispatch(newMessageAC());}

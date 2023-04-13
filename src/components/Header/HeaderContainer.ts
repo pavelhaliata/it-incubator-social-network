@@ -1,19 +1,26 @@
 import { connect } from "react-redux";
-import { StateType } from "../../redux/redux-store";
+import { Dispatch } from "redux";
+import { AppStateType } from "../../redux/redux-store";
 import Header from "./Header";
 
-export{}
 
+type mapStatePropsType = {
+	headerTitle: string
+}
+type mapDispatchPropsType = {
 
-const mapStateToProps = (state: StateType ) => {
+}
+export type HeaderPropsType = mapStatePropsType & mapDispatchPropsType
+
+const mapStateToProps = (state: AppStateType ): mapStatePropsType => {
 	return {
-	  headerTitle: state.headerTitle.headerTitle
+	  headerTitle: state.headerComponent.headerTitle
 	}
   };
-  const mapDispatchToProps = (dispatch: any) => {
+  const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
 	return {
 	  
 	};
   };
-  export const HeaderContainer = connect(mapStateToProps)(Header);
+  export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
   

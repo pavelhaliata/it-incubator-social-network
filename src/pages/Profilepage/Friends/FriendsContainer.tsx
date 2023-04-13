@@ -1,7 +1,8 @@
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
-import { StateType } from "../../../redux/redux-store";
-import { followAC, setUsersAC, unFollowAC, userDataType } from "../../../redux/profilePage_reducer";
+import { AppStateType } from "../../../redux/redux-store";
+import { followAC, setUsersAC, unFollowAC, UserType } from "../../../redux/profilePage_reducer";
+import { Dispatch } from "redux";
 
 
 // type FriendsContainerProps = {
@@ -17,16 +18,28 @@ import { followAC, setUsersAC, unFollowAC, userDataType } from "../../../redux/p
 //     )
 // }
 //!!! типизация state из redux/store
-const mapStateToProps = (state: StateType) => {
+
+type mapStatePropsType = {
+    usersData: Array<UserType>
+}
+type mapDispatchPropsProps = {
+    followPerson: (userId: string) => void
+    unFollowPerson: (userId: string) => void
+    setUsers: (usersData:Array<UserType> ) => void
+}
+
+export type FriendsPropsType = mapStatePropsType & mapDispatchPropsProps
+
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         usersData: state.profilePage.usersData
     }
 }
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
     return{
         followPerson: (userId: string) => {dispatch(followAC(userId))},
         unFollowPerson: (userId: string) => {dispatch(unFollowAC(userId))},
-        setUsers: (usersData:Array<userDataType> ) => {dispatch(setUsersAC(usersData))}
+        setUsers: (usersData:Array<UserType> ) => {dispatch(setUsersAC(usersData))}
     }
 }
 

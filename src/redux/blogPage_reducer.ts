@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-enum POST {
+enum BLOG_PAGE {
   UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
   ADD_NEW_POST = "ADD-NEW-POST",
 }
@@ -13,7 +13,7 @@ export type PostDataType = {
   time: string
 };
 
-export type InitialBlogPageStateType = typeof initialState
+type InitialState = typeof initialState
 
 
 const initialState = {
@@ -21,14 +21,14 @@ const initialState = {
   postsData: [] as Array<PostDataType>,
 };
 
-export const blogPageReducer = (state: InitialBlogPageStateType = initialState, action: ActionCreatorBlogPageType): InitialBlogPageStateType => {
+export const blogPageReducer = (state: InitialState = initialState, action: ActionCreatorBlogPageType): InitialState => {
   switch (action.type) {
-    case POST.UPDATE_NEW_POST_TEXT:
+    case BLOG_PAGE.UPDATE_NEW_POST_TEXT:
         return {
           ...state,
           newPostTextData: action.newText
         }
-    case POST.ADD_NEW_POST:
+    case BLOG_PAGE.ADD_NEW_POST:
       if (state.newPostTextData.trim() !== "") {
       const postData: PostDataType = {
         id: uuidv4(),
@@ -49,8 +49,8 @@ export const blogPageReducer = (state: InitialBlogPageStateType = initialState, 
 
 export const newPostTextActionCreator = (newText: string) => {
   return {
-    type: POST.UPDATE_NEW_POST_TEXT,
+    type: BLOG_PAGE.UPDATE_NEW_POST_TEXT,
     newText: newText
   } as const;
 };
-export const newPostActionCreator = () => ({ type: POST.ADD_NEW_POST } as const);
+export const newPostActionCreator = () => ({ type: BLOG_PAGE.ADD_NEW_POST } as const);

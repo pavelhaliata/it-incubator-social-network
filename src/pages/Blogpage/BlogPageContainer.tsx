@@ -1,10 +1,8 @@
-import {useEffect} from "react";
-import {InitialBlogPageStateType, newPostActionCreator, newPostTextActionCreator, PostDataType} from "../../redux/blogPage_reducer";
-import {ActionCreatorsTypes} from "../../StoreContext";
-import {AppStateType, StateType} from "../../redux/redux-store";
-import {Dispatch, Store} from "redux";
+import { newPostActionCreator, newPostTextActionCreator, PostDataType} from "../../redux/blogPage_reducer";
+import {AppStateType } from "../../redux/redux-store";
+import {Dispatch } from "redux";
 import {connect} from "react-redux";
-import {headerTitleAC} from "../../redux/headerComponents_reducer";
+import {headerTitleAC} from "../../redux/headerComponent_reducer";
 import { BlogPage } from "./Blogpage";
 
 
@@ -49,7 +47,7 @@ type MapDispatchPropsType = {
   setupHeaderTitle: (title: string) => void
 }
 
-export type BlogPageProps = MapStatePropsType & MapDispatchPropsType
+export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType ): MapStatePropsType => {
   return {

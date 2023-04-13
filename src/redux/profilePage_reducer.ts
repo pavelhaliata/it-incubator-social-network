@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-export type userDataType = {
+export type UserType = {
   id: string;
   followed: boolean;
   backgroundImg: string;
@@ -14,11 +14,6 @@ export type MessageType = {
   name: string;
   message: string;
   time: string;
-};
-export type ProfilePageType = {
-  newMessageTextData: string;
-  messagesData: Array<MessageType>;
-  usersData: Array<userDataType>;
 };
 
 enum PROFILE_PAGE {
@@ -35,21 +30,23 @@ type FollowACType = ReturnType<typeof followAC>;
 type UnFollowACType = ReturnType<typeof unFollowAC>;
 type SetUsersACType = ReturnType<typeof setUsersAC>;
 
-export type ActionCreatorTypeProfilePage =
+export type ActionCreatorProfilePageType =
   | NewMessageTextACType
   | NewMessageACType
   | FollowACType
   | UnFollowACType
   | SetUsersACType;
 
-const initialState: ProfilePageType = {
-  newMessageTextData: "",
-  messagesData: [],
-  usersData: [],
+type InitialState = typeof initialState
+
+const initialState = {
+  newMessageTextData: "" as string,
+  messagesData: [] as Array<MessageType>,
+  usersData: [] as Array<UserType>,
 };
 
-export const profilePageReducer = (state: ProfilePageType = initialState,action: ActionCreatorTypeProfilePage
-) => {
+export const profilePageReducer = (state: InitialState = initialState, action: ActionCreatorProfilePageType
+): InitialState => {
   
   switch (action.type) {
     case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
@@ -67,8 +64,8 @@ export const profilePageReducer = (state: ProfilePageType = initialState,action:
           time: new Date().toLocaleTimeString().slice(0, -3),
         };
         return {
-          messagesData: [
-            ...state.messagesData.map(i => ({ ...i })),
+          ...state,
+          messagesData: [...state.messagesData.map(i => ({ ...i })),
             message],
           newMessageTextData: "",
         };
@@ -76,6 +73,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState,action:
       return state;
     case PROFILE_PAGE.FOLLOW:
       return {
+        ...state,
         usersData: state.usersData.map((i) => {
           if (i.id === action.userId) {
             return { ...i, followed: true };
@@ -85,6 +83,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState,action:
       };
     case PROFILE_PAGE.UNFOLLOW:
       return {
+        ...state,
         usersData: state.usersData.map((i) => {
           if (i.id === action.userId) {
             return { ...i, followed: false };
@@ -94,6 +93,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState,action:
       };
     case PROFILE_PAGE.SET_USERS:
       return {
+        ...state,
         usersData: [...action.usersData],
       };
     default:
@@ -121,7 +121,7 @@ export const unFollowAC = (userId: string) =>
     userId: userId,
   } as const);
 
-export const setUsersAC = (usersData: Array<userDataType>) =>
+export const setUsersAC = (usersData: Array<UserType>) =>
   ({
     type: PROFILE_PAGE.SET_USERS,
     usersData: usersData,
