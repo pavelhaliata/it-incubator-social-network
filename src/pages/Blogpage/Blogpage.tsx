@@ -1,5 +1,5 @@
 import {ChangeEvent, KeyboardEvent, useEffect} from "react";
-import style from "./Blogpage.module.scss"
+import style from "./BlogPage.module.scss"
 import { Button } from "../../components/Button/Button";
 import { Post } from "./Post/Post";
 import { BlogPagePropsType } from "./BlogPageContainer";
