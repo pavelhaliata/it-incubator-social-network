@@ -1,4 +1,4 @@
-import { newPostActionCreator, newPostTextActionCreator, PostDataType} from "../../redux/blogPage_reducer";
+import { newPostAC, newPostTextAC, PostDataType} from "../../redux/blogPage_reducer";
 import {AppStateType } from "../../redux/redux-store";
 import {Dispatch } from "redux";
 import {connect} from "react-redux";
@@ -57,8 +57,8 @@ const mapStateToProps = (state: AppStateType ): MapStatePropsType => {
 };
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
   return {
-    updatePostText: (value: string) => {dispatch(newPostTextActionCreator(value))},
-    addNewPost: () => {dispatch(newPostActionCreator())},
+    updatePostText: (value: string) => {dispatch(newPostTextAC(value))},
+    addNewPost: () => {dispatch(newPostAC())},
     setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title))},
   };
 };
