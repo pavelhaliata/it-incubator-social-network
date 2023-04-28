@@ -29,7 +29,18 @@
 }
 
 .header_search_bar {
-    input {}
+    background-color: #494c62;
+    width: 100%;
+    max-width: 400px;
+    input {
+        color: #9a9fbf;
+        font-size: .8rem;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        background-color: inherit;
+        padding: 0 10px;
+    }
 }
 
 .link_find_friend {
