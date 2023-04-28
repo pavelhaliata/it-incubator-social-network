@@ -36,7 +36,7 @@ export const blogPageReducer = (state: BlogPageInitialStateType = initialState, 
       };
         return{
           ...state,
-          postsData: [...state.postsData, postData], //!!! уточнить по поводу глубокой копии с помощью map
+          postsData: [...state.postsData, postData],
           newPostTextData: ""
         }
       }
