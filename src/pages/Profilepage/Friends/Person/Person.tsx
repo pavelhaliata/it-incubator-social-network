@@ -1,5 +1,7 @@
 import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
+import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
+import background from "../../../../assets/images/background.jpg"
 
 type PersonPropsType = {
   followPerson: () => void;
@@ -16,12 +18,12 @@ export const Person = ({backgroundImg,avatar,name,country,followed,followPerson,
     <div className={style.friend_item}>
       <div className={style.friend_card}>
         <div className={style.card_header}>
-          <img src={backgroundImg} alt="background" />
+          <img src={backgroundImg ? backgroundImg : background} alt="background" />
         </div>
         <div className={style.card_body}>
           <div className={style.author}>
             <div className={style.author_avatar}>
-              <img src={avatar} alt="avatar" />
+              <img src={avatar ? avatar : manAvatar} alt="avatar"/>
             </div>
             <div className={style.author_content}>
               <a className={style.author_name} href="#">
@@ -31,11 +33,11 @@ export const Person = ({backgroundImg,avatar,name,country,followed,followPerson,
             </div>
           </div>
             {followed ? (
-              <Button className={style.btn_person} callback={unFollowPerson}>
+              <Button className={`${style.btn_person} ${style.unfollow}`} callback={unFollowPerson}>
                 unsubscribe
               </Button>
             ) : (
-              <Button className={style.btn_person} callback={followPerson}>
+              <Button className={`${style.btn_person}`} callback={followPerson}>
                 subscribe
               </Button>
             )}

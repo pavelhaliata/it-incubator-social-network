@@ -3,10 +3,14 @@ import { ChangeEvent, KeyboardEvent, useState } from "react";
 type InputPropsType = {
   placeholder?: string;
   inputValue?: string;
-  className?: string
+  className?: string;
 };
 
-export const Input = ({ placeholder, inputValue, className }: InputPropsType) => {
+export const Input = ({
+  placeholder,
+  inputValue,
+  className,
+}: InputPropsType) => {
   const [value, setValue] = useState("");
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && value) {
@@ -20,7 +24,7 @@ export const Input = ({ placeholder, inputValue, className }: InputPropsType) =>
 
   return (
     <form
-	className={className}
+      className={className}
       onSubmit={(e) => {
         e.preventDefault();
       }}

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 export type UserType = {
@@ -37,7 +38,7 @@ export type ActionCreatorProfilePageType =
   | UnFollowACType
   | SetUsersACType;
 
-export type ProfilePageInitialStateType = typeof initialState
+export type ProfilePageInitialStateType = typeof initialState;
 
 const initialState = {
   newMessageTextData: "" as string,
@@ -45,9 +46,10 @@ const initialState = {
   usersData: [] as Array<UserType>,
 };
 
-export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType
+export const profilePageReducer = (
+  state: ProfilePageInitialStateType = initialState,
+  action: ActionCreatorProfilePageType
 ): ProfilePageInitialStateType => {
-  
   switch (action.type) {
     case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
       return {
@@ -70,21 +72,25 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
         };
       }
       return state;
-    case PROFILE_PAGE.FOLLOW:{
+    case PROFILE_PAGE.FOLLOW: {
       return {
         ...state,
-        usersData: state.usersData.map((i) => i.id === action.userId ? { ...i, followed: true } : i )
-        }
+        usersData: state.usersData.map((i) =>
+          i.id === action.userId ? { ...i, followed: true } : i
+        ),
       };
+    }
     case PROFILE_PAGE.UNFOLLOW:
       return {
         ...state,
-        usersData: state.usersData.map((i) => i.id === action.userId ? { ...i, followed: false } : i )
+        usersData: state.usersData.map((i) =>
+          i.id === action.userId ? { ...i, followed: false } : i
+        ),
       };
     case PROFILE_PAGE.SET_USERS:
       return {
         ...state,
-        usersData: action.usersData
+        usersData: action.usersData,
       };
     default:
       return state;
@@ -101,7 +107,28 @@ export const followAC = (userId: string) =>
   ({ type: PROFILE_PAGE.FOLLOW, userId } as const);
 
 export const unFollowAC = (userId: string) =>
-  ({ type: PROFILE_PAGE.UNFOLLOW, userId} as const);
+  ({ type: PROFILE_PAGE.UNFOLLOW, userId } as const);
 
 export const setUsersAC = (usersData: Array<UserType>) =>
   ({ type: PROFILE_PAGE.SET_USERS, usersData } as const);
+
+
+
+export const instance = axios.create({
+  withCredentials: true,
+  baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  headers: {
+    "API-KEY": "29259",
+  },
+});
+
+
+  instance.get("users")
+  .then((response) => {
+    console.log(response.data.items);
+  })
+  .catch(function (error) {
+    // обработка ошибки
+    console.log(error);
+  });
+
