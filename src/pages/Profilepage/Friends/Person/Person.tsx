@@ -15,8 +15,8 @@ type PersonPropsType = {
 
 export const Person = ({backgroundImg,avatar,name,country,followed,followPerson,unFollowPerson}: PersonPropsType) => {
   return (
-    <div className={style.friend_item}>
-      <div className={style.friend_card}>
+    <div className={style.wrapper}>
+      <div className={style.card}>
         <div className={style.card_header}>
           <img src={backgroundImg ? backgroundImg : background} alt="background" />
         </div>
@@ -34,11 +34,11 @@ export const Person = ({backgroundImg,avatar,name,country,followed,followPerson,
           </div>
             {followed ? (
               <Button className={`${style.btn_person} ${style.unfollow}`} callback={unFollowPerson}>
-                unsubscribe
+                unfollow
               </Button>
             ) : (
               <Button className={`${style.btn_person}`} callback={followPerson}>
-                subscribe
+                follow
               </Button>
             )}
           <div className={style.swiper_container}></div>
