@@ -3,7 +3,8 @@ import {AppStateType } from "../../redux/redux-store";
 import {Dispatch } from "redux";
 import {connect} from "react-redux";
 import {headerTitleAC} from "../../redux/headerComponent_reducer";
-import { BlogPage } from "./Blogpage";
+import {BlogPage} from "./Blogpage";
+
 
 
 
