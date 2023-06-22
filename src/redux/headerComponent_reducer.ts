@@ -3,13 +3,14 @@ enum HEADER_PAGE_TITLE {
     HEADER_PAGE_TITLE = "HEADER-PAGE-TITLE"
 }
 type headerTitleAC = ReturnType<typeof headerTitleAC>
-type InitialState = typeof initialState
+
+export type HeaderComponentInitialStateType = typeof initialState
 
 const initialState = {
     headerTitle: "" as string
 }
 
-export const headerComponentReducer = (state: InitialState = initialState, action: headerTitleAC): InitialState => {
+export const headerComponentReducer = (state: HeaderComponentInitialStateType = initialState, action: headerTitleAC): HeaderComponentInitialStateType => {
     switch (action.type) {
         case HEADER_PAGE_TITLE.HEADER_PAGE_TITLE:
             return {

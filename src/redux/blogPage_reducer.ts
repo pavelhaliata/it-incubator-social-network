@@ -3,8 +3,8 @@ enum BLOG_PAGE {
   UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
   ADD_NEW_POST = "ADD-NEW-POST",
 }
-type NewPostTextActionCreatorType = ReturnType<typeof newPostTextActionCreator>;
-type NewPostActionCreatorType = ReturnType<typeof newPostActionCreator>;
+type NewPostTextActionCreatorType = ReturnType<typeof newPostTextAC>;
+type NewPostActionCreatorType = ReturnType<typeof newPostAC>;
 export type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
 
 export type PostDataType = {
@@ -13,15 +13,14 @@ export type PostDataType = {
   time: string
 };
 
-type InitialState = typeof initialState
-
+export type BlogPageInitialStateType = typeof initialState
 
 const initialState = {
   newPostTextData: "" as string,
   postsData: [] as Array<PostDataType>,
 };
 
-export const blogPageReducer = (state: InitialState = initialState, action: ActionCreatorBlogPageType): InitialState => {
+export const blogPageReducer = (state: BlogPageInitialStateType = initialState, action: ActionCreatorBlogPageType): BlogPageInitialStateType => {
   switch (action.type) {
     case BLOG_PAGE.UPDATE_NEW_POST_TEXT:
         return {
@@ -47,10 +46,10 @@ export const blogPageReducer = (state: InitialState = initialState, action: Acti
   }
 };
 
-export const newPostTextActionCreator = (newText: string) => {
+export const newPostTextAC = (newText: string) => {
   return {
     type: BLOG_PAGE.UPDATE_NEW_POST_TEXT,
     newText: newText
   } as const;
 };
-export const newPostActionCreator = () => ({ type: BLOG_PAGE.ADD_NEW_POST } as const);
+export const newPostAC = () => ({ type: BLOG_PAGE.ADD_NEW_POST } as const);

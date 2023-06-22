@@ -1,16 +1,50 @@
 .sidebar {
   background-color: #ffff;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  height: 100%;
+  width: 70px;
 }
 
-.sidebar_link {
-
+.logo {
+  background-color: #ff5e3a;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.logo img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar_menu {
+  margin-top: 35px;
+  padding: 0px 10px;
+}
+
+.menu {}
+
+.menu_link:not(last-child) {
+  margin-bottom: 10px;
+}
+
 .menu_link {
-  text-align: start;
+  font-size: .9rem;
+  white-space: nowrap;
+  /* Текст не переносится */
+  overflow: hidden;
+  /* Обрезаем всё за пределами блока */
+  text-overflow: ellipsis;
+  /* Добавляем многоточие */
   & a {
     color: #9a9fbf;
-    &:hover{
-      filter: brightness(85%);
+
+    &:hover {
+      filter: brightness(65%);
     }
   }
 }

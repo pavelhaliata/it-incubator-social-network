@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "../Input/input";
 import style from "./Header.module.scss";
 import { HeaderPropsType } from "./HeaderContainer";
 
@@ -9,10 +10,9 @@ function Header({ headerTitle }: HeaderPropsType) {
         <h6>{headerTitle}</h6>
       </div>
       <div className={style.header_wrapper}>
-        {/* <form className={s.header_search_bar}>
-                        <input type="text" placeholder="Search here people or pages..." />
-                    </form> */}
-        <a href="#" className={style.link_find_friend}>Find Friends</a>
+        <Input 
+        placeholder="Search here people or pages..." 
+        className={style.header_search_bar}/>
         <div className={style.header_controll_block}>
           <div className={style.controll_icon}>
             <img src="" alt="icon" />
