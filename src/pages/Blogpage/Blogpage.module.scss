@@ -1,19 +1,17 @@
 
-.form_inner {
+.form {
     max-width: 450px;
     padding: 15px;
     background-color: #fff;
     border-radius: 5px;
     border: 1px solid #e6ecf5;
     margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
+
 }
 
-.form_group {
+.form_body {
     border-bottom: #e6ecf5 1px solid;
     margin-bottom: 15px;
-    flex: 1 1 auto;
 }
 
 .form_control {
@@ -24,11 +22,8 @@
 
 .form_button {
     display: flex;
-    & .block_btn{
-        margin-left: auto;
-    }
+    justify-content: end;
 }
 .post_items {
-    display: flex;
-    flex-direction: column;
+
 }

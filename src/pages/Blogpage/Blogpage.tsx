@@ -28,8 +28,8 @@ export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost,
 
   return (
     <>
-      <div className={style.form_inner}>
-        <div className={style.form_group}>
+      <div className={style.form}>
+        <div className={style.form_body}>
           <textarea
             className={style.form_control}
             name="text"
@@ -41,9 +41,7 @@ export const BlogPage = ({ updatePostText, postTextValue, postsData, addNewPost,
         </div>
 
         <div className={style.form_button}>
-          <div className={style.block_btn}>
             <Button callback={createPostHandler}>create post</Button>
-          </div>
         </div>
       </div>
       <div className={style.post_items}>

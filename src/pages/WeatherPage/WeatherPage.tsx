@@ -1,23 +1,8 @@
 import {ChangeEvent, useEffect, useState} from "react"
 import {Button} from "../../components/Button/Button"
 import style from "./Weather.module.scss"
+import {weatherAPI, WeatherType} from "../../api/weather-api";
 
-type TemperatureType = {
-    feels_like: number
-    humidity: number
-    temp: number
-    temp_max: number
-    temp_min: number
-}
-type Description = {
-    description: string
-    icon: string
-}
-type WeatherType = {
-    name: string
-    main: TemperatureType
-    weather: Array<Description>
-}
 
 type WeatherPropsType = {
     setStatePage: (value: string) => void
@@ -25,8 +10,6 @@ type WeatherPropsType = {
 
 
 export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
-
-    const API_KEY = 'bd4d8697c2213442afba131cd703e05a'
 
     const date = new Date();
     const today = date.toLocaleString('en-us', {day: 'numeric', weekday: 'long', month: 'long'})
@@ -46,12 +29,12 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
             },
             weather: [{
                 description: '',
-                icon: ''
-            }]
+                icon: '',
+            }],
+            cod: '',
+            message: ''
         }
     )
-
-
     const temperature = Math.round(weatherInfo.main.temp_max)
     const temperatureMax = Math.round(weatherInfo.main.temp_min)
     const temperatureMin = Math.round(weatherInfo.main.temp)
@@ -65,24 +48,16 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
         return word.split(' ').map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(' ')
     }
 
-    // https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
+
     useEffect(() => {
         document.title = "Weather Page";
         setStatePage('weatherpage')
-
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.cod !== '404') {
-                    setError(false)
-                    setWeatherInfo(data)
-                } else {
-                    setError(true)
+        weatherAPI.getWeather(city)
+            .then(response => {
+                if (response.data.cod === '404') {
+                    setWeatherInfo(response.data)
                 }
-
             })
-
-
     }, [city])
 
     const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -118,22 +93,11 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
                             <span>Real Feel: <span>{feelsLike}&deg;</span></span>
                             <span>Humidity: <span>{humidity}&deg;</span></span>
                         </div>
-                        <ul className="weekly-forecast">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                        <div className={style.date_and_place}>
-                            <div >{today}th</div>
-                            <div >{weatherInfo.name}</div>
+                        <div className={style.date}>
+                            <div>{today}th</div>
+                            <div>{weatherInfo.name}</div>
                         </div>
                     </>}
-
-
                 <div className={style.search_place}>
                     <input className={style.input_location} type="text" value={title} onChange={onChangeValueHandler}
                            placeholder="City search..."/>

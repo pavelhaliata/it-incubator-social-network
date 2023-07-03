@@ -21,11 +21,13 @@
 
 .card_header {
   overflow: hidden;
-  height: 90px;
+  height: 60px;
 
   img {
     display: block;
     width: 100%;
+    filter: brightness(120%);
+    //opacity: 0.5;
   }
 }
 
@@ -76,7 +78,6 @@
   width: 90px;
   max-width: 100%;
   padding: .4rem 0;
-  border-radius: .3rem;
 }
 
 .btn_person.unfollow {

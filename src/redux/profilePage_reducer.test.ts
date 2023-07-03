@@ -36,18 +36,20 @@ import {
   });
 
   test("user should be followed", () => {
-	const userId = uuidv4()
+	const userId = 1
 	const startState: ProfilePageInitialStateType = {
 	  messagesData: [],
 	  newMessageTextData: "",
 	  usersData: [
 		{
-			id: userId,
-			followed: false,
-			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-			avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-			name: "Nicholas Grissom",
-			country: "San Francisco, CA",
+			"name": "Shubert",
+			"id": 1,
+			"photos": {
+				"small": null,
+				"large": null
+			},
+			"status": null,
+			"followed": false
 		}
 	  ],
 	};
@@ -57,18 +59,20 @@ import {
   });
 
   test("user should be unfollowed", () => {
-	const userId = uuidv4()
+	const userId = 1
 	const startState: ProfilePageInitialStateType = {
 	  messagesData: [],
 	  newMessageTextData: "",
 	  usersData: [
 		{
-			id: userId,
-			followed: true,
-			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-			avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-			name: "Nicholas Grissom",
-			country: "San Francisco, CA",
+			"name": "Shubert",
+			"id": 1,
+			"photos": {
+				"small": null,
+				"large": null
+			},
+			"status": null,
+			"followed": false
 		}
 	  ],
 	};
@@ -85,20 +89,24 @@ import {
 	};
 const users = [
 	{
-		id: '1',
-		followed: true,
-		backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-		avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-		name: "Nicholas Grissom",
-		country: "San Francisco, CA",
+		"name": "Shubert",
+		"id": 1,
+		"photos": {
+			"small": null,
+			"large": null
+		},
+		"status": null,
+		"followed": false
 	},
 	{
-		id: '2',
-		followed: true,
-		backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-		avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-		name: "Nicholas Grissom",
-		country: "San Francisco, CA",
+		"name": "Shubert",
+		"id": 2,
+		"photos": {
+			"small": null,
+			"large": null
+		},
+		"status": null,
+		"followed": false
 	}]
 	const endState = profilePageReducer(startState, setUsersAC(users));
 	expect(endState.usersData.length).toBe(2);

@@ -1,15 +1,7 @@
-
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+import {UserType} from "../api/social-network-api";
 
-export type UserType = {
-  id: string;
-  followed: boolean;
-  backgroundImg: string;
-  avatar: string;
-  name: string;
-  country: string;
-};
+
 export type MessageType = {
   id: string;
   avatar: string;
@@ -104,32 +96,11 @@ export const newMessageTextAC = (newText: string) =>
 export const newMessageAC = () =>
   ({ type: PROFILE_PAGE.ADD_NEW_MESSAGE } as const);
 
-export const followAC = (userId: string) =>
+export const followAC = (userId: number) =>
   ({ type: PROFILE_PAGE.FOLLOW, userId } as const);
 
-export const unFollowAC = (userId: string) =>
+export const unFollowAC = (userId: number) =>
   ({ type: PROFILE_PAGE.UNFOLLOW, userId } as const);
 
 export const setUsersAC = (usersData: Array<UserType>) =>
   ({ type: PROFILE_PAGE.SET_USERS, usersData } as const);
-
-
-
-export const instance = axios.create({
-  withCredentials: true,
-  baseURL: "https://social-network.samuraijs.com/api/1.0/",
-  headers: {
-    "API-KEY": "29259",
-  },
-});
-
-
-  instance.get("users")
-  .then((response) => {
-    console.log(response.data.items);
-  })
-  .catch(function (error) {
-    // обработка ошибки
-    console.log(error);
-  });
-
