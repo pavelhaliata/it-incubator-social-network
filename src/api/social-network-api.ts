@@ -1,20 +1,36 @@
 import axios from "axios";
 
-export const instance = axios.create({
+const instance = axios.create({
 	withCredentials: true,
 	baseURL: "https://social-network.samuraijs.com/api/1.0/",
 	headers: {
-	  "API-KEY": "29259",
+	  "API-KEY": "46bf5cab-c958-45f9-89c4-0ee6d1b7ed40",
 	},
   });
 
+export type UserType = {
+  name: string
+  id: number
+  photos: {
+    small: null
+    large: null
+  },
+  status: null,
+  followed: boolean
+}
 
-  instance.get("users")
-  .then((response) => {
-    console.log(response.data.items);
-  })
-  .catch(function (error) {
-    // обработка ошибки
-    console.log(error);
-  });
+type ResponseUsersType = {
+  items: Array<UserType>
+  totalCount: number
+  error: string
+}
+
+export const socialNetworkAPI = {
+  getUsers(){
+    return instance.get<ResponseUsersType>("users")  
+  }
+}
+
+
+ 
 

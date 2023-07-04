@@ -1,5 +1,5 @@
 import { newPostAC, newPostTextAC, PostDataType} from "../../redux/blogPage_reducer";
-import {AppStateType } from "../../redux/redux-store";
+import {StateType } from "../../redux/redux-store";
 import {Dispatch } from "redux";
 import {connect} from "react-redux";
 import {headerTitleAC} from "../../redux/headerComponent_reducer";
@@ -49,7 +49,7 @@ type MapDispatchPropsType = {
 
 export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType
 
-const mapStateToProps = (state: AppStateType ): MapStatePropsType => {
+const mapStateToProps = (state: StateType ): MapStatePropsType => {
   return {
     postTextValue: state.blogPage.newPostTextData,
     postsData: state.blogPage.postsData

@@ -36,16 +36,20 @@ import {
   });
 
   test("user should be followed", () => {
-	const userId = uuidv4()
+	const userId = 1
 	const startState: ProfilePageInitialStateType = {
 	  messagesData: [],
 	  newMessageTextData: "",
 	  usersData: [
 		{
-			id: userId,
-			followed: false,
+			id: 1,
+			followed: true,
 			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-			avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
+			photos: {
+				small: null,
+				large: null
+			  },
+			status: null,
 			name: "Nicholas Grissom",
 			country: "San Francisco, CA",
 		}
@@ -57,16 +61,20 @@ import {
   });
 
   test("user should be unfollowed", () => {
-	const userId = uuidv4()
+	const userId = 1
 	const startState: ProfilePageInitialStateType = {
 	  messagesData: [],
 	  newMessageTextData: "",
 	  usersData: [
 		{
-			id: userId,
+			id: 1,
 			followed: true,
 			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-			avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
+			photos: {
+				small: null,
+				large: null
+			  },
+			status: null,
 			name: "Nicholas Grissom",
 			country: "San Francisco, CA",
 		}
@@ -85,20 +93,28 @@ import {
 	};
 const users = [
 	{
-		id: '1',
-		followed: true,
-		backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-		avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-		name: "Nicholas Grissom",
-		country: "San Francisco, CA",
+		id: 1,
+			followed: true,
+			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
+			photos: {
+				small: null,
+				large: null
+			  },
+			status: null,
+			name: "Nicholas Grissom",
+			country: "San Francisco, CA",
 	},
 	{
-		id: '2',
-		followed: true,
-		backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
-		avatar: "https://html.crumina.net/html-olympus/img/avatar1.webp",
-		name: "Nicholas Grissom",
-		country: "San Francisco, CA",
+		id: 1,
+			followed: true,
+			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
+			photos: {
+				small: null,
+				large: null
+			  },
+			status: null,
+			name: "Nicholas Grissom",
+			country: "San Francisco, CA",
 	}]
 	const endState = profilePageReducer(startState, setUsersAC(users));
 	expect(endState.usersData.length).toBe(2);

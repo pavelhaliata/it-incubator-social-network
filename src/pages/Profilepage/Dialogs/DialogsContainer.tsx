@@ -1,7 +1,7 @@
 import {MessageType, newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
 import Dialogs from "./Dialogs";
 import {ActionCreatorsTypes, StoreContext} from "../../../StoreContext";
-import {AppStateType} from "../../../redux/redux-store";
+import {StateType} from "../../../redux/redux-store";
 import {Dispatch, Store} from "redux";
 import { connect } from "react-redux";
 
@@ -43,7 +43,7 @@ type mapDispatchPropsProps = {
 
 export type DialogsPropsType = mapStatePropsType & mapDispatchPropsProps
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: StateType): mapStatePropsType => {
     return{
         messageTextValue : state.profilePage.newMessageTextData,
         messagesData: state.profilePage.messagesData

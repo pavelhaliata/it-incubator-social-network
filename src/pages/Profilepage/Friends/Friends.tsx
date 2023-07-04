@@ -3,7 +3,7 @@ import { Person } from "./Person/Person";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FriendsPropsType } from "./FriendsContainer";
-import { instance } from "../../../api/social-network-api";
+import {  socialNetworkAPI } from "../../../api/social-network-api";
 
 export const Friends = ({
   usersData,
@@ -11,8 +11,13 @@ export const Friends = ({
   unFollowPerson,
   setUsers,
 }: FriendsPropsType) => {
+  
   useEffect(() => {
-    instance.get("users").then((response) => setUsers(response.data.items));
+    socialNetworkAPI.getUsers()
+    .then((response) => {
+      setUsers(response.data.items)
+    })
+    
   }, []);
 
   return (
@@ -32,7 +37,7 @@ export const Friends = ({
               unFollowPerson={unFollowPersonHandler}
               key={user.id}
               backgroundImg={user.backgroundImg}
-              avatar={user.avatar}
+              avatar={user.photos.small}
               name={user.name}
               country={user.country}
             />

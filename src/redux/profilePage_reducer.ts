@@ -1,13 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
+import { UserType } from "../api/social-network-api";
 
-export type UserType = {
-  id: string;
-  followed: boolean;
+export type UserDomainType = UserType & {
   backgroundImg: string;
-  avatar: string;
-  name: string;
   country: string;
 };
+
 export type MessageType = {
   id: string;
   avatar: string;
@@ -42,13 +40,10 @@ export type ProfilePageInitialStateType = typeof initialState;
 const initialState = {
   newMessageTextData: "" as string,
   messagesData: [] as Array<MessageType>,
-  usersData: [] as Array<UserType>,
+  usersData: [] as Array<UserDomainType>,
 };
 
-export const profilePageReducer = (
-  state: ProfilePageInitialStateType = initialState,
-  action: ActionCreatorProfilePageType
-): ProfilePageInitialStateType => {
+export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
   switch (action.type) {
     case PROFILE_PAGE.UPDATE_NEW_MESSAGE_TEXT:
       return {
@@ -89,7 +84,7 @@ export const profilePageReducer = (
     case PROFILE_PAGE.SET_USERS:
       return {
         ...state,
-        usersData: action.usersData,
+        usersData: action.usersData.map(u => ({...u, backgroundImg: '', country: ''})),
       };
     default:
       return state;
@@ -102,10 +97,10 @@ export const newMessageTextAC = (newText: string) =>
 export const newMessageAC = () =>
   ({ type: PROFILE_PAGE.ADD_NEW_MESSAGE } as const);
 
-export const followAC = (userId: string) =>
+export const followAC = (userId: number) =>
   ({ type: PROFILE_PAGE.FOLLOW, userId } as const);
 
-export const unFollowAC = (userId: string) =>
+export const unFollowAC = (userId: number) =>
   ({ type: PROFILE_PAGE.UNFOLLOW, userId } as const);
 
 export const setUsersAC = (usersData: Array<UserType>) =>

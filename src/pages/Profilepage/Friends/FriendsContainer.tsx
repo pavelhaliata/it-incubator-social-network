@@ -1,7 +1,8 @@
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
-import { AppStateType } from "../../../redux/redux-store";
-import { followAC, setUsersAC, unFollowAC, UserType } from "../../../redux/profilePage_reducer";
+import { StateType } from "../../../redux/redux-store";
+import { followAC, setUsersAC, unFollowAC, UserDomainType } from "../../../redux/profilePage_reducer";
+import { UserType } from "../../../api/social-network-api";
 import { Dispatch } from "redux";
 
 
@@ -20,25 +21,25 @@ import { Dispatch } from "redux";
 //!!! типизация state из redux/store
 
 type mapStatePropsType = {
-    usersData: Array<UserType>
+    usersData: Array<UserDomainType>
 }
 type mapDispatchPropsProps = {
-    followPerson: (userId: string) => void
-    unFollowPerson: (userId: string) => void
+    followPerson: (userId: number) => void
+    unFollowPerson: (userId: number) => void
     setUsers: (usersData:Array<UserType> ) => void
 }
 
 export type FriendsPropsType = mapStatePropsType & mapDispatchPropsProps
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: StateType): mapStatePropsType => {
     return {
         usersData: state.profilePage.usersData
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
     return{
-        followPerson: (userId: string) => {dispatch(followAC(userId))},
-        unFollowPerson: (userId: string) => {dispatch(unFollowAC(userId))},
+        followPerson: (userId: number) => {dispatch(followAC(userId))},
+        unFollowPerson: (userId: number) => {dispatch(unFollowAC(userId))},
         setUsers: (usersData:Array<UserType> ) => {dispatch(setUsersAC(usersData))}
     }
 }

@@ -4,7 +4,7 @@ import { blogPageReducer } from "./blogPage_reducer";
 import { headerComponentReducer } from "./headerComponent_reducer";
 
 
-export type AppStateType = ReturnType<typeof rootReducer>
+export type StateType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
   headerComponent: headerComponentReducer,

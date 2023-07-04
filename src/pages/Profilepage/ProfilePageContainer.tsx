@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { headerTitleAC } from "../../redux/headerComponent_reducer";
-import { AppStateType} from "../../redux/redux-store";
+import { StateType} from "../../redux/redux-store";
 import ProfilePage from "./Profilepage";
 
 type mapStatePropsType = {
@@ -12,7 +12,7 @@ type mapDispatchPropsPropsType = {
 }
 export type ProfilePagePropsType = mapStatePropsType & mapDispatchPropsPropsType
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: StateType) => {
   return {};
 };
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsPropsType => {

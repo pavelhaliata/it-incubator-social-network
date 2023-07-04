@@ -7,7 +7,7 @@ type PersonPropsType = {
   followPerson: () => void;
   unFollowPerson: () => void;
   backgroundImg: string;
-  avatar: string;
+  avatar: string | null;
   name: string;
   country: string;
   followed: boolean;
