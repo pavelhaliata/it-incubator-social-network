@@ -1,9 +1,9 @@
 import style from "./Friends.module.scss";
 import { Person } from "./Person/Person";
-import { instance, UserType } from "../../../redux/profilePage_reducer";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FriendsPropsType } from "./FriendsContainer";
+import { instance } from "../../../api/social-network-api";
 
 export const Friends = ({
   usersData,
