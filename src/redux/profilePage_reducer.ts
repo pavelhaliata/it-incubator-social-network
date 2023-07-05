@@ -84,7 +84,7 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
     case PROFILE_PAGE.SET_USERS:
       return {
         ...state,
-        usersData: action.usersData.map(u => ({...u, backgroundImg: '', country: ''})),
+        usersData: action.usersData.map(i => ({...i, backgroundImg: '', country: ''})),
       };
     default:
       return state;

@@ -1,23 +1,8 @@
 import {ChangeEvent, useEffect, useState} from "react"
+import { weatherAPI, WeatherType } from "../../api/weather-api"
 import {Button} from "../../components/Button/Button"
 import style from "./Weather.module.scss"
 
-type TemperatureType = {
-    feels_like: number
-    humidity: number
-    temp: number
-    temp_max: number
-    temp_min: number
-}
-type Description = {
-    description: string
-    icon: string
-}
-type WeatherType = {
-    name: string
-    main: TemperatureType
-    weather: Array<Description>
-}
 
 type WeatherPropsType = {
     setStatePage: (value: string) => void
@@ -25,8 +10,6 @@ type WeatherPropsType = {
 
 
 export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
-
-    const API_KEY = 'bd4d8697c2213442afba131cd703e05a'
 
     const date = new Date();
     const today = date.toLocaleString('en-us', {day: 'numeric', weekday: 'long', month: 'long'})
@@ -36,53 +19,71 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
     const [city, setCity] = useState('Minsk')
     const [weatherInfo, setWeatherInfo] = useState<WeatherType>(
         {
-            name: '',
+            base: '',
+            clouds: { all: 0 },
+            cod: 0,
+            coord: { lon: 0, lat: 0 },
             main: {
-                feels_like: 0,
-                humidity: 0,
-                temp: 0,
-                temp_max: 0,
-                temp_min: 0,
+              feels_like: 0,
+              grnd_level: 0,
+              humidity: 0,
+              pressure: 0,
+              sea_level: 0,
+              temp: 0,
+              temp_max: 0,
+              temp_min: 0,
             },
-            weather: [{
+            name: '',
+            sys: {
+              country: '',
+              id: 0,
+              sunrise: 0,
+              sunset: 0,
+              type: 0,
+            },
+            timezone: 0,
+            visibility: 0,
+            weather: [
+              {
                 description: '',
-                icon: ''
-            }]
-        }
+                icon: '',
+                id: 0,
+                main: '',
+              }
+            ],
+            wind: {
+              deg: 0,
+              gust: 0,
+              speed: 0,
+            },
+          }
     )
 
-
-    const temperature = Math.round(weatherInfo.main.temp_max)
-    const temperatureMax = Math.round(weatherInfo.main.temp_min)
-    const temperatureMin = Math.round(weatherInfo.main.temp)
+    const temperature = Math.round(weatherInfo.main.temp)
+    const temperatureMax = Math.round(weatherInfo.main.temp_max)
+    const temperatureMin = Math.round(weatherInfo.main.temp_min)
     const humidity = weatherInfo.main.humidity
     const feelsLike = Math.round(weatherInfo.main.feels_like)
     const icon = weatherInfo.weather[0].icon
     const description = capitalizeFirstLetter(weatherInfo.weather[0].description)
-
+    const windSpeed = weatherInfo.wind.speed.toFixed(1)
 
     function capitalizeFirstLetter(word: string) {
         return word.split(' ').map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(' ')
     }
 
-    // https://www.youtube.com/watch?v=Tln-wtsp8do&ab_channel=%D0%93%D0%BE%D1%88%D0%B0%D0%94%D1%83%D0%B4%D0%B0%D1%80%D1%8C
     useEffect(() => {
         document.title = "Weather Page";
         setStatePage('weatherpage')
-
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.cod !== '404') {
-                    setError(false)
-                    setWeatherInfo(data)
-                } else {
-                    setError(true)
-                }
-
-            })
-
-
+        weatherAPI.getWeather()
+        .then((res) => {
+            if (res.status === 200) {
+                setError(false)
+                setWeatherInfo(res.data)
+            } else {
+                setError(true)
+            }
+        })
     }, [city])
 
     const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -108,6 +109,7 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
                             <div className={style.temperature_max_min}>
                                 <span>{temperatureMax}&deg;</span>
                                 <span>{temperatureMin}&deg;</span>
+                                
                             </div>
                             {icon ?
                                 <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
@@ -117,6 +119,7 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
                             <div>{description}</div>
                             <span>Real Feel: <span>{feelsLike}&deg;</span></span>
                             <span>Humidity: <span>{humidity}&deg;</span></span>
+                            <span>Wind: <span>{windSpeed} m/s</span></span>
                         </div>
                         <ul className="weekly-forecast">
                             <li></li>
