@@ -6,12 +6,11 @@ import { weatherPageReducer } from "./weatherPage_reducer";
 
 
 export type StateType = ReturnType<typeof rootReducer>
-
 const rootReducer = combineReducers({
   headerComponent: headerComponentReducer,
   blogPage: blogPageReducer,
   profilePage: profilePageReducer,
-  weatherPage : weatherPageReducer
+  weatherPage: weatherPageReducer,
 });
 const store = createStore(rootReducer);
 

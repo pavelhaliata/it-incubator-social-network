@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import style from "./Newapage.module.scss";
 
 type NewapageType = {
-  setStatePage: (value: string) => void;
+  
 };
 
-export const Newspage = ({ setStatePage }: NewapageType) => {
+export const Newspage = ({  }: NewapageType) => {
   useEffect(() => {
     document.title = "News Page";
-    setStatePage("newspage");
+    
   }, []);
 
   return(
