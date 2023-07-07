@@ -1,7 +1,8 @@
-import { WeatherType } from "../api/weather-api";
+import { Dispatch } from "redux";
+import { weatherAPI, WeatherType } from "../api/weather-api";
 
-type SetWeatherAC = ReturnType<typeof setWeatherAC>;
-type ActionCreatorWeatherType = SetWeatherAC;
+
+type ActionCreatorWeatherType = ReturnType<typeof setWeatherAC>;;
 
 type WeatherPageInitialStateType = typeof initialState;
 
@@ -9,7 +10,7 @@ const initialState = {
   weatherData: {
     base: "",
   clouds: { all: 0 },
-  cod: 0,
+  cod: '',
   coord: { lon: 0, lat: 0 },
   main: {
     feels_like: 0,
@@ -65,3 +66,12 @@ export const setWeatherAC = (weatherData: WeatherType) =>
     type: "SET-WEATHER",
     weatherData,
   } as const);
+
+  export const getActualWeatherTC = (city: string): any => {
+      return (dispatch: Dispatch) => {
+        weatherAPI.getWeather(city)
+        .then(res => {
+          dispatch(setWeatherAC(res.data))
+        })
+      }
+  }

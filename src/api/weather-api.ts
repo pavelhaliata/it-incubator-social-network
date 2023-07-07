@@ -3,7 +3,7 @@ import axios from "axios";
 export type WeatherType = {
   base: string;
   clouds: { all: number };
-  cod: number;
+  cod: number | string;
   coord: { lon: number; lat: number };
   main: {
     feels_like: number;
@@ -41,12 +41,15 @@ export type WeatherType = {
 };
 
 const API_KEY = "bd4d8697c2213442afba131cd703e05a";
-const city = "Minsk";
+
+const instanse = axios.create({
+  baseURL: `http://api.openweathermap.org/data/2.5/`
+})
 
 export const weatherAPI = {
-  getWeather() {
-    return axios.get<WeatherType>(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+  getWeather(city: string) {
+    return instanse.get<WeatherType>(
+      `weather?q=${city}&appid=${API_KEY}&units=metric`
     );
   },
 };

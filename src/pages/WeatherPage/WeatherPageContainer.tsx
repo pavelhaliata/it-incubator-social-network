@@ -3,15 +3,15 @@ import { Dispatch } from "redux";
 import { WeatherType } from "../../api/weather-api";
 import { headerTitleAC } from "../../redux/headerComponent_reducer";
 import { StateType } from "../../redux/redux-store";
-import { setWeatherAC } from "../../redux/weatherPage_reducer";
+import { getActualWeatherTC } from "../../redux/weatherPage_reducer";
 import { WeatherPage } from "./WeatherPage";
 
 type mapStatePropsType = {
   weatherData: WeatherType;
 };
 type mapDispatchPropsPropsType = {
-  setWeatherData: (weatherData: WeatherType) => void;
   setupHeaderTitle: (title: string) => void;
+  getActualWeatherData: (city: string) => void;
 };
 export type WeatherPagePropsType = mapStatePropsType &
   mapDispatchPropsPropsType;
@@ -23,7 +23,7 @@ const mapStateToProps = (state: StateType) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsPropsType => {
   return {
-    setWeatherData: (weatherData: WeatherType) => {dispatch(setWeatherAC(weatherData));},
+    getActualWeatherData: (city: string) => {dispatch(getActualWeatherTC(city));},
     setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title));},
   };
 };
