@@ -1,7 +1,6 @@
 import {ChangeEvent, useEffect, useState} from "react"
 import {Button} from "../../components/Button/Button"
 import style from "./Weather.module.scss"
-import {weatherAPI, WeatherType} from "../../api/weather-api";
 
 
 type WeatherPropsType = {
@@ -17,7 +16,7 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<boolean>(false)
     const [city, setCity] = useState('Minsk')
-    const [weatherInfo, setWeatherInfo] = useState<WeatherType>(
+    const [weatherInfo, setWeatherInfo] = useState(
         {
             name: '',
             main: {
@@ -52,12 +51,6 @@ export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
     useEffect(() => {
         document.title = "Weather Page";
         setStatePage('weatherpage')
-        weatherAPI.getWeather(city)
-            .then(response => {
-                if (response.data.cod === '404') {
-                    setWeatherInfo(response.data)
-                }
-            })
     }, [city])
 
     const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
