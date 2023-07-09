@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { Newspage } from "./pages/Newspage/Newspage";
+import { Newspage } from "./pages/NewsPage/Newspage";
 import { DialogsContainer } from "./pages/Profilepage/Dialogs/DialogsContainer";
 import { FriendsContainer } from "./pages/Profilepage/Friends/FriendsContainer";
 import { BlogPageContainer } from "./pages/Blogpage/BlogPageContainer";

@@ -1,114 +1,105 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Button } from "../../components/Button/Button";
+import {ChangeEvent, Component} from "react";
+import {Button} from "../../components/Button/Button";
 import style from "./Weather.module.scss";
-import { WeatherPagePropsType } from "./WeatherPageContainer";
+import {WeatherPagePropsType} from "./WeatherPageContainer";
 
-export const WeatherPage = ({setupHeaderTitle, getActualWeatherData, weatherData}: WeatherPagePropsType) => {
 
-  useEffect(() => {
-    document.title = "Weather Page";
-    setupHeaderTitle("weatherpage");
-    getActualWeatherData('Minsk');
-
-  }, []);
-
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState<boolean>(false);
-  
-  const capitalizeFirstLetter = (word: string) => {
-    return word
-      .split(" ")
-      .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
-      .join(" ");
-  };
-
-  const temperature = Math.round(weatherData.main.temp);
-  const temperatureMax = Math.round(weatherData.main.temp_max);
-  const temperatureMin = Math.round(weatherData.main.temp_min);
-  const humidity = weatherData.main.humidity;
-  const feelsLike = Math.round(weatherData.main.feels_like);
-  const icon = weatherData.weather[0].icon;
-  const description = capitalizeFirstLetter(
-    weatherData.weather[0].description
-  );
-  const windSpeed = weatherData.wind.speed.toFixed(1);
-
-  const date = new Date();
-  const today = date.toLocaleString("en-us", {
-    day: "numeric",
-    weekday: "long",
-    month: "long",
-  });
-
-  const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle("");
-    setTitle(event.currentTarget.value);
-  };
-  const onClickHandler = () => {
-    if (title.trim() !== "") {
-      getActualWeatherData(title);
-      setTitle("");
+export class WeatherPage extends Component<WeatherPagePropsType> {
+    componentDidMount() {
+        document.title = "Weather Page";
+        this.props.setupHeaderTitle("weatherpage");
+        this.props.getActualWeatherData('Minsk');
     }
-    return;
-  };
-  
 
-  return (
-    <div>
-      <div className={style.weather}>
-            <div className={style.weather__now}>
-              <div className={style.temperature_sensor}>{temperature}&deg;</div>
-              <div className={style.temperature_max_min}>
-                <span>{temperatureMax}&deg;</span>
-                <span>{temperatureMin}&deg;</span>
-              </div>
-              {icon ? (
-                <img
-                  src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                  alt="icon"
-                />
-              ) : (
-                "...loading"
-              )}
-            </div>
-            <div className={style.weather_description}>
-              <div>{description}</div>
-              <span>
-                Real Feel: <span>{feelsLike}&deg;</span>
+    componentDidUpdate(prevProps: Readonly<WeatherPagePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+
+    }
+
+    capitalizeFirstLetter = (word: string) => {
+        return word
+            .split(" ")
+            .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
+            .join(" ");
+    };
+    temperature = Math.round(this.props.weatherData.main.temp);
+    temperatureMax = Math.round(this.props.weatherData.main.temp_max);
+    temperatureMin = Math.round(this.props.weatherData.main.temp_min);
+    humidity = this.props.weatherData.main.humidity;
+    feelsLike = Math.round(this.props.weatherData.main.feels_like);
+    icon = this.props.weatherData.weather[0].icon;
+    description = this.capitalizeFirstLetter(
+        this.props.weatherData.weather[0].description
+    );
+    windSpeed = this.props.weatherData.wind.speed.toFixed(1);
+
+    date = new Date();
+    today = this.date.toLocaleString("en-us", {
+        day: "numeric",
+        weekday: "long",
+        month: "long",
+    });
+    onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        this.props.setLocationValue(event.currentTarget.value);
+    };
+    onClickHandler = () => {
+        if (this.props.locationValue.trim() !== "") {
+            this.props.getActualWeatherData(this.props.locationValue);
+            this.props.setLocationValue("");
+        }
+        return;
+    };
+
+    render() {
+        return (
+            <div className={style.weather}>
+
+                <div className={style.weather__now}>
+                    <div className={style.temperature_sensor}>{this.temperature}&deg;</div>
+                    <div className={style.temperature_max_min}>
+                        <span>{this.temperatureMax}&deg;</span>
+                        <span>{this.temperatureMin}&deg;</span>
+                    </div>
+                    {this.icon && (<img src={`http://openweathermap.org/img/wn/${this.icon}@2x.png`} alt="icon"/>)}
+                </div>
+                <div className={style.weather_description}>
+                    <div>{this.description}</div>
+                    <span>
+                Real Feel: <span>{this.feelsLike}&deg;</span>
               </span>
-              <span>
-                Humidity: <span>{humidity}&deg;</span>
+                    <span>
+                Humidity: <span>{this.humidity}&deg;</span>
               </span>
-              <span>
-                Wind: <span>{windSpeed} m/s</span>
+                    <span>
+                Wind: <span>{this.windSpeed} m/s</span>
               </span>
+                </div>
+                <ul className="weekly-forecast">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <div className={style.date_and_place}>
+                    <div>{this.today}th</div>
+                    <div>{this.props.weatherData.name}</div>
+                </div>
+                <div className={style.search_place}>
+                    <input
+                        className={style.input_text}
+                        type="text"
+                        value={this.props.locationValue}
+                        onChange={this.onChangeValueHandler}
+                        placeholder="City search..."
+                    />
+                    <Button className={style.search_btn} callback={this.onClickHandler}>
+                        <span>Enter</span>
+                    </Button>
+                </div>
             </div>
-            <ul className="weekly-forecast">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-            <div className={style.date_and_place}>
-              <div>{today}th</div>
-              <div>{weatherData.name}</div>
-            </div>
-        <div className={style.search_place}>
-          <input
-            className={style.input_location}
-            type="text"
-            value={title}
-            onChange={onChangeValueHandler}
-            placeholder="City search..."
-          />
-          <Button className={style.search_btn} callback={onClickHandler}>
-            <span>Enter</span>
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
+        )
+    }
+
+}

@@ -1,26 +1,26 @@
 import {
   BlogPageInitialStateType,
   blogPageReducer,
-  newPostAC,
-  newPostTextAC,
+  createPostAC,
+  setPostTextValueAC,
 } from "./blogPage_reducer";
 
 test("post message text should be updated", () => {
   const startState: BlogPageInitialStateType = {
-    newPostTextData: "",
+    postTextValue: "",
     postsData: [],
   };
 
-  const endState = blogPageReducer(startState, newPostTextAC("some text"));
-  expect(endState.newPostTextData).toBe("some text");
+  const endState = blogPageReducer(startState, setPostTextValueAC("some text"));
+  expect(endState.postTextValue).toBe("some text");
 });
 
 test("post message shoud be added", () => {
   const startState: BlogPageInitialStateType = {
-    newPostTextData: "some text",
+    postTextValue: "some text",
     postsData: [],
   };
 
-  const endState = blogPageReducer(startState, newPostAC());
+  const endState = blogPageReducer(startState, createPostAC());
   expect(endState.postsData.length).toBe(1);
 });

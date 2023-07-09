@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../Input/input";
+import { Input } from "../Input/Input";
 import style from "./Header.module.scss";
 import { HeaderPropsType } from "./HeaderContainer";
 

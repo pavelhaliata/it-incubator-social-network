@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { headerTitleAC } from "../../redux/headerComponent_reducer";
 import { StateType} from "../../redux/redux-store";
-import ProfilePage from "./Profilepage";
+import {ProfilePage} from "./ProfilePage";
 
 type mapStatePropsType = {
 

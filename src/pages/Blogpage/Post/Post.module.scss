@@ -1,4 +1,4 @@
-.post_item {
+.wrapper {
     max-width: 450px;
     height: auto;
     padding: 15px;
@@ -23,4 +23,12 @@
     & span {
       margin-left: auto;
     }
+}
+
+.post_author{
+
+}
+
+.post_additional_info{
+
 }

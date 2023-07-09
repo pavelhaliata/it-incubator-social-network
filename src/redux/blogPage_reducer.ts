@@ -1,55 +1,57 @@
-import { v4 as uuidv4 } from "uuid";
-enum BLOG_PAGE {
-  UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT",
-  ADD_NEW_POST = "ADD-NEW-POST",
-}
-type NewPostTextActionCreatorType = ReturnType<typeof newPostTextAC>;
-type NewPostActionCreatorType = ReturnType<typeof newPostAC>;
-export type ActionCreatorBlogPageType = NewPostTextActionCreatorType | NewPostActionCreatorType;
+import {v4 as uuidv4} from "uuid";
 
-export type PostDataType = {
-  id: string;
-  post: string;
-  time: string
-};
-
-export type BlogPageInitialStateType = typeof initialState
 
 const initialState = {
-  newPostTextData: "" as string,
-  postsData: [] as Array<PostDataType>,
+    postTextValue: "" as string,
+    postsData: [] as Array<PostDataType>,
 };
 
 export const blogPageReducer = (state: BlogPageInitialStateType = initialState, action: ActionCreatorBlogPageType): BlogPageInitialStateType => {
-  switch (action.type) {
-    case BLOG_PAGE.UPDATE_NEW_POST_TEXT:
-        return {
-          ...state,
-          newPostTextData: action.newText
-        }
-    case BLOG_PAGE.ADD_NEW_POST:
-      if (state.newPostTextData.trim() !== "") {
-      const postData: PostDataType = {
-        id: uuidv4(),
-        post: state.newPostTextData,
-        time: new Date().toLocaleTimeString().slice(0, -3)
-      };
-        return{
-          ...state,
-          postsData: [...state.postsData, postData],
-          newPostTextData: ""
-        }
-      }
-      return state;
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case "POST-TEXT-VALUE":
+            return {
+                ...state,
+                postTextValue: action.value
+            }
+        case "CREATE-NEW-POST":
+            if (state.postTextValue.trim() !== "") {
+                const postData: PostDataType = {
+                    id: uuidv4(),
+                    post: state.postTextValue,
+                    time: new Date().toLocaleTimeString().slice(0, -3)
+                };
+                return {
+                    ...state,
+                    postsData: [...state.postsData, postData],
+                    postTextValue: ""
+                }
+            }
+            return state;
+        default:
+            return state;
+    }
 };
 
-export const newPostTextAC = (newText: string) => {
-  return {
-    type: BLOG_PAGE.UPDATE_NEW_POST_TEXT,
-    newText: newText
-  } as const;
+
+// action
+export const setPostTextValueAC = (value: string) => {
+    return {
+        type: "POST-TEXT-VALUE",
+        value
+    } as const;
 };
-export const newPostAC = () => ({ type: BLOG_PAGE.ADD_NEW_POST } as const);
+export const createPostAC = () => ({type: "CREATE-NEW-POST"} as const);
+
+// types
+
+export type ActionCreatorBlogPageType =
+    | ReturnType<typeof setPostTextValueAC>
+    | ReturnType<typeof createPostAC>
+
+export type PostDataType = {
+    id: string;
+    post: string;
+    time: string
+};
+
+export type BlogPageInitialStateType = typeof initialState

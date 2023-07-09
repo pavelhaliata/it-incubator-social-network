@@ -1,9 +1,9 @@
-import { newPostAC, newPostTextAC, PostDataType} from "../../redux/blogPage_reducer";
+import {PostDataType, createPostAC, setPostTextValueAC} from "../../redux/blogPage_reducer";
 import {StateType } from "../../redux/redux-store";
 import {Dispatch } from "redux";
 import {connect} from "react-redux";
 import {headerTitleAC} from "../../redux/headerComponent_reducer";
-import { BlogPage } from "./Blogpage";
+import { BlogPage } from "./BlogPage";
 
 
 
@@ -42,8 +42,8 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-  updatePostText: (value: string) => void
-  addNewPost: ()=> void
+  setPostTextValue: (value: string) => void
+  createNewPost: ()=> void
   setupHeaderTitle: (title: string) => void
 }
 
@@ -51,14 +51,14 @@ export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: StateType ): MapStatePropsType => {
   return {
-    postTextValue: state.blogPage.newPostTextData,
+    postTextValue: state.blogPage.postTextValue,
     postsData: state.blogPage.postsData
   }; 
 };
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
   return {
-    updatePostText: (value: string) => {dispatch(newPostTextAC(value))},
-    addNewPost: () => {dispatch(newPostAC())},
+    setPostTextValue: (value: string) => {dispatch(setPostTextValueAC(value))},
+    createNewPost: () => {dispatch(createPostAC())},
     setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title))},
   };
 };

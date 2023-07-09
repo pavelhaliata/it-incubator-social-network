@@ -1,27 +1,27 @@
-import React from "react";
-import s from "./Message.module.scss"
+import React, {Component} from 'react';
+import style from "./Message.module.scss"
 
-type IProps ={
+type MessagePropsType ={
     avatar: string
 	name: string
 	message: string
 	time: string
 }
 
+export class Message extends Component<MessagePropsType> {
 
-function Message({avatar, name, message, time}: IProps) {
-    return (
-        <div className={s.message}>
-            <div className={s.message__avatar}>
-                <img src={avatar} alt={name} />
+    render() {
+        return (
+            <div className={style.message}>
+                <div className={style.message__avatar}>
+                    <img src={this.props.avatar} alt={this.props.name} />
+                </div>
+                <div className={style.message__body}>
+                    <div className={style.message__author}>{this.props.name}</div>
+                    <div className={style.message__text}>{this.props.message}</div>
+                    <div className={style.message__time}>{this.props.time}</div>
+                </div>
             </div>
-            <div className={s.message__body}>
-                <div className={s.message__author}>{name}</div>
-                <div className={s.message__text}>{message}</div>
-                <div className={s.message__time}>{time}</div>
-            </div>
-        </div>
-    )
-}
-
-export default Message
+        );
+    };
+};
