@@ -1,4 +1,4 @@
-import React, {Component, ChangeEvent, KeyboardEvent} from 'react';
+import {Component, ChangeEvent, KeyboardEvent} from 'react';
 import style from "./Dialogs.module.scss";
 import {Button} from "../../../components/Button/Button";
 import {DialogsPropsType} from "./DialogsContainer";
@@ -20,7 +20,6 @@ export class Dialogs extends Component<DialogsPropsType> {
     };
 
     render() {
-
         return (
             <div className={`${style.dialogs}`}>
                 <div className={`${style.dialog_item} ${style.author}`}>
@@ -36,7 +35,6 @@ export class Dialogs extends Component<DialogsPropsType> {
                         );
                     })}
                 </div>
-                {/* <div className={`${style.item} ${style.companion}`}></div> */}
                 <div className={style.dialog_input}>
                     <textarea
                         className={style.input_message}

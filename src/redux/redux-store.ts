@@ -4,10 +4,12 @@ import { blogPageReducer } from "./blogPage_reducer";
 import { headerComponentReducer } from "./headerComponent_reducer";
 import { weatherPageReducer } from "./weatherPage_reducer";
 import thunk from "redux-thunk";
+import { inputValueReducer } from "./inputComponent_reducer";
 
 export type StateType = ReturnType<typeof rootReducer>
 const rootReducer = combineReducers({
   headerComponent: headerComponentReducer,
+  inputValueComponent: inputValueReducer,
   blogPage: blogPageReducer,
   profilePage: profilePageReducer,
   weatherPage: weatherPageReducer,

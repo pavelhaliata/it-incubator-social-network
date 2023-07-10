@@ -52,7 +52,6 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     render() {
         return (
             <div className={style.weather}>
-
                 <div className={style.weather__now}>
                     <div className={style.temperature_sensor}>{this.temperature}&deg;</div>
                     <div className={style.temperature_max_min}>

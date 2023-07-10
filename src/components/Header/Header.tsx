@@ -1,13 +1,17 @@
-import React from "react";
+import {Component} from "react";
 import { Input } from "../Input/Input";
+
 import style from "./Header.module.scss";
 import { HeaderPropsType } from "./HeaderContainer";
 
-function Header({ headerTitle }: HeaderPropsType) {
-  return (
-    <div className={style.header}>
+
+export class Header extends Component<HeaderPropsType> {
+
+    render(){
+        return(
+            <div className={style.header}>
       <div className={style.page_title}>
-        <h6>{headerTitle}</h6>
+        <h6>{this.props.headerTitle}</h6>
       </div>
       <div className={style.header_wrapper}>
         <Input 
@@ -39,10 +43,10 @@ function Header({ headerTitle }: HeaderPropsType) {
         </div>
       </div>
     </div>
-  );
+        )
+    }
 }
 
-export default Header;
 
 {
   /* <div className="svg_icon">

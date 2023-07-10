@@ -1,13 +1,14 @@
+import { Component } from "react";
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer/Footer';
 import { HeaderContainer } from './Header/HeaderContainer';
 import style from './Layout.module.scss'
-import Sidebar from './Sidebar/Sidebar';
+import { Sidebar } from './Sidebar/Sidebar';
 
-
-export const Layout = () => {
-	return (
-		<div className={style.wrapper}>
+export class Layout extends Component {
+	render (){
+		return(
+			<div className={style.wrapper}>
 			<header>
 				<HeaderContainer/>
 			</header>
@@ -23,6 +24,6 @@ export const Layout = () => {
 				<Footer className={style.footer} />
 			</footer>
 		</div>
-
-	)
+		)
+	}	
 }

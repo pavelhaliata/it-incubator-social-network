@@ -1,41 +1,37 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useState, Component, ReactNode } from "react";
+import { InputPropsType } from "./InputContainer";
 
-type InputPropsType = {
+type IPropsType = {
   placeholder?: string;
   inputValue?: string;
   className?: string;
 };
 
-export const Input = ({
-  placeholder,
-  inputValue,
-  className,
-}: InputPropsType) => {
-  const [value, setValue] = useState("");
-  const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && value) {
-      setValue("");
+export class Input extends Component<InputPropsType & IPropsType> {
+   onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && this.props.inputValue) {
+      if(this.props.setInputValue)
+      this.props.setInputValue("");
       console.log("work");
     }
   };
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
+   onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if(this.props.setInputValue)
+    this.props.setInputValue(event.currentTarget.value);
   };
-
-  return (
+render(){
+  return(
     <form
-      className={className}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+      className={this.props.className}
+      onSubmit={(event) => {event.preventDefault()}}>
       <input
-        value={value}
+        value={this.props.inputValue}
         type="text"
-        placeholder={placeholder}
-        onKeyDown={onKeyDownHandler}
-        onChange={onChangeHandler}
+        placeholder={this.props.placeholder}
+        onKeyDown={this.onKeyDownHandler}
+        onChange={this.onChangeHandler}
       />
     </form>
-  );
-};
+  )
+}
+}

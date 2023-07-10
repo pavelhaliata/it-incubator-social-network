@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StateType } from "../../redux/redux-store";
-import Header from "./Header";
+import { Header } from "./Header";
+
 
 
 type mapStatePropsType = {
