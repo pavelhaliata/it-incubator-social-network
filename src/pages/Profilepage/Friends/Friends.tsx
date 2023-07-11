@@ -7,7 +7,7 @@ import {socialNetworkAPI} from "../../../api/social-network-api";
 export class Friends extends React.Component <FriendsPropsType> {
 
     componentDidMount() {
-        socialNetworkAPI.getUsers()
+        socialNetworkAPI.getUsers(2)
             .then((response) => {
                 this.props.setUsers(response.data.items)
             })

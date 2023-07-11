@@ -6,6 +6,9 @@ const initialState = {
   newMessageTextData: "" as string,
   messagesData: [] as Array<MessageType>,
   usersData: [] as Array<UserDomainType>,
+  pageSize: 1000 as number,
+  currentPage: 1 as number,
+  totalUsersCount: 0 as number
 };
 
 export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
@@ -51,6 +54,16 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
         ...state,
         usersData: action.usersData.map(i => ({...i, backgroundImg: '', country: ''})),
       };
+    case "TOTAL-USERS-COUNT": 
+    return{
+      ...state,
+      totalUsersCount: action.totalCount
+    } 
+    case "CURRENT-PAGE": 
+    return{
+      ...state,
+      currentPage: action.currentPage
+    } 
     default:
       return state;
   }
@@ -72,6 +85,11 @@ export const unFollowAC = (userId: number) =>
 export const setUsersAC = (usersData: Array<UserType>) =>
   ({ type: "SET-USERS", usersData } as const);
 
+  export const setTotalUsersCountAC = (totalCount: number) =>
+  ({ type: "TOTAL-USERS-COUNT", totalCount } as const);
+
+  export const setCurrentPageAC = (currentPage: number) =>
+  ({ type: "CURRENT-PAGE", currentPage } as const);
 
 // types
 export type ProfilePageInitialStateType = typeof initialState;
@@ -94,6 +112,8 @@ export type ActionCreatorProfilePageType =
   | ReturnType<typeof newMessageAC>
   | ReturnType<typeof followAC>
   | ReturnType<typeof unFollowAC>
-  | ReturnType<typeof setUsersAC>;
+  | ReturnType<typeof setUsersAC>
+  | ReturnType<typeof setTotalUsersCountAC>
+  | ReturnType<typeof setCurrentPageAC>;
 
  
