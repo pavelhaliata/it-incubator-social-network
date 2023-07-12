@@ -1,5 +1,20 @@
 import axios from "axios";
 
+const API_KEY = "bd4d8697c2213442afba131cd703e05a";
+
+const instanse = axios.create({
+  baseURL: `http://api.openweathermap.org/data/2.5/`
+})
+
+export const weatherAPI = {
+  getWeather(city: string) {
+    return instanse.get<WeatherType>(
+      `weather?q=${city}&appid=${API_KEY}&units=metric`
+    );
+  },
+};
+
+// types 
 export type WeatherType = {
   base: string;
   clouds: { all: number };
@@ -38,18 +53,4 @@ export type WeatherType = {
     gust: number;
     speed: number;
   };
-};
-
-const API_KEY = "bd4d8697c2213442afba131cd703e05a";
-
-const instanse = axios.create({
-  baseURL: `http://api.openweathermap.org/data/2.5/`
-})
-
-export const weatherAPI = {
-  getWeather(city: string) {
-    return instanse.get<WeatherType>(
-      `weather?q=${city}&appid=${API_KEY}&units=metric`
-    );
-  },
 };

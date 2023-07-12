@@ -8,7 +8,8 @@ const initialState = {
   usersData: [] as Array<UserDomainType>,
   pageSize: 1000 as number,
   currentPage: 1 as number,
-  totalUsersCount: 0 as number
+  totalUsersCount: 0 as number,
+  isFetching: false as boolean
 };
 
 export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
@@ -63,7 +64,12 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
     return{
       ...state,
       currentPage: action.currentPage
-    } 
+    }
+    case "TOOGLE-IS-FETCHING":
+      return{
+        ...state,
+        isFetching: action.isFetching
+      } 
     default:
       return state;
   }
@@ -91,6 +97,10 @@ export const setUsersAC = (usersData: Array<UserType>) =>
   export const setCurrentPageAC = (currentPage: number) =>
   ({ type: "CURRENT-PAGE", currentPage } as const);
 
+  export const setIsFetchingAC = (isFetching: boolean) => ({
+    type: "TOOGLE-IS-FETCHING", isFetching 
+  }as const)
+
 // types
 export type ProfilePageInitialStateType = typeof initialState;
 
@@ -114,6 +124,7 @@ export type ActionCreatorProfilePageType =
   | ReturnType<typeof unFollowAC>
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof setCurrentPageAC>;
+  | ReturnType<typeof setCurrentPageAC>
+  | ReturnType<typeof setIsFetchingAC>;
 
  

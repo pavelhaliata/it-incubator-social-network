@@ -3,7 +3,31 @@
     flex-wrap: wrap;
 	margin: 0px -5px 0px -5px;
 }
-
-
-
+.page_navigation{
+    // margin: 5px 0 5px 0;
+    display: flex;
+    justify-content: center;
+}
+.page_number{
+    //border: #fd3e12 solid 1px;
+    //margin-left: 4px;
+    font-size: 1.2rem;
+    padding: .3rem;
+    cursor: pointer;
+    &:hover{
+        font-weight: 800;
+        color: #fd3e12;
+    }
+}
+.current{
+    font-weight: 800;
+    color: #ff5e3a;
+}
+.block_loading{
+    display: flex;
+    justify-content: center;
+    img{
+        display: block;
+    }
+}
 

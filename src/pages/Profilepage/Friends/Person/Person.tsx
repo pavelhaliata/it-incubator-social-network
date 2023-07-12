@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
 import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
