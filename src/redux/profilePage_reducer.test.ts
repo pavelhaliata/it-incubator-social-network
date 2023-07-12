@@ -5,9 +5,9 @@ import {
 	newMessageTextAC,
 	ProfilePageInitialStateType,
 	profilePageReducer,
-	setUsersAC,
+	setUsersAC, RequestStatus,
 	unFollowAC,
-  } from "./profilePage_reducer";
+} from "./profilePage_reducer";
   
   const startState: ProfilePageInitialStateType = {
 	messagesData: [],
@@ -26,7 +26,9 @@ import {
 	}],
 	currentPage: 1,
 	pageSize: 5,
-	totalUsersCount: 20
+	totalUsersCount: 20,
+	  isFetching: false,
+	  status: RequestStatus.idle as RequestStatus
   };
   test("dialog text should be added", () => {
 	
@@ -42,7 +44,9 @@ import {
 		usersData: [],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20
+		totalUsersCount: 20,
+		isFetching: false,
+		status: RequestStatus.idle as RequestStatus
 	  };
 	
 	const endState = profilePageReducer(startState, newMessageAC());
@@ -74,7 +78,10 @@ import {
 		}],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20
+		totalUsersCount: 20,
+		isFetching: false,
+		status: RequestStatus.idle as RequestStatus
+
 	  };
 	
 	const endState = profilePageReducer(startState, unFollowAC(startState.usersData[0].id));

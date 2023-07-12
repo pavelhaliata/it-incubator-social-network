@@ -1,6 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import { UserType } from "../api/social-network-api";
 
+export enum RequestStatus {
+  'idle'= 0,
+  'loading' = 1,
+  'succeed' = 2,
+  'failed' = 3
+}
 
 const initialState = {
   newMessageTextData: "" as string,
@@ -9,7 +15,8 @@ const initialState = {
   pageSize: 1000 as number,
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
-  isFetching: false as boolean
+  isFetching: false as boolean,
+  status: RequestStatus.succeed as RequestStatus
 };
 
 export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
@@ -69,7 +76,12 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
       return{
         ...state,
         isFetching: action.isFetching
-      } 
+      }
+    case "APP/SET-STATUS":
+      return {
+        ...state,
+        status: action.status
+      }
     default:
       return state;
   }
@@ -101,6 +113,10 @@ export const setUsersAC = (usersData: Array<UserType>) =>
     type: "TOOGLE-IS-FETCHING", isFetching 
   }as const)
 
+  export const setRequestStatusAC = (status: RequestStatus) =>({
+    type: "APP/SET-STATUS", status
+  }as const)
+
 // types
 export type ProfilePageInitialStateType = typeof initialState;
 
@@ -117,6 +133,7 @@ export type MessageType = {
   time: string;
 };
 
+
 export type ActionCreatorProfilePageType =
   | ReturnType<typeof newMessageTextAC>
   | ReturnType<typeof newMessageAC>
@@ -125,6 +142,7 @@ export type ActionCreatorProfilePageType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setTotalUsersCountAC>
   | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setIsFetchingAC>;
+  | ReturnType<typeof setIsFetchingAC>
+  | ReturnType<typeof setRequestStatusAC>;
 
  
