@@ -1,12 +1,9 @@
+import { Dispatch } from "redux";
 import { v4 as uuidv4 } from "uuid";
-import { UserType } from "../api/social-network-api";
+import { socialNetworkAPI, UserType } from "../api/social-network-api";
+import { RequestStatus, setRequestStatus } from "../app/app-reducer";
 
-export enum RequestStatus {
-  'idle'= 0,
-  'loading' = 1,
-  'succeed' = 2,
-  'failed' = 3
-}
+
 
 const initialState = {
   newMessageTextData: "" as string,
@@ -15,8 +12,6 @@ const initialState = {
   pageSize: 1000 as number,
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
-  isFetching: false as boolean,
-  status: RequestStatus.succeed as RequestStatus
 };
 
 export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
@@ -72,50 +67,46 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
       ...state,
       currentPage: action.currentPage
     }
-    case "TOOGLE-IS-FETCHING":
-      return{
-        ...state,
-        isFetching: action.isFetching
-      }
-    case "APP/SET-STATUS":
-      return {
-        ...state,
-        status: action.status
-      }
     default:
       return state;
   }
 };
 
 // actions
-export const newMessageTextAC = (newText: string) =>
+export const newMessageText = (newText: string) =>
   ({ type: "UPDATE-NEW-MESSAGE-TEXT", newText } as const);
 
-export const newMessageAC = () =>
+export const newMessage = () =>
   ({ type: "ADD_NEW_MESSAGE" } as const);
 
-export const followAC = (userId: number) =>
+export const followPerson = (userId: number) =>
   ({ type: "FOLLOW", userId } as const);
 
-export const unFollowAC = (userId: number) =>
+export const unFollowPerson = (userId: number) =>
   ({ type: "UNFOLLOW", userId } as const);
 
-export const setUsersAC = (usersData: Array<UserType>) =>
+export const setUsers = (usersData: Array<UserType>) =>
   ({ type: "SET-USERS", usersData } as const);
 
-  export const setTotalUsersCountAC = (totalCount: number) =>
+export const setTotalUsersCount = (totalCount: number) =>
   ({ type: "TOTAL-USERS-COUNT", totalCount } as const);
 
-  export const setCurrentPageAC = (currentPage: number) =>
+export const setCurrentPage = (currentPage: number) =>
   ({ type: "CURRENT-PAGE", currentPage } as const);
 
-  export const setIsFetchingAC = (isFetching: boolean) => ({
-    type: "TOOGLE-IS-FETCHING", isFetching 
-  }as const)
+// thunks
+export const getUsers = (currentPage: number): any => {
+  return (dispatch: Dispatch) => {
+    dispatch(setRequestStatus(RequestStatus.loading))
+    socialNetworkAPI.getUsers(currentPage)
+    .then(res => {
+      dispatch(setUsers(res.data.items))
+      dispatch(setTotalUsersCount(res.data.totalCount))
+      dispatch(setRequestStatus(RequestStatus.succeed))
+    })
+  }
+}
 
-  export const setRequestStatusAC = (status: RequestStatus) =>({
-    type: "APP/SET-STATUS", status
-  }as const)
 
 // types
 export type ProfilePageInitialStateType = typeof initialState;
@@ -135,14 +126,12 @@ export type MessageType = {
 
 
 export type ActionCreatorProfilePageType =
-  | ReturnType<typeof newMessageTextAC>
-  | ReturnType<typeof newMessageAC>
-  | ReturnType<typeof followAC>
-  | ReturnType<typeof unFollowAC>
-  | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setIsFetchingAC>
-  | ReturnType<typeof setRequestStatusAC>;
+  | ReturnType<typeof newMessageText>
+  | ReturnType<typeof newMessage>
+  | ReturnType<typeof followPerson>
+  | ReturnType<typeof unFollowPerson>
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof setCurrentPage>
 
  

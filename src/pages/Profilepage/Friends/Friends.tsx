@@ -1,20 +1,17 @@
 import style from "./Friends.module.scss";
 import {Person} from "./Person/Person";
 import {FriendsPropsType} from "./FriendsContainer";
-import loading from "../../../assets/images/loading-pulse-200px.svg"
-import {RequestStatus} from "../../../redux/profilePage_reducer";
+import loading from "../../../assets/images/loading-spinner-200px.svg"
+import { RequestStatus } from "../../../app/app-reducer";
 
 export const Friends = ({
                             usersData,
-                            setUsers,
                             setCurrentPage,
-                            setTotalUsersCount,
                             currentPage,
                             pageSize,
                             totalUsersCount,
                             followPerson,
                             unFollowPerson,
-                            isFetching,
                             requestStatus
                         }: FriendsPropsType) => {
 
@@ -31,12 +28,12 @@ export const Friends = ({
             <div className={style.page_navigation}>
                 {pages.map((p) => (
                     <span
+                        key={p}
                         className={`${style.page_number} ${currentPage === p && style.current}`}
-                        onClick={() => {
-                            setCurrentPage(p);
-                        }}>
-              {p}
-            </span>
+                        onClick={() => {setCurrentPage(p)}}
+                    >
+                    {p}
+                    </span>
                 ))}
             </div>
             {requestStatus === RequestStatus.loading ? <div className={style.block_loading}><img src={loading}/></div>

@@ -3,14 +3,12 @@ import style from "./BlogPage.module.scss"
 import {Button} from "../../components/Button/Button";
 import {Post} from "./Post/Post";
 import {BlogPagePropsType} from "./BlogPageContainer";
-
-
-import React, {Component} from 'react';
+import {Component} from 'react';
 
 export class BlogPage extends Component<BlogPagePropsType> {
     componentDidMount() {
         document.title = "Blog page"
-        this.props.setupHeaderTitle("blog page")
+        this.props.setHeaderTitle("blog page")
     }
 
     onChangeInputValueHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,14 +17,13 @@ export class BlogPage extends Component<BlogPagePropsType> {
     };
     onKeyDownCreateNewPostHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.ctrlKey && event.key === "Enter") {
-            this.props.createNewPost()
+            this.props.createPost()
         }
     };
     createNewPostHandler = () => {
-        this.props.createNewPost()
+        this.props.createPost()
     };
-
-
+    
     render() {
 
         return (

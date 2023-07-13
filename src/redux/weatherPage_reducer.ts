@@ -58,12 +58,13 @@ export const weatherPageReducer = (state: WeatherPageInitialStateType = initialS
     }
 };
 
-// action
+// actions
 export const setWeatherAC = (weatherData: WeatherType) => ({type: "SET-WEATHER", weatherData} as const);
 export const locationValueAC = (value: string) => ({type: "LOCATION-TEXT-VALUE", value} as const)
 
-// thunk
+// thunks
 export const getActualWeatherTC = (city: string): any => {
+    
     return (dispatch: Dispatch) => {
         weatherAPI.getWeather(city)
             .then(res => {

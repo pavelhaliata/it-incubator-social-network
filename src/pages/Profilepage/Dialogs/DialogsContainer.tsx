@@ -1,4 +1,4 @@
-import {MessageType, newMessageAC, newMessageTextAC} from "../../../redux/profilePage_reducer";
+import {MessageType, newMessage, newMessageText} from "../../../redux/profilePage_reducer";
 import {Dialogs} from "./Dialogs";
 import {StateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
@@ -24,8 +24,8 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
     return {
-        updateNewMessageText: (value: string) => {dispatch(newMessageTextAC(value))},
-        addNewMessage: () => {dispatch(newMessageAC());}
+        updateNewMessageText: (value: string) => {dispatch(newMessageText(value))},
+        addNewMessage: () => {dispatch(newMessage());}
     }
 }
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

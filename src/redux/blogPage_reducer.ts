@@ -34,19 +34,19 @@ export const blogPageReducer = (state: BlogPageInitialStateType = initialState, 
 
 
 // action
-export const setPostTextValueAC = (value: string) => {
+export const setPostTextValue = (value: string) => {
     return {
         type: "POST-TEXT-VALUE",
         value
     } as const;
 };
-export const createPostAC = () => ({type: "CREATE-NEW-POST"} as const);
+export const createPost = () => ({type: "CREATE-NEW-POST"} as const);
 
 // types
 
 export type ActionCreatorBlogPageType =
-    | ReturnType<typeof setPostTextValueAC>
-    | ReturnType<typeof createPostAC>
+    | ReturnType<typeof setPostTextValue>
+    | ReturnType<typeof createPost>
 
 export type PostDataType = {
     id: string;

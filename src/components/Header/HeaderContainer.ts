@@ -15,7 +15,7 @@ export type HeaderPropsType = mapStatePropsType & mapDispatchPropsType
 
 const mapStateToProps = (state: StateType ): mapStatePropsType => {
 	return {
-	  headerTitle: state.headerComponent.headerTitle
+	  headerTitle: state.app.headerTitle
 	}
   };
   const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {

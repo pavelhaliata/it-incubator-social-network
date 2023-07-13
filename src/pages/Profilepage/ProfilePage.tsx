@@ -7,7 +7,7 @@ export class ProfilePage extends Component <ProfilePagePropsType> {
 
   componentDidMount() {
     document.title = "Profile Page";
-    this.props.setupHeaderTitle("profile page");
+    this.props.setHeaderTitle("profile page");
   }
 
   navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");

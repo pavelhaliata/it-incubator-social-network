@@ -1,12 +1,12 @@
 
 import {
-	followAC,
-	newMessageAC,
-	newMessageTextAC,
+	followPerson,
+	newMessage,
+	newMessageText,
 	ProfilePageInitialStateType,
 	profilePageReducer,
-	setUsersAC, RequestStatus,
-	unFollowAC,
+	setUsers,
+	unFollowPerson,
 } from "./profilePage_reducer";
   
   const startState: ProfilePageInitialStateType = {
@@ -26,13 +26,11 @@ import {
 	}],
 	currentPage: 1,
 	pageSize: 5,
-	totalUsersCount: 20,
-	  isFetching: false,
-	  status: RequestStatus.idle as RequestStatus
+	totalUsersCount: 20
   };
   test("dialog text should be added", () => {
 	
-	const endState = profilePageReducer(startState, newMessageTextAC("some text"));
+	const endState = profilePageReducer(startState, newMessageText("some text"));
 	expect(endState.newMessageTextData).toBe("some text");
 	expect(startState.newMessageTextData).toBe("");
   });
@@ -44,18 +42,16 @@ import {
 		usersData: [],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20,
-		isFetching: false,
-		status: RequestStatus.idle as RequestStatus
+		totalUsersCount: 20
 	  };
 	
-	const endState = profilePageReducer(startState, newMessageAC());
+	const endState = profilePageReducer(startState, newMessage());
 	expect(endState.messagesData.length).toBe(1);
 	expect(startState.messagesData.length).toBe(0);
   });
 
   test("user should be followed", () => {
-	const endState = profilePageReducer(startState, followAC(startState.usersData[0].id));
+	const endState = profilePageReducer(startState, followPerson(startState.usersData[0].id));
 	expect(endState.usersData[0].followed).toBeTruthy();
 	expect(startState.usersData[0].followed).toBeFalsy();
   });
@@ -78,13 +74,10 @@ import {
 		}],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20,
-		isFetching: false,
-		status: RequestStatus.idle as RequestStatus
-
+		totalUsersCount: 20
 	  };
 	
-	const endState = profilePageReducer(startState, unFollowAC(startState.usersData[0].id));
+	const endState = profilePageReducer(startState, unFollowPerson(startState.usersData[0].id));
 	expect(endState.usersData[0].followed).toBeFalsy();
 	expect(startState.usersData[0].followed).toBeTruthy();
   });
@@ -116,7 +109,7 @@ import {
 			name: "Nicholas Grissom",
 			country: "San Francisco, CA",
 	}]
-	const endState = profilePageReducer(startState, setUsersAC(users));
+	const endState = profilePageReducer(startState, setUsers(users));
 	expect(endState.usersData.length).toBe(2);
 	expect(startState.usersData.length).toBe(1);
   });

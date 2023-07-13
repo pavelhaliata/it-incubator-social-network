@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 export const socialNetworkAPI = {
   getUsers(page: number) {
-    return instance.get<ResponseUsersType>(`users?count=12&page=${page}`);
+    return instance.get<ResponseUsersType>(`users?count=52&page=${page}`);
   },
 };
 

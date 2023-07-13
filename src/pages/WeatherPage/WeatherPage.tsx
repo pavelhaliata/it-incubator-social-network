@@ -5,15 +5,13 @@ import {WeatherPagePropsType} from "./WeatherPageContainer";
 
 
 export class WeatherPage extends Component<WeatherPagePropsType> {
+
     componentDidMount() {
         document.title = "Weather Page";
-        this.props.setupHeaderTitle("weatherpage");
+        this.props.setHeaderTitle("weatherpage");
         this.props.getActualWeatherData('Minsk');
     }
 
-    componentDidUpdate(prevProps: Readonly<WeatherPagePropsType>, prevState: Readonly<{}>, snapshot?: any) {
-
-    }
 
     capitalizeFirstLetter = (word: string) => {
         return word
@@ -21,6 +19,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
             .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
             .join(" ");
     };
+
     temperature = Math.round(this.props.weatherData.main.temp);
     temperatureMax = Math.round(this.props.weatherData.main.temp_max);
     temperatureMin = Math.round(this.props.weatherData.main.temp_min);
@@ -41,6 +40,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
         this.props.setLocationValue(event.currentTarget.value);
     };
+    
     onClickHandler = () => {
         if (this.props.locationValue.trim() !== "") {
             this.props.getActualWeatherData(this.props.locationValue);
