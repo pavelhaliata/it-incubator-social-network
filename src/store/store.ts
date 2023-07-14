@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from "uuid";
-import {profilePageReducer} from "./profilePage_reducer";
-import {blogPageReducer} from "./blogPage_reducer";
-import { ActionCreatorsTypes } from "../StoreContext";
+import {profilePageReducer} from "../store-redux/profilePage_reducer";
+import {blogPageReducer} from "../store-redux/blogPage_reducer";
+import { ActionCreatorsTypes } from "./StoreContext";
 
 type PersonType = {
     id: string;
@@ -32,7 +32,7 @@ type MessageType = {
     personsData: Array<PersonType>;
 };
  type BlogPageType = {
-    newPostTextData: string;
+    postTextValue: string;
     postsData: Array<PostType>;
 };
 
@@ -41,7 +41,7 @@ type StateDataType = {
     blogPage: BlogPageType;
 };
 
-type ActionCreatorType1 = {
+type ActionCreatorType = {
     type: string
     newText?: string
 };
@@ -63,7 +63,7 @@ type RootStoreType = {
 const store: RootStoreType = {
     _state: {
         profilePage: {newMessageTextData: "", messagesData: [], personsData: []},
-        blogPage: {newPostTextData: "", postsData: [],}
+        blogPage: {postTextValue: "", postsData: []}
     },
 
     getState() {
@@ -77,9 +77,9 @@ const store: RootStoreType = {
         this._rerenderEntireTree = observer;
     },
     dispatch(action: any) {
-        //this._state.blogPage = blogPageReducer(this._state.blogPage, action)
+        this._state.blogPage = blogPageReducer(this._state.blogPage, action)
         //this._state.profilePage = profilePageReducer(this._state.profilePage, action)
-        //this._rerenderEntireTree(this._state);
+        this._rerenderEntireTree(this._state);
     },
 
 };

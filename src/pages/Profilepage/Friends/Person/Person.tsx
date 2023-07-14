@@ -3,6 +3,7 @@ import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
 import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
 import background from "../../../../assets/images/background.jpg"
+import { NavLink } from 'react-router-dom';
 
 type PersonPropsType = {
   followPerson: () => void;
@@ -12,6 +13,7 @@ type PersonPropsType = {
   name: string;
   country: string;
   followed: boolean;
+  id: number
 };
 
 
@@ -30,9 +32,9 @@ export class Person extends Component<PersonPropsType> {
                   <img src={this.props.avatar ? this.props.avatar : manAvatar} alt="avatar"/>
                 </div>
                 <div className={style.author_content}>
-                  <a className={style.author_name} href="#">
+                  <NavLink to={`user/${this.props.id}`} className={style.author_name}>
                     {this.props.name}
-                  </a>
+                  </NavLink>
                   <div className={style.country}>{this.props.country}</div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
-import {MessageType, newMessage, newMessageText} from "../../../redux/profilePage_reducer";
+import {MessageType, newMessage, newMessageText} from "../../../store-redux/profilePage_reducer";
 import {Dialogs} from "./Dialogs";
-import {StateType} from "../../../redux/redux-store";
+import {StateType} from "../../../store-redux/redux-store";
 import {Dispatch} from "redux";
 import { connect } from "react-redux";
 

@@ -59,21 +59,20 @@ export const weatherPageReducer = (state: WeatherPageInitialStateType = initialS
 };
 
 // actions
-export const setWeatherAC = (weatherData: WeatherType) => ({type: "SET-WEATHER", weatherData} as const);
-export const locationValueAC = (value: string) => ({type: "LOCATION-TEXT-VALUE", value} as const)
+export const setWeather = (weatherData: WeatherType) => ({type: "SET-WEATHER", weatherData} as const);
+export const setLocationValue = (value: string) => ({type: "LOCATION-TEXT-VALUE", value} as const)
 
 // thunks
-export const getActualWeatherTC = (city: string): any => {
-    
+export const getActualWeather = (city: string): any => {
     return (dispatch: Dispatch) => {
         weatherAPI.getWeather(city)
             .then(res => {
-                dispatch(setWeatherAC(res.data))
+                dispatch(setWeather(res.data))
             })
     }
 }
 
 // types
 type ActionCreatorWeatherType =
-    | ReturnType<typeof setWeatherAC>
-    | ReturnType<typeof locationValueAC>;
+    | ReturnType<typeof setWeather>
+    | ReturnType<typeof setLocationValue>;

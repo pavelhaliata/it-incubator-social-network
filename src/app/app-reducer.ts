@@ -6,9 +6,9 @@ export enum RequestStatus {
 }
 
 const initialState = {
+  headerTitle: "" as string,
   error: null as string | null,
   status: RequestStatus.idle as RequestStatus,
-  headerTitle: "" as string
 };
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {

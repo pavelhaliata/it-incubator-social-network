@@ -57,6 +57,7 @@ export const Friends = ({
                                     avatar={user.photos.small}
                                     name={user.name}
                                     country={user.country}
+                                    id={user.id}
                                 />
                             );
                         })}

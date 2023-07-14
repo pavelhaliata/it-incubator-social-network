@@ -1,7 +1,7 @@
 import React from "react";
-import {ActionCreatorProfilePageType} from "./redux/profilePage_reducer";
-import {ActionCreatorBlogPageType} from "./redux/blogPage_reducer";
-import {StateType} from "./redux/redux-store";
+import {ActionCreatorProfilePageType} from "../store-redux/profilePage_reducer";
+import {ActionCreatorBlogPageType} from "../store-redux/blogPage_reducer";
+import {StateType} from "../store-redux/redux-store";
 import {Store} from "redux";
 
 
@@ -21,4 +21,3 @@ export const Provider = ({store, children}: ProviderType) => {
         </StoreContext.Provider>
     )
 }
-

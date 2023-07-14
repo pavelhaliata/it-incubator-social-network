@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { StateType } from "../../redux/redux-store";
+import { StateType } from "../../store-redux/redux-store";
 import { Header } from "./Header";
 
 

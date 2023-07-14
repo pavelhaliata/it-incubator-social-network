@@ -1,9 +1,9 @@
 import {Component} from "react";
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {StateType} from "../../../store-redux/redux-store";
 import {followPerson, getUsers, setCurrentPage, setTotalUsersCount, setUsers, unFollowPerson, UserDomainType,
-} from "../../../redux/profilePage_reducer";
+} from "../../../store-redux/profilePage_reducer";
 import {Dispatch} from "redux";
 import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 

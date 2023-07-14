@@ -33,7 +33,7 @@ export const blogPageReducer = (state: BlogPageInitialStateType = initialState, 
 };
 
 
-// action
+// actions
 export const setPostTextValue = (value: string) => {
     return {
         type: "POST-TEXT-VALUE",

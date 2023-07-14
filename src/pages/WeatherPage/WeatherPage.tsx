@@ -9,7 +9,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     componentDidMount() {
         document.title = "Weather Page";
         this.props.setHeaderTitle("weatherpage");
-        this.props.getActualWeatherData('Minsk');
+        this.props.getActualWeather('Minsk');
     }
 
 
@@ -43,7 +43,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     
     onClickHandler = () => {
         if (this.props.locationValue.trim() !== "") {
-            this.props.getActualWeatherData(this.props.locationValue);
+            this.props.setLocationValue(this.props.locationValue);
             this.props.setLocationValue("");
         }
         return;

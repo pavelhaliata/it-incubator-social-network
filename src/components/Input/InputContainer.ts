@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { inputValueAC } from "../../redux/inputComponent_reducer";
-import { StateType } from "../../redux/redux-store";
+import { inputValueAC } from "../../store-redux/inputComponent_reducer";
+import { StateType } from "../../store-redux/redux-store";
 import { Input } from "./Input";
 
 
