@@ -8,6 +8,7 @@ import {
 	setUsers,
 	unFollowPerson,
 } from "./profilePage_reducer";
+import {ProfileUserType} from "../api/social-network-api";
   
   const startState: ProfilePageInitialStateType = {
 	messagesData: [],
@@ -26,7 +27,8 @@ import {
 	}],
 	currentPage: 1,
 	pageSize: 5,
-	totalUsersCount: 20
+	totalUsersCount: 20,
+	  profileUserData: {} as ProfileUserType
   };
   test("dialog text should be added", () => {
 	
@@ -42,7 +44,8 @@ import {
 		usersData: [],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20
+		totalUsersCount: 20,
+		profileUserData: {} as ProfileUserType
 	  };
 	
 	const endState = profilePageReducer(startState, newMessage());
@@ -74,7 +77,8 @@ import {
 		}],
 		currentPage: 1,
 		pageSize: 5,
-		totalUsersCount: 20
+		totalUsersCount: 20,
+		profileUserData: {} as ProfileUserType
 	  };
 	
 	const endState = profilePageReducer(startState, unFollowPerson(startState.usersData[0].id));

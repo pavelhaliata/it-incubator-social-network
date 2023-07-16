@@ -2,7 +2,8 @@ import style from "./Friends.module.scss";
 import {Person} from "./Person/Person";
 import {FriendsPropsType} from "./FriendsContainer";
 import loading from "../../../assets/images/loading-spinner-200px.svg"
-import { RequestStatus } from "../../../app/app-reducer";
+import {RequestStatus} from "../../../app/app-reducer";
+
 
 export const Friends = ({
                             usersData,
@@ -30,7 +31,9 @@ export const Friends = ({
                     <span
                         key={p}
                         className={`${style.page_number} ${currentPage === p && style.current}`}
-                        onClick={() => {setCurrentPage(p)}}
+                        onClick={() => {
+                            setCurrentPage(p)
+                        }}
                     >
                     {p}
                     </span>
@@ -63,8 +66,6 @@ export const Friends = ({
                         })}
                 </div>
             }
-
-
         </>
     );
 }

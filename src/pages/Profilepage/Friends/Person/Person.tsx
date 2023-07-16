@@ -3,7 +3,8 @@ import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
 import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
 import background from "../../../../assets/images/background.jpg"
-import { NavLink } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import {getProfileUser} from "../../../../store-redux/profilePage_reducer";
 
 type PersonPropsType = {
   followPerson: () => void;
@@ -19,6 +20,9 @@ type PersonPropsType = {
 
 export class Person extends Component<PersonPropsType> {
 
+  onClickHandler = () => {
+    getProfileUser(this.props.id)
+  }
   render() {
     return (
         <div className={style.wrapper}>
@@ -32,9 +36,9 @@ export class Person extends Component<PersonPropsType> {
                   <img src={this.props.avatar ? this.props.avatar : manAvatar} alt="avatar"/>
                 </div>
                 <div className={style.author_content}>
-                  <NavLink to={`user/${this.props.id}`} className={style.author_name}>
+                  <Link to={`/user`} className={style.author_name} onClick={()=> {}}>
                     {this.props.name}
-                  </NavLink>
+                  </Link>
                   <div className={style.country}>{this.props.country}</div>
                 </div>
               </div>

@@ -28,7 +28,7 @@ export class ProfilePage extends Component <ProfilePagePropsType> {
                 <ul className={style.item_menu}>
                   <li>
                     <NavLink to="/friends" className={this.navLinkActive}>
-                      Friends
+                      Friends search
                     </NavLink>
                   </li>
                   <li>

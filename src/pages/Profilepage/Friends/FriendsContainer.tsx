@@ -2,12 +2,11 @@ import {Component} from "react";
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
 import {StateType} from "../../../store-redux/redux-store";
-import {followPerson, getUsers, setCurrentPage, setTotalUsersCount, setUsers, unFollowPerson, UserDomainType,
+import {followPerson, getUsers, setCurrentPage, setTotalUsersCount, unFollowPerson, UserDomainType,
 } from "../../../store-redux/profilePage_reducer";
-import {Dispatch} from "redux";
 import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 
-// UserApiContainer componet
+// UserApiContainer component
 class UserApiContainer extends Component<FriendsPropsType> {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage)

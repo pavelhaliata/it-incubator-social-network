@@ -18,3 +18,5 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
 
+//@ts-ignore
+window.store = store

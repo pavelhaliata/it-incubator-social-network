@@ -1,0 +1,67 @@
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  max-width: 450px;
+  width: 100%;
+  border-radius: .3rem;
+  padding: 10px;
+  background-color: #ffffff;
+}
+.card_body {
+  border: #32e4cd 1px solid;
+  h2{
+
+  }
+  img {
+
+    display: inline-block;
+    float: left;
+    width: 124px;
+    height: 124px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #515365;
+    background-color: #ffffff;
+    margin-right: 45px;
+  }
+  margin-bottom: 10px;
+}
+
+.job {
+  border: #32e4cd 1px solid;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.job_status {
+  display: block
+}
+
+.job_description {
+  font-size: .9rem;
+}
+
+
+
+.contacts {
+  border: #32e4cd 1px solid;
+}
+
+.menu {
+  border: #32e4cd 1px solid;
+  display: flex;
+  justify-content: center;
+
+  .item {
+      img{
+        width: 26px;
+      }
+  }
+}

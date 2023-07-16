@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { StateType} from "../../store-redux/redux-store";
 import {ProfilePage} from "./ProfilePage";

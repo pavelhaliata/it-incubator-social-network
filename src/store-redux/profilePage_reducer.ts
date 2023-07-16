@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { v4 as uuidv4 } from "uuid";
-import { socialNetworkAPI, UserType } from "../api/social-network-api";
+import {ProfileUserType, socialNetworkAPI, UserType} from "../api/social-network-api";
 import { RequestStatus, setRequestStatus } from "../app/app-reducer";
 
 
@@ -12,6 +12,27 @@ const initialState = {
   pageSize: 1000 as number,
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
+  profileUserData: {
+    aboutMe: '',
+    contacts: {
+      facebook: '',
+      website: '',
+      vk: '',
+      twitter: '',
+      instagram: '',
+      youtube: '',
+      github: '',
+      mainLink: '',
+    },
+    lookingForAJob: true,
+    lookingForAJobDescription: '',
+    fullName: '',
+    userId: 0,
+    photos: {
+      small: '',
+      large: '',
+    }
+  } as ProfileUserType,
 };
 
 export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
@@ -67,6 +88,11 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
       ...state,
       currentPage: action.currentPage
     }
+    case "PROFILE-USER":
+      return {
+        ...state,
+        profileUserData: action.profileUserData
+      }
     default:
       return state;
   }
@@ -94,6 +120,11 @@ export const setTotalUsersCount = (totalCount: number) =>
 export const setCurrentPage = (currentPage: number) =>
   ({ type: "CURRENT-PAGE", currentPage } as const);
 
+export const profileUserData = (profileUserData: any) => ({
+  type: "PROFILE-USER",
+  profileUserData
+} as const)
+
 // thunks
 export const getUsers = (currentPage: number): any => {
   return (dispatch: Dispatch) => {
@@ -106,6 +137,18 @@ export const getUsers = (currentPage: number): any => {
     })
   }
 }
+export const getProfileUser = (userId: number): any => {
+
+  return (dispatch: Dispatch) => {
+    dispatch(setRequestStatus(RequestStatus.loading))
+    socialNetworkAPI.getProfileUser(userId)
+        .then(res => {
+          dispatch(profileUserData(res.data))
+          dispatch(setRequestStatus(RequestStatus.succeed))
+        })
+  }
+}
+
 
 
 // types
@@ -133,5 +176,6 @@ export type ActionCreatorProfilePageType =
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof profileUserData>
 
  

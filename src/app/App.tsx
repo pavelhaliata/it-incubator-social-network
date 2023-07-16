@@ -6,6 +6,7 @@ import { FriendsContainer } from "../pages/Profilepage/Friends/FriendsContainer"
 import { BlogPageContainer } from "../pages/Blogpage/BlogPageContainer";
 import { ProfilePageContainer } from "../pages/Profilepage/ProfilePageContainer";
 import { WeatherPageContainer } from "../pages/WeatherPage/WeatherPageContainer";
+import {UserPageContainer} from "../pages/Profilepage/User/UserPageContainer";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           <Route path="/*" element={<ProfilePageContainer />}>
             <Route path="dialogs" element={<DialogsContainer />} />
             <Route path="friends" element={<FriendsContainer />} />
+            <Route path="user" element={<UserPageContainer />} />
           </Route>
+
           <Route path="blog-page" element={<BlogPageContainer />} />
           <Route path="weather" element={<WeatherPageContainer />} />
           <Route path="news" element={<Newspage />} />
