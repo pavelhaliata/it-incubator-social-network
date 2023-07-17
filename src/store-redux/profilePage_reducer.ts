@@ -138,12 +138,11 @@ export const getUsers = (currentPage: number): any => {
   }
 }
 export const getProfileUser = (userId: number): any => {
-
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading))
     socialNetworkAPI.getProfileUser(userId)
         .then(res => {
-          dispatch(profileUserData(res.data))
+          dispatch (profileUserData(res.data))
           dispatch(setRequestStatus(RequestStatus.succeed))
         })
   }

@@ -9,7 +9,7 @@ import instagram from "../../../assets/images/social-icons/icons8-instagram.svg"
 import github from "../../../assets/images/social-icons/icons8-github.svg"
 import website from "../../../assets/images/social-icons/icons8-internet-48.png"
 import mainLink from "../../../assets/images/social-icons/link_share_icon.svg"
-import defaultProfileImage from "../../../assets/images/user-svgrepo-com.svg"
+import defaultAvatar from "../../../assets/images/abstract-user-default.svg"
 import { useParams } from "react-router-dom";
 
 export const User = (props: UserPagePropsType) => {
@@ -26,7 +26,7 @@ export const User = (props: UserPagePropsType) => {
         <div className={style.wrapper}>
             <div className={style.card}>
                 <div className={style.card_body}>
-                    <img src={props.ProfileUserData.photos.large ? props.ProfileUserData.photos.large: defaultProfileImage} alt="Profile Image"/>
+                    <img src={props.ProfileUserData.photos.large ? props.ProfileUserData.photos.large: defaultAvatar} alt="Profile Image"/>
                     <h2 className={style.name}>{props.ProfileUserData.fullName}</h2>
                     <div className={style.job_container}>
                         <span>status:</span>

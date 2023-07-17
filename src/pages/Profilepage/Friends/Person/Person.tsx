@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
-import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
+import defaultAvatar from "../../../../assets/images/abstract-user-default.svg"
 import background from "../../../../assets/images/background.jpg"
 import {Link} from 'react-router-dom';
 
@@ -24,20 +24,19 @@ export class Person extends Component<PersonPropsType> {
         <div className={style.wrapper}>
           <div className={style.card}>
             <div className={style.card_header}>
-              {/* <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" /> */}
+               <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" />
             </div>
             <div className={style.card_body}>
-              <div className={style.author}>
                 <div className={style.author_avatar}>
-                  <img src={this.props.avatar ? this.props.avatar : manAvatar} alt="avatar"/>
+                  <img src={this.props.avatar ? this.props.avatar : defaultAvatar} alt="avatar"/>
                 </div>
                 <div className={style.author_content}>
                   <Link to={`/user/${this.props.id}`} className={style.author_name}>
-                    {this.props.name}
+                   <h3> {this.props.name}</h3>
                   </Link>
-                  <div className={style.country}>{this.props.country}</div>
                 </div>
-              </div>
+            </div>
+            <div className={style.btn_wrapper}>
               {this.props.followed ? (
                   <Button className={`${style.btn_person} ${style.unfollow}`} callback={this.props.unFollowPerson}>
                     unfollow
