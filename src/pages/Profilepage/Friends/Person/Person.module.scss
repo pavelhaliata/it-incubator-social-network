@@ -16,13 +16,15 @@
   text-align: center;
   border-radius: .3rem;
   overflow: hidden;
+  // padding: 5px;
 
 }
 
 .card_header {
   overflow: hidden;
-  height: 70px;
-
+  height: 110px;
+  // border-bottom: #b4b4b4 1px solid;
+  background-color: #888da8;
   img {
     display: block;
     width: 100%;
@@ -36,8 +38,11 @@
 }
 
 .author {
+  // border: #ff5e3a 1px solid;
   position: relative;
-  top: -35px;
+  // top: -85px;
+  margin-top: -65px;
+  // border-bottom: #b4b4b4 1px solid;;
 }
 
 .author_avatar {
@@ -63,13 +68,6 @@
   &:hover {
     color: #ff5e3a;
   }
-}
-
-.country {
-  font-size: .812rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #888da8;
 }
 
 .btn_person {

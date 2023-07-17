@@ -12,13 +12,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/*" element={<Layout />}>
-          <Route path="/*" element={<ProfilePageContainer />}>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<ProfilePageContainer />}>
             <Route path="dialogs" element={<DialogsContainer />} />
             <Route path="friends" element={<FriendsContainer />} />
-            <Route path="user" element={<UserPageContainer />} />
+            <Route path="user/:id" element={<UserPageContainer />} />
           </Route>
-
           <Route path="blog-page" element={<BlogPageContainer />} />
           <Route path="weather" element={<WeatherPageContainer />} />
           <Route path="news" element={<Newspage />} />

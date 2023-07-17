@@ -3,8 +3,7 @@ import style from "./Person.module.scss";
 import { Button } from "../../../../components/Button/Button";
 import manAvatar from "../../../../assets/images/Безымянный-1.jpg"
 import background from "../../../../assets/images/background.jpg"
-import {Link, NavLink} from 'react-router-dom';
-import {getProfileUser} from "../../../../store-redux/profilePage_reducer";
+import {Link} from 'react-router-dom';
 
 type PersonPropsType = {
   followPerson: () => void;
@@ -20,15 +19,12 @@ type PersonPropsType = {
 
 export class Person extends Component<PersonPropsType> {
 
-  onClickHandler = () => {
-    getProfileUser(this.props.id)
-  }
   render() {
     return (
         <div className={style.wrapper}>
           <div className={style.card}>
             <div className={style.card_header}>
-              <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" />
+              {/* <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" /> */}
             </div>
             <div className={style.card_body}>
               <div className={style.author}>
@@ -36,7 +32,7 @@ export class Person extends Component<PersonPropsType> {
                   <img src={this.props.avatar ? this.props.avatar : manAvatar} alt="avatar"/>
                 </div>
                 <div className={style.author_content}>
-                  <Link to={`/user`} className={style.author_name} onClick={()=> {}}>
+                  <Link to={`/user/${this.props.id}`} className={style.author_name}>
                     {this.props.name}
                   </Link>
                   <div className={style.country}>{this.props.country}</div>
@@ -51,7 +47,6 @@ export class Person extends Component<PersonPropsType> {
                     follow
                   </Button>
               )}
-              <div className={style.swiper_container}></div>
             </div>
           </div>
         </div>
