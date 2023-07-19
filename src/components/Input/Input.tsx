@@ -12,7 +12,6 @@ export class Input extends Component<InputPropsType & IPropsType> {
     if (event.key === "Enter" && this.props.inputValue) {
       if(this.props.setInputValue)
       this.props.setInputValue("");
-      console.log("work");
     }
   };
    onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {

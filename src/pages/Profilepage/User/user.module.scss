@@ -20,11 +20,22 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
-.card::after {
-  content: url('');
+.card.status::after {
+  content: 'open to work';
+  background-color: #ff5e3a;
+	color: #fff;
+	border-radius: .3rem;
+	font-size: .6rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: .08em;
+  padding: 3px 5px;
   position: absolute;
-  top: -20px;
-  right: 0;
+  top: 15px;
+  right: -7px;
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
 .card_body {
@@ -77,8 +88,6 @@
 }
 
 .job_description {}
-
-
 
 .contacts {
   border-top: #b4b4b4 1px solid;

@@ -130,21 +130,28 @@ export const getUsers = (currentPage: number): any => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading))
     socialNetworkAPI.getUsers(currentPage)
-    .then(res => {
-      dispatch(setUsers(res.data.items))
-      dispatch(setTotalUsersCount(res.data.totalCount))
-      dispatch(setRequestStatus(RequestStatus.succeed))
-    })
+      .then(res => {
+        dispatch(setUsers(res.data.items))
+        dispatch(setTotalUsersCount(res.data.totalCount))
+        dispatch(setRequestStatus(RequestStatus.succeed))
+      })
   }
 }
 export const getProfileUser = (userId: number): any => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading))
     socialNetworkAPI.getProfileUser(userId)
-        .then(res => {
-          dispatch (profileUserData(res.data))
-          dispatch(setRequestStatus(RequestStatus.succeed))
-        })
+      .then(res => {
+        dispatch (profileUserData(res.data))
+        dispatch(setRequestStatus(RequestStatus.succeed))
+      })
+    socialNetworkAPI.currentUserFollower(userId)
+      .then(res => {
+        console.log(res.data.valueOf)
+      })
+      .catch(error =>{
+        console.log(error.response.data.message)
+      })
   }
 }
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import style from "./ProfilePage.module.scss";
+import style from "./MainPage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
-import { ProfilePagePropsType } from "./ProfilePageContainer";
+import { MainPagePropsType } from "./MainPageContainer";
 
-export class ProfilePage extends Component <ProfilePagePropsType> {
+export class MainPage extends Component <MainPagePropsType> {
 
   componentDidMount() {
     document.title = "Profile Page";

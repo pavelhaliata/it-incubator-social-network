@@ -4,16 +4,16 @@ import { Newspage } from "../pages/NewsPage/Newspage";
 import { DialogsContainer } from "../pages/Profilepage/Dialogs/DialogsContainer";
 import { FriendsContainer } from "../pages/Profilepage/Friends/FriendsContainer";
 import { BlogPageContainer } from "../pages/Blogpage/BlogPageContainer";
-import { ProfilePageContainer } from "../pages/Profilepage/ProfilePageContainer";
+import { MainPageContainer } from "../pages/Profilepage/MainPageContainer";
 import { WeatherPageContainer } from "../pages/WeatherPage/WeatherPageContainer";
-import {UserPageContainer} from "../pages/Profilepage/User/UserPageContainer";
+import {UserPageContainer} from "../pages/Profilepage/User/UserContainer";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<ProfilePageContainer />}>
+          <Route path="/" element={<MainPageContainer />}>
             <Route path="dialogs" element={<DialogsContainer />} />
             <Route path="friends" element={<FriendsContainer />} />
             <Route path="user/:id" element={<UserPageContainer />} />

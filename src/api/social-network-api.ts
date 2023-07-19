@@ -13,7 +13,16 @@ export const socialNetworkAPI = {
     },
     getProfileUser(userId: number) {
         return instance.get<ProfileUserType>(`profile/${userId}`)
-    }
+    },
+    currentUserFollower(userId: number){
+        return instance.get<boolean>(`/follow/${userId}`)
+    },
+    followUser(userId: number){
+        return instance.post<ResponseFollowerUserType>(`/follow/${userId}`)
+    },
+    unFollowUser(userId: number){
+        return instance.delete<ResponseFollowerUserType>(`/follow/${userId}`)
+    },
 };
 
 // types
@@ -55,3 +64,9 @@ export type ProfileUserType = {
     large: string
   }
 }
+
+type ResponseFollowerUserType = {
+    resultCode: number
+    messages: Array<string>
+    data: object
+};
