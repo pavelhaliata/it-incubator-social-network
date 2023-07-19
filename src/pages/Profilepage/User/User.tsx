@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {UserPagePropsType} from "./UserContainer";
-import style from "./User.module.scss"
+import style from "./user.module.scss"
 import twitter from "../../../assets/images/social-icons/icons8-twitter.svg"
 import facebook from "../../../assets/images/social-icons/icons8-facebook.svg"
 import vk from "../../../assets/images/social-icons/icons8-vk-com.svg"
@@ -24,13 +24,14 @@ export const User = (props: UserPagePropsType) => {
         return <div>...data not found</div>
     }
 
-    const jobSearchStatus = props.ProfileUserData.lookingForAJob && style.status
+    const jobSearchStatus = props.ProfileUserData.lookingForAJob
     const defaultAvatar = props.ProfileUserData.photos.large ? props.ProfileUserData.photos.large: avatar
 
     return (
         <div className={style.wrapper}>
              {props.requestStatus === RequestStatus.loading ? <div className={style.block_loading}><img src={loading}/></div> :
-            <div className={`${style.card} ${jobSearchStatus}`}>
+            <div className={`${style.card}`}>
+                {jobSearchStatus && <div className={style.status}>open to work</div>}
                 <div className={style.card_body}>
                     <img src={defaultAvatar} alt="Profile Image"/>
                     <h2 className={style.name}>{props.ProfileUserData.fullName}</h2>
