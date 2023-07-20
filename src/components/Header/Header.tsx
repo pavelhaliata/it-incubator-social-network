@@ -1,4 +1,5 @@
 import {Component} from "react";
+import { NavLink } from "react-router-dom";
 import { Input } from "../Input/Input";
 
 import style from "./Header.module.scss";
@@ -28,6 +29,9 @@ export class Header extends Component<HeaderPropsType> {
             <img src="" alt="icon" />
           </div>
           <div className={style.author_page}>
+            <NavLink to={`/`} style={{color: "white"}}>
+                Login
+            </NavLink>
             <div className={style.author_thumb}>
               <img
                 src="https://html.crumina.net/html-olympus/img/author-page.webp"

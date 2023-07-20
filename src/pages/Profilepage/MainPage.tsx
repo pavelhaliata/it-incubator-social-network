@@ -2,12 +2,17 @@ import React, {Component} from 'react';
 import style from "./MainPage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { MainPagePropsType } from "./MainPageContainer";
+import { socialNetworkAPI } from '../../api/social-network-api';
 
 export class MainPage extends Component <MainPagePropsType> {
 
   componentDidMount() {
     document.title = "Profile Page";
     this.props.setHeaderTitle("profile page");
+    socialNetworkAPI.setAuthUserData()
+    .then(res => {
+      console.log(res.data.messages)
+    })
   }
 
   navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");
