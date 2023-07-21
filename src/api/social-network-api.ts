@@ -74,7 +74,7 @@ type ResponseFollowerUserType = {
     data: object
 };
 
-type AuthUserDataType = {
+export type AuthUserDataType = {
     resultCode: number
     messages: Array<string>
     data: {

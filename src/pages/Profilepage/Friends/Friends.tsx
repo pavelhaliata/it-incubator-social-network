@@ -11,8 +11,8 @@ export const Friends = ({
                             currentPage,
                             pageSize,
                             totalUsersCount,
-                            followPerson,
-                            unFollowPerson,
+                            followUser,
+                            unfollowUser,
                             requestStatus
                         }: FriendsPropsType) => {
 
@@ -45,10 +45,10 @@ export const Friends = ({
                     {usersData &&
                         usersData.map((user) => {
                             const followPersonHandler = () => {
-                                followPerson(user.id);
+                                followUser(user.id);
                             };
                             const unFollowPersonHandler = () => {
-                                unFollowPerson(user.id);
+                                unfollowUser(user.id);
                             };
                             return (
                                 <Person

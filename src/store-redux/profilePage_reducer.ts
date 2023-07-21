@@ -1,9 +1,11 @@
 import { Dispatch } from "redux";
 import { v4 as uuidv4 } from "uuid";
-import {ProfileUserType, socialNetworkAPI, UserType} from "../api/social-network-api";
+import {
+  ProfileUserType,
+  socialNetworkAPI,
+  UserType,
+} from "../api/social-network-api";
 import { RequestStatus, setRequestStatus } from "../app/app-reducer";
-
-
 
 const initialState = {
   newMessageTextData: "" as string,
@@ -13,29 +15,32 @@ const initialState = {
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
   profileUserData: {
-    aboutMe: '',
+    aboutMe: "",
     contacts: {
-      facebook: '',
-      website: '',
-      vk: '',
-      twitter: '',
-      instagram: '',
-      youtube: '',
-      github: '',
-      mainLink: '',
+      facebook: "",
+      website: "",
+      vk: "",
+      twitter: "",
+      instagram: "",
+      youtube: "",
+      github: "",
+      mainLink: "",
     },
     lookingForAJob: true,
-    lookingForAJobDescription: '',
-    fullName: '',
+    lookingForAJobDescription: "",
+    fullName: "",
     userId: 0,
     photos: {
-      small: '',
-      large: '',
-    }
+      small: "",
+      large: "",
+    },
   } as ProfileUserType,
 };
 
-export const profilePageReducer = (state: ProfilePageInitialStateType = initialState, action: ActionCreatorProfilePageType): ProfilePageInitialStateType => {
+export const profilePageReducer = (
+  state: ProfilePageInitialStateType = initialState,
+  action: ActionCreatorProfilePageType
+): ProfilePageInitialStateType => {
   switch (action.type) {
     case "UPDATE-NEW-MESSAGE-TEXT":
       return {
@@ -76,23 +81,27 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
     case "SET-USERS":
       return {
         ...state,
-        usersData: action.usersData.map(i => ({...i, backgroundImg: '', country: ''})),
+        usersData: action.usersData.map((i) => ({
+          ...i,
+          backgroundImg: "",
+          country: "",
+        })),
       };
-    case "TOTAL-USERS-COUNT": 
-    return{
-      ...state,
-      totalUsersCount: action.totalCount
-    } 
-    case "CURRENT-PAGE": 
-    return{
-      ...state,
-      currentPage: action.currentPage
-    }
+    case "TOTAL-USERS-COUNT":
+      return {
+        ...state,
+        totalUsersCount: action.totalCount,
+      };
+    case "CURRENT-PAGE":
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
     case "PROFILE-USER":
       return {
         ...state,
-        profileUserData: action.profileUserData
-      }
+        profileUserData: action.profileUserData,
+      };
     default:
       return state;
   }
@@ -102,8 +111,7 @@ export const profilePageReducer = (state: ProfilePageInitialStateType = initialS
 export const newMessageText = (newText: string) =>
   ({ type: "UPDATE-NEW-MESSAGE-TEXT", newText } as const);
 
-export const newMessage = () =>
-  ({ type: "ADD_NEW_MESSAGE" } as const);
+export const newMessage = () => ({ type: "ADD_NEW_MESSAGE" } as const);
 
 export const followPerson = (userId: number) =>
   ({ type: "FOLLOW", userId } as const);
@@ -120,42 +128,54 @@ export const setTotalUsersCount = (totalCount: number) =>
 export const setCurrentPage = (currentPage: number) =>
   ({ type: "CURRENT-PAGE", currentPage } as const);
 
-export const profileUserData = (profileUserData: any) => ({
-  type: "PROFILE-USER",
-  profileUserData
-} as const)
+export const profileUserData = (profileUserData: any) =>
+  ({
+    type: "PROFILE-USER",
+    profileUserData,
+  } as const);
 
 // thunks
 export const getUsers = (currentPage: number): any => {
   return (dispatch: Dispatch) => {
-    dispatch(setRequestStatus(RequestStatus.loading))
-    socialNetworkAPI.getUsers(currentPage)
-      .then(res => {
-        dispatch(setUsers(res.data.items))
-        dispatch(setTotalUsersCount(res.data.totalCount))
-        dispatch(setRequestStatus(RequestStatus.succeed))
-      })
-  }
-}
+    dispatch(setRequestStatus(RequestStatus.loading));
+    socialNetworkAPI.getUsers(currentPage).then((res) => {
+      dispatch(setUsers(res.data.items));
+      dispatch(setTotalUsersCount(res.data.totalCount));
+      dispatch(setRequestStatus(RequestStatus.succeed));
+    });
+  };
+};
 export const getProfileUser = (userId: number): any => {
   return (dispatch: Dispatch) => {
-    dispatch(setRequestStatus(RequestStatus.loading))
-    socialNetworkAPI.getProfileUser(userId)
-      .then(res => {
-        dispatch (profileUserData(res.data))
-        dispatch(setRequestStatus(RequestStatus.succeed))
+    dispatch(setRequestStatus(RequestStatus.loading));
+    socialNetworkAPI.getProfileUser(userId).then((res) => {
+      dispatch(profileUserData(res.data));
+      dispatch(setRequestStatus(RequestStatus.succeed));
+    });
+    socialNetworkAPI
+      .currentUserFollower(userId)
+      .then((res) => {
+        console.log(res.data.valueOf);
       })
-    socialNetworkAPI.currentUserFollower(userId)
-      .then(res => {
-        console.log(res.data.valueOf)
-      })
-      .catch(error =>{
-        console.log(error.response.data.message)
-      })
-  }
-}
-
-
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+  };
+};
+export const followUser = (userId: number) => {
+  return (dispatch: Dispatch) => {
+    socialNetworkAPI.followUser(userId).then((res) => {
+      dispatch(followPerson(userId));
+    });
+  };
+};
+export const unfollowUser = (userId: number) => {
+  return (dispatch: Dispatch) => {
+    socialNetworkAPI.unFollowUser(userId).then((res) => {
+      dispatch(unFollowPerson(userId));
+    });
+  };
+};
 
 // types
 export type ProfilePageInitialStateType = typeof initialState;
@@ -173,7 +193,6 @@ export type MessageType = {
   time: string;
 };
 
-
 export type ActionCreatorProfilePageType =
   | ReturnType<typeof newMessageText>
   | ReturnType<typeof newMessage>
@@ -182,6 +201,4 @@ export type ActionCreatorProfilePageType =
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setCurrentPage>
-  | ReturnType<typeof profileUserData>
-
- 
+  | ReturnType<typeof profileUserData>;

@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import style from "./MainPage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { MainPagePropsType } from "./MainPageContainer";
+import { authUserData } from '../../store-redux/auth_reducer';
 import { socialNetworkAPI } from '../../api/social-network-api';
 
 export class MainPage extends Component <MainPagePropsType> {
@@ -9,9 +10,9 @@ export class MainPage extends Component <MainPagePropsType> {
   componentDidMount() {
     document.title = "Profile Page";
     this.props.setHeaderTitle("profile page");
-    socialNetworkAPI.setAuthUserData()
-    .then(res => {
-      console.log(res.data.messages)
+    authUserData()
+    socialNetworkAPI.setAuthUserData().then((res) => {
+      console.log(res.data.data.login)
     })
   }
 
@@ -73,7 +74,7 @@ export class MainPage extends Component <MainPagePropsType> {
               </a>
               <div className={style.author_content}>
                 <a href="#" className={style.author_name}>
-                  James Spiegel
+                  {this.props.authData.data.login}
                 </a>
                 <div className={style.country}>San Francisco, CA</div>
               </div>

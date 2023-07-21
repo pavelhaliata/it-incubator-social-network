@@ -1,15 +1,26 @@
+import { Dispatch } from "redux";
+import { AuthUserDataType, socialNetworkAPI } from "../api/social-network-api";
+
 const initialState = {
-  userId: null as number | null,
-  email: null as string | null,
-  login: null as string | null,
+  resultCode: 0,
+  messages: [""],
+  data: {
+    id: 1 as number ,
+    email: '' as string ,
+    login: '2222' as string ,
+  },
 };
 
-export const authReducer = ( state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const authReducer = (
+  state: InitialStateType = initialState,
+  action: ActionType
+): InitialStateType => {
   switch (action.type) {
     case "AUTH-USER-DATA":
       return {
         ...state,
-		...action.data
+        messages: action.data.messages,
+        data: action.data.data,
       };
     default:
       return state;
@@ -17,11 +28,24 @@ export const authReducer = ( state: InitialStateType = initialState, action: Act
 };
 
 // ations
-export const authStatus = (userId: number, login: string, email: string) => ({
-  type: "AUTH-USER-DATA",
-  data: { userId, login, email },
-} as const);
+const setAuthUserData = (data: AuthUserDataType) =>
+  ({
+    type: "AUTH-USER-DATA",
+    data,
+  } as const);
+
+// thunks
+
+export const authUserData = () => {
+  return (dispatch: Dispatch) => {
+    socialNetworkAPI.setAuthUserData().then((res) => {
+      dispatch(setAuthUserData(res.data));
+    });
+  };
+};
 
 // types
 type InitialStateType = typeof initialState;
-type ActionType = ReturnType<typeof authStatus>;
+type ActionType = ReturnType<typeof setAuthUserData>;
+
+//userId: number, login: string, email: string

@@ -1,3 +1,4 @@
+
 export enum RequestStatus {
   "idle" = 0,
   "loading" = 1,
@@ -9,6 +10,7 @@ const initialState = {
   headerTitle: "" as string,
   error: null as string | null,
   status: RequestStatus.idle as RequestStatus,
+
 };
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -27,7 +29,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
       return{
         ...state,
         headerTitle: action.title
-      }  
+      };    
 	default:
 		 return state  
   }
@@ -51,11 +53,16 @@ export const setRequestStatus = (status: RequestStatus) =>
     status,
   } as const);
 
+  
+
 // types
 type RequestStatusType = ReturnType<typeof setRequestStatus>;
 type ErrorStatusType = ReturnType<typeof setErrorStatus>;
 type HeaderTitleType = ReturnType<typeof setHeaderTitle>;
 
-type ActionType = RequestStatusType | ErrorStatusType | HeaderTitleType;
+type ActionType = 
+  | RequestStatusType 
+  | ErrorStatusType 
+  | HeaderTitleType 
 
 export type InitialStateType = typeof initialState;

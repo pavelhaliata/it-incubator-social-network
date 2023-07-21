@@ -2,7 +2,7 @@ import {Component} from "react";
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
 import {StateType} from "../../../store-redux/redux-store";
-import {followPerson, getUsers, setCurrentPage, setTotalUsersCount, unFollowPerson, UserDomainType,
+import {followUser, getUsers, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,
 } from "../../../store-redux/profilePage_reducer";
 import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 
@@ -23,8 +23,8 @@ class UserApiContainer extends Component<FriendsPropsType> {
               <Friends
                   usersData={this.props.usersData}
                   currentPage={this.props.currentPage}
-                  followPerson={this.props.followPerson}
-                  unFollowPerson={this.props.unFollowPerson}
+                  followUser={this.props.followUser}
+                  unfollowUser={this.props.unfollowUser}
                   pageSize={this.props.pageSize}
                   setCurrentPage={this.setCurrentPageHandler}
                   setTotalUsersCount={this.props.setTotalUsersCount}
@@ -50,8 +50,8 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
 };
 
 export const FriendsContainer = connect(mapStateToProps, {
-    followPerson,
-    unFollowPerson,
+    followUser,
+    unfollowUser,
     getUsers,
     setTotalUsersCount,
     setCurrentPage,
@@ -69,8 +69,8 @@ type mapStatePropsType = {
     requestStatus: RequestStatus
 };
 type mapDispatchPropsProps = {
-    followPerson: (userId: number) => void;
-    unFollowPerson: (userId: number) => void;
+    followUser: (userId: number) => void;
+    unfollowUser: (userId: number) => void;
     getUsers: (currentPage: number) => void;
     setTotalUsersCount: (totalCount: number) => void;
     setCurrentPage: (currentPage: number) => void;
