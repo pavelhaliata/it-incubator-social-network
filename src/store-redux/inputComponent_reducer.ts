@@ -4,7 +4,7 @@ const initialState = {
 
 export const inputValueReducer = (state: InputInitialStateType = initialState, action: ActionCreatorType): InputInitialStateType => {
   switch (action.type) {
-    case "INPUT-VALUE":
+    case "INPUT_VALUE":
       return {
         ...state,
         inputValue: action.value,
@@ -16,7 +16,7 @@ export const inputValueReducer = (state: InputInitialStateType = initialState, a
 
 // actions
 export const inputValueAC = (value: string) => ({
-  type: "INPUT-VALUE",
+  type: "INPUT_VALUE",
   value,
 });
 

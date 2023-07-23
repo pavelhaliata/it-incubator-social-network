@@ -2,18 +2,12 @@ import {Component} from 'react';
 import style from "./MainPage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { MainPagePropsType } from "./MainPageContainer";
-import { authUserData } from '../../store-redux/auth_reducer';
-import { socialNetworkAPI } from '../../api/social-network-api';
 
 export class MainPage extends Component <MainPagePropsType> {
 
   componentDidMount() {
     document.title = "Profile Page";
     this.props.setHeaderTitle("profile page");
-    authUserData()
-    socialNetworkAPI.setAuthUserData().then((res) => {
-      console.log(res.data.data.login)
-    })
   }
 
   navLinkActive = ({ isActive }: any) => (isActive ? style.active : "");
@@ -74,7 +68,7 @@ export class MainPage extends Component <MainPagePropsType> {
               </a>
               <div className={style.author_content}>
                 <a href="#" className={style.author_name}>
-                  {this.props.authData.data.login}
+                  {this.props.authUserData.data.login}
                 </a>
                 <div className={style.country}>San Francisco, CA</div>
               </div>

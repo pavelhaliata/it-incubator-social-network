@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { WeatherType } from "../../api/weather-api";
 import { setHeaderTitle } from "../../app/app-reducer";
 import { StateType } from "../../store-redux/redux-store";

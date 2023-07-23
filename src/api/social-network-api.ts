@@ -23,7 +23,7 @@ export const socialNetworkAPI = {
     unFollowUser(userId: number){
         return instance.delete<ResponseFollowerUserType>(`/follow/${userId}`)
     },
-    setAuthUserData(){
+    authUserData(){
         return instance.get<AuthUserDataType>(`/auth/me`)
     }
 };
@@ -75,11 +75,9 @@ type ResponseFollowerUserType = {
 };
 
 export type AuthUserDataType = {
-    resultCode: number
-    messages: Array<string>
-    data: {
-      id: number
-      email: string
-      login: string
-    }
+      data: {
+          id: number | null
+          email: string | null
+          login: string | null
+      }
 }

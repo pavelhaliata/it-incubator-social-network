@@ -1,14 +1,13 @@
 import {Component} from "react";
 import { NavLink } from "react-router-dom";
 import { Input } from "../Input/Input";
-
 import style from "./Header.module.scss";
 import { HeaderPropsType } from "./HeaderContainer";
 
 
 export class Header extends Component<HeaderPropsType> {
 
-    render(){
+  render(){
         return(
             <div className={style.header}>
       <div className={style.page_title}>
@@ -29,7 +28,7 @@ export class Header extends Component<HeaderPropsType> {
             <img src="" alt="icon" />
           </div>
           <div className={style.author_page}>
-            <NavLink to={`/`} style={{color: "white"}}>
+            <NavLink to={`/login`} style={{color: "white"}}>
                 Login
             </NavLink>
             <div className={style.author_thumb}>
@@ -40,7 +39,7 @@ export class Header extends Component<HeaderPropsType> {
               <span className={`${style.icon_status} ${style.online}`}></span>
             </div>
             <a href="#" className={style.author_name}>
-              <div className={style.author_title}>James Spiegel</div>
+              <div className={style.author_title}>{this.props.authUserData.data.login}</div>
               <span className={style.author_subtitle}>space cowboy</span>
             </a>
           </div>

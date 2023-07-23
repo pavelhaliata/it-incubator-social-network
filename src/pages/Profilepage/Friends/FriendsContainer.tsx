@@ -6,8 +6,8 @@ import {followUser, getUsers, setCurrentPage, setTotalUsersCount, unfollowUser, 
 } from "../../../store-redux/profilePage_reducer";
 import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 
-// UserApiContainer component
-class UserApiContainer extends Component<FriendsPropsType> {
+// FriendsApiContainer component
+class FriendsApiContainer extends Component<FriendsPropsType> {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage)
   }
@@ -28,7 +28,7 @@ class UserApiContainer extends Component<FriendsPropsType> {
                   pageSize={this.props.pageSize}
                   setCurrentPage={this.setCurrentPageHandler}
                   setTotalUsersCount={this.props.setTotalUsersCount}
-                  getUsers={this.props.getUsers}
+                  getUsers={this.props.getUsers}// этот параметр компоненте не нужен
                   totalUsersCount={this.props.totalUsersCount}
                   requestStatus={this.props.requestStatus}
                   setRequestStatus={this.props.setRequestStatus}
@@ -45,7 +45,8 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
         pageSize: state.profilePage.pageSize,
         currentPage: state.profilePage.currentPage,
         totalUsersCount: state.profilePage.totalUsersCount,
-        requestStatus: state.app.status
+        requestStatus: state.app.status,
+
     };
 };
 
@@ -56,10 +57,10 @@ export const FriendsContainer = connect(mapStateToProps, {
     setTotalUsersCount,
     setCurrentPage,
     setRequestStatus
-})(UserApiContainer);
+})(FriendsApiContainer);
 
 // types
-export type FriendsPropsType = mapStatePropsType & mapDispatchPropsProps;
+export type FriendsPropsType = mapStatePropsType & mapDispatchPropsPropsType;
 
 type mapStatePropsType = {
     usersData: Array<UserDomainType>;
@@ -68,7 +69,7 @@ type mapStatePropsType = {
     totalUsersCount: number;
     requestStatus: RequestStatus
 };
-type mapDispatchPropsProps = {
+type mapDispatchPropsPropsType = {
     followUser: (userId: number) => void;
     unfollowUser: (userId: number) => void;
     getUsers: (currentPage: number) => void;
