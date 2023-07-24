@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Newspage } from "../pages/NewsPage/Newspage";
-import { DialogsContainer } from "../pages/Profilepage/Dialogs/DialogsContainer";
-import { FriendsContainer } from "../pages/Profilepage/Friends/UsersContainer";
-import { BlogPageContainer } from "../pages/Blogpage/BlogPageContainer";
-import { MainPageContainer } from "../pages/Profilepage/MainPageContainer";
 import { WeatherPageContainer } from "../pages/WeatherPage/WeatherPageContainer";
-import { UserPageContainer } from "../pages/Profilepage/UserProfile/UserProfileContainer";
+import {FriendsContainer} from "../pages/MainPage/Users/UsersContainer";
+import {MainPageContainer} from "../pages/MainPage/MainPageContainer";
+import {UserPageContainer} from "../pages/MainPage/UserProfile/UserProfileContainer";
+import {BlogPageContainer} from "../pages/BlogPage/BlogPageContainer";
+import {DialogsContainer} from "../pages/MainPage/Dialogs/DialogsContainer";
 
 function App() {
   return (

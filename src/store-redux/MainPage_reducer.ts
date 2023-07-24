@@ -39,6 +39,7 @@ const initialState = {
       large: "",
     },
   } as ProfileUserType,
+  selectedCurrentUser: [] as Array<number>
 };
 
 export const profilePageReducer = (
@@ -73,6 +74,7 @@ export const profilePageReducer = (
         usersData: state.usersData.map((i) =>
           i.id === action.userId ? { ...i, followed: true } : i
         ),
+        selectedCurrentUser: [action.userId]
       };
     }
     case "UNFOLLOW":
@@ -81,6 +83,7 @@ export const profilePageReducer = (
         usersData: state.usersData.map((i) =>
           i.id === action.userId ? { ...i, followed: false } : i
         ),
+        selectedCurrentUser: [action.userId]
       };
     case "SET-USERS":
       return {

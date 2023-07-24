@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionProfilePageType} from "../store-redux/profilePage_reducer";
+import {ActionProfilePageType} from "../store-redux/MainPage_reducer";
 import {ActionCreatorBlogPageType} from "../store-redux/blogPage_reducer";
 import {StateType} from "../store-redux/redux-store";
 import {Store} from "redux";

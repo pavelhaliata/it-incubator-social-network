@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import thunk from "redux-thunk";
-import { profilePageReducer } from "./profilePage_reducer";
+import { profilePageReducer } from "./MainPage_reducer";
 import { blogPageReducer } from "./blogPage_reducer";
 import { weatherPageReducer } from "./weatherPage_reducer";
 import { inputValueReducer } from "./inputComponent_reducer";
