@@ -39,7 +39,7 @@ export class Header extends Component<HeaderPropsType> {
               <span className={`${style.icon_status} ${style.online}`}></span>
             </div>
             <a href="#" className={style.author_name}>
-              <div className={style.author_title}>{this.props.authUserData.data.login}</div>
+              <div className={style.author_title}>{this.props.authUserData.login}</div>
               <span className={style.author_subtitle}>space cowboy</span>
             </a>
           </div>

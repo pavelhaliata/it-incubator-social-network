@@ -1,6 +1,6 @@
 import {useEffect} from "react";
-import {UserPagePropsType} from "./UserContainer";
-import style from "./user.module.scss"
+import {UserPagePropsType} from "./UserProfileContainer";
+import style from "./UserProfile.module.scss"
 import twitter from "../../../assets/images/social-icons/icons8-twitter.svg"
 import facebook from "../../../assets/images/social-icons/icons8-facebook.svg"
 import vk from "../../../assets/images/social-icons/icons8-vk-com.svg"
@@ -15,10 +15,10 @@ import { useParams } from "react-router-dom";
 import { RequestStatus } from "../../../app/app-reducer";
 
 export const User = (props: UserPagePropsType) => {
-    const {id} = useParams()
+    const {id: userId} = useParams()
     useEffect(() => {
-        props.getProfileUser(Number(id))
-    }, [id])
+        props.getProfileUser(Number(userId))
+    }, [userId])
 
     if (!props.ProfileUserData) {
         return <div>...data not found</div>

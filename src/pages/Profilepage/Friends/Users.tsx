@@ -1,6 +1,6 @@
-import style from "./Friends.module.scss";
-import {Person} from "./Person/Person";
-import {FriendsPropsType} from "./FriendsContainer";
+import style from "./Users.module.scss";
+import {Person} from "./User/User";
+import {FriendsPropsType} from "./UsersContainer";
 import loading from "../../../assets/images/loading-spinner-200px.svg"
 import {RequestStatus} from "../../../app/app-reducer";
 

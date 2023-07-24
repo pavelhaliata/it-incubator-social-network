@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Friends} from "./Friends";
+import {Friends} from "./Users";
 import {connect} from "react-redux";
 import {StateType} from "../../../store-redux/redux-store";
 import {followUser, getUsers, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,

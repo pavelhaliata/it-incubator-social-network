@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import style from "./Person.module.scss";
+import style from "./User.module.scss";
 import { Button } from "../../../../components/Button/Button";
 import defaultAvatar from "../../../../assets/images/abstract-user-default.svg"
 import background from "../../../../assets/images/background.jpg"

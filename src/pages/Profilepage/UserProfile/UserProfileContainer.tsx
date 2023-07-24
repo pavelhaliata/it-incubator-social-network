@@ -1,7 +1,7 @@
 import {StateType} from "../../../store-redux/redux-store";
 import {connect} from "react-redux";
 import {RequestStatus, setHeaderTitle} from "../../../app/app-reducer";
-import {User} from "./User";
+import {User} from "./UserProfile";
 import {getProfileUser} from "../../../store-redux/profilePage_reducer";
 import {ProfileUserType} from "../../../api/social-network-api";
 

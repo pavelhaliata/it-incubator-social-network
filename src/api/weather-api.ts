@@ -8,7 +8,7 @@ const instanse = axios.create({
 
 export const weatherAPI = {
   getWeather(city: string) {
-    return instanse.get<any>(
+    return instanse.get<WeatherType>(
       `weather?q=${city}&appid=${API_KEY}&units=metric`
     );
   },

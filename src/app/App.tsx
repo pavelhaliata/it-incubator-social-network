@@ -2,11 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Newspage } from "../pages/NewsPage/Newspage";
 import { DialogsContainer } from "../pages/Profilepage/Dialogs/DialogsContainer";
-import { FriendsContainer } from "../pages/Profilepage/Friends/FriendsContainer";
+import { FriendsContainer } from "../pages/Profilepage/Friends/UsersContainer";
 import { BlogPageContainer } from "../pages/Blogpage/BlogPageContainer";
 import { MainPageContainer } from "../pages/Profilepage/MainPageContainer";
 import { WeatherPageContainer } from "../pages/WeatherPage/WeatherPageContainer";
-import {UserPageContainer} from "../pages/Profilepage/User/UserContainer";
+import { UserPageContainer } from "../pages/Profilepage/UserProfile/UserProfileContainer";
 
 function App() {
   return (

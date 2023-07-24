@@ -1,5 +1,6 @@
 import {ChangeEvent, Component} from "react";
 import {Button} from "../../components/Button/Button";
+import { getActualWeather } from "../../store-redux/weatherPage_reducer";
 import style from "./Weather.module.scss";
 import {WeatherPagePropsType} from "./WeatherPageContainer";
 
@@ -10,6 +11,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
         document.title = "Weather Page";
         this.props.setHeaderTitle("weatherpage");
         this.props.getActualWeather('Minsk');
+        //getActualWeather('Minsk')
     }
 
 

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {weatherAPI, WeatherType} from "../api/weather-api";
+import { RequestStatus, setRequestStatus } from "../app/app-reducer";
 
 
 type WeatherPageInitialStateType = typeof initialState;
@@ -63,11 +64,15 @@ export const setWeather = (weatherData: WeatherType) => ({type: "SET-WEATHER", w
 export const setLocationValue = (value: string) => ({type: "LOCATION-TEXT-VALUE", value} as const)
 
 // thunks
-export const getActualWeather = (city: string): any => {
+export const getActualWeather = (city: string) => {
+    debugger
     return (dispatch: Dispatch) => {
+        dispatch(setRequestStatus(RequestStatus.loading));
         weatherAPI.getWeather(city)
             .then(res => {
+                debugger
                 dispatch(setWeather(res.data))
+                dispatch(setRequestStatus(RequestStatus.succeed))
             })
     }
 }
