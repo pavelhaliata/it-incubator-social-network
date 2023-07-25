@@ -1,0 +1,160 @@
+@import "../../Style/breakpoints.scss";
+
+
+.profile_container{
+	min-height: 100%;
+	position: relative;
+}
+
+.profile_header {
+	position: relative;
+	border-radius: .5rem;
+	overflow: hidden;
+	background-color: #ffff;
+}
+
+
+
+.header_banner {
+	height: 190px;
+	position: relative;
+
+	@include lg {
+		height: 300px;
+	}
+	
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		box-shadow: inset 0 -120px 55px -30px rgb(0 0 0 / 50%);
+	}
+
+	.banner {
+		object-fit: cover;
+		object-position: center;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.header_nav {
+	padding: 15px 0px;
+	@include lg {
+		display: flex;
+		padding: 35px 0px;
+	}
+	.nav_item {
+		flex: 0 1 41.66667%;
+		@include lg {
+			flex: 1 1 100%;
+		}
+	}
+}
+
+.ml_auto {
+	@include lg {
+		margin-left: auto;
+	}
+
+}
+
+.item_menu {
+	//border: black solid 1px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	@include lg {
+		
+	}
+
+	li a {
+		font-size: 14px;
+		font-weight: 700;
+		cursor: pointer;
+		color: #9a9fbf;
+
+		transition: all .15s ease;
+
+		&:not(.active):hover {
+			color: #515365;
+		}
+	}
+
+	li a.active {
+		color: #ff5e3a;
+	}
+}
+
+.header_author {
+	max-width: 200px;
+	width: 100%;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+	left: 50%;
+	top: 0;
+	transform: translate(-50%, 0);
+	margin-bottom: 10px;
+	@include lg {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, 0);
+		z-index: 4;
+	}
+
+}
+
+.author_img {
+	display: block;
+	border-radius: 100%;
+	border: 6px solid white;
+	width: 96px;
+	height: 96px;
+	overflow: hidden;
+	@include lg {
+		width: 132px;
+		height: 132px;
+	}
+
+	img {
+		display: block;
+		border: 2px solid #515365;
+		border-radius: 100%;
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+}
+
+.author_content {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.author_name {
+	font-size: clamp(1rem, 0.853rem + 0.734vw, 1.438rem);
+	font-weight: 700;
+	color: #515365;
+}
+
+.country {
+	font-size: clamp(0.625rem, 0.383rem + 0.775vw, 1rem);
+}
+
+// ===================
+.profile_content {
+	max-height: 100%;
+	padding: 10px 0;
+}

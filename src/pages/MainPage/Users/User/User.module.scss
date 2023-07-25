@@ -1,0 +1,85 @@
+.wrapper {
+  padding: .3rem;
+  width: 100%;
+
+  @media (min-width: 1200px) {
+    max-width: 25%;
+  }
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.card {
+  background-color: #fff;
+  text-align: center;
+  border-radius: .3rem;
+  overflow: hidden;
+  height: 370px;
+  width: 300px;
+
+}
+
+.card_header {
+  overflow: hidden;
+  height: 110px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.card_body {
+  position: relative;
+  padding: .6rem;
+  margin-bottom: 60px;
+
+}
+
+
+
+.author_avatar {
+  position: relative;
+  margin-top: -65px;
+  margin-bottom: 40px;
+
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background-color: #ffffff;
+    @media (min-width: 768px) {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.author_content {}
+
+.author_name {
+  color: #515365;
+  font-weight: 700;
+  transition: all .15s ease;
+
+  &:hover {
+    color: #ff5e3a;
+  }
+}
+.btn_wrapper{
+
+}
+
+.btn_person {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+
+.btn_person.unfollow {
+  background-color: #888da8 !important;
+}

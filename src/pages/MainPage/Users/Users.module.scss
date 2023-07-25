@@ -1,0 +1,31 @@
+.container_fluid {
+    display: flex;
+    flex-wrap: wrap;
+	margin: 0px -5px 0px -5px;
+}
+.page_navigation{
+    display: flex;
+    justify-content: center;
+}
+.page_number{
+    font-size: 1.2rem;
+    padding: .3rem;
+    cursor: pointer;
+    &:hover{
+        color: #fd3e12;
+        border-bottom: solid 2px #fd3e12;
+    }
+}
+.current{
+    font-weight: 700;
+    color: #ff5e3a;
+    border-bottom: solid 2px #ff5e3a;
+}
+.block_loading{
+    display: flex;
+    justify-content: center;
+    img{
+        display: block;
+    }
+}
+
