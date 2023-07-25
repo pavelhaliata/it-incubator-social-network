@@ -5,8 +5,8 @@ import {
 } from "../../store-redux/blogPage_reducer";
 import { StateType } from "../../store-redux/redux-store";
 import { connect } from "react-redux";
-import { BlogPage } from "./BlogPage";
 import { setHeaderTitle } from "../../app/app-reducer";
+import {BlogPage} from "./BlogPage";
 
 const mapStateToProps = (state: StateType): MapStatePropsType => {
   return {

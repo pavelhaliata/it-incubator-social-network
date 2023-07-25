@@ -30,7 +30,7 @@ const initialState = {
       github: "",
       mainLink: "",
     },
-    lookingForAJob: true,
+    lookingForAJob: false,
     lookingForAJobDescription: "",
     fullName: "",
     userId: 0,
@@ -39,7 +39,8 @@ const initialState = {
       large: "",
     },
   } as ProfileUserType,
-  selectedCurrentUser: [] as Array<number>
+  selectedCurrentUser: [] as Array<number>,
+  toggleStatusRequest: false as boolean
 };
 
 export const profilePageReducer = (
@@ -74,7 +75,6 @@ export const profilePageReducer = (
         usersData: state.usersData.map((i) =>
           i.id === action.userId ? { ...i, followed: true } : i
         ),
-        selectedCurrentUser: [action.userId]
       };
     }
     case "UNFOLLOW":
@@ -83,7 +83,6 @@ export const profilePageReducer = (
         usersData: state.usersData.map((i) =>
           i.id === action.userId ? { ...i, followed: false } : i
         ),
-        selectedCurrentUser: [action.userId]
       };
     case "SET-USERS":
       return {
@@ -109,6 +108,12 @@ export const profilePageReducer = (
         ...state,
         profileUserData: action.profileUserData,
       };
+    case "TOGGLE_STATUS_REQUEST":
+      return{
+        ...state,
+        selectedCurrentUser: action.toggleStatusRequest ? [...state.selectedCurrentUser, action.userId]
+            : state.selectedCurrentUser.filter(i => i !== action.userId)
+      }
     default:
       return state;
   }
@@ -141,6 +146,10 @@ export const profileUserData = (profileUserData: any) =>
     profileUserData,
   } as const);
 
+const toggleStatusRequest = (toggleStatusRequest: boolean, userId: number) => ({
+  type: "TOGGLE_STATUS_REQUEST", toggleStatusRequest, userId
+} as const)
+
 // thunks
 export const getUsers = (currentPage: number) => {
   return (dispatch: Dispatch) => {
@@ -170,10 +179,12 @@ export const getProfileUser = (userId: number) => {
 export const followUser = (userId: number) => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading));
+    dispatch(toggleStatusRequest(true, userId))
     socialNetworkAPI.followUser(userId).then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(followPerson(userId));
         dispatch(setRequestStatus(RequestStatus.succeed));
+        dispatch(toggleStatusRequest(false, userId))
       } else {
         dispatch(setErrorStatus(res.data.messages[0]));
         dispatch(setRequestStatus(RequestStatus.failed));
@@ -184,10 +195,12 @@ export const followUser = (userId: number) => {
 export const unfollowUser = (userId: number) => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading));
+    dispatch(toggleStatusRequest(true, userId))
     socialNetworkAPI.unFollowUser(userId).then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(unFollowPerson(userId));
         dispatch(setRequestStatus(RequestStatus.succeed));
+        dispatch(toggleStatusRequest(false, userId))
       } else {
         dispatch(setErrorStatus(res.data.messages[0]));
         dispatch(setRequestStatus(RequestStatus.succeed));
@@ -220,4 +233,5 @@ export type ActionProfilePageType =
   | ReturnType<typeof setUsers>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setCurrentPage>
-  | ReturnType<typeof profileUserData>;
+  | ReturnType<typeof profileUserData>
+  | ReturnType<typeof toggleStatusRequest>

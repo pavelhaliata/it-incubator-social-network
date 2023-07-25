@@ -5,7 +5,7 @@ type NewsPagePropsType = {
   
 };
 
-export class Newspage extends Component<NewsPagePropsType, any> {
+export class NewsPage extends Component<NewsPagePropsType, any> {
 	componentDidMount() {
 		document.title = "News Page";
 	}
