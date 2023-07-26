@@ -23,7 +23,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     };
 
     temperature = Math.round(this.props.weatherData.main.temp);
-    temperatureMax = Math.round(this.props.weatherData.main.temp_max);
+    temperatureMax= Math.round(this.props.weatherData.main.temp_max)
     temperatureMin = Math.round(this.props.weatherData.main.temp_min);
     humidity = this.props.weatherData.main.humidity;
     feelsLike = Math.round(this.props.weatherData.main.feels_like);
@@ -45,7 +45,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     
     onClickHandler = () => {
         if (this.props.locationValue.trim() !== "") {
-            this.props.setLocationValue(this.props.locationValue);
+            this.props.getActualWeather(this.props.locationValue);
             this.props.setLocationValue("");
         }
         return;
@@ -55,24 +55,18 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
         return (
             <div className={style.weather}>
                 <div className={style.weather__now}>
-                    <div className={style.temperature_sensor}>{this.temperature}&deg;</div>
+                    <div className={style.temperature_sensor}>{Math.round(this.props.weatherData.data.main.temp)}&deg;</div>
                     <div className={style.temperature_max_min}>
-                        <span>{this.temperatureMax}&deg;</span>
-                        <span>{this.temperatureMin}&deg;</span>
+                        <span>{Math.round(this.props.weatherData.main.temp_max)}&deg;</span>
+                        <span>{Math.round(this.props.weatherData.main.temp_min)}&deg;</span>
                     </div>
-                    {this.icon && (<img src={`http://openweathermap.org/img/wn/${this.icon}@2x.png`} alt="icon"/>)}
+                    {this.icon && (<img src={`http://openweathermap.org/img/wn/${this.props.weatherData.weather[0].icon}@2x.png`} alt="icon"/>)}
                 </div>
                 <div className={style.weather_description}>
-                    <div>{this.description}</div>
-                    <span>
-                Real Feel: <span>{this.feelsLike}&deg;</span>
-              </span>
-                    <span>
-                Humidity: <span>{this.humidity}&deg;</span>
-              </span>
-                    <span>
-                Wind: <span>{this.windSpeed} m/s</span>
-              </span>
+                    <div>{this.capitalizeFirstLetter(this.props.weatherData.weather[0].description)}</div>
+                    <span>Real Feel: <span>{Math.round(this.props.weatherData.main.feels_like)}&deg;</span></span>
+                    <span>Humidity: <span>{this.props.weatherData.main.humidity}&deg;</span></span>
+                    <span>Wind: <span>{this.props.weatherData.wind.speed.toFixed(1)} m/s</span></span>
                 </div>
                 <ul className="weekly-forecast">
                     <li></li>

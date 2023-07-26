@@ -25,7 +25,7 @@ export class User extends Component<UserPropsType> {
   render() {
 
     return (
-        <div className={style.wrapper}>
+        <div className={style.card_wrapper}>
           <div className={style.card}>
             <div className={style.card_header}>
                <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" />

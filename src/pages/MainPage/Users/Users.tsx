@@ -5,17 +5,8 @@ import loading from "../../../assets/images/loading-spinner-200px.svg"
 import {RequestStatus} from "../../../app/app-reducer";
 
 
-export const Users = ({
-                            usersData,
-                            setCurrentPage,
-                            currentPage,
-                            pageSize,
-                            totalUsersCount,
-                            followUser,
-                            unfollowUser,
-                            requestStatus,
-                          selectedCurrentUser
-                        }: FriendsPropsType) => {
+export const Users = ({ usersData, setCurrentPage, currentPage, pageSize, totalUsersCount, 
+followUser, unfollowUser, requestStatus, selectedCurrentUser }: FriendsPropsType) => {
 
     const totalPage = Math.ceil(
         totalUsersCount / pageSize
@@ -32,17 +23,16 @@ export const Users = ({
                     <span
                         key={p}
                         className={`${style.page_number} ${currentPage === p && style.current}`}
-                        onClick={() => {
-                            setCurrentPage(p)
-                        }}
+                        onClick={() => {setCurrentPage(p)}}
                     >
                     {p}
                     </span>
                 ))}
             </div>
-            {requestStatus === RequestStatus.failed ? <div className={style.block_loading}><img src={loading}/></div>
+            {requestStatus === RequestStatus.loading ? <div className={style.block_loading}><img src={loading}/></div>
                 :
                 <div className={style.container_fluid}>
+                    
                     {usersData &&
                         usersData.map((user) => {
 
@@ -68,6 +58,7 @@ export const Users = ({
                                 />
                             );
                         })}
+                   
                 </div>
             }
         </>

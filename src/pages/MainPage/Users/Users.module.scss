@@ -1,11 +1,7 @@
-.container_fluid {
-    display: flex;
-    flex-wrap: wrap;
-	margin: 0px -5px 0px -5px;
-}
 .page_navigation{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .page_number{
     font-size: 1.2rem;
@@ -28,4 +24,8 @@
         display: block;
     }
 }
-
+.container_fluid {
+	margin: 0px -5px 0px -5px;
+    display: flex;
+  flex-wrap: wrap;
+}

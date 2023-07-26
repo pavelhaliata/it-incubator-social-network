@@ -1,7 +1,6 @@
-.wrapper {
+.card_wrapper {
   padding: .3rem;
   width: 100%;
-
   @media (min-width: 1200px) {
     max-width: 25%;
   }
@@ -9,16 +8,15 @@
   @media (min-width: 768px) {
     width: 50%;
   }
-}
 
+  
+}
 .card {
   background-color: #fff;
   text-align: center;
   border-radius: .3rem;
   overflow: hidden;
-  height: 370px;
-  width: 300px;
-
+  height: 370px;  
 }
 
 .card_header {

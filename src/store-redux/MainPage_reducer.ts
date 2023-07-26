@@ -40,7 +40,7 @@ const initialState = {
     },
   } as ProfileUserType,
   selectedCurrentUser: [] as Array<number>,
-  toggleStatusRequest: false as boolean
+  followingStatusRequest: false as boolean,
 };
 
 export const profilePageReducer = (
@@ -69,21 +69,6 @@ export const profilePageReducer = (
         };
       }
       return state;
-    case "FOLLOW": {
-      return {
-        ...state,
-        usersData: state.usersData.map((i) =>
-          i.id === action.userId ? { ...i, followed: true } : i
-        ),
-      };
-    }
-    case "UNFOLLOW":
-      return {
-        ...state,
-        usersData: state.usersData.map((i) =>
-          i.id === action.userId ? { ...i, followed: false } : i
-        ),
-      };
     case "SET-USERS":
       return {
         ...state,
@@ -108,12 +93,28 @@ export const profilePageReducer = (
         ...state,
         profileUserData: action.profileUserData,
       };
-    case "TOGGLE_STATUS_REQUEST":
-      return{
+    case "FOLLOW": {
+      return {
         ...state,
-        selectedCurrentUser: action.toggleStatusRequest ? [...state.selectedCurrentUser, action.userId]
-            : state.selectedCurrentUser.filter(i => i !== action.userId)
-      }
+        usersData: state.usersData.map((i) =>
+          i.id === action.userId ? { ...i, followed: true } : i
+        ),
+      };
+    }
+    case "UNFOLLOW":
+      return {
+        ...state,
+        usersData: state.usersData.map((i) =>
+          i.id === action.userId ? { ...i, followed: false } : i
+        ),
+      };
+    case "TOGGLE_FOLLOWING_STATUS_REQUEST":
+      return {
+        ...state,
+        selectedCurrentUser: action.followingStatusRequest
+          ? [...state.selectedCurrentUser, action.userId]
+          : state.selectedCurrentUser.filter((i) => i !== action.userId),
+      };
     default:
       return state;
   }
@@ -146,9 +147,12 @@ export const profileUserData = (profileUserData: any) =>
     profileUserData,
   } as const);
 
-const toggleStatusRequest = (toggleStatusRequest: boolean, userId: number) => ({
-  type: "TOGGLE_STATUS_REQUEST", toggleStatusRequest, userId
-} as const)
+export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
+  ({
+    type: "TOGGLE_FOLLOWING_STATUS_REQUEST",
+    followingStatusRequest,
+    userId,
+  } as const);
 
 // thunks
 export const getUsers = (currentPage: number) => {
@@ -178,13 +182,11 @@ export const getProfileUser = (userId: number) => {
 };
 export const followUser = (userId: number) => {
   return (dispatch: Dispatch) => {
-    dispatch(setRequestStatus(RequestStatus.loading));
-    dispatch(toggleStatusRequest(true, userId))
+    dispatch(toggleFollowingStatusRequest(true, userId));
     socialNetworkAPI.followUser(userId).then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(followPerson(userId));
-        dispatch(setRequestStatus(RequestStatus.succeed));
-        dispatch(toggleStatusRequest(false, userId))
+        dispatch(toggleFollowingStatusRequest(false, userId));
       } else {
         dispatch(setErrorStatus(res.data.messages[0]));
         dispatch(setRequestStatus(RequestStatus.failed));
@@ -194,16 +196,14 @@ export const followUser = (userId: number) => {
 };
 export const unfollowUser = (userId: number) => {
   return (dispatch: Dispatch) => {
-    dispatch(setRequestStatus(RequestStatus.loading));
-    dispatch(toggleStatusRequest(true, userId))
+    dispatch(toggleFollowingStatusRequest(true, userId));
     socialNetworkAPI.unFollowUser(userId).then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(unFollowPerson(userId));
-        dispatch(setRequestStatus(RequestStatus.succeed));
-        dispatch(toggleStatusRequest(false, userId))
+        dispatch(toggleFollowingStatusRequest(false, userId));
       } else {
         dispatch(setErrorStatus(res.data.messages[0]));
-        dispatch(setRequestStatus(RequestStatus.succeed));
+        dispatch(setRequestStatus(RequestStatus.failed));
       }
     });
   };
@@ -234,4 +234,4 @@ export type ActionProfilePageType =
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof profileUserData>
-  | ReturnType<typeof toggleStatusRequest>
+  | ReturnType<typeof toggleFollowingStatusRequest>;

@@ -6,15 +6,17 @@ import {
 	ProfilePageInitialStateType,
 	profilePageReducer,
 	setUsers,
+	toggleFollowingStatusRequest,
 	unFollowPerson,
 } from "./MainPage_reducer";
 import {ProfileUserType} from "../api/social-network-api";
+const userId = 1
   
   const startState: ProfilePageInitialStateType = {
 	messagesData: [],
 	newMessageTextData: "",
 	usersData: [{
-		id: 1,
+		id: userId,
 		followed: false,
 		backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
 		photos: {
@@ -29,7 +31,8 @@ import {ProfileUserType} from "../api/social-network-api";
 	pageSize: 5,
 	totalUsersCount: 20,
 	profileUserData: {} as ProfileUserType,
-	selectedCurrentUser: [] as Array<number>
+	selectedCurrentUser: [] as Array<number>,
+	followingStatusRequest: false
   };
   test("dialog text should be added", () => {
 	
@@ -47,7 +50,8 @@ import {ProfileUserType} from "../api/social-network-api";
 		pageSize: 5,
 		totalUsersCount: 20,
 		profileUserData: {} as ProfileUserType,
-		selectedCurrentUser: [] as Array<number>
+		selectedCurrentUser: [] as Array<number>,
+		followingStatusRequest: false
 	  };
 	
 	const endState = profilePageReducer(startState, newMessage());
@@ -57,6 +61,7 @@ import {ProfileUserType} from "../api/social-network-api";
 
   test("user should be followed", () => {
 	const endState = profilePageReducer(startState, followPerson(startState.usersData[0].id));
+
 	expect(endState.usersData[0].followed).toBeTruthy();
 	expect(startState.usersData[0].followed).toBeFalsy();
   });
@@ -66,7 +71,7 @@ import {ProfileUserType} from "../api/social-network-api";
 		messagesData: [],
 		newMessageTextData: "",
 		usersData: [{
-			id: 1,
+			id: userId,
 			followed: true,
 			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
 			photos: {
@@ -81,13 +86,23 @@ import {ProfileUserType} from "../api/social-network-api";
 		pageSize: 5,
 		totalUsersCount: 20,
 		profileUserData: {} as ProfileUserType,
-		selectedCurrentUser: [] as Array<number>
+		selectedCurrentUser: [] as Array<number>,
+		followingStatusRequest: false
 	  };
 	
 	const endState = profilePageReducer(startState, unFollowPerson(startState.usersData[0].id));
 	expect(endState.usersData[0].followed).toBeFalsy();
 	expect(startState.usersData[0].followed).toBeTruthy();
   });
+  
+  test("should be toogle following status", () => {
+	const endState = profilePageReducer(startState, toggleFollowingStatusRequest(true, userId));
+
+	expect(endState.followingStatusRequest).toBeFalsy();
+	expect(endState.selectedCurrentUser[0]).toBe(userId);
+	expect(startState.followingStatusRequest).toBeFalsy();
+  });
+
 
   test("userData should be added", () => {
 
@@ -105,7 +120,7 @@ import {ProfileUserType} from "../api/social-network-api";
 			country: "San Francisco, CA",
 	},
 	{
-		id: 1,
+		id: 2,
 			followed: true,
 			backgroundImg: "https://html.crumina.net/html-olympus/img/friend1.webp",
 			photos: {
