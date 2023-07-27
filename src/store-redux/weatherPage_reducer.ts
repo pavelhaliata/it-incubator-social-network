@@ -1,15 +1,14 @@
-import { ErrorResponse } from "@remix-run/router";
 import { Dispatch } from "redux";
 import { weatherAPI, WeatherType } from "../api/weather-api";
-import { RequestStatus, setRequestStatus } from "../app/app-reducer";
-
-type WeatherPageInitialStateType = typeof initialState;
+import {
+  RequestStatus,
+  setErrorStatus,
+  setRequestStatus,
+} from "../app/app-reducer";
 
 const initialState = {
   weatherData: {
-    status: null,
-    data: {
-        meddage: "",
+    meddage: "",
     base: "",
     clouds: { all: 0 },
     cod: "",
@@ -20,7 +19,7 @@ const initialState = {
       humidity: 0,
       pressure: 0,
       sea_level: 0,
-      temp: Math.round(0),
+      temp: 0,
       temp_max: 0,
       temp_min: 0,
     },
@@ -47,15 +46,14 @@ const initialState = {
       gust: 0,
       speed: 0,
     },
-    }
   } as WeatherType,
   locationValue: "" as string,
 };
 
 export const weatherPageReducer = (
-  state: WeatherPageInitialStateType = initialState,
+  state: typeof initialState = initialState,
   action: ActionCreatorWeatherType
-): WeatherPageInitialStateType => {
+): typeof initialState => {
   switch (action.type) {
     case "SET-WEATHER":
       return { ...state, weatherData: action.weatherData };
@@ -75,24 +73,24 @@ export const setLocationValue = (value: string) =>
 // thunks
 export const getActualWeather = (city: string) => {
   return (dispatch: Dispatch) => {
+    dispatch(setErrorStatus(null));
     dispatch(setRequestStatus(RequestStatus.loading));
     weatherAPI
       .getWeather(city)
       .then((res) => {
         if (res.status === 200) {
           dispatch(setWeather(res.data));
-          console.log(res.status);
           dispatch(setRequestStatus(RequestStatus.succeed));
         }
       })
       .catch((error) => {
         dispatch(setRequestStatus(RequestStatus.failed));
-        if (error.responce.status === 404) {
+        if (error.response.status === 404) {
+          dispatch(setErrorStatus(error.response.data.message));
           console.log(error.response.data.message);
         } else {
-          console.log(error.message);
+          console.error(error);
         }
-        console.log(error.response)
       });
   };
 };

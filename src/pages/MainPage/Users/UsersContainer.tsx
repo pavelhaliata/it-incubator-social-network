@@ -36,7 +36,7 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
         pageSize: state.profilePage.pageSize,
         currentPage: state.profilePage.currentPage,
         totalUsersCount: state.profilePage.totalUsersCount,
-        requestStatus: state.app.status,
+        requestStatus: state.app.requestStatus,
         selectedCurrentUser: state.profilePage.selectedCurrentUser
     };
 };

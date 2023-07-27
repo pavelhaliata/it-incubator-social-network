@@ -8,7 +8,8 @@ import { WeatherPage } from "./WeatherPage";
 const mapStateToProps = (state: StateType) => {
   return {
     weatherData: state.weatherPage.weatherData,
-    locationValue: state.weatherPage.locationValue
+    locationValue: state.weatherPage.locationValue,
+    errorStatus: state.app.error
   };
 };
 
@@ -23,6 +24,7 @@ export const WeatherPageContainer = connect(mapStateToProps,{
 type mapStatePropsType = {
   weatherData: WeatherType;
   locationValue: string
+  errorStatus: string | null
 };
 type mapDispatchPropsPropsType = {
   setHeaderTitle: (title: string) => void;

@@ -3,7 +3,7 @@ import { appReducer, InitialStateType, RequestStatus, setErrorStatus, setHeaderT
 
 const startState: InitialStateType = {
 	error: null,
-	status: RequestStatus.idle,
+	requestStatus: RequestStatus.idle,
 	headerTitle: ''
 }
 
@@ -16,7 +16,7 @@ expect(endState.error).toBe('error message')
 
 test("request status should be set", () => {
 const endState = appReducer(startState, setRequestStatus(RequestStatus.loading))
-expect(endState.status).toBe(RequestStatus.loading)	
+expect(endState.requestStatus).toBe(RequestStatus.loading)	
 });
 
 test("header title should be set", () => {

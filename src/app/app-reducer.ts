@@ -9,7 +9,7 @@ export enum RequestStatus {
 const initialState = {
   headerTitle: "" as string,
   error: null as string | null,
-  status: RequestStatus.idle as RequestStatus,
+  requestStatus: RequestStatus.idle as RequestStatus,
 
 };
 
@@ -23,7 +23,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     case "APP/SET-STATUS":
       return {
         ...state,
-        status: action.status,
+        requestStatus: action.status,
       };
     case "HEADER-PAGE-TITLE": 
       return{

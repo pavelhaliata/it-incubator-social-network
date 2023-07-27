@@ -15,7 +15,7 @@ const initialState = {
   newMessageTextData: "" as string,
   messagesData: [] as Array<MessageType>,
   usersData: [] as Array<UserDomainType>,
-  pageSize: 1000 as number,
+  pageSize: 5 as number,
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
   profileUserData: {

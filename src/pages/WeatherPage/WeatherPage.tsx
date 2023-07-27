@@ -11,7 +11,6 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
         document.title = "Weather Page";
         this.props.setHeaderTitle("weatherpage");
         this.props.getActualWeather('Minsk');
-        //getActualWeather('Minsk')
     }
 
 
@@ -22,16 +21,16 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
             .join(" ");
     };
 
-    temperature = Math.round(this.props.weatherData.main.temp);
-    temperatureMax= Math.round(this.props.weatherData.main.temp_max)
-    temperatureMin = Math.round(this.props.weatherData.main.temp_min);
-    humidity = this.props.weatherData.main.humidity;
-    feelsLike = Math.round(this.props.weatherData.main.feels_like);
+    // temperature = Math.round(this.props.weatherData.main.temp);
+    // temperatureMax= Math.round(this.props.weatherData.main.temp_max)
+    // temperatureMin = Math.round(this.props.weatherData.main.temp_min);
+    // humidity = this.props.weatherData.main.humidity;
+    // feelsLike = Math.round(this.props.weatherData.main.feels_like);
     icon = this.props.weatherData.weather[0].icon;
-    description = this.capitalizeFirstLetter(
-        this.props.weatherData.weather[0].description
-    );
-    windSpeed = this.props.weatherData.wind.speed.toFixed(1);
+    // description = this.capitalizeFirstLetter(
+    //     this.props.weatherData.weather[0].description
+    // );
+    // windSpeed = this.props.weatherData.wind.speed.toFixed(1);
 
     date = new Date();
     today = this.date.toLocaleString("en-us", {
@@ -54,8 +53,9 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     render() {
         return (
             <div className={style.weather}>
+                {<span className={this.props.errorStatus ? style.error : ''}>{this.props.errorStatus}</span>}
                 <div className={style.weather__now}>
-                    <div className={style.temperature_sensor}>{Math.round(this.props.weatherData.data.main.temp)}&deg;</div>
+                    <div className={style.temperature_sensor}>{Math.round(this.props.weatherData.main.temp)}&deg;</div>
                     <div className={style.temperature_max_min}>
                         <span>{Math.round(this.props.weatherData.main.temp_max)}&deg;</span>
                         <span>{Math.round(this.props.weatherData.main.temp_min)}&deg;</span>
@@ -87,7 +87,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
                         type="text"
                         value={this.props.locationValue}
                         onChange={this.onChangeValueHandler}
-                        placeholder="City search..."
+                        placeholder={this.props.errorStatus ? this.props.errorStatus : 'City search...'}
                     />
                     <Button className={style.search_btn} callback={this.onClickHandler}>
                         <span>Enter</span>

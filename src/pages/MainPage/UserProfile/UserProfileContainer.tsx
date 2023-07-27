@@ -11,7 +11,7 @@ export type UserPagePropsType = mapStatePropsType & mapDispatchPropsPropsType
 const mapStateToProps = (state: StateType) => {
     return {
         ProfileUserData: state.profilePage.profileUserData,
-        requestStatus: state.app.status
+        requestStatus: state.app.requestStatus
     };
 };
 
