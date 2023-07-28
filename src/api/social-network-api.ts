@@ -8,8 +8,8 @@ const instance = axios.create({
     },
 });
 export const socialNetworkAPI = {
-    getUsers(page: number) {
-        return instance.get<ResponseUsersType>(`users?count=1&page=${page}`);
+    getUsers(currentPage: number, pageSize: number) {
+        return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
     },
     getProfileUser(userId: number) {
         return instance.get<ProfileUserType>(`profile/${userId}`)

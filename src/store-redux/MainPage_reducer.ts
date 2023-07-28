@@ -15,7 +15,7 @@ const initialState = {
   newMessageTextData: "" as string,
   messagesData: [] as Array<MessageType>,
   usersData: [] as Array<UserDomainType>,
-  pageSize: 5 as number,
+  pageSize: 52 as number,
   currentPage: 1 as number,
   totalUsersCount: 0 as number,
   profileUserData: {
@@ -141,7 +141,7 @@ export const setTotalUsersCount = (totalCount: number) =>
 export const setCurrentPage = (currentPage: number) =>
   ({ type: "CURRENT-PAGE", currentPage } as const);
 
-export const profileUserData = (profileUserData: any) =>
+export const profileUserData = (profileUserData: ProfileUserType) =>
   ({
     type: "PROFILE-USER",
     profileUserData,
@@ -155,10 +155,10 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
   } as const);
 
 // thunks
-export const getUsers = (currentPage: number) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading));
-    socialNetworkAPI.getUsers(currentPage).then((res) => {
+    socialNetworkAPI.getUsers(currentPage, pageSize).then((res) => {
       dispatch(setUsers(res.data.items));
       dispatch(setTotalUsersCount(res.data.totalCount));
       dispatch(setRequestStatus(RequestStatus.succeed));

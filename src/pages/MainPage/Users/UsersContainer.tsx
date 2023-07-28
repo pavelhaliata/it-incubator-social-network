@@ -9,12 +9,12 @@ import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 // FriendsApiContainer component
 class UsersApiContainer extends Component<FriendsPropsType> {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage)
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
-  setCurrentPageHandler = (page: number) => {
-    this.props.getUsers(page)
-    this.props.setCurrentPage(page)
+  setCurrentPageHandler = (currentPage: number) => {
+    this.props.getUsers(currentPage, this.props.pageSize)
+    this.props.setCurrentPage(currentPage)
   };
 
   render() {
@@ -64,7 +64,7 @@ type mapStatePropsType = {
 type mapDispatchPropsPropsType = {
     followUser: (userId: number) => void;
     unfollowUser: (userId: number) => void;
-    getUsers: (currentPage: number) => void;
+    getUsers: (currentPage: number, pageSize: number) => void;
     setTotalUsersCount: (totalCount: number) => void;
     setCurrentPage: (currentPage: number) => void;
     setRequestStatus: (status: RequestStatus) => void

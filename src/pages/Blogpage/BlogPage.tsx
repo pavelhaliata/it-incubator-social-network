@@ -20,6 +20,7 @@ export class BlogPage extends Component<BlogPagePropsType> {
             this.props.createPost()
         }
     };
+    
     createNewPostHandler = () => {
         this.props.createPost()
     };
