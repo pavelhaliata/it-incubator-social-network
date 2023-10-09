@@ -1,7 +1,7 @@
+
+/* Обнуление стандартных стилей и установка общих параметров */
+
 @import-normalize; /* bring in normalize.css styles */
-
-/* rest of app styles */
-
 
 *,
 *::before,
@@ -9,7 +9,6 @@
   padding: 0;
   margin: 0;
   outline: none;
-	-moz-appearance: none;
   box-sizing: border-box;
 }
 
@@ -21,7 +20,7 @@ ul,
 ol,
 li {
   list-style: none;
-  padding: 0px;
+  padding: 0;
 }
 
 html {
@@ -37,12 +36,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 //   font-size: clamp(0.875rem, 0.794rem + 0.258vw, 1rem); !!! не уверен что так правильно
   font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
+  font-weight: 400; //??
+  line-height: 1.5; //??
   color: var(--body-font-color);
 }
 
-
+/* Определение цветовой палитры */
 :root {
   --primary-color: #ff5e3a;
   --secondary-color: #3f4257;
