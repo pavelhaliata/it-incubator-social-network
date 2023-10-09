@@ -1,0 +1,41 @@
+
+.row {  
+	display: grid;
+	grid-template-columns: 0.6fr 1.4fr;
+	grid-template-rows: 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  ". .";
+	//   border: 1px solid var(--primary-color);
+  }
+  .col{
+	padding: 0 12px;
+	// border: 1px solid var(--secondary-color);
+  }
+  .block{
+	background-color: var(--olympus-white-color);
+    border-radius: 5px;
+  }
+  .block_title{
+	padding: 23px 25px 18px;
+  }
+  .block_content{
+	padding: 23px 25px 18px;
+  }
+  .personal_info{
+	li{
+		margin-bottom: 30px;
+	}
+	.title{
+		color: var(--heading-color);
+		font-weight: 500;
+		margin-right: 30px;
+		float: left;
+		width: 30%;
+	}
+	.text{
+		display: block;
+		overflow: hidden;
+	}
+  }

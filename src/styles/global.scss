@@ -1,0 +1,79 @@
+@import-normalize; /* bring in normalize.css styles */
+
+/* rest of app styles */
+
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  outline: none;
+	-moz-appearance: none;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none; // убрать отсюда
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  padding: 0px;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+//   font-size: clamp(0.875rem, 0.794rem + 0.258vw, 1rem); !!! не уверен что так правильно
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--body-font-color);
+}
+
+
+:root {
+  --primary-color: #ff5e3a;
+  --secondary-color: #3f4257;
+  --olympus-placeholder-form-color: #888da8;
+  --olympus-white-color: #fff;
+  --heading-color: #515365;
+  --olympus-icon-color: #9a9fbf;
+  --olympus-body-bg: #edf2f6;
+  --body-font-color: #888da8;
+  --olympus-body-bg-white: #ffffff;
+  --olympus-grey: #515365;
+  --olympus-grey-light: #888da8;
+  --olympus-grey-lighter: #9a9fbf;
+  --olympus-purple: #7c5ac2;
+  --olympus-purple-dark: #6236b2;
+  --olympus-blue: #38a9ff;
+  --olympus-breez: #08ddc1;
+  --olympus-breez-light: #2aebcb;
+  --olympus-orange: #ff763a;
+  --olympus-yellow: #ffdc1b;
+  --olympus-smoke: #e6ecf5;
+  --olympus-green: #1ed760;
+  --olympus-smoke-light: #fafbfd;
+  --olympus-blue-light: #00b7ff;
+  --olympus-violet: #7442ce;
+  --olympus-c-facebook: #2f5b9d;
+  --olympus-c-twitter: #38bff1;
+  --olympus-c-dribbble: #f74881;
+  --olympus-c-rss: #fab819;
+  --olympus-c-spotify: #1ed760;
+  --olympus-c-google: #ea4235;
+  --olympus-border-color: #e6ecf5;
+  --olympus-headings-font-weight-h1-h4: 300;
+}

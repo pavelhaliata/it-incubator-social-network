@@ -1,6 +1,5 @@
-import { ChangeEvent, KeyboardEvent, Component } from "react";
+import { ChangeEvent, Component, KeyboardEvent } from "react";
 import { Button } from "../../components/Button/Button";
-import { getActualWeather } from "../../store-redux/weatherPage_reducer";
 import style from "./Weather.module.scss";
 import { WeatherPagePropsType } from "./WeatherPageContainer";
 
@@ -59,11 +58,9 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
   render() {
     return (
       <div className={style.weather}>
-        {
           <span className={this.props.errorStatus ? style.error : ""}>
             {this.props.errorStatus}
           </span>
-        }
         <div className={style.weather__now}>
           <div className={style.temperature_sensor}>
             {Math.round(this.props.weatherData.main.temp)}&deg;

@@ -27,12 +27,12 @@ export class MainPage extends Component <MainPagePropsType> {
               <div className={style.nav_item}>
                 <ul className={style.item_menu}>
                   <li>
-                    <NavLink to="/friends" className={this.navLinkActive}>
+                    <NavLink to="friends" className={this.navLinkActive}>
                       Friends search
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/dialogs" className={this.navLinkActive}>
+                    <NavLink to="dialogs" className={this.navLinkActive}>
                       Dialogs
                     </NavLink>
                   </li>
