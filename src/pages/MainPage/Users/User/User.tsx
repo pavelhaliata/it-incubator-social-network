@@ -1,10 +1,10 @@
 import {Component} from 'react';
 import style from "./User.module.scss";
-import {Button} from "../../../../components/Button/Button";
-import defaultAvatar from "../../../../assets/images/abstract-user-default.svg"
-import background from "../../../../assets/images/background.jpg"
+import {Button} from "components/Button/Button";
+import defaultAvatar from "assets/images/abstract-user-default.svg"
+import background from "assets/images/background.jpg"
 import {Link} from 'react-router-dom';
-import {RequestStatus} from "../../../../app/app-reducer";
+import {RequestStatus} from "app/app-reducer";
 
 type UserPropsType = {
     requestStatus: RequestStatus;

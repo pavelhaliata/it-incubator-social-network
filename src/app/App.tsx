@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginContainer/>}/>
           <Route path="/" element={<MainPageContainer />}>
-            <Route path="/" element={<ProfileContainer/>}/>
+            <Route path="profile" element={<ProfileContainer/>}/>
             <Route path="dialogs" element={<DialogsContainer />} />
             <Route path="friends" element={<FriendsContainer />} />
             <Route path="user/:id" element={<UserPageContainer />} />

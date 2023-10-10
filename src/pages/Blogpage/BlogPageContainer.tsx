@@ -1,36 +1,38 @@
-import {
-  PostDataType,
-  createPost,
-  setPostTextValue,
-} from "../../store-redux/blogPage_reducer";
-import { StateType } from "../../store-redux/redux-store";
-import { connect } from "react-redux";
-import { setHeaderTitle } from "../../app/app-reducer";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {setHeaderTitle} from "app/app-reducer";
+import {PostDataType, createPost, setPostTextValue} from "store-redux/blogPage_reducer";
+import {StateType} from "store-redux/redux-store";
 import {BlogPage} from "./BlogPage";
+import {withAuthRedirect} from "hoc/withAuthRedirect";
 
 const mapStateToProps = (state: StateType): MapStatePropsType => {
-  return {
-    postTextValue: state.blogPage.postTextValue,
-    postsData: state.blogPage.postsData,
-  };
+    return {
+        postTextValue: state.blogPage.postTextValue,
+        postsData: state.blogPage.postsData,
+    };
 };
 
-export const BlogPageContainer = connect(mapStateToProps, {
-  setPostTextValue,
-  createPost,
-  setHeaderTitle,
-})(BlogPage);
+export const BlogPageContainer = compose(
+    connect(mapStateToProps, {
+        setPostTextValue,
+        createPost,
+        setHeaderTitle
+    }),
+    withAuthRedirect
+)(BlogPage);
+
 
 // types
 type MapStatePropsType = {
-  postTextValue: string;
-  postsData: Array<PostDataType>;
+    postTextValue: string;
+    postsData: Array<PostDataType>;
 };
 
 type MapDispatchPropsType = {
-  setPostTextValue: (value: string) => void;
-  createPost: () => void;
-  setHeaderTitle: (title: string) => void;
+    setPostTextValue: (value: string) => void;
+    createPost: () => void;
+    setHeaderTitle: (title: string) => void;
 };
 
 export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType;

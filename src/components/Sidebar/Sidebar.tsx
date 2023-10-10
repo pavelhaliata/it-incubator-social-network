@@ -21,7 +21,7 @@ export class Sidebar extends Component<SidebarPropsType> {
         <nav className={style.sidebar_menu}>
           <ul className={style.menu}>
             <li className={style.menu_link}>
-              <Link to="/">Profile</Link>
+              <Link to="/profile">Profile</Link>
             </li>
             <li className={style.menu_link}>
               <Link to="/news">News</Link>

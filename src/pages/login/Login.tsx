@@ -12,8 +12,8 @@ export class Login extends Component<LoginPropsType> {
 			  )
 		  }
 		return (
-			<div>
-				Login, pls, enter your emil and pass
+			<div style={{margin: "0 auto", width:"400px", textAlign: "center", color: "orangered"}}>
+				pls, enter your email and pass
 			</div>
 		);
 	}

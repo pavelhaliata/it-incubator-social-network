@@ -1,38 +1,23 @@
-import { connect } from "react-redux";
-import { StateType } from "../../store-redux/redux-store";
-import { setHeaderTitle } from "../../app/app-reducer";
-import { Profile } from "./Profile";
-import { Navigate } from "react-router-dom";
+import {connect} from "react-redux";
+import {StateType} from "store-redux/redux-store";
+import {Profile} from "./Profile";
 import React from "react";
-
+import {withAuthRedirect} from "hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 const mapStateToProps = (state: StateType): mapStatePropsType => {
-  return {
-     isLogin: state.authData.isLogin
-  };
+    return {};
 };
 
-const AuthRedirectComponent = (props:ProfilePropsType) => {
-  
-  if(!props.isLogin){
-    return(
-         <Navigate to='/login'/>
-      )
-  }
-  return <Profile {...props}/>
 
-}
-
-export const ProfileContainer = connect(mapStateToProps, { setHeaderTitle })(AuthRedirectComponent);
+export const ProfileContainer = compose(
+    connect(mapStateToProps, {}),
+    withAuthRedirect)
+(Profile);
 
 
 //types
-type mapStatePropsType = {
-  isLogin: boolean
-
-};
-type mapDispatchPropsPropsType = {
-    
-};
+type mapStatePropsType = {};
+type mapDispatchPropsPropsType = {};
 export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType;
