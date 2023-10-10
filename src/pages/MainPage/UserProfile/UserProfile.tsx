@@ -17,7 +17,7 @@ import { RequestStatus } from "../../../app/app-reducer";
 export const User = (props: UserPagePropsType) => {
     const {id: userId} = useParams()
     useEffect(() => {
-        props.getProfileUser(Number(userId))
+        props.getProfileUserAsync(Number(userId))
     }, [userId])
 
     if (!props.ProfileUserData) {

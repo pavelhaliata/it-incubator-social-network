@@ -2,7 +2,7 @@ import {StateType} from "../../../store-redux/redux-store";
 import {connect} from "react-redux";
 import {RequestStatus, setHeaderTitle} from "../../../app/app-reducer";
 import {User} from "./UserProfile";
-import {getProfileUser} from "../../../store-redux/MainPage_reducer";
+import {getProfileUserAsync} from "../../../store-redux/MainPage_reducer";
 import {ProfileUserType} from "../../../api/social-network-api";
 
 
@@ -15,7 +15,7 @@ const mapStateToProps = (state: StateType) => {
     };
 };
 
-export const UserPageContainer = connect(mapStateToProps, { setHeaderTitle, getProfileUser })(User);
+export const UserPageContainer = connect(mapStateToProps, { setHeaderTitle, getProfileUserAsync })(User);
 
 // types
 type mapStatePropsType = {
@@ -24,5 +24,5 @@ type mapStatePropsType = {
 }
 type mapDispatchPropsPropsType = {
     setHeaderTitle: (title: string) => void
-    getProfileUser: (userId: number) => void
+    getProfileUserAsync: (userId: number) => void
 }

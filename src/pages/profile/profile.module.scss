@@ -3,19 +3,19 @@
 	display: grid;
 	grid-template-columns: 0.6fr 1.4fr;
 	grid-template-rows: 1fr;
-	gap: 0px 0px;
+	gap: 0 20px;
 	grid-auto-flow: row;
 	grid-template-areas:
 	  ". .";
-	//   border: 1px solid var(--primary-color);
   }
   .col{
-	padding: 0 12px;
-	// border: 1px solid var(--secondary-color);
+	
   }
   .block{
 	background-color: var(--olympus-white-color);
     border-radius: 5px;
+	padding: 0 12px;
+	margin-bottom: 10px;
   }
   .block_title{
 	padding: 23px 25px 18px;
@@ -29,13 +29,21 @@
 	}
 	.title{
 		color: var(--heading-color);
+		font-size: .812rem;
 		font-weight: 500;
 		margin-right: 30px;
 		float: left;
 		width: 30%;
 	}
+	.date{
+		font-size: 11px;
+		color: #bdc0ce;
+		font-weight: 500;
+		margin-bottom: 15px;
+	}
 	.text{
 		display: block;
 		overflow: hidden;
+		font-size: .812rem;
 	}
   }

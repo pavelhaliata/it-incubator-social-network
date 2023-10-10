@@ -2,7 +2,7 @@ import {Component} from "react";
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {StateType} from "../../../store-redux/redux-store";
-import {followUser, getUsers, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,
+import {followUser, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,
 } from "../../../store-redux/MainPage_reducer";
 import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
 
@@ -44,7 +44,7 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
 export const FriendsContainer = connect(mapStateToProps, {
     followUser,
     unfollowUser,
-    getUsers,
+    getUsers: getUsersAsync,
     setTotalUsersCount,
     setCurrentPage,
     setRequestStatus

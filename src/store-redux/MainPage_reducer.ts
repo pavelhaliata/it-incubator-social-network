@@ -155,7 +155,7 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
   } as const);
 
 // thunks
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const getUsersAsync = (currentPage: number, pageSize: number) => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading));
     socialNetworkAPI.getUsers(currentPage, pageSize).then((res) => {
@@ -165,7 +165,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     });
   };
 };
-export const getProfileUser = (userId: number) => {
+export const getProfileUserAsync = (userId: number) => {
   return (dispatch: Dispatch) => {
     dispatch(setRequestStatus(RequestStatus.loading));
     socialNetworkAPI.getProfileUser(userId).then((res) => {

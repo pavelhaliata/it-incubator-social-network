@@ -7,13 +7,15 @@ import {MainPageContainer} from "../pages/MainPage/MainPageContainer";
 import {UserPageContainer} from "../pages/MainPage/UserProfile/UserProfileContainer";
 import {DialogsContainer} from "../pages/MainPage/Dialogs/DialogsContainer";
 import {BlogPageContainer} from "../pages/Blogpage/BlogPageContainer";
-import { ProfileContainer } from "../pages/profile/ContainerProfile";
+import { ProfileContainer } from "../pages/profile/ProfileContainer";
+import { LoginContainer } from "../pages/login/LoginContainer";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<LoginContainer/>}/>
           <Route path="/" element={<MainPageContainer />}>
             <Route path="/" element={<ProfileContainer/>}/>
             <Route path="dialogs" element={<DialogsContainer />} />

@@ -6,6 +6,7 @@ const initialState = {
     id: null as number | null,
     email: null as string | null,
     login: null as string | null,
+    isLogin: false as boolean
 };
 
 export const authReducer = (
@@ -18,6 +19,11 @@ export const authReducer = (
         ...state,
         ...action.data,
       };
+    case "AUTH_ISLOGIN":
+      return{
+        ...state,
+        isLogin: action.status
+      }  
     default:
       return state;
   }
@@ -30,20 +36,26 @@ const setAuthUserData = (data: AuthUserDataType) =>
     data,
   } as const);
 
+const isLogin = (status: boolean) => ({type: "AUTH_ISLOGIN", status} as const)  
+
 // thunks
-export const getAuthUserData = () => {
+export const getAuthUserDataAsync = () => {
   return (dispatch: Dispatch) => {
     socialNetworkAPI
       .authUserData()
       .then((res) => {
         if (res.data.resultCode === 0) {
+          dispatch(isLogin(true))
           dispatch(setAuthUserData(res.data.data));
+          console.log(res.data)
         } else {
-          console.log(res.data.messages);
+          dispatch(isLogin(false))
           dispatch(setErrorStatus(res.data.messages[0]));
+          console.log(res.data.messages);
         }
       })
       .catch((error) => {
+        dispatch(isLogin(false))
         console.log(error);
       });
   };
@@ -51,4 +63,6 @@ export const getAuthUserData = () => {
 
 // types
 type InitialStateType = typeof initialState;
-type ActionType = ReturnType<typeof setAuthUserData>;
+type ActionType = |
+ReturnType<typeof setAuthUserData>|
+ReturnType<typeof isLogin>;
