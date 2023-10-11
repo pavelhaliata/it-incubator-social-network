@@ -2,6 +2,7 @@ import {Component} from 'react';
 import style from "./MainPage.module.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { MainPagePropsType } from "./MainPageContainer";
+import { ProfileStatusContainer } from 'components/profileStatus/ProfileStatusContainer';
 
 export class MainPage extends Component <MainPagePropsType> {
 
@@ -58,6 +59,7 @@ export class MainPage extends Component <MainPagePropsType> {
               </div>
             </div>
             <div className={style.header_author}>
+            <ProfileStatusContainer/>
               <a href="#" className={style.author_img}>
                 <img
                     src="https://html.crumina.net/html-olympus/img/author-main1.webp"

@@ -1,23 +1,38 @@
 import { Component } from "react";
-import { ProfileStatusPropsType } from "./profileStatusContainer";
+import { ProfileStatusPropsType } from "./ProfileStatusContainer";
+import style from "./profileStatus.module.scss"
 
 export class ProfileStatus extends Component<ProfileStatusPropsType> {
   state = {
-    toggleStatus: false,
+    editMode: false,
+    value: ''
   };
 
+  activateEditMode(edit: boolean){
+    this.setState({
+      editMode: edit
+    })
+
+  }
+  onChangeHandler(event: any){
+    console.log(event.target.value)
+    this.setState({
+      value: event.target.value
+    })
+  }
+
+
   render() {
-    if (this.state.toggleStatus) {
+    if (!this.state.editMode) {
       return (
-	  <span>
-		{this.props.statusAuthorizedUser}
+	  <span className={style.status} onDoubleClick={()=>{this.activateEditMode(true)}}>
+		  {this.props.statusAuthorizedUser}sssss
 	  </span>
 	);
     } else {
       return (
 		<>
-			<input type='text'/>
-			<button >edit</button>
+			<input type='text' value={this.state.value} onBlur={()=>{this.activateEditMode(false)}} onChange={this.onChangeHandler}/>
 		</>
 	);
     }
