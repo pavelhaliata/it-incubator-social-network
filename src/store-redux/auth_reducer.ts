@@ -1,6 +1,7 @@
-import { Dispatch } from "redux";
-import { AuthUserDataType, socialNetworkAPI } from "../api/social-network-api";
-import { setErrorStatus } from "../app/app-reducer";
+import {Dispatch} from "redux";
+import {AuthUserDataType, socialNetworkAPI} from "../api/social-network-api";
+import {setErrorStatus} from "../app/app-reducer";
+import {getStatusAuthorizedUserAsync} from "./MainPage_reducer";
 
 const initialState = {
     id: null as number | null,
@@ -10,59 +11,60 @@ const initialState = {
 };
 
 export const authReducer = (
-  state: InitialStateType = initialState,
-  action: ActionType
+    state: InitialStateType = initialState,
+    action: ActionType
 ): InitialStateType => {
-  switch (action.type) {
-    case "AUTH_USER_DATA":
-      return {
-        ...state,
-        ...action.data,
-      };
-    case "AUTH_ISLOGIN":
-      return{
-        ...state,
-        isLogin: action.status
-      }  
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case "AUTH_USER_DATA":
+            return {
+                ...state,
+                ...action.data,
+            };
+        case "AUTH_ISLOGIN":
+            return {
+                ...state,
+                isLogin: action.status
+            }
+        default:
+            return state;
+    }
 };
 
 // actions
 const setAuthUserData = (data: AuthUserDataType) =>
-  ({
-    type: "AUTH_USER_DATA",
-    data,
-  } as const);
+    ({
+        type: "AUTH_USER_DATA",
+        data,
+    } as const);
 
-const isLogin = (status: boolean) => ({type: "AUTH_ISLOGIN", status} as const)  
+const isLogin = (status: boolean) => ({type: "AUTH_ISLOGIN", status} as const)
 
 // thunks
 export const getAuthUserDataAsync = () => {
-  return (dispatch: Dispatch) => {
-    socialNetworkAPI
-      .authUserData()
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(isLogin(true))
-          dispatch(setAuthUserData(res.data.data));
-          console.log(res.data)
-        } else {
-          dispatch(isLogin(false))
-          dispatch(setErrorStatus(res.data.messages[0]));
-          console.log(res.data.messages);
-        }
-      })
-      .catch((error) => {
-        dispatch(isLogin(false))
-        console.log(error);
-      });
-  };
+    return (dispatch: any) => {
+        socialNetworkAPI
+            .authUserData()
+            .then((res) => {
+                if (res.data.resultCode === 0) {
+                    dispatch(isLogin(true))
+                    dispatch(setAuthUserData(res.data.data))
+                    dispatch(getStatusAuthorizedUserAsync(res.data.data.id))
+                } else {
+                    dispatch(isLogin(false))
+                    dispatch(setErrorStatus(res.data.messages[0]));
+                    console.log(res.data.messages);
+                }
+            })
+            .catch((error) => {
+                dispatch(isLogin(false))
+                console.log(error);
+            });
+    };
 };
+
 
 // types
 type InitialStateType = typeof initialState;
 type ActionType = |
-ReturnType<typeof setAuthUserData>|
-ReturnType<typeof isLogin>;
+    ReturnType<typeof setAuthUserData> |
+    ReturnType<typeof isLogin>;

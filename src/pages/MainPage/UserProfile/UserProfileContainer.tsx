@@ -1,4 +1,4 @@
-import {StateType} from "../../../store-redux/redux-store";
+import {AppRootState} from "../../../store-redux/redux-store";
 import {connect} from "react-redux";
 import {RequestStatus, setHeaderTitle} from "../../../app/app-reducer";
 import {User} from "./UserProfile";
@@ -8,7 +8,7 @@ import {ProfileUserType} from "../../../api/social-network-api";
 
 export type UserPagePropsType = mapStatePropsType & mapDispatchPropsPropsType
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppRootState) => {
     return {
         ProfileUserData: state.profilePage.profileUserData,
         requestStatus: state.app.requestStatus

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { inputValueAC } from "../../store-redux/inputComponent_reducer";
-import { StateType } from "../../store-redux/redux-store";
+import { AppRootState } from "../../store-redux/redux-store";
 import { Input } from "./Input";
 
 
@@ -14,7 +14,7 @@ type mapDispatchPropsType = {
 }
 export type InputPropsType = mapStatePropsType & mapDispatchPropsType
 
-const mapStateToProps = (state: StateType ): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState ): mapStatePropsType => {
 	return {
 	  inputValue: state.inputValueComponent.inputValue
 	}

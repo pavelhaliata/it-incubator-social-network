@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 export const socialNetworkAPI = {
     authUserData(){
-        return instance.get<ResponseAuthUserDataType>(`/auth/me`)
+        return instance.get<ResponseType<AuthUserDataType>>(`/auth/me`)
     },
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
@@ -29,6 +29,9 @@ export const socialNetworkAPI = {
     },
     updateStatusAuthorizedUser (textStatus: string) {
         return instance.put<ResponseType>('/profile/status', {status: textStatus})
+    },
+    getStatusAuthorizedUser(userId: number | null) {
+        return instance.get<string>(`/profile/status/${userId}`)
     }
     
 };
@@ -91,8 +94,8 @@ export type AuthUserDataType = {
     login: string | null
 }
 
-type ResponseType = {
+type ResponseType<T = string> = {
     resultCode: number
     messages: string[]
-    data: object
+    data: T
 };

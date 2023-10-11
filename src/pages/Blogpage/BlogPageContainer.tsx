@@ -2,11 +2,11 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {setHeaderTitle} from "app/app-reducer";
 import {PostDataType, createPost, setPostTextValue} from "store-redux/blogPage_reducer";
-import {StateType} from "store-redux/redux-store";
+import {AppRootState} from "store-redux/redux-store";
 import {BlogPage} from "./BlogPage";
 import {withAuthRedirect} from "hoc/withAuthRedirect";
 
-const mapStateToProps = (state: StateType): MapStatePropsType => {
+const mapStateToProps = (state: AppRootState): MapStatePropsType => {
     return {
         postTextValue: state.blogPage.postTextValue,
         postsData: state.blogPage.postsData,

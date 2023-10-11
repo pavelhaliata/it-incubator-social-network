@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { StateType } from "../../store-redux/redux-store";
+import { AppRootState } from "../../store-redux/redux-store";
 import { setHeaderTitle } from "../../app/app-reducer";
 import { Login } from "./Login";
 
 
-const mapStateToProps = (state: StateType): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState): mapStatePropsType => {
   return {
 	isLogin: state.authData.isLogin
   };

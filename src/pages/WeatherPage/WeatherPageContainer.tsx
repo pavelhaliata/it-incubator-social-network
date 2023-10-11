@@ -2,12 +2,12 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {WeatherType} from "api/weather-api";
 import {setHeaderTitle} from "app/app-reducer";
-import {StateType} from "store-redux/redux-store";
+import {AppRootState} from "store-redux/redux-store";
 import {getActualWeather, setLocationValue} from "store-redux/weatherPage_reducer";
 import {WeatherPage} from "./WeatherPage";
 import {withAuthRedirect} from "hoc/withAuthRedirect";
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppRootState) => {
     return {
         weatherData: state.weatherPage.weatherData,
         locationValue: state.weatherPage.locationValue,

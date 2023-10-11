@@ -1,5 +1,5 @@
-import { ChangeEvent, KeyboardEvent, useState, Component, ReactNode } from "react";
-import { InputPropsType } from "./InputContainer";
+import {ChangeEvent, Component, KeyboardEvent} from "react";
+import {InputPropsType} from "./InputContainer";
 
 type IPropsType = {
   placeholder?: string;

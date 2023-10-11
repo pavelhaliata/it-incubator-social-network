@@ -72,7 +72,7 @@ export class MainPage extends Component <MainPagePropsType> {
                 <a href="#" className={style.author_name}>
                   {this.props.authUserData.login}
                 </a>
-                <div className={style.country}>San Francisco, CA</div>
+                <div className={style.status}><ProfileStatusContainer/></div>
               </div>
             </div>
           </div>

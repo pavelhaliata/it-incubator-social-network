@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { StateType } from "../../store-redux/redux-store";
+import { AppRootState } from "../../store-redux/redux-store";
 import { ProfileStatus } from "./ProfileStatus";
 import { updateStatusAuthorizedUserAsync } from "store-redux/MainPage_reducer";
 
 
-const mapStateToProps = (state: StateType): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState): mapStatePropsType => {
   return {
 	statusAuthorizedUser: state.profilePage.statusAuthorizedUser
   };
@@ -14,7 +14,7 @@ export const ProfileStatusContainer = connect(mapStateToProps, { updateStatusAut
 
 //types
 type mapStatePropsType = {
-	statusAuthorizedUser: string
+	statusAuthorizedUser: string|null
 };
 type mapDispatchPropsPropsType = {
     updateStatusAuthorizedUserAsync: (textStatus: string) => void 

@@ -1,15 +1,17 @@
 import {connect} from "react-redux";
-import {StateType} from "../../store-redux/redux-store";
+import {AppRootState} from "../../store-redux/redux-store";
 import {Header} from "./Header";
 import {AuthUserDataType} from "../../api/social-network-api";
 import {Component} from "react";
 import {getAuthUserDataAsync} from "../../store-redux/auth_reducer";
+import {getStatusAuthorizedUserAsync} from "../../store-redux/MainPage_reducer";
 
 
 // HeaderApiContainer
 class HeaderApiContainer extends Component<HeaderPropsType> {
+
     componentDidMount() {
-        this.props.getAuthUserData()
+        this.props.getAuthUserDataAsync()
     }
 
     render() {
@@ -22,13 +24,16 @@ class HeaderApiContainer extends Component<HeaderPropsType> {
 }
 
 
-const mapStateToProps = (state: StateType): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         headerTitle: state.app.headerTitle,
         authUserData: state.authData
     }
 };
-export const HeaderContainer = connect(mapStateToProps,{getAuthUserData: getAuthUserDataAsync})(HeaderApiContainer);
+export const HeaderContainer = connect(mapStateToProps, {
+    getAuthUserDataAsync,
+    getStatusAuthorizedUserAsync
+})(HeaderApiContainer);
 
 //types
 type mapStatePropsType = {
@@ -36,6 +41,6 @@ type mapStatePropsType = {
     authUserData: AuthUserDataType
 }
 type mapDispatchPropsType = {
-    getAuthUserData: () => void
+    getAuthUserDataAsync: () => void
 }
 export type HeaderPropsType = mapStatePropsType & mapDispatchPropsType

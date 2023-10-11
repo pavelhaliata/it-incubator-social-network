@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
-import { StateType } from "store-redux/redux-store";
+import { AppRootState } from "store-redux/redux-store";
 import { MainPage } from "./MainPage";
 import { setHeaderTitle } from "app/app-reducer";
 import {AuthUserDataType} from "api/social-network-api";
 
 
 
-const mapStateToProps = (state: StateType): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState): mapStatePropsType => {
   return {
       authUserData: state.authData
   };

@@ -87,7 +87,7 @@
 	}
 
 	li a.active {
-		color: #ff5e3a;
+		color: var(--primary-color);
 	}
 }
 
@@ -149,11 +149,15 @@
 	color: #515365;
 }
 
-.country {
+.status {
+	input{
+		border: none;
+		border-bottom: 1px solid var(--primary-color);
+	}
+
 	font-size: clamp(0.625rem, 0.383rem + 0.775vw, 1rem);
 }
 
-// ===================
 .profile_content {
 	max-height: 100%;
 	padding: 10px 0;

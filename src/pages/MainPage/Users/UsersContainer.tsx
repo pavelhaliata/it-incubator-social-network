@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {Users} from "./Users";
 import {connect} from "react-redux";
-import {StateType} from "store-redux/redux-store";
+import {AppRootState} from "store-redux/redux-store";
 import {followUser, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,
 } from "store-redux/MainPage_reducer";
 import { RequestStatus, setRequestStatus } from "app/app-reducer";
@@ -30,7 +30,7 @@ class UsersApiContainer extends Component<FriendsPropsType> {
 }
 
 // FriendsContainer component
-const mapStateToProps = (state: StateType): mapStatePropsType => {
+const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         usersData: state.profilePage.usersData,
         pageSize: state.profilePage.pageSize,
