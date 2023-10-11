@@ -41,6 +41,7 @@ const initialState = {
   } as ProfileUserType,
   selectedCurrentUser: [] as Array<number>,
   followingStatusRequest: false as boolean,
+  statusAuthorizedUser: '' as string,
 };
 
 export const profilePageReducer = (
@@ -115,6 +116,11 @@ export const profilePageReducer = (
           ? [...state.selectedCurrentUser, action.userId]
           : state.selectedCurrentUser.filter((i) => i !== action.userId),
       };
+    case "UPDATE_STATUS": 
+    return{
+      ...state,
+      statusAuthorizedUser: action.textStatus
+    }   
     default:
       return state;
   }
@@ -153,6 +159,12 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
     followingStatusRequest,
     userId,
   } as const);
+
+const updateStatusAuthorizedUser = (textStatus: string) =>
+({
+  type: "UPDATE_STATUS",
+  textStatus
+} as const)
 
 // thunks
 export const getUsersAsync = (currentPage: number, pageSize: number) => {
@@ -209,6 +221,21 @@ export const unfollowUser = (userId: number) => {
   };
 };
 
+export const updateStatusAuthorizedUserAsync = (textStatus: string) => {
+  return async (dispatch: Dispatch) => {
+      try {
+        const res = await socialNetworkAPI.updateStatusAuthorizedUser(textStatus)
+        if (res.data.resultCode !== 0){
+          dispatch(updateStatusAuthorizedUser(textStatus))
+        }else{
+          console.log(res.data.messages)
+        }
+      } catch (error: any) {
+        console.log(error.message)
+      }
+  }
+}
+
 // types
 export type ProfilePageInitialStateType = typeof initialState;
 
@@ -234,4 +261,5 @@ export type ActionProfilePageType =
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof profileUserData>
-  | ReturnType<typeof toggleFollowingStatusRequest>;
+  | ReturnType<typeof toggleFollowingStatusRequest>
+  | ReturnType<typeof updateStatusAuthorizedUser>;

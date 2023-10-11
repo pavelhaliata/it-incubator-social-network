@@ -9,6 +9,9 @@ const instance = axios.create({
     },
 });
 export const socialNetworkAPI = {
+    authUserData(){
+        return instance.get<ResponseAuthUserDataType>(`/auth/me`)
+    },
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
     },
@@ -24,9 +27,10 @@ export const socialNetworkAPI = {
     unFollowUser(userId: number){
         return instance.delete<ResponseFollowerUserType>(`/follow/${userId}`)
     },
-    authUserData(){
-        return instance.get<ResponseAuthUserDataType>(`/auth/me`)
+    updateStatusAuthorizedUser (textStatus: string) {
+        return instance.put<ResponseType>('/profile/status', {status: textStatus})
     }
+    
 };
 
 // types
@@ -69,7 +73,7 @@ export type ProfileUserType = {
   }
 }
 
-type ResponseFollowerUserType = {
+type ResponseFollowerUserType = { //need to fix, because not observed principle
     resultCode: number
     messages: string[]
     data: object
@@ -86,3 +90,9 @@ export type AuthUserDataType = {
     email: string | null
     login: string | null
 }
+
+type ResponseType = {
+    resultCode: number
+    messages: string[]
+    data: object
+};

@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import { StateType } from "../../store-redux/redux-store";
+import { StateType } from "store-redux/redux-store";
 import { MainPage } from "./MainPage";
-import { setHeaderTitle } from "../../app/app-reducer";
-import {AuthUserDataType} from "../../api/social-network-api";
+import { setHeaderTitle } from "app/app-reducer";
+import {AuthUserDataType} from "api/social-network-api";
 
 
 

@@ -4,8 +4,6 @@ import { setHeaderTitle } from "../../app/app-reducer";
 import { Login } from "./Login";
 
 
-
-
 const mapStateToProps = (state: StateType): mapStatePropsType => {
   return {
 	isLogin: state.authData.isLogin

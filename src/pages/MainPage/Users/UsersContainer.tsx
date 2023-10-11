@@ -1,19 +1,19 @@
 import {Component} from "react";
 import {Users} from "./Users";
 import {connect} from "react-redux";
-import {StateType} from "../../../store-redux/redux-store";
+import {StateType} from "store-redux/redux-store";
 import {followUser, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowUser, UserDomainType,
-} from "../../../store-redux/MainPage_reducer";
-import { RequestStatus, setRequestStatus } from "../../../app/app-reducer";
+} from "store-redux/MainPage_reducer";
+import { RequestStatus, setRequestStatus } from "app/app-reducer";
 
 // FriendsApiContainer component
 class UsersApiContainer extends Component<FriendsPropsType> {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    this.props.getUsersAsync(this.props.currentPage, this.props.pageSize)
   }
 
   setCurrentPageHandler = (currentPage: number) => {
-    this.props.getUsers(currentPage, this.props.pageSize)
+    this.props.getUsersAsync(currentPage, this.props.pageSize)
     this.props.setCurrentPage(currentPage)
   };
 
@@ -44,7 +44,7 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
 export const FriendsContainer = connect(mapStateToProps, {
     followUser,
     unfollowUser,
-    getUsers: getUsersAsync,
+    getUsersAsync,
     setTotalUsersCount,
     setCurrentPage,
     setRequestStatus
@@ -64,7 +64,7 @@ type mapStatePropsType = {
 type mapDispatchPropsPropsType = {
     followUser: (userId: number) => void;
     unfollowUser: (userId: number) => void;
-    getUsers: (currentPage: number, pageSize: number) => void;
+    getUsersAsync: (currentPage: number, pageSize: number) => void;
     setTotalUsersCount: (totalCount: number) => void;
     setCurrentPage: (currentPage: number) => void;
     setRequestStatus: (status: RequestStatus) => void
