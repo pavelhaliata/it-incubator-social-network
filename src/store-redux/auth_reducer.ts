@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AuthUserDataType, socialNetworkAPI} from "../api/social-network-api";
 import {setErrorStatus} from "../app/app-reducer";
-import {getStatusAuthorizedUserAsync} from "./MainPage_reducer";
+import {getStatusAsync} from "./MainPage_reducer";
 
 const initialState = {
     id: null as number | null,
@@ -48,7 +48,8 @@ export const getAuthUserDataAsync = () => {
                 if (res.data.resultCode === 0) {
                     dispatch(isLogin(true))
                     dispatch(setAuthUserData(res.data.data))
-                    dispatch(getStatusAuthorizedUserAsync(res.data.data.id))
+                    if(res.data.data.id) //!!!!!!!!!!!!!!!!!!!!!!!!!!!! решить проблему типизации
+                    dispatch(getStatusAsync(res.data.data.id))
                 } else {
                     dispatch(isLogin(false))
                     dispatch(setErrorStatus(res.data.messages[0]));

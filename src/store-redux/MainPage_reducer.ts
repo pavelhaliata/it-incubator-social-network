@@ -41,7 +41,7 @@ const initialState = {
     } as ProfileUserType,
     selectedCurrentUser: [] as number[],
     followingStatusRequest: false as boolean,
-    statusAuthorizedUser: null as string | null,
+    userStatus: '' as string,
 };
 
 export const profilePageReducer = (
@@ -116,10 +116,10 @@ export const profilePageReducer = (
                     ? [...state.selectedCurrentUser, action.userId]
                     : state.selectedCurrentUser.filter((i) => i !== action.userId),
             };
-        case "UPDATE-STATUS-USER":
+        case "USER-STATUS":
             return {
                 ...state,
-                statusAuthorizedUser: action.textStatus
+                userStatus: action.textStatus
             }
         default:
             return state;
@@ -160,9 +160,9 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
         userId,
     } as const);
 
-const setStatusAuthorizedUser = (textStatus: string | null) =>
+const setUserStatus = (textStatus: string) =>
     ({
-        type: "UPDATE-STATUS-USER",
+        type: "USER-STATUS",
         textStatus
     } as const);
 
@@ -230,7 +230,7 @@ export const updateStatusAuthorizedUserAsync = (textStatus: string) => {
         try {
             const res = await socialNetworkAPI.updateStatusAuthorizedUser(textStatus)
             if (res.data.resultCode === 0) {
-                dispatch(setStatusAuthorizedUser(textStatus))
+                dispatch(setUserStatus(textStatus))
             } else {
                 console.log(res.data.messages)
             }
@@ -240,11 +240,11 @@ export const updateStatusAuthorizedUserAsync = (textStatus: string) => {
     }
 }
 
-export const getStatusAuthorizedUserAsync = (userId: number | null) => {
+export const getStatusAsync = (userId: number) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await socialNetworkAPI.getStatusAuthorizedUser(userId)
-            dispatch(setStatusAuthorizedUser(res.data))
+            dispatch(setUserStatus(res.data))
         } catch (error) {
             console.log(error)
         }
@@ -277,4 +277,4 @@ export type ActionProfilePageType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof profileUserData>
     | ReturnType<typeof toggleFollowingStatusRequest>
-    | ReturnType<typeof setStatusAuthorizedUser>;
+    | ReturnType<typeof setUserStatus>;

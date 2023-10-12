@@ -1,3 +1,4 @@
+import { ProfileStatusContainer } from "components/profileStatus/ProfileStatusContainer";
 import {Component} from "react";
 import { NavLink } from "react-router-dom";
 import { Input } from "../Input/Input";
@@ -40,7 +41,7 @@ export class Header extends Component<HeaderPropsType> {
             </div>
             <a href="#" className={style.author_name}>
               <div className={style.author_title}>{this.props.authUserData.login}</div>
-              <span className={style.author_subtitle}>space cowboy</span>
+              <div className={style.author_subtitle}><ProfileStatusContainer/></div>
             </a>
           </div>
         </div>

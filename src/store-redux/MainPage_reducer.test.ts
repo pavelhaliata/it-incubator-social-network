@@ -33,7 +33,7 @@ const userId = 1
 	profileUserData: {} as ProfileUserType,
 	selectedCurrentUser: [] as Array<number>,
 	followingStatusRequest: false,
-	  statusAuthorizedUser: ''
+	  userStatus: ''
   };
   test("dialog text should be added", () => {
 	
@@ -53,7 +53,7 @@ const userId = 1
 		profileUserData: {} as ProfileUserType,
 		selectedCurrentUser: [] as Array<number>,
 		followingStatusRequest: false,
-		statusAuthorizedUser: ''
+		userStatus: ''
 	  };
 	
 	const endState = profilePageReducer(startState, newMessage());
@@ -90,7 +90,7 @@ const userId = 1
 		profileUserData: {} as ProfileUserType,
 		selectedCurrentUser: [] as Array<number>,
 		followingStatusRequest: false,
-		statusAuthorizedUser: ''
+		userStatus: ''
 	  };
 	
 	const endState = profilePageReducer(startState, unFollowPerson(startState.usersData[0].id));

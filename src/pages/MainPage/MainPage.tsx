@@ -59,7 +59,6 @@ export class MainPage extends Component <MainPagePropsType> {
               </div>
             </div>
             <div className={style.header_author}>
-            <ProfileStatusContainer/>
               <a href="#" className={style.author_img}>
                 <img
                     src="https://html.crumina.net/html-olympus/img/author-main1.webp"

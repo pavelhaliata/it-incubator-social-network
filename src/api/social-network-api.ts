@@ -30,7 +30,7 @@ export const socialNetworkAPI = {
     updateStatusAuthorizedUser (textStatus: string) {
         return instance.put<ResponseType>('/profile/status', {status: textStatus})
     },
-    getStatusAuthorizedUser(userId: number | null) {
+    getStatusAuthorizedUser(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     }
     
