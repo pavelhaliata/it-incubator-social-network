@@ -1,7 +1,6 @@
-import {Dispatch} from "redux";
-import {AuthUserDataType, socialNetworkAPI} from "../api/social-network-api";
+import {AuthUserDataType, socialNetworkAPI} from "api/social-network-api";
 import {setErrorStatus} from "../app/app-reducer";
-import {getStatusAsync} from "./MainPage_reducer";
+import {getUserStatusAsync} from "./MainPage_reducer";
 
 const initialState = {
     id: null as number | null,
@@ -20,7 +19,7 @@ export const authReducer = (
                 ...state,
                 ...action.data,
             };
-        case "AUTH_ISLOGIN":
+        case "AUTH_LOGIN":
             return {
                 ...state,
                 isLogin: action.status
@@ -37,7 +36,7 @@ const setAuthUserData = (data: AuthUserDataType) =>
         data,
     } as const);
 
-const isLogin = (status: boolean) => ({type: "AUTH_ISLOGIN", status} as const)
+const isLogin = (status: boolean) => ({type: "AUTH_LOGIN", status} as const)
 
 // thunks
 export const getAuthUserDataAsync = () => {
@@ -48,8 +47,8 @@ export const getAuthUserDataAsync = () => {
                 if (res.data.resultCode === 0) {
                     dispatch(isLogin(true))
                     dispatch(setAuthUserData(res.data.data))
-                    if(res.data.data.id) //!!!!!!!!!!!!!!!!!!!!!!!!!!!! решить проблему типизации
-                    dispatch(getStatusAsync(res.data.data.id))
+                    // if(res.data.data.id) //!!!!!!!!!!!!!!!!!!!!!!!!!!!! решить проблему типизации
+                    // dispatch(getUserStatusAsync(res.data.data.id))
                 } else {
                     dispatch(isLogin(false))
                     dispatch(setErrorStatus(res.data.messages[0]));

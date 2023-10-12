@@ -6,8 +6,8 @@ import {followUser, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowU
 } from "store-redux/MainPage_reducer";
 import { RequestStatus, setRequestStatus } from "app/app-reducer";
 
-// FriendsApiContainer component
-class UsersApiContainer extends Component<FriendsPropsType> {
+
+class UsersApiContainer extends Component<UsersPropsType> {
   componentDidMount() {
     this.props.getUsersAsync(this.props.currentPage, this.props.pageSize)
   }
@@ -29,7 +29,7 @@ class UsersApiContainer extends Component<FriendsPropsType> {
   }
 }
 
-// FriendsContainer component
+
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         usersData: state.profilePage.usersData,
@@ -41,7 +41,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     };
 };
 
-export const FriendsContainer = connect(mapStateToProps, {
+export const UsersContainer = connect(mapStateToProps, {
     followUser,
     unfollowUser,
     getUsersAsync,
@@ -51,7 +51,7 @@ export const FriendsContainer = connect(mapStateToProps, {
 })(UsersApiContainer);
 
 // types
-export type FriendsPropsType = mapStatePropsType & mapDispatchPropsPropsType;
+export type UsersPropsType = mapStatePropsType & mapDispatchPropsPropsType;
 
 type mapStatePropsType = {
     usersData: Array<UserDomainType>;

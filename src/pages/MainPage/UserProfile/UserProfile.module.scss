@@ -20,7 +20,7 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
-.status {
+.jobSearchStatus {
   position: absolute;
   top: 18px;
   right: -11px;
@@ -36,7 +36,7 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
-.status:before {
+.jobSearchStatus:before {
   content: "";
   position: absolute;
   left: -9px;
@@ -48,7 +48,7 @@
   border-color: transparent #ff5e3a transparent transparent;
   transform: scaleX(.65);
 }
-.status:after {
+.jobSearchStatus:after {
   content: "";
   position: absolute;
   height: 0;
@@ -67,6 +67,12 @@
 
   .name {
     margin: -30px 0 0 0;
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .status{
+    font-size: .8rem;
   }
 
   img {

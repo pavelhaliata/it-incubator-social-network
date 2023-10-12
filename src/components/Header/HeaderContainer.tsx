@@ -4,7 +4,7 @@ import {Header} from "./Header";
 import {AuthUserDataType} from "../../api/social-network-api";
 import {Component} from "react";
 import {getAuthUserDataAsync} from "../../store-redux/auth_reducer";
-import {getStatusAsync} from "../../store-redux/MainPage_reducer";
+import {getUserStatusAsync} from "../../store-redux/MainPage_reducer";
 
 
 // HeaderApiContainer
@@ -32,7 +32,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
 };
 export const HeaderContainer = connect(mapStateToProps, {
     getAuthUserDataAsync,
-    getStatusAuthorizedUserAsync: getStatusAsync
+    getStatusAuthorizedUserAsync: getUserStatusAsync
 })(HeaderApiContainer);
 
 //types

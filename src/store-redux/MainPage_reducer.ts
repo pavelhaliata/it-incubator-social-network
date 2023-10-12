@@ -225,10 +225,10 @@ export const unfollowUser = (userId: number) => {
     };
 };
 
-export const updateStatusAuthorizedUserAsync = (textStatus: string) => {
+export const updateUserStatusAsync = (textStatus: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await socialNetworkAPI.updateStatusAuthorizedUser(textStatus)
+            const res = await socialNetworkAPI.updateUserStatus(textStatus)
             if (res.data.resultCode === 0) {
                 dispatch(setUserStatus(textStatus))
             } else {
@@ -240,13 +240,13 @@ export const updateStatusAuthorizedUserAsync = (textStatus: string) => {
     }
 }
 
-export const getStatusAsync = (userId: number) => {
+export const getUserStatusAsync = (userId: number) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await socialNetworkAPI.getStatusAuthorizedUser(userId)
+            const res = await socialNetworkAPI.getUserStatus(userId)
             dispatch(setUserStatus(res.data))
-        } catch (error) {
-            console.log(error)
+        } catch (error: any) {
+            console.log(error.message)
         }
     }
 }

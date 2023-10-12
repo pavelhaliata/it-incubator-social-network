@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { NewsPage } from "../pages/NewsPage/NewsPage"
 import { WeatherPageContainer } from "../pages/WeatherPage/WeatherPageContainer";
-import {FriendsContainer} from "../pages/MainPage/Users/UsersContainer";
+import {UsersContainer} from "../pages/MainPage/Users/UsersContainer";
 import {MainPageContainer} from "../pages/MainPage/MainPageContainer";
 import {UserPageContainer} from "../pages/MainPage/UserProfile/UserProfileContainer";
 import {DialogsContainer} from "../pages/MainPage/Dialogs/DialogsContainer";
@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<MainPageContainer />}>
             <Route path="profile" element={<ProfileContainer/>}/>
             <Route path="dialogs" element={<DialogsContainer />} />
-            <Route path="friends" element={<FriendsContainer />} />
+            <Route path="friends" element={<UsersContainer />} />
             <Route path="user/:id" element={<UserPageContainer />} />
           </Route>
           <Route path="blog-page" element={<BlogPageContainer />} />

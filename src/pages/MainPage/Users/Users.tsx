@@ -1,13 +1,13 @@
 import style from "./Users.module.scss";
 import {User} from "./User/User";
-import {FriendsPropsType} from "./UsersContainer";
+import {UsersPropsType} from "./UsersContainer";
 import loading from "../../../assets/images/loading-spinner-200px.svg"
 import {RequestStatus} from "../../../app/app-reducer";
 import { createPages } from "../../../utils/pagesCreator";
 
 
 export const Users = ({ usersData, setCurrentPage, currentPage, pageSize, totalUsersCount, 
-followUser, unfollowUser, requestStatus, selectedCurrentUser }: FriendsPropsType) => {
+followUser, unfollowUser, requestStatus, selectedCurrentUser }: UsersPropsType) => {
 
     const totalPage = Math.ceil(totalUsersCount / pageSize);
 

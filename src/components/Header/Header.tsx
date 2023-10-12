@@ -41,7 +41,7 @@ export class Header extends Component<HeaderPropsType> {
             </div>
             <a href="#" className={style.author_name}>
               <div className={style.author_title}>{this.props.authUserData.login}</div>
-              <div className={style.author_subtitle}><ProfileStatusContainer/></div>
+              <div className={style.author_subtitle}>space cowboy</div>
             </a>
           </div>
         </div>

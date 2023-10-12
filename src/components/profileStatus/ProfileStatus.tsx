@@ -11,12 +11,10 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
 
     state: stateType = {
         editMode: false,
-        value: ''
+        value: this.props.userStatus
     };
 
     activateEditMode = () => {
-      debugger
-      console.log('this:', this)
         this.setState({
             editMode: true
         })
@@ -25,7 +23,7 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
         this.setState({
             editMode: false
         })
-        this.props.updateStatusAuthorizedUserAsync(this.state.value)
+        this.props.updateUserStatusAsync(this.state.value)
     }
 
     onChangeHandler(event: ChangeEvent<HTMLInputElement>) {
@@ -39,17 +37,17 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
         if (!this.state.editMode) {
           return (
             <>
-              <span className={`${style.status} ${this.props.className}`} onDoubleClick={() => {
+              <span className={`${style.status}`} onDoubleClick={() => {
                     this.activateEditMode()
                 }}>
-                  {this.props.statusAuthorizedUser}
+                  {this.props.userStatus}
               </span>
             </> 
           );
       } else {
           return (
               <>
-                <input className={this.props.className} autoFocus value={this.state.value} onBlur={() => {
+                <input autoFocus value={this.state.value} onBlur={() => {
                     this.disActivateEditMode()
                 }} onChange={(event) => this.onChangeHandler(event)}/>
               </>

@@ -27,10 +27,10 @@ export const socialNetworkAPI = {
     unFollowUser(userId: number){
         return instance.delete<ResponseFollowerUserType>(`/follow/${userId}`)
     },
-    updateStatusAuthorizedUser (textStatus: string) {
+    updateUserStatus (textStatus: string) {
         return instance.put<ResponseType>('/profile/status', {status: textStatus})
     },
-    getStatusAuthorizedUser(userId: number) {
+    getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     }
     
