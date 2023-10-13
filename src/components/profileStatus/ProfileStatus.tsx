@@ -8,11 +8,23 @@ type stateType = {
 }
 
 export class ProfileStatus extends Component<ProfileStatusPropsType> {
-
     state: stateType = {
         editMode: false,
         value: this.props.userStatus
     };
+
+    componentDidMount() {
+        if(this.props.userAuthorizedId)
+        this.props.getUserStatusAsync(this.props.userAuthorizedId)
+    }
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: stateType){
+        if(prevProps.userStatus !== this.props.userStatus){
+            this.setState({
+                value: this.props.userStatus
+            })
+        }
+    }
+
 
     activateEditMode = () => {
         this.setState({
@@ -34,24 +46,16 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
 
 
     render() {
-        if (!this.state.editMode) {
-          return (
-            <>
-              <span className={`${style.status}`} onDoubleClick={() => {
-                    this.activateEditMode()
-                }}>
-                  {this.props.userStatus}
-              </span>
-            </> 
-          );
-      } else {
-          return (
-              <>
-                <input autoFocus value={this.state.value} onBlur={() => {
-                    this.disActivateEditMode()
-                }} onChange={(event) => this.onChangeHandler(event)}/>
-              </>
-          );
-      }
+        return (
+            <div>
+                {!this.state.editMode && 
+                <span className={`${style.status}`} onDoubleClick={() => {this.activateEditMode()}}>
+                  {this.props.userStatus ? this.props.userStatus : "your status..."}
+                </span>}
+                {this.state.editMode && 
+                <input className={style.input} autoFocus value={this.state.value} onBlur={() => 
+                {this.disActivateEditMode()}} onChange={(event) => this.onChangeHandler(event)}/>}
+            </div> 
+        );
     }
 }

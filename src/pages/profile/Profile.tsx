@@ -1,13 +1,10 @@
 import {Component} from "react";
 import style from "./profile.module.scss";
 import {ProfilePropsType} from "./ProfileContainer";
-import {ProfileStatusContainer} from "../../components/profileStatus/ProfileStatusContainer";
+import {ProfileStatusContainer} from "components/profileStatus/ProfileStatusContainer";
 
 export class Profile extends Component<ProfilePropsType> {
-  componentDidMount() {
-    if(this.props.userAuthorizedId)
-    this.props.getUserStatusAsync(this.props.userAuthorizedId)
-  }
+  
 
   render() {
     return (
@@ -16,7 +13,7 @@ export class Profile extends Component<ProfilePropsType> {
           <div className={style.block}>
             <div className={style.block_title}>
               <h6 className={style.title}>Personal Info</h6>
-              <ProfileStatusContainer/>
+              <ProfileStatusContainer />
             </div>
             <div className={style.block_content}>
               <ul className={style.personal_info}>

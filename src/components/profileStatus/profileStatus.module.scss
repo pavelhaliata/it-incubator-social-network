@@ -1,3 +1,14 @@
 .status{
-	border: 1px solid var(--primary-color);
+	cursor: pointer;
+	user-select: none;
+	// border: 1px solid var(--primary-color);
+}
+.input{
+	border: none;
+	border-bottom: 1px solid var(--primary-color);
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1rem;
+	font-weight: 400; 
+	line-height: 1.5;
+	color: var(--body-font-color);
 }

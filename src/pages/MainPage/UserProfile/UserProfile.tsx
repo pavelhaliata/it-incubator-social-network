@@ -37,11 +37,12 @@ export const User = (props: UserPagePropsType) => {
                     <img src={userAvatar} alt="Profile Image"/>
                     <span className={style.name}>{props.profileUserData.fullName}</span>
                     {props.userStatus && <span className={style.status}> status: {props.userStatus}</span>}
-
                     <div className={style.job_container}>
-                        <p className={style.job_description}>
-                            {props.profileUserData.lookingForAJobDescription}
-                        </p>
+                    {props.profileUserData.lookingForAJobDescription &&
+                    <p className={style.job_description}>
+                        skills: {props.profileUserData.lookingForAJobDescription}
+                    </p>
+                    }
                     </div>
                     {props.profileUserData.aboutMe &&
                     <div>

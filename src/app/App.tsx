@@ -14,8 +14,8 @@ function App() {
   return (
     <>
       <Routes>
+      <Route path="/login" element={<LoginContainer/>}/>
         <Route path="/" element={<Layout />}>
-          <Route path="/login" element={<LoginContainer/>}/>
           <Route path="/" element={<MainPageContainer />}>
             <Route path="profile" element={<ProfileContainer/>}/>
             <Route path="dialogs" element={<DialogsContainer />} />

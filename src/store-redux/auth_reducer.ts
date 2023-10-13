@@ -47,7 +47,6 @@ export const getAuthUserDataAsync = () => {
                 if (res.data.resultCode === 0) {
                     dispatch(isLogin(true))
                     dispatch(setAuthUserData(res.data.data))
-                    // if(res.data.data.id) //!!!!!!!!!!!!!!!!!!!!!!!!!!!! решить проблему типизации
                     // dispatch(getUserStatusAsync(res.data.data.id))
                 } else {
                     dispatch(isLogin(false))

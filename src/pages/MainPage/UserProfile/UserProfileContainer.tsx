@@ -17,7 +17,7 @@ const mapStateToProps = (state: AppRootState) => {
 };
 
 export const UserPageContainer = connect(mapStateToProps,
-    { setHeaderTitle, getProfileUserAsync,getUserStatusAsync })(User);
+    { setHeaderTitle, getProfileUserAsync, getUserStatusAsync })(User);
 
 // types
 type mapStatePropsType = {
