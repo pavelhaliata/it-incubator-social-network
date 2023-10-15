@@ -7,7 +7,7 @@ import { inputValueReducer } from "./inputComponent_reducer";
 import { appReducer } from "../app/app-reducer";
 import { authReducer } from "./auth_reducer";
 
-export type AppRootState = ReturnType<typeof rootReducer>
+
 const rootReducer = combineReducers({
   app: appReducer,
   authData: authReducer,
@@ -19,6 +19,9 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
+
+//types
+export type AppRootState = ReturnType<typeof rootReducer>
 
 //@ts-ignore
 window.store = store

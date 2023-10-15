@@ -5,6 +5,7 @@ import {PostDataType, createPost, setPostTextValue} from "store-redux/blogPage_r
 import {AppRootState} from "store-redux/redux-store";
 import {BlogPage} from "./BlogPage";
 import {withAuthRedirect} from "hoc/withAuthRedirect";
+import {ComponentType} from "react";
 
 const mapStateToProps = (state: AppRootState): MapStatePropsType => {
     return {
@@ -13,7 +14,7 @@ const mapStateToProps = (state: AppRootState): MapStatePropsType => {
     };
 };
 
-export const BlogPageContainer = compose(
+export const BlogPageContainer = compose<ComponentType>(
     connect(mapStateToProps, {
         setPostTextValue,
         createPost,

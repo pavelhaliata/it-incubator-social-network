@@ -6,6 +6,7 @@ import {AppRootState} from "store-redux/redux-store";
 import {getActualWeather, setLocationValue} from "store-redux/weatherPage_reducer";
 import {WeatherPage} from "./WeatherPage";
 import {withAuthRedirect} from "hoc/withAuthRedirect";
+import {ComponentType} from "react";
 
 const mapStateToProps = (state: AppRootState) => {
     return {
@@ -14,15 +15,14 @@ const mapStateToProps = (state: AppRootState) => {
         errorStatus: state.app.error
     };
 };
-
-export const WeatherPageContainer = compose(
+export const WeatherPageContainer = compose<ComponentType>(
     connect(mapStateToProps, {
         setHeaderTitle,
         setLocationValue,
         getActualWeather,
     }),
-    withAuthRedirect)(WeatherPage);
-
+    withAuthRedirect)
+(WeatherPage);
 
 // types
 type mapStatePropsType = {

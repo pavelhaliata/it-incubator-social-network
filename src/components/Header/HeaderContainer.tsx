@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
-import {AppRootState} from "../../store-redux/redux-store";
+import {AppRootState} from "store-redux/redux-store";
 import {Header} from "./Header";
-import {AuthUserDataType} from "../../api/social-network-api";
+import {AuthUserDataType} from "api/social-network-api";
 import {Component} from "react";
-import {getAuthUserDataAsync} from "../../store-redux/auth_reducer";
-import {getUserStatusAsync} from "../../store-redux/MainPage_reducer";
+import {appInitializationAsync} from "store-redux/auth_reducer";
+import {getUserStatusAsync} from "store-redux/MainPage_reducer";
 
 
 // HeaderApiContainer
@@ -31,7 +31,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     }
 };
 export const HeaderContainer = connect(mapStateToProps, {
-    getAuthUserDataAsync,
+    getAuthUserDataAsync: appInitializationAsync,
     getStatusAuthorizedUserAsync: getUserStatusAsync
 })(HeaderApiContainer);
 

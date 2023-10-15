@@ -1,12 +1,13 @@
-import {AuthUserDataType, socialNetworkAPI} from "api/social-network-api";
+import {authAPI, AuthUserDataType, LoginDataType} from "api/social-network-api";
 import {setErrorStatus} from "../app/app-reducer";
-import {getUserStatusAsync} from "./MainPage_reducer";
+import {Dispatch} from "redux";
 
 const initialState = {
     id: null as number | null,
     email: null as string | null,
     login: null as string | null,
-    isLogin: false as boolean
+    isLogin: false as boolean,
+    isInitialization: false as boolean,
 };
 
 export const authReducer = (
@@ -23,6 +24,11 @@ export const authReducer = (
             return {
                 ...state,
                 isLogin: action.status
+            };
+        case "AUTH_INITIALIZATION":
+            return {
+                ...state,
+                isInitialization: action.status
             }
         default:
             return state;
@@ -37,33 +43,55 @@ const setAuthUserData = (data: AuthUserDataType) =>
     } as const);
 
 const isLogin = (status: boolean) => ({type: "AUTH_LOGIN", status} as const)
+const Initialization = (status: boolean) => ({type: "AUTH_INITIALIZATION", status} as const)
 
 // thunks
-export const getAuthUserDataAsync = () => {
-    return (dispatch: any) => {
-        socialNetworkAPI
-            .authUserData()
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    dispatch(isLogin(true))
-                    dispatch(setAuthUserData(res.data.data))
-                    // dispatch(getUserStatusAsync(res.data.data.id))
-                } else {
-                    dispatch(isLogin(false))
-                    dispatch(setErrorStatus(res.data.messages[0]));
-                    console.log(res.data.messages);
-                }
-            })
-            .catch((error) => {
-                dispatch(isLogin(false))
-                console.log(error);
-            });
+export const appInitializationAsync = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await authAPI.getAuthData()
+            if (res.data.resultCode === 0) {
+                dispatch(isLogin(true))
+                dispatch(setAuthUserData(res.data.data))
+                // dispatch(getUserStatusAsync(res.data.data.id))
+            } else {
+                dispatch(isLogin(false))//???
+                // dispatch(setErrorStatus(res.data.messages[0]));
+                alert(res.data.messages);
+            }
+        }catch (error){
+            dispatch(isLogin(false))//???
+            console.log(error);
+        }finally {
+            dispatch(Initialization(true))
+        }
     };
 };
+export const loginAsync = (data: LoginDataType) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await authAPI.login(data)
+            if (res.data.resultCode === 0) {
+                dispatch(isLogin(true))
+                console.log(res.data.data.userId)
+            } else {
+                dispatch(isLogin(false))
+                // dispatch(setErrorStatus(res.data.messages[0]));
+                alert(res.data.messages);
+            }
+        }catch (error){
+            dispatch(isLogin(false))
+            console.log(error);
+        }
+    };
+};
+
 
 
 // types
 type InitialStateType = typeof initialState;
 type ActionType = |
     ReturnType<typeof setAuthUserData> |
-    ReturnType<typeof isLogin>;
+    ReturnType<typeof isLogin>|
+    ReturnType<typeof Initialization>
+

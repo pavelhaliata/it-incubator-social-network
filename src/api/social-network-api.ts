@@ -9,9 +9,6 @@ const instance = axios.create({
     },
 });
 export const socialNetworkAPI = {
-    authUserData(){
-        return instance.get<ResponseType<AuthUserDataType>>(`/auth/me`)
-    },
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
     },
@@ -22,13 +19,13 @@ export const socialNetworkAPI = {
         return instance.get<boolean>(`/follow/${userId}`)
     },
     followUser(userId: number){
-        return instance.post<ResponseFollowerUserType>(`/follow/${userId}`)
+        return instance.post<ResponseType>(`/follow/${userId}`)
     },
     unFollowUser(userId: number){
-        return instance.delete<ResponseFollowerUserType>(`/follow/${userId}`)
+        return instance.delete<ResponseType>(`/follow/${userId}`)
     },
     updateUserStatus (textStatus: string) {
-        return instance.put<ResponseType>('/profile/status', {status: textStatus})
+        return instance.put<ResponseType<string>>('/profile/status', {status: textStatus})
     },
     getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
@@ -36,7 +33,25 @@ export const socialNetworkAPI = {
     
 };
 
+export const authAPI = {
+    getAuthData(){
+        return instance.get<ResponseType<AuthUserDataType>>('auth/me')
+    },
+    login(data: LoginDataType){
+        return instance.post<ResponseType<{userId: number}>>('/auth/login',data)
+    },
+    logout(){
+        return instance.delete('/auth/login')
+    }
+}
+
 // types
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+}
+
 export type UserType = {
     name: string;
     id: number;
@@ -76,25 +91,13 @@ export type ProfileUserType = {
   }
 }
 
-type ResponseFollowerUserType = { //need to fix, because not observed principle
-    resultCode: number
-    messages: string[]
-    data: object
-};
-
-type ResponseAuthUserDataType = {
-    resultCode: number
-    messages: string[]
-    data: AuthUserDataType
-}
-
 export type AuthUserDataType = {
     id: number | null
     email: string | null
     login: string | null
 }
 
-type ResponseType<T = string> = {
+type ResponseType<T = {}> = {
     resultCode: number
     messages: string[]
     data: T
