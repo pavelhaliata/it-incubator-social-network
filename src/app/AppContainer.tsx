@@ -6,15 +6,15 @@ import App from "./App";
 import {appInitializationAsync} from "../store-redux/auth_reducer";
 
 
-const AppApiContainer = (props: AppPropsType) =>{
+const AppApiContainer = (props: AppPropsType) => {
 
-    useEffect(()=>{
+    useEffect(() => {
         props.appInitializationAsync()
-    },[props.appInitializationAsync])
+    }, [props.appInitializationAsync])
 
-    if(!props.isInitialization){
+    if (!props.isInitialization) {
         return (
-            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center',  height:'100vh'}}>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
                 <h1>ЗАГРУЗКА ПРИЛОЖЕНИЯ...</h1>
             </div>
         )
@@ -24,8 +24,6 @@ const AppApiContainer = (props: AppPropsType) =>{
     )
 
 }
-
-
 
 const mapStateToProps = (state: AppRootState) => {
     return {

@@ -11,10 +11,8 @@ type UserPropsType = {
     selectedCurrentUser: Array<number>
     followUser: () => void;
     unFollowUser: () => void;
-    backgroundImg: string;
     avatar: string | null;
     name: string;
-    country: string;
     followed: boolean;
     id: number;
 };
@@ -28,7 +26,7 @@ export class User extends Component<UserPropsType> {
         <div className={style.card_wrapper}>
           <div className={style.card}>
             <div className={style.card_header}>
-               <img src={this.props.backgroundImg ? this.props.backgroundImg : background} alt="background" />
+               <img src={background} alt="background" />
             </div>
             <div className={style.card_body}>
                 <div className={style.author_avatar}>

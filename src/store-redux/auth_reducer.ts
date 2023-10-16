@@ -56,7 +56,7 @@ export const appInitializationAsync = () => {
             } else {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
-                console.warn(res.data.messages);
+                console.warn(res.data.messages[0]);
             }
         }catch (error){
             dispatch(isLogin(false))
@@ -72,7 +72,6 @@ export const loginAsync = (data: LoginDataType) => {
             const res = await authAPI.login(data)
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(true))
-                console.log(res.data.data.userId)
             } else {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));

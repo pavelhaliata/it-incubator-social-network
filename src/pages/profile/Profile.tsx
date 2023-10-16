@@ -1,10 +1,7 @@
 import {Component} from "react";
 import style from "./profile.module.scss";
-import {ProfilePropsType} from "./ProfileContainer";
 import {ProfileStatusContainer} from "components/profileStatus/ProfileStatusContainer";
 import { UserProfileType } from "api/social-network-api";
-
-
 
 type PropsType = {
   userProfile: UserProfileType
@@ -23,44 +20,31 @@ export class Profile extends Component<PropsType> {
               <ProfileStatusContainer />
             </div>
             <div>
-                {this.props.userProfile.aboutMe}
-                {this.props.userProfile.lookingForAJob}
-                {this.props.userProfile.lookingForAJobDescription}
-                {this.props.userProfile.fullName}
-                {this.props.userProfile.userId}
             </div>
             <div className={style.block_content}>
               <ul className={style.personal_info}>
                 <li>
+                  <span className={style.title}>Name:</span>
+                  <span className={style.text}>
+                    {this.props.userProfile.fullName}
+                  </span>
+                  {this.props.userProfile.lookingForAJob && <span>Open to work</span>}
+                </li>
+                <li>
                   <span className={style.title}>About Me:</span>
                   <span className={style.text}>
-                    Hi, Im Paul, Im 37 and I work as a Front-End Developer for
-                    the “Daydreams” Agency in Pier 56
+                    {this.props.userProfile.aboutMe}
                   </span>
                 </li>
                 <li>
-                  <span className={style.title}>Birthday:</span>
-                  <span className={style.text}>December 14th, 1980</span>
-                </li>
-                <li>
-                  <span className={style.title}>Birthplace:</span>
-                  <span className={style.text}>Minsk, Republic of Belarus</span>
-                </li>
-                <li>
-                  <span className={style.title}>Lives in:</span>
-                  <span className={style.text}>Minsk</span>
-                </li>
-                <li>
-                  <span className={style.title}>Occupation:</span>
-                  <span className={style.text}>Front-End Developer</span>
-                </li>
-                <li>
-                  <span className={style.title}>Gender:</span>
-                  <span className={style.text}>Male</span>
+                  <span className={style.title}>My Skills:</span>
+                  <span className={style.text}>
+                    {this.props.userProfile.lookingForAJobDescription}
+                  </span>
                 </li>
                 <li>
                   <span className={style.title}>Email:</span>
-                  <span className={style.text}>jspiegel@yourmail.com</span>
+                  <span className={style.text}> rgerfw@rvrvf</span>
                 </li>
               </ul>
               <div className="widget w-socials">
@@ -72,7 +56,7 @@ export class Profile extends Component<PropsType> {
                   Twitter
                 </a>
                 <a href="#" className="social-item bg-dribbble">
-                  Dribbble
+                 VK
                 </a>
               </div>
             </div>

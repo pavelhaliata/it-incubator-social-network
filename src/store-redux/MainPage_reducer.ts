@@ -152,7 +152,7 @@ export const profileUserData = (profileUserData: UserProfileType) =>
         type: "USER-PROFILE",
         profileUserData,
     } as const);
-
+// необходимо для дизейла кнопки
 export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
     ({
         type: "TOGGLE_FOLLOWING_STATUS_REQUEST",

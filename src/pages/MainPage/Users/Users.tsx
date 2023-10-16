@@ -1,9 +1,9 @@
 import style from "./Users.module.scss";
 import {User} from "./User/User";
 import {UsersPropsType} from "./UsersContainer";
-import loading from "../../../assets/images/loading-spinner-200px.svg"
-import {RequestStatus} from "../../../app/app-reducer";
-import { createPages } from "../../../utils/pagesCreator";
+import loading from "assets/images/loading-spinner-200px.svg"
+import {RequestStatus} from "app/app-reducer";
+import { createPages } from "utils/pagesCreator";
 
 
 export const Users = ({ usersData, setCurrentPage, currentPage, pageSize, totalUsersCount, 
@@ -12,9 +12,7 @@ followUser, unfollowUser, requestStatus, selectedCurrentUser }: UsersPropsType) 
     const totalPage = Math.ceil(totalUsersCount / pageSize);
 
     const pages: Array<number> = [];
-    // for (let i = 1; i <= totalPage; i++) {
-    //     pages.push(i);
-    // }
+
     createPages(pages, totalPage, currentPage)
 
     return (
@@ -50,10 +48,8 @@ followUser, unfollowUser, requestStatus, selectedCurrentUser }: UsersPropsType) 
                                     followUser={followUserHandler}
                                     unFollowUser={unFollowUserHandler}
                                     key={user.id}
-                                    backgroundImg={user.backgroundImg}
                                     avatar={user.photos.small}
                                     name={user.name}
-                                    country={user.country}
                                     requestStatus={requestStatus}
                                     id={user.id}
                                 />
