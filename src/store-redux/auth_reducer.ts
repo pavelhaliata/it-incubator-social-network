@@ -53,14 +53,13 @@ export const appInitializationAsync = () => {
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(true))
                 dispatch(setAuthUserData(res.data.data))
-                // dispatch(getUserStatusAsync(res.data.data.id))
             } else {
-                dispatch(isLogin(false))//???
+                dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
-                alert(res.data.messages);
+                console.warn(res.data.messages);
             }
         }catch (error){
-            dispatch(isLogin(false))//???
+            dispatch(isLogin(false))
             console.log(error);
         }finally {
             dispatch(Initialization(true))
@@ -77,11 +76,26 @@ export const loginAsync = (data: LoginDataType) => {
             } else {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
-                alert(res.data.messages);
+                console.warn(res.data.messages);
             }
         }catch (error){
             dispatch(isLogin(false))
             console.log(error);
+        }
+    };
+};
+export const logoutAsync = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await authAPI.logout()
+            if (res.data.resultCode === 0) {
+                dispatch(isLogin(false))
+                console.log(res.data)
+            } else {
+                console.warn(res.data.messages);
+            }
+        }catch (error){
+            console.warn(error);
         }
     };
 };

@@ -43,7 +43,7 @@ export class BlogPage extends Component<BlogPagePropsType> {
 
                     <div className={style.form_button}>
                         <div className={style.block_btn}>
-                            <Button callback={this.createNewPostHandler}>create post</Button>
+                            <Button onClick={this.createNewPostHandler}>create post</Button>
                         </div>
                     </div>
                 </div>

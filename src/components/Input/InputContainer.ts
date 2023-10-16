@@ -18,11 +18,13 @@ const mapStateToProps = (state: AppRootState ): mapStatePropsType => {
 	return {
 	  inputValue: state.inputValueComponent.inputValue
 	}
-  };
-  const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
 	return {
 		setInputValue: (value: string) => {dispatch(inputValueAC(value))}
-	};
-  };
-  export const InputContainer = connect(mapStateToProps, mapDispatchToProps)(Input);
+	}
+}
+
+export const InputContainer = connect(mapStateToProps, mapDispatchToProps)(Input);
   

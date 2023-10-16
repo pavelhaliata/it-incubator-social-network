@@ -5,9 +5,11 @@ type IPropsType = {
   placeholder?: string;
   inputValue?: string;
   className?: string;
+
 };
 
 export class Input extends Component<InputPropsType & IPropsType> {
+  
    onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && this.props.inputValue) {
       if(this.props.setInputValue)

@@ -1,3 +1,4 @@
+import {LogoutButton} from "components/logout/LogoutContainer";
 import {Component} from "react";
 import {Input} from "../Input/Input";
 import style from "./Header.module.scss";
@@ -22,7 +23,7 @@ export class Header extends Component<HeaderPropsType> {
                                 <img
                                     src="https://html.crumina.net/html-olympus/img/author-page.webp"
                                     alt="img author"
-                                />
+                                    />
                                 <span className={`${style.icon_status} ${style.online}`}></span>
                             </div>
                             <a href="#" className={style.author_name}>
@@ -30,6 +31,7 @@ export class Header extends Component<HeaderPropsType> {
                                 <div className={style.author_subtitle}>space cowboy</div>
                             </a>
                         </div>
+                        <LogoutButton/>
                     </div>
                 </div>
             </div>

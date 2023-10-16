@@ -2,8 +2,15 @@ import {Component} from "react";
 import style from "./profile.module.scss";
 import {ProfilePropsType} from "./ProfileContainer";
 import {ProfileStatusContainer} from "components/profileStatus/ProfileStatusContainer";
+import { UserProfileType } from "api/social-network-api";
 
-export class Profile extends Component<ProfilePropsType> {
+
+
+type PropsType = {
+  userProfile: UserProfileType
+}
+
+export class Profile extends Component<PropsType> {
   
 
   render() {
@@ -14,6 +21,13 @@ export class Profile extends Component<ProfilePropsType> {
             <div className={style.block_title}>
               <h6 className={style.title}>Personal Info</h6>
               <ProfileStatusContainer />
+            </div>
+            <div>
+                {this.props.userProfile.aboutMe}
+                {this.props.userProfile.lookingForAJob}
+                {this.props.userProfile.lookingForAJobDescription}
+                {this.props.userProfile.fullName}
+                {this.props.userProfile.userId}
             </div>
             <div className={style.block_content}>
               <ul className={style.personal_info}>

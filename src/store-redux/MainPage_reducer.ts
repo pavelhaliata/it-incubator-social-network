@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {v4 as uuidv4} from "uuid";
 import {
-    ProfileUserType,
+    UserProfileType,
     socialNetworkAPI,
     UserType,
 } from "../api/social-network-api";
@@ -18,7 +18,7 @@ const initialState = {
     pageSize: 52 as number,
     currentPage: 1 as number,
     totalUsersCount: 0 as number,
-    profileUserData: {
+    userProfileData: {
         aboutMe: "",
         contacts: {
             facebook: "",
@@ -38,7 +38,7 @@ const initialState = {
             small: "",
             large: "",
         },
-    } as ProfileUserType,
+    } as UserProfileType,
     selectedCurrentUser: [] as number[],
     followingStatusRequest: false as boolean,
     userStatus: '' as string,
@@ -89,10 +89,10 @@ export const profilePageReducer = (
                 ...state,
                 currentPage: action.currentPage,
             };
-        case "PROFILE-USER":
+        case "USER-PROFILE":
             return {
                 ...state,
-                profileUserData: action.profileUserData,
+                userProfileData: action.profileUserData,
             };
         case "FOLLOW": {
             return {
@@ -147,9 +147,9 @@ export const setTotalUsersCount = (totalCount: number) =>
 export const setCurrentPage = (currentPage: number) =>
     ({type: "CURRENT-PAGE", currentPage} as const);
 
-export const profileUserData = (profileUserData: ProfileUserType) =>
+export const profileUserData = (profileUserData: UserProfileType) =>
     ({
-        type: "PROFILE-USER",
+        type: "USER-PROFILE",
         profileUserData,
     } as const);
 
@@ -179,15 +179,15 @@ export const getUsersAsync = (currentPage: number, pageSize: number) => {
         });
     };
 };
-export const getProfileUserAsync = (userId: number) => {
+export const getUserProfileAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setRequestStatus(RequestStatus.loading));
-        socialNetworkAPI.getProfileUser(userId).then((res) => {
+        socialNetworkAPI.getUserProfile(userId)
+        .then((res) => {
             dispatch(profileUserData(res.data));
             dispatch(setRequestStatus(RequestStatus.succeed));
         });
-        socialNetworkAPI
-            .currentUserFollower(userId)
+        socialNetworkAPI.currentUserFollower(userId)///???????????????????????????????? for what?
             .then((res) => {
                 console.log(res);
             })

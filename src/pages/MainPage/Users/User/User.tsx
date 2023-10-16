@@ -42,11 +42,11 @@ export class User extends Component<UserPropsType> {
             </div>
             <div className={style.btn_wrapper}>
               {this.props.followed ? (
-                  <Button className={`${style.btn_person} ${style.unfollow}`} callback={this.props.unFollowUser} status={this.props.selectedCurrentUser.some(i => i === this.props.id)} >
+                  <Button className={`${style.btn_person} ${style.unfollow}`} onClick={this.props.unFollowUser} status={this.props.selectedCurrentUser.some(i => i === this.props.id)} >
                     unfollow
                   </Button>
               ) : (
-                  <Button className={`${style.btn_person}`} callback={this.props.followUser} status={this.props.selectedCurrentUser.some(i => i === this.props.id)}>
+                  <Button className={`${style.btn_person}`} onClick={this.props.followUser} status={this.props.selectedCurrentUser.some(i => i === this.props.id)}>
                     follow
                   </Button>
               )}

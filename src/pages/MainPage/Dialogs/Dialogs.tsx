@@ -43,7 +43,7 @@ export class Dialogs extends Component<DialogsPropsType> {
                         onChange={this.onChangeTextInputHandler}
                         onKeyDown={this.onKeyDownSendMessageHandler}
                     />
-                    <Button className={style.send_btn} callback={this.sendMessageHandler}>Send</Button>
+                    <Button className={style.send_btn} onClick={this.sendMessageHandler}>Send</Button>
                 </div>
             </div>
         )

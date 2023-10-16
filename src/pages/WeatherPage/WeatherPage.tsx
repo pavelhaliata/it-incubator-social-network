@@ -124,7 +124,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
                   : "City search..."
               }
             />
-            <Button className={style.search_btn} callback={this.onClickHandler}>
+            <Button className={style.search_btn} onClick={this.onClickHandler}>
               <span>Enter</span>
             </Button>
           </form>

@@ -12,8 +12,8 @@ export const socialNetworkAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
     },
-    getProfileUser(userId: number) {
-        return instance.get<ProfileUserType>(`profile/${userId}`)
+    getUserProfile(userId: number) {
+        return instance.get<UserProfileType>(`profile/${userId}`)
     },
     currentUserFollower(userId: number){
         return instance.get<boolean>(`/follow/${userId}`)
@@ -29,7 +29,11 @@ export const socialNetworkAPI = {
     },
     getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
-    }
+    },
+    updateUserProfile (data: UserProfileType) {
+        return instance.put<ResponseType>('/profile', {data})
+    },
+
     
 };
 
@@ -41,7 +45,7 @@ export const authAPI = {
         return instance.post<ResponseType<{userId: number}>>('/auth/login',data)
     },
     logout(){
-        return instance.delete('/auth/login')
+        return instance.delete<ResponseType>('/auth/login')
     }
 }
 
@@ -69,7 +73,7 @@ type ResponseUsersType = {
     error: string;
 };
 
-export type ProfileUserType = {
+export type UserProfileType = {
   aboutMe: string
   contacts: {
     facebook: string

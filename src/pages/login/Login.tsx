@@ -1,46 +1,43 @@
-import {useFormik} from "formik";
-import {LoginDataType} from "../../api/social-network-api";
+import { Formik, Field, Form, ErrorMessage, FormikProps } from 'formik';
+import * as Yup from 'yup';
+import {LoginDataType} from "api/social-network-api";
+import style from "./login.module.scss"
 
 type PropsType = {
     loginAsync: (data: LoginDataType) => void
 }
 
+
 export const Login = (props: PropsType) => {
 
-    const formik = useFormik({
-        initialValues: {
-            password: '',
-            email: '',
-        },
-        onSubmit: values => {
-            props.loginAsync(values)
-        },
-    });
     return (
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
-            <form onSubmit={formik.handleSubmit}
-                  style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '350px'}}>
-                <label htmlFor="password">Password:</label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
-                <label htmlFor="email">Email Address:</label>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                />
-                <button type="submit">Enter</button>
-            </form>
+            <Formik
+				initialValues={{ email: '', password: '', rememberMe: false}}
+				validationSchema={Yup.object({
+					email: Yup.string().email('Invalid email address').required('Required'),
+					password: Yup.string().required('Required')
+				})}
+				onSubmit={(values) => {
+					props.loginAsync(values)
+				}}
+				>
+				<Form style={{display: 'flex', flexDirection: 'column', gap: '15px', width: '300px'}}>
+					
+					<label htmlFor="email">Email Address</label>
+					<Field name="email" type="email" placeholder="Email@" style={{padding: '5px'}}/>
+					<ErrorMessage name="email" />
+
+					<label htmlFor="password">Password</label>
+					<Field name="password" type="password" placeholder="Password" style={{padding: '5px'}}/>
+					<ErrorMessage name="password" className={style.error}/>
+
+					<label htmlFor="rememberMe">Remember Me</label>
+					<Field name="rememberMe" type="checkbox" />
+
+					<button type="submit" style={{padding: '5px'}}>Sign In</button>
+				</Form>
+    		</Formik>
         </div>
     );
 }
-
-
-

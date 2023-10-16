@@ -9,7 +9,7 @@ import {
 	toggleFollowingStatusRequest,
 	unFollowPerson,
 } from "./MainPage_reducer";
-import {ProfileUserType} from "../api/social-network-api";
+import {UserProfileType} from "../api/social-network-api";
 const userId = 1
   
   const startState: ProfilePageInitialStateType = {
@@ -30,7 +30,7 @@ const userId = 1
 	currentPage: 1,
 	pageSize: 5,
 	totalUsersCount: 20,
-	profileUserData: {} as ProfileUserType,
+	userProfileData: {} as UserProfileType,
 	selectedCurrentUser: [] as Array<number>,
 	followingStatusRequest: false,
 	  userStatus: ''
@@ -50,7 +50,7 @@ const userId = 1
 		currentPage: 1,
 		pageSize: 5,
 		totalUsersCount: 20,
-		profileUserData: {} as ProfileUserType,
+		userProfileData: {} as UserProfileType,
 		selectedCurrentUser: [] as Array<number>,
 		followingStatusRequest: false,
 		userStatus: ''
@@ -87,7 +87,7 @@ const userId = 1
 		currentPage: 1,
 		pageSize: 5,
 		totalUsersCount: 20,
-		profileUserData: {} as ProfileUserType,
+		userProfileData: {} as UserProfileType,
 		selectedCurrentUser: [] as Array<number>,
 		followingStatusRequest: false,
 		userStatus: ''
