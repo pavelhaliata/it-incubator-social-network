@@ -47,3 +47,16 @@
 		font-size: .812rem;
 	}
   }
+  .menu {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+  
+	.item {
+	  margin-left: 15px;
+  
+	  img {
+		width: 26px;
+	  }
+	}
+  }

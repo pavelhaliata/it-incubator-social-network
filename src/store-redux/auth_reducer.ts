@@ -89,6 +89,7 @@ export const logoutAsync = () => {
             const res = await authAPI.logout()
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(false))
+                dispatch(setAuthUserData({email: null, login: null, id: null}))
                 console.log(res.data)
             } else {
                 console.warn(res.data.messages);

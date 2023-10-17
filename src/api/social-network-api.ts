@@ -32,10 +32,8 @@ export const socialNetworkAPI = {
     },
     updateUserProfile (data: UserProfileType) {
         return instance.put<ResponseType>('/profile', {data})
-    },
-
-    
-};
+    }
+}
 
 export const authAPI = {
     getAuthData(){

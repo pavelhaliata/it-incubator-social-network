@@ -7,13 +7,20 @@ type PropsType = {
     loginAsync: (data: LoginDataType) => void
 }
 
+interface FormValues {
+	email: string
+	password: string
+	rememberMe: boolean
+}
 
 export const Login = (props: PropsType) => {
+
+const initialValues: FormValues  = {email: '', password: '', rememberMe: false}
 
     return (
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
             <Formik
-				initialValues={{ email: '', password: '', rememberMe: false}}
+				initialValues={initialValues}
 				validationSchema={Yup.object({
 					email: Yup.string().email('Invalid email address').required('Required'),
 					password: Yup.string().required('Required')

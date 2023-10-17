@@ -2,6 +2,14 @@ import {Component} from "react";
 import style from "./profile.module.scss";
 import {ProfileStatusContainer} from "components/profileStatus/ProfileStatusContainer";
 import { UserProfileType } from "api/social-network-api";
+import twitter from "assets/images/social-icons/icons8-twitter.svg"
+import facebook from "assets/images/social-icons/icons8-facebook.svg"
+import vk from "assets/images/social-icons/icons8-vk-com.svg"
+import youtube from "assets/images/social-icons/icons8-youtube.svg"
+import instagram from "assets/images/social-icons/icons8-instagram.svg"
+import github from "assets/images/social-icons/icons8-github.svg"
+import website from "assets/images/social-icons/icons8-internet-48.png"
+import mainLink from "assets/images/social-icons/link_share_icon.svg"
 
 type PropsType = {
   userProfile: UserProfileType
@@ -17,65 +25,47 @@ export class Profile extends Component<PropsType> {
           <div className={style.block}>
             <div className={style.block_title}>
               <h6 className={style.title}>Personal Info</h6>
-              <ProfileStatusContainer />
+              
             </div>
             <div>
             </div>
             <div className={style.block_content}>
               <ul className={style.personal_info}>
+                
                 <li>
                   <span className={style.title}>Name:</span>
                   <span className={style.text}>
                     {this.props.userProfile.fullName}
                   </span>
-                  {this.props.userProfile.lookingForAJob && <span>Open to work</span>}
                 </li>
                 <li>
-                  <span className={style.title}>About Me:</span>
-                  <span className={style.text}>
-                    {this.props.userProfile.aboutMe}
-                  </span>
-                </li>
-                <li>
-                  <span className={style.title}>My Skills:</span>
-                  <span className={style.text}>
-                    {this.props.userProfile.lookingForAJobDescription}
-                  </span>
-                </li>
-                <li>
-                  <span className={style.title}>Email:</span>
-                  <span className={style.text}> rgerfw@rvrvf</span>
+                    <span className={style.title}>Status:</span>
+                    <span className={style.text}>
+                    <ProfileStatusContainer />
+                    </span>
+                    {this.props.userProfile.lookingForAJob && <span>Open to work</span>}
                 </li>
               </ul>
-              <div className="widget w-socials">
-                <h6 className="title">Other Social Networks:</h6>
-                <a href="#" className="social-item bg-facebook">
-                  Facebook
-                </a>
-                <a href="#" className="social-item bg-twitter">
-                  Twitter
-                </a>
-                <a href="#" className="social-item bg-dribbble">
-                 VK
-                </a>
-              </div>
             </div>
           </div>
         </div>
         <div className={style.col}>
           <div className={style.block}>
             <div className={style.block_title}>
-              <h6 className={style.title}>Hobbies and Interests</h6>
+              <h6 className={style.title}>About me:</h6>
             </div>
             <div className={style.block_content}>
             <ul className={style.personal_info}>
                 <li>
-                  <span className={style.title}>Hobbies:</span>
+                  <span className={style.title}>About Me:</span>
                   <span className={style.text}>
-                    I like to ride the bike to work, 
-                    swimming, and working out. 
-                    I also like reading design magazines, go to museums, 
-                    and binge watching a good tv show while its raining outside.
+                    {this.props.userProfile.aboutMe}dqq
+                  </span>
+                </li>
+                <li>
+                  <span className={style.title}>My skills:</span>
+                  <span className={style.text}>
+                    {this.props.userProfile.lookingForAJobDescription}qwqw
                   </span>
                 </li>
               </ul>
@@ -83,19 +73,48 @@ export class Profile extends Component<PropsType> {
           </div>
           <div className={style.block}>
             <div className={style.block_title}>
-              <h6 className={style.title}>Education and Employement</h6>
+              <h6 className={style.title}>Contacts:</h6>
             </div>
             <div className={style.block_content}>
-            <ul className={style.personal_info}>
-                <li>
-                  <span className={style.title}>The New College of Design</span>
-                  <span className={style.date}>2001 - 2006</span>
-                  <span className={style.text}>
-                  Digital Design Intern for the “Multimedz” agency. 
-                  Was in charge of the communication with the clients.
-                  </span>
-                </li>
-              </ul>
+                <ul className={style.menu}>
+                  {this.props.userProfile.contacts.facebook &&
+                      <li className={style.item}>
+                          <a target={'_blank'} href={this.props.userProfile.contacts.facebook}>
+                              <img src={facebook} alt=""/>
+                          </a>
+                      </li>}
+                  {this.props.userProfile.contacts.twitter &&
+                      <li className={style.item}>
+                          <a target={'_blank'} href={this.props.userProfile.contacts.twitter}>
+                              <img src={twitter} alt=""/>
+                          </a>
+                      </li>}
+                  {this.props.userProfile.contacts.instagram &&
+                      <li className={style.item}>
+                          <a target={'_blank'} href={this.props.userProfile.contacts.instagram}>
+                              <img src={instagram} alt=""/>
+                          </a>
+                      </li>}
+                  {this.props.userProfile.contacts.vk &&
+                      <li className={style.item}>
+                          <a target={'_blank'} href={this.props.userProfile.contacts.vk}>
+                              <img src={vk} alt=""/>
+                          </a>
+                      </li>}
+                  <li className={style.item}><a target={'_blank'}
+                                                href={this.props.userProfile.contacts.youtube}><img
+                      src={youtube} alt=""/></a></li>
+                  <li className={style.item}><a target={'_blank'}
+                                                href={this.props.userProfile.contacts.github}><img src={github}
+                                                                                                  alt=""/></a>
+                  </li>
+                  <li className={style.item}><a target={'_blank'}
+                                                href={this.props.userProfile.contacts.website}><img
+                      src={website} alt=""/></a></li>
+                  <li className={style.item}><a target={'_blank'}
+                                                href={this.props.userProfile.contacts.mainLink}><img
+                      src={mainLink} alt=""/></a></li>
+                </ul>
             </div>
           </div>
         </div>

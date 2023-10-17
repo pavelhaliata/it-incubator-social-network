@@ -8,12 +8,10 @@ import { Profile } from "./Profile";
 
 class ProfileAsyncContainer extends Component<ProfilePropsType> {
 
-
     componentDidMount(){
         if(this.props.userId)
         this.props.getProfileUserAsync(this.props.userId)
     }
-
 
     render() {
         const {...userProfile} = this.props
@@ -23,9 +21,6 @@ class ProfileAsyncContainer extends Component<ProfilePropsType> {
         );
     }
 }
-
-
-
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {

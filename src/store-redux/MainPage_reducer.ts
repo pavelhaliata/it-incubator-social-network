@@ -196,7 +196,27 @@ export const getUserProfileAsync = (userId: number) => {
             });
     };
 };
-export const followUser = (userId: number) => {
+
+export const updateUserProfileAsync = (data: UserProfileType) => {
+    return async (dispatch: Dispatch) => {
+        dispatch(setRequestStatus(RequestStatus.loading));
+        try{
+            const res = await socialNetworkAPI.updateUserProfile(data)
+            if (res.data.resultCode === 0){
+                dispatch(profileUserData(data));
+                dispatch(setRequestStatus(RequestStatus.succeed))
+            }else{
+                dispatch(setErrorStatus(res.data.messages[0]));
+                dispatch(setRequestStatus(RequestStatus.failed));
+            }
+        }catch(error){
+            console.warn(error)
+        }
+        
+        
+    };
+};
+export const followUserAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleFollowingStatusRequest(true, userId));
         socialNetworkAPI.followUser(userId).then((res) => {
@@ -210,7 +230,7 @@ export const followUser = (userId: number) => {
         });
     };
 };
-export const unfollowUser = (userId: number) => {
+export const unfollowUserAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleFollowingStatusRequest(true, userId));
         socialNetworkAPI.unFollowUser(userId).then((res) => {
