@@ -9,6 +9,7 @@ import {DialogsContainer} from "../pages/MainPage/Dialogs/DialogsContainer";
 import {BlogPageContainer} from "../pages/Blogpage/BlogPageContainer";
 import {ProfileContainer} from "../pages/profile/ProfileContainer";
 import {LoginContainer} from "../pages/login/LoginContainer";
+import {UpdateProfileContainer} from "../components/updateProfile/UpdateProfileContainer";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" element={<Layout/>}>
                     <Route path="/" element={<MainPageContainer/>}>
                         <Route path="profile" element={<ProfileContainer/>}/>
+                        <Route path="/edit-profile" element={<UpdateProfileContainer/>}/>
                         <Route path="dialogs" element={<DialogsContainer/>}/>
                         <Route path="friends" element={<UsersContainer/>}/>
                         <Route path="user/:id" element={<UserPageContainer/>}/>
