@@ -76,6 +76,7 @@ export const loginAsync = (data: LoginDataType) => {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
                 console.warn(res.data.messages);
+                return res.data.messages
             }
         }catch (error){
             dispatch(isLogin(false))

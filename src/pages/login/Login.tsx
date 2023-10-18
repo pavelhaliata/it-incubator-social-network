@@ -25,8 +25,9 @@ const initialValues: FormValues  = {email: '', password: '', rememberMe: false}
 					email: Yup.string().email('Invalid email address').required('Required'),
 					password: Yup.string().required('Required')
 				})}
-				onSubmit={(values) => {
-					props.loginAsync(values)
+				onSubmit={ async (values, submitProps) => {
+					const res = await props.loginAsync(values)
+					console.log(res)
 				}}
 				>
 				<Form style={{display: 'flex', flexDirection: 'column', gap: '15px', width: '300px'}}>

@@ -1,7 +1,4 @@
-import { Component } from "react";
-import { Formik, Field, Form, ErrorMessage, FormikProps, useFormik } from 'formik';
-import * as Yup from 'yup';
-import { UserProfileType } from "api/social-network-api";
+import {useFormik} from 'formik';
 import style from "./style.module.scss"
 import {Button} from "../Button/Button";
 import {updateProfilePropsType} from "./UpdateProfileContainer";
@@ -31,34 +28,33 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
 
 	const formik = useFormik({
 		initialValues: initialValues,
-		onSubmit: (values, submitProps) => {
-		//   alert(JSON.stringify(values, null, 2));
-		  props.updateUserProfileAsync(values, submitProps.setStatus)
-			submitProps.resetForm()
+		onSubmit: async(values, submitProps) => {
+			try {
+				const res = await props.updateUserProfileAsync(values, submitProps)
+
+				submitProps.resetForm()
+				console.log(formik.status)
+				// submitProps.setStatus(res)
+
+			}catch (error: any){
+				console.log(error)
+				submitProps.setStatus(error)
+			}
 		},
 	  });
-	  
-	  let apiErrors
-	  if(formik.status) {
-		  console.log(formik.status)
-		  apiErrors = formik.status.map((item: string, index: string) => <p key={index}>{item}</p>)
-	  }
 
 		return (
 			<div className={style.wrapper}>
 				<form onSubmit={formik.handleSubmit} className={style.form}>
 					<label htmlFor="fullName">full Name</label>
 					<input id="fullName" type="text" {...formik.getFieldProps('fullName')} className={style.field}/>
-					{/* <ErrorMessage name="fullName" /> */}
-					{apiErrors}
+
 					<label htmlFor="lookingForAJobDescription">looking For A Job Description</label>
 					<input id="lookingForAJobDescription" type="text" {...formik.getFieldProps('lookingForAJobDescription')} className={style.field}/>
-					{/* <ErrorMessage name="lookingForAJobDescription" /> */}
 
 					<label htmlFor="aboutMe">about Me</label>
 					<input id="aboutMe" type="text" {...formik.getFieldProps('aboutMe')} className={style.field}/>
-					{/* <ErrorMessage name="aboutMe" /> */}
-		
+					{formik.status && <span>{formik.status}</span>}
 					<Button type="submit" className={style.btn}>Submit</Button>
 				</form>
 			</div>
