@@ -1,3 +1,4 @@
+import { updateUserProfile } from "components/updateProfile/UpdateProfile";
 import {Dispatch} from "redux";
 import {v4 as uuidv4} from "uuid";
 import {
@@ -33,7 +34,7 @@ const initialState = {
         lookingForAJob: false,
         lookingForAJobDescription: "",
         fullName: "",
-        userId: 29259,
+        userId: 0,
         photos: {
             small: "",
             large: "",
@@ -147,11 +148,12 @@ export const setTotalUsersCount = (totalCount: number) =>
 export const setCurrentPage = (currentPage: number) =>
     ({type: "CURRENT-PAGE", currentPage} as const);
 
-export const profileUserData = (profileUserData: UserProfileType) =>
+export const profileUserData = (profileUserData: UserProfileType ) =>
     ({
         type: "USER-PROFILE",
         profileUserData,
     } as const);
+
 // необходимо для дизейбла кнопки
 export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
     ({
@@ -187,30 +189,26 @@ export const getUserProfileAsync = (userId: number) => {
             dispatch(profileUserData(res.data));
             dispatch(setRequestStatus(RequestStatus.succeed));
         });
-        socialNetworkAPI.currentUserFollower(userId)///???????????????????????????????? for what?
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     };
 };
 
-export const updateUserProfileAsync = (data: UserProfileType) => {
+export const updateUserProfileAsync = (data: any, setStatus: (status?: any) => void) => {
     return async (dispatch: Dispatch) => {
         dispatch(setRequestStatus(RequestStatus.loading));
         try{
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0){
-                dispatch(profileUserData(data));
+                console.log(res.data)
+                // dispatch(profileUserData(data));
                 dispatch(setRequestStatus(RequestStatus.succeed))
             }else{
+                // console.log(res.data.messages)
+                setStatus(res.data.messages)
                 dispatch(setErrorStatus(res.data.messages[0]));
                 dispatch(setRequestStatus(RequestStatus.failed));
             }
         }catch(error){
-            console.warn(error)
+            // console.warn(error)
         }
         
         

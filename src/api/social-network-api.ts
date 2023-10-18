@@ -1,4 +1,5 @@
 import axios from "axios";
+import { updateUserProfile } from "components/updateProfile/UpdateProfile";
 
 
 const instance = axios.create({
@@ -8,6 +9,8 @@ const instance = axios.create({
         "API-KEY": process.env.REACT_APP_API_KEY,
     },
 });
+
+
 export const socialNetworkAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`);
@@ -30,10 +33,11 @@ export const socialNetworkAPI = {
     getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     },
-    updateUserProfile (data: UserProfileType) {
+    updateUserProfile (data: any) {
         return instance.put<ResponseType>('/profile', {data})
     }
 }
+
 
 export const authAPI = {
     getAuthData(){
