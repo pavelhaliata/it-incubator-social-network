@@ -7,12 +7,13 @@ import {getActualWeather, setLocationValue} from "store-redux/weatherPage_reduce
 import {WeatherPage} from "./WeatherPage";
 import {withAuthRedirect} from "hoc/withAuthRedirect";
 import {ComponentType} from "react";
+import {getErrorStatus, getLocationValue, getWeatherData} from "./weather-selectors";
 
 const mapStateToProps = (state: AppRootState) => {
     return {
-        weatherData: state.weatherPage.weatherData,
-        locationValue: state.weatherPage.locationValue,
-        errorStatus: state.app.error
+        weatherData: getWeatherData(state),
+        locationValue: getLocationValue(state),
+        errorStatus: getErrorStatus(state)
     };
 };
 export const WeatherPageContainer = compose<ComponentType>(

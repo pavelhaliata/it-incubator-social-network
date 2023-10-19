@@ -29,6 +29,7 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
 	const formik = useFormik({
 		initialValues: initialValues,
 		onSubmit: (values, submitProps) => {
+			submitProps.resetForm()
 			props.updateUserProfileAsync(values, submitProps)
 		},
 	  });

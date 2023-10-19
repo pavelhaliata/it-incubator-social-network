@@ -1,8 +1,8 @@
-import { Formik, Field, Form, ErrorMessage, FormikProps, FormikHelpers } from 'formik';
+import {ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps} from 'formik';
 import * as Yup from 'yup';
 import {LoginDataType} from "api/social-network-api";
 import style from "./login.module.scss"
-import { LoginPropsType } from './LoginContainer';
+import {Button} from "components/Button/Button";
 
 type PropsType = {
     loginAsync: (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => void
@@ -44,7 +44,7 @@ const initialValues: LoginFormValues  = {email: '', password: '', rememberMe: fa
 							<div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
 								<Field name="rememberMe" type="checkbox" id="rememberMe"/>
 								<label htmlFor="rememberMe"> Remember Me</label>
-								<button type="submit" style={{padding: '5px 10px', marginLeft: 'auto',}}>Sign In</button>
+								<Button type="submit" style={{padding: '5px 10px', marginLeft: 'auto',}}>Sign In</Button>
 							</div>
 
 							<div style={{textAlign: 'center', height: '20px'}}>{props.status && <span style={{color: 'red'}}>{props.status}</span>}</div>

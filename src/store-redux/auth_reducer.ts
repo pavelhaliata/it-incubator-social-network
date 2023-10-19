@@ -77,7 +77,7 @@ export const loginAsync = (data: LoginDataType, submitProps: FormikHelpers<Login
             } else {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
-                console.warn(res.data.messages);
+                console.warn(res.data);
                 submitProps.setStatus(res.data.messages[0])
             }
         }catch (error){
@@ -93,7 +93,6 @@ export const logoutAsync = () => {
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(false))
                 dispatch(setAuthUserData({email: null, login: null, id: null}))
-                console.log(res.data)
             } else {
                 console.warn(res.data.messages);
             }
