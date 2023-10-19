@@ -1,20 +1,16 @@
+import { FormikHelpers } from "formik";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { updateUserProfileAsync } from "store-redux/MainPage_reducer";
 import { AppRootState } from "store-redux/redux-store";
-import {UpdateProfile, updateUserProfile} from "./UpdateProfile";
-import {updateUserProfileAsync} from "store-redux/MainPage_reducer";
-import {UserProfileType} from "api/social-network-api";
-import {FormikHelpers} from "formik";
+import { UpdateProfile, updateUserProfile } from "./UpdateProfile";
 
 class asyncContainer extends Component<updateProfilePropsType> {
-
 
     render(){
         return <UpdateProfile {...this.props}/>
     }
-
-
 }
 
 

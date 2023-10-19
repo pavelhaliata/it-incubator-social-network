@@ -1,6 +1,8 @@
 import {authAPI, AuthUserDataType, LoginDataType} from "api/social-network-api";
 import {setErrorStatus} from "../app/app-reducer";
 import {Dispatch} from "redux";
+import { FormikHelpers } from "formik";
+import { LoginFormValues } from "pages/login/Login";
 
 const initialState = {
     id: null as number | null,
@@ -66,7 +68,7 @@ export const appInitializationAsync = () => {
         }
     };
 };
-export const loginAsync = (data: LoginDataType) => {
+export const loginAsync = (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await authAPI.login(data)
@@ -76,7 +78,7 @@ export const loginAsync = (data: LoginDataType) => {
                 dispatch(isLogin(false))
                 // dispatch(setErrorStatus(res.data.messages[0]));
                 console.warn(res.data.messages);
-                return res.data.messages
+                submitProps.setStatus(res.data.messages[0])
             }
         }catch (error){
             dispatch(isLogin(false))

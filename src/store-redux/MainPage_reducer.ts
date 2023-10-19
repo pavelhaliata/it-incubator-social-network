@@ -11,7 +11,7 @@ import {
     setErrorStatus,
     setRequestStatus,
 } from "../app/app-reducer";
-import {throws} from "assert";
+import {rejects, throws} from "assert";
 import {FormikHelpers} from "formik";
 
 const initialState = {
@@ -200,19 +200,14 @@ export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<upd
         try{
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0){
-                //console.log(res.data)
+                console.log(res.data)
                 // dispatch(profileUserData(data));
-                // dispatch(setRequestStatus(RequestStatus.succeed))
+                dispatch(setRequestStatus(RequestStatus.succeed))
             }else{
-                debugger
                 submitProps.setStatus(res.data.messages[0])
-                // console.log(res.data.messages)
-                // dispatch(setErrorStatus(res.data.messages[0]));
-                // dispatch(setRequestStatus(RequestStatus.failed));
-                // throw new Error(res.data.messages[0])
             }
-        }catch(error){
-            // console.warn(error)
+        }catch(error: any){
+            console.warn(error)
         }
         
         

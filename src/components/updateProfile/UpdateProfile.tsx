@@ -28,21 +28,10 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
 
 	const formik = useFormik({
 		initialValues: initialValues,
-		onSubmit: async(values, submitProps) => {
-			try {
-				const res = await props.updateUserProfileAsync(values, submitProps)
-
-				submitProps.resetForm()
-				console.log(formik.status)
-				// submitProps.setStatus(res)
-
-			}catch (error: any){
-				console.log(error)
-				submitProps.setStatus(error)
-			}
+		onSubmit: (values, submitProps) => {
+			props.updateUserProfileAsync(values, submitProps)
 		},
 	  });
-
 		return (
 			<div className={style.wrapper}>
 				<form onSubmit={formik.handleSubmit} className={style.form}>
@@ -54,7 +43,7 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
 
 					<label htmlFor="aboutMe">about Me</label>
 					<input id="aboutMe" type="text" {...formik.getFieldProps('aboutMe')} className={style.field}/>
-					{formik.status && <span>{formik.status}</span>}
+					{formik.status && <span style={{color: 'red'}}>{formik.status}</span>}
 					<Button type="submit" className={style.btn}>Submit</Button>
 				</form>
 			</div>

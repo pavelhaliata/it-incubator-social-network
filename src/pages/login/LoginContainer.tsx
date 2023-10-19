@@ -1,9 +1,10 @@
 import {connect} from "react-redux";
 import {AppRootState} from "store-redux/redux-store";
-import {Login} from "./Login";
+import {Login, LoginFormValues} from "./Login";
 import {Navigate} from "react-router-dom";
 import {loginAsync} from "store-redux/auth_reducer";
 import {LoginDataType} from "api/social-network-api";
+import { FormikHelpers } from "formik";
 
 
 const LoginAsyncContainer = (props: LoginPropsType) => {
@@ -35,6 +36,6 @@ type mapStatePropsType = {
     
 };
 type mapDispatchPropsPropsType = {
-    loginAsync: (data: LoginDataType) => void
+    loginAsync: (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => void
 };
 export type LoginPropsType = mapStatePropsType & mapDispatchPropsPropsType;
