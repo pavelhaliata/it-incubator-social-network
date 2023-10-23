@@ -1,21 +1,11 @@
-import {
-    ErrorMessage,
-    Field,
-    Form,
-    Formik,
-    FormikHelpers,
-    FormikProps,
-} from 'formik'
+import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import * as Yup from 'yup'
 import { LoginDataType } from 'api/social-network-api'
 import style from './login.module.scss'
 import { Button } from 'components/Button/Button'
 
 type PropsType = {
-    loginAsync: (
-        data: LoginDataType,
-        submitProps: FormikHelpers<LoginFormValues>
-    ) => void
+    loginAsync: (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => void
 }
 
 export interface LoginFormValues {
@@ -43,9 +33,7 @@ export const Login = (props: PropsType) => {
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object({
-                    email: Yup.string()
-                        .email('Invalid email address')
-                        .required('Required'),
+                    email: Yup.string().email('Invalid email address').required('Required'),
                     password: Yup.string().required('Required'),
                 })}
                 onSubmit={(values, submitProps) => {
@@ -62,28 +50,28 @@ export const Login = (props: PropsType) => {
                             width: '100%',
                         }}
                     >
-                        <label htmlFor="email">Email Address</label>
+                        <label htmlFor='email'>Email Address</label>
                         <Field
-                            name="email"
-                            type="email"
-                            id="email"
-                            placeholder="Email@*"
+                            name='email'
+                            type='email'
+                            id='email'
+                            placeholder='Email@*'
                             style={{ padding: '5px' }}
                         />
                         <span className={style.error}>
-                            <ErrorMessage name="email" />
+                            <ErrorMessage name='email' />
                         </span>
 
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor='password'>Password</label>
                         <Field
-                            name="password"
-                            type="password"
-                            id="password"
-                            placeholder="Password*"
+                            name='password'
+                            type='password'
+                            id='password'
+                            placeholder='Password*'
                             style={{ padding: '5px' }}
                         />
                         <span className={style.error}>
-                            <ErrorMessage name="password" />
+                            <ErrorMessage name='password' />
                         </span>
 
                         <div
@@ -93,14 +81,10 @@ export const Login = (props: PropsType) => {
                                 alignItems: 'center',
                             }}
                         >
-                            <Field
-                                name="rememberMe"
-                                type="checkbox"
-                                id="rememberMe"
-                            />
-                            <label htmlFor="rememberMe"> Remember Me</label>
+                            <Field name='rememberMe' type='checkbox' id='rememberMe' />
+                            <label htmlFor='rememberMe'> Remember Me</label>
                             <Button
-                                type="submit"
+                                type='submit'
                                 style={{
                                     padding: '5px 10px',
                                     marginLeft: 'auto',
@@ -111,11 +95,7 @@ export const Login = (props: PropsType) => {
                         </div>
 
                         <div style={{ textAlign: 'center', height: '20px' }}>
-                            {props.status && (
-                                <span style={{ color: 'red' }}>
-                                    {props.status}
-                                </span>
-                            )}
+                            {props.status && <span style={{ color: 'red' }}>{props.status}</span>}
                         </div>
                     </Form>
                 )}

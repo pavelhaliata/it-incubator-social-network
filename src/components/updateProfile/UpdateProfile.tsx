@@ -21,7 +21,7 @@ export type updateUserProfile = {
     }
 }
 
-export const UpdateProfile = (props: updateProfilePropsType) => {
+export function UpdateProfile(props: updateProfilePropsType) {
     const initialValues: updateUserProfile = {
         aboutMe: '',
         userId: props.userId,
@@ -51,6 +51,7 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
         <div className={style.wrapper}>
             <form onSubmit={formik.handleSubmit} className={style.form}>
                 <label htmlFor='fullName'>full Name</label>
+
                 <input
                     id='fullName'
                     type='text'
@@ -59,6 +60,7 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
                 />
 
                 <label htmlFor='lookingForAJobDescription'>looking For A Job Description</label>
+
                 <input
                     id='lookingForAJobDescription'
                     type='text'
@@ -67,13 +69,16 @@ export const UpdateProfile = (props: updateProfilePropsType) => {
                 />
 
                 <label htmlFor='aboutMe'>about Me</label>
+
                 <input
                     id='aboutMe'
                     type='text'
                     {...formik.getFieldProps('aboutMe')}
                     className={style.field}
                 />
-                {formik.status && <span style={{ color: 'red' }}>{formik.status}</span>}
+
+                {formik.status ? <span style={{ color: 'red' }}>{formik.status}</span> : null}
+
                 <Button type='submit' className={style.btn}>
                     Submit
                 </Button>

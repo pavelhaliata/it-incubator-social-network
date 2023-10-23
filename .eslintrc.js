@@ -8,6 +8,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:prettier/recommended',
+        'plugin:react/jsx-runtime',
     ],
     overrides: [
         {
@@ -25,7 +26,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['@typescript-eslint', 'react',],
     rules: {
         'prettier/prettier': [
             'warn',
@@ -33,5 +34,7 @@ module.exports = {
                 endOfLine: 'auto',
             },
         ],
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/ban-types': 'off',
     },
 }

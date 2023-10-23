@@ -1,12 +1,10 @@
-import {LogoutButton} from "components/logout/LogoutContainer";
-import {Component} from "react";
-import {Input} from "../Input/Input";
-import style from "./Header.module.scss";
-import {HeaderPropsType} from "./HeaderContainer";
-
+import { LogoutButton } from 'components/logout/LogoutContainer'
+import { Component } from 'react'
+import { Input } from '../Input/Input'
+import style from './Header.module.scss'
+import { HeaderPropsType } from './HeaderContainer'
 
 export class Header extends Component<HeaderPropsType> {
-
     render() {
         return (
             <div className={style.header}>
@@ -15,30 +13,32 @@ export class Header extends Component<HeaderPropsType> {
                 </div>
                 <div className={style.header_wrapper}>
                     <Input
-                        placeholder="Search here people or pages..."
-                        className={style.header_search_bar}/>
+                        placeholder='Search here people or pages...'
+                        className={style.header_search_bar}
+                    />
                     <div className={style.header_control_block}>
                         <div className={style.author_page}>
                             <div className={style.author_thumb}>
                                 <img
-                                    src="https://html.crumina.net/html-olympus/img/author-page.webp"
-                                    alt="img author"
-                                    />
+                                    src='https://html.crumina.net/html-olympus/img/author-page.webp'
+                                    alt='img author'
+                                />
                                 <span className={`${style.icon_status} ${style.online}`}></span>
                             </div>
-                            <a href="#" className={style.author_name}>
-                                <div className={style.author_title}>{this.props.authUserData.login}</div>
+                            <a href='#' className={style.author_name}>
+                                <div className={style.author_title}>
+                                    {this.props.authUserData.login}
+                                </div>
                                 <div className={style.author_subtitle}>space cowboy</div>
                             </a>
                         </div>
-                        <LogoutButton/>
+                        <LogoutButton />
                     </div>
                 </div>
             </div>
         )
     }
 }
-
 
 {
     /* <div className="svg_icon">

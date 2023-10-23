@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import styles from './Post.module.scss';
+import { Component } from 'react'
+import styles from './Post.module.scss'
 
 type PostPropsType = {
     post: string
@@ -17,13 +17,6 @@ export class Post extends Component<PostPropsType, any> {
                     <div className={styles.post_additional_info}></div>
                 </article>
             </div>
-        );
+        )
     }
 }
-
-
-
-
-
-
-
