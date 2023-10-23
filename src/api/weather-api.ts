@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const instanse = axios.create({
+const instance = axios.create({
     baseURL: process.env.REACT_APP_BASE_WEATHER_URL,
 })
 
 export const weatherAPI = {
     getWeather(city: string) {
-        return instanse.get<WeatherType>(
+        return instance.get<WeatherType>(
             `weather?q=${city}&appid=${process.env.REACT_APP_API_WEATHER_KEY}&units=metric`,
         )
     },

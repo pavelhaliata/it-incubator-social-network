@@ -1,7 +1,7 @@
 import { updateUserProfile } from 'components/updateProfile/UpdateProfile'
 import { Dispatch } from 'redux'
 import { v4 as uuidv4 } from 'uuid'
-import { UserProfileType, socialNetworkAPI, UserType } from '../api/social-network-api'
+import { socialNetworkAPI, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
 import { FormikHelpers } from 'formik'
 
@@ -22,7 +22,7 @@ const initialState = {
             instagram: '',
             youtube: '',
             github: '',
-            mainLink: '',
+            mainLink: ''
         },
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -30,23 +30,23 @@ const initialState = {
         userId: 0,
         photos: {
             small: '',
-            large: '',
-        },
+            large: ''
+        }
     } as UserProfileType,
     selectedCurrentUser: [] as number[],
     followingStatusRequest: false as boolean,
-    userStatus: '' as string,
+    userStatus: '' as string
 }
 
 export const profilePageReducer = (
     state: ProfilePageInitialStateType = initialState,
-    action: ActionProfilePageType,
+    action: ActionProfilePageType
 ): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             return {
                 ...state,
-                newMessageTextData: action.newText,
+                newMessageTextData: action.newText
             }
         case 'ADD_NEW_MESSAGE':
             if (state.newMessageTextData.trim() !== '') {
@@ -55,12 +55,12 @@ export const profilePageReducer = (
                     avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
                     name: 'James Spiegel',
                     message: state.newMessageTextData,
-                    time: new Date().toLocaleTimeString().slice(0, -3),
+                    time: new Date().toLocaleTimeString().slice(0, -3)
                 }
                 return {
                     ...state,
                     messagesData: [...state.messagesData, message],
-                    newMessageTextData: '',
+                    newMessageTextData: ''
                 }
             }
             return state
@@ -70,50 +70,43 @@ export const profilePageReducer = (
                 usersData: action.usersData.map(i => ({
                     ...i,
                     backgroundImg: '',
-                    country: '',
-                })),
+                    country: ''
+                }))
             }
         case 'TOTAL-USERS-COUNT':
             return {
                 ...state,
-                totalUsersCount: action.totalCount,
+                totalUsersCount: action.totalCount
             }
         case 'CURRENT-PAGE':
             return {
                 ...state,
-                currentPage: action.currentPage,
+                currentPage: action.currentPage
             }
         case 'USER-PROFILE':
             return {
                 ...state,
-                userProfileData: action.profileUserData,
+                userProfileData: action.profileUserData
             }
-        case 'FOLLOW': {
+        case 'TOGGLE_FOLLOW_STATUS': {
             return {
                 ...state,
                 usersData: state.usersData.map(i =>
-                    i.id === action.userId ? { ...i, followed: true } : i,
-                ),
+                    i.id === action.payload.userId ? { ...i, followed: action.payload.status } : i
+                )
             }
         }
-        case 'UNFOLLOW':
-            return {
-                ...state,
-                usersData: state.usersData.map(i =>
-                    i.id === action.userId ? { ...i, followed: false } : i,
-                ),
-            }
-        case 'TOGGLE_FOLLOWING_STATUS_REQUEST':
+        case 'FOLLOWING_STATUS_REQUEST':
             return {
                 ...state,
                 selectedCurrentUser: action.followingStatusRequest
                     ? [...state.selectedCurrentUser, action.userId]
-                    : state.selectedCurrentUser.filter(i => i !== action.userId),
+                    : state.selectedCurrentUser.filter(i => i !== action.userId)
             }
         case 'USER-STATUS':
             return {
                 ...state,
-                userStatus: action.textStatus,
+                userStatus: action.textStatus
             }
         default:
             return state
@@ -126,10 +119,6 @@ export const newMessageText = (newText: string) =>
 
 export const newMessage = () => ({ type: 'ADD_NEW_MESSAGE' }) as const
 
-export const followPerson = (userId: number) => ({ type: 'FOLLOW', userId }) as const
-
-export const unFollowPerson = (userId: number) => ({ type: 'UNFOLLOW', userId }) as const
-
 export const setUsers = (usersData: Array<UserType>) => ({ type: 'SET-USERS', usersData }) as const
 
 export const setTotalUsersCount = (totalCount: number) =>
@@ -141,21 +130,26 @@ export const setCurrentPage = (currentPage: number) =>
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
         type: 'USER-PROFILE',
-        profileUserData,
+        profileUserData
     }) as const
+
+export const toggleFollowingStatus = (userId: number, status: boolean) => ({
+    type: 'TOGGLE_FOLLOW_STATUS',
+    payload: { userId, status }
+}) as const
 
 // необходимо для дизейбла кнопки
 export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
     ({
-        type: 'TOGGLE_FOLLOWING_STATUS_REQUEST',
+        type: 'FOLLOWING_STATUS_REQUEST',
         followingStatusRequest,
-        userId,
+        userId
     }) as const
 
 const setUserStatus = (textStatus: string) =>
     ({
         type: 'USER-STATUS',
-        textStatus,
+        textStatus
     }) as const
 
 // thunks
@@ -181,7 +175,7 @@ export const getUserProfileAsync = (userId: number) => {
 
 export const updateUserProfileAsync = (
     data: any,
-    submitProps: FormikHelpers<updateUserProfile>,
+    submitProps: FormikHelpers<updateUserProfile>
 ) => {
     return async (dispatch: Dispatch) => {
         dispatch(setRequestStatus(RequestStatus.loading))
@@ -204,7 +198,7 @@ export const followUserAsync = (userId: number) => {
         dispatch(toggleFollowingStatusRequest(true, userId))
         socialNetworkAPI.followUser(userId).then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(followPerson(userId))
+                dispatch(toggleFollowingStatus(userId, true))
                 dispatch(toggleFollowingStatusRequest(false, userId))
             } else {
                 dispatch(setErrorStatus(res.data.messages[0]))
@@ -214,11 +208,12 @@ export const followUserAsync = (userId: number) => {
     }
 }
 export const unfollowUserAsync = (userId: number) => {
+    toggleFollowingStatusFlow(userId, socialNetworkAPI.unFollowUser(userId), )
     return (dispatch: Dispatch) => {
         dispatch(toggleFollowingStatusRequest(true, userId))
         socialNetworkAPI.unFollowUser(userId).then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(unFollowPerson(userId))
+                dispatch(toggleFollowingStatus(userId, false))
                 dispatch(toggleFollowingStatusRequest(false, userId))
             } else {
                 dispatch(setErrorStatus(res.data.messages[0]))
@@ -227,6 +222,26 @@ export const unfollowUserAsync = (userId: number) => {
         })
     }
 }
+
+const toggleFollowingStatusFlow = async (dispatch: Dispatch, userId: number, apiRequest: () =>, actionCreator: any) => {
+    dispatch(setRequestStatus(RequestStatus.loading))
+    dispatch(toggleFollowingStatusRequest(true, userId))
+    const res = await apiRequest
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(actionCreator)
+            dispatch(toggleFollowingStatusRequest(false, userId))
+            dispatch(setRequestStatus(RequestStatus.succeed))
+        }else {
+            dispatch(setErrorStatus(res.data.messages[0]))
+            dispatch(setRequestStatus(RequestStatus.failed))
+        }
+    }catch (error){
+        dispatch(setRequestStatus(RequestStatus.failed))
+    }
+
+}
+
 
 export const updateUserStatusAsync = (textStatus: string) => {
     return async (dispatch: Dispatch) => {
@@ -273,8 +288,7 @@ export type MessageType = {
 export type ActionProfilePageType =
     | ReturnType<typeof newMessageText>
     | ReturnType<typeof newMessage>
-    | ReturnType<typeof followPerson>
-    | ReturnType<typeof unFollowPerson>
+    | ReturnType<typeof toggleFollowingStatus>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
