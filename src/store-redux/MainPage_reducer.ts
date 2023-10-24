@@ -22,7 +22,7 @@ const initialState = {
             instagram: '',
             youtube: '',
             github: '',
-            mainLink: ''
+            mainLink: '',
         },
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -30,23 +30,23 @@ const initialState = {
         userId: 0,
         photos: {
             small: '',
-            large: ''
-        }
+            large: '',
+        },
     } as UserProfileType,
     selectedCurrentUser: [] as number[],
     followingStatusRequest: false as boolean,
-    userStatus: '' as string
+    userStatus: '' as string,
 }
 
 export const profilePageReducer = (
     state: ProfilePageInitialStateType = initialState,
-    action: ActionProfilePageType
+    action: ActionProfilePageType,
 ): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             return {
                 ...state,
-                newMessageTextData: action.newText
+                newMessageTextData: action.newText,
             }
         case 'ADD_NEW_MESSAGE':
             if (state.newMessageTextData.trim() !== '') {
@@ -55,12 +55,12 @@ export const profilePageReducer = (
                     avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
                     name: 'James Spiegel',
                     message: state.newMessageTextData,
-                    time: new Date().toLocaleTimeString().slice(0, -3)
+                    time: new Date().toLocaleTimeString().slice(0, -3),
                 }
                 return {
                     ...state,
                     messagesData: [...state.messagesData, message],
-                    newMessageTextData: ''
+                    newMessageTextData: '',
                 }
             }
             return state
@@ -70,30 +70,30 @@ export const profilePageReducer = (
                 usersData: action.usersData.map(i => ({
                     ...i,
                     backgroundImg: '',
-                    country: ''
-                }))
+                    country: '',
+                })),
             }
         case 'TOTAL-USERS-COUNT':
             return {
                 ...state,
-                totalUsersCount: action.totalCount
+                totalUsersCount: action.totalCount,
             }
         case 'CURRENT-PAGE':
             return {
                 ...state,
-                currentPage: action.currentPage
+                currentPage: action.currentPage,
             }
         case 'USER-PROFILE':
             return {
                 ...state,
-                userProfileData: action.profileUserData
+                userProfileData: action.profileUserData,
             }
-        case 'TOGGLE_FOLLOW_STATUS': {
+        case 'FOLLOW_STATUS': {
             return {
                 ...state,
                 usersData: state.usersData.map(i =>
-                    i.id === action.payload.userId ? { ...i, followed: action.payload.status } : i
-                )
+                    i.id === action.payload.userId ? { ...i, followed: action.payload.status } : i,
+                ),
             }
         }
         case 'FOLLOWING_STATUS_REQUEST':
@@ -101,12 +101,12 @@ export const profilePageReducer = (
                 ...state,
                 selectedCurrentUser: action.followingStatusRequest
                     ? [...state.selectedCurrentUser, action.userId]
-                    : state.selectedCurrentUser.filter(i => i !== action.userId)
+                    : state.selectedCurrentUser.filter(i => i !== action.userId),
             }
         case 'USER-STATUS':
             return {
                 ...state,
-                userStatus: action.textStatus
+                userStatus: action.textStatus,
             }
         default:
             return state
@@ -114,42 +114,40 @@ export const profilePageReducer = (
 }
 
 // actions
-export const newMessageText = (newText: string) =>
-    ({ type: 'UPDATE-NEW-MESSAGE-TEXT', newText }) as const
+export const newMessageText = (newText: string) => ({ type: 'UPDATE-NEW-MESSAGE-TEXT', newText }) as const
 
 export const newMessage = () => ({ type: 'ADD_NEW_MESSAGE' }) as const
 
 export const setUsers = (usersData: Array<UserType>) => ({ type: 'SET-USERS', usersData }) as const
 
-export const setTotalUsersCount = (totalCount: number) =>
-    ({ type: 'TOTAL-USERS-COUNT', totalCount }) as const
+export const setTotalUsersCount = (totalCount: number) => ({ type: 'TOTAL-USERS-COUNT', totalCount }) as const
 
-export const setCurrentPage = (currentPage: number) =>
-    ({ type: 'CURRENT-PAGE', currentPage }) as const
+export const setCurrentPage = (currentPage: number) => ({ type: 'CURRENT-PAGE', currentPage }) as const
 
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
         type: 'USER-PROFILE',
-        profileUserData
+        profileUserData,
     }) as const
 
-export const toggleFollowingStatus = (userId: number, status: boolean) => ({
-    type: 'TOGGLE_FOLLOW_STATUS',
-    payload: { userId, status }
-}) as const
+export const toggleFollowingStatus = (userId: number, status: boolean) =>
+    ({
+        type: 'FOLLOW_STATUS',
+        payload: { userId, status },
+    }) as const
 
 // необходимо для дизейбла кнопки
 export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
     ({
         type: 'FOLLOWING_STATUS_REQUEST',
         followingStatusRequest,
-        userId
+        userId,
     }) as const
 
 const setUserStatus = (textStatus: string) =>
     ({
         type: 'USER-STATUS',
-        textStatus
+        textStatus,
     }) as const
 
 // thunks
@@ -175,7 +173,7 @@ export const getUserProfileAsync = (userId: number) => {
 
 export const updateUserProfileAsync = (
     data: any,
-    submitProps: FormikHelpers<updateUserProfile>
+    submitProps: FormikHelpers<updateUserProfile>,
 ) => {
     return async (dispatch: Dispatch) => {
         dispatch(setRequestStatus(RequestStatus.loading))
@@ -195,53 +193,44 @@ export const updateUserProfileAsync = (
 }
 export const followUserAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
-        dispatch(toggleFollowingStatusRequest(true, userId))
-        socialNetworkAPI.followUser(userId).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(toggleFollowingStatus(userId, true))
-                dispatch(toggleFollowingStatusRequest(false, userId))
-            } else {
-                dispatch(setErrorStatus(res.data.messages[0]))
-                dispatch(setRequestStatus(RequestStatus.failed))
-            }
-        })
+        followingStatusFlow(
+            dispatch,
+            userId,
+            socialNetworkAPI.followUser(userId),
+            toggleFollowingStatus(userId, true),
+        )
     }
 }
 export const unfollowUserAsync = (userId: number) => {
-    toggleFollowingStatusFlow(userId, socialNetworkAPI.unFollowUser(userId), )
     return (dispatch: Dispatch) => {
-        dispatch(toggleFollowingStatusRequest(true, userId))
-        socialNetworkAPI.unFollowUser(userId).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(toggleFollowingStatus(userId, false))
-                dispatch(toggleFollowingStatusRequest(false, userId))
-            } else {
-                dispatch(setErrorStatus(res.data.messages[0]))
-                dispatch(setRequestStatus(RequestStatus.failed))
-            }
-        })
+        followingStatusFlow(
+            dispatch,
+            userId,
+            socialNetworkAPI.unFollowUser(userId),
+            toggleFollowingStatus(userId, false),
+        )
     }
 }
 
-const toggleFollowingStatusFlow = async (dispatch: Dispatch, userId: number, apiRequest: () =>, actionCreator: any) => {
-    dispatch(setRequestStatus(RequestStatus.loading))
+const followingStatusFlow = async (
+    dispatch: Dispatch,
+    userId: number,
+    apiRequest: any,
+    actionCreator: any,
+) => {
     dispatch(toggleFollowingStatusRequest(true, userId))
-    const res = await apiRequest
     try {
+        const res = await apiRequest
         if (res.data.resultCode === 0) {
             dispatch(actionCreator)
             dispatch(toggleFollowingStatusRequest(false, userId))
-            dispatch(setRequestStatus(RequestStatus.succeed))
-        }else {
+        } else {
             dispatch(setErrorStatus(res.data.messages[0]))
-            dispatch(setRequestStatus(RequestStatus.failed))
         }
-    }catch (error){
-        dispatch(setRequestStatus(RequestStatus.failed))
+    } catch (error) {
+        console.warn(error)
     }
-
 }
-
 
 export const updateUserStatusAsync = (textStatus: string) => {
     return async (dispatch: Dispatch) => {
