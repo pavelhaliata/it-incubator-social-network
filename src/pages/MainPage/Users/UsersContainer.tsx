@@ -2,7 +2,7 @@ import {Component} from "react";
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {AppRootState} from "store-redux/redux-store";
-import {followUserAsync, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowUserAsync, UserDomainType,
+import {followAsync, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowAsync, UserDomainType,
 } from "store-redux/MainPage_reducer";
 import { RequestStatus, setRequestStatus } from "app/app-reducer";
 
@@ -42,8 +42,8 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
 };
 
 export const UsersContainer = connect(mapStateToProps, {
-    followUser: followUserAsync,
-    unfollowUser: unfollowUserAsync,
+    followUser: followAsync,
+    unfollowUser: unfollowAsync,
     getUsersAsync,
     setTotalUsersCount,
     setCurrentPage,

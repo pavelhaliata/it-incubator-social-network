@@ -4,11 +4,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { socialNetworkAPI, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
 import { FormikHelpers } from 'formik'
+import { updateObjectInArray } from '../utils/object-helpers'
+import { AxiosResponse } from 'axios'
 
 const initialState = {
     newMessageTextData: '' as string,
     messagesData: [] as Array<MessageType>,
-    usersData: [] as Array<UserDomainType>,
+    usersData: [] as UserDomainType[],
     pageSize: 52 as number,
     currentPage: 1 as number,
     totalUsersCount: 0 as number,
@@ -88,12 +90,16 @@ export const profilePageReducer = (
                 ...state,
                 userProfileData: action.profileUserData,
             }
-        case 'FOLLOW_STATUS': {
+        case 'FOLLOW': {
             return {
                 ...state,
-                usersData: state.usersData.map(i =>
-                    i.id === action.payload.userId ? { ...i, followed: action.payload.status } : i,
-                ),
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, {followed: true})
+            }
+        }
+        case 'UNFOLLOW': {
+            return {
+                ...state,
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, {followed: false})
             }
         }
         case 'FOLLOWING_STATUS_REQUEST':
@@ -130,10 +136,16 @@ export const profileUserData = (profileUserData: UserProfileType) =>
         profileUserData,
     }) as const
 
-export const toggleFollowingStatus = (userId: number, status: boolean) =>
+export const follow = (userId: number) =>
     ({
-        type: 'FOLLOW_STATUS',
-        payload: { userId, status },
+        type: 'FOLLOW',
+        payload: { userId },
+    }) as const
+
+export const unFollow = (userId: number) =>
+    ({
+        type: 'UNFOLLOW',
+        payload: { userId },
     }) as const
 
 // необходимо для дизейбла кнопки
@@ -191,32 +203,32 @@ export const updateUserProfileAsync = (
         }
     }
 }
-export const followUserAsync = (userId: number) => {
+export const followAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
-        followingStatusFlow(
+        followUnfollowFlow(
             dispatch,
             userId,
             socialNetworkAPI.followUser(userId),
-            toggleFollowingStatus(userId, true),
+            follow(userId)
         )
     }
 }
-export const unfollowUserAsync = (userId: number) => {
-    return (dispatch: Dispatch) => {
-        followingStatusFlow(
+export const unfollowAsync = (userId: number) => {
+    return async (dispatch: Dispatch) => {
+        followUnfollowFlow(
             dispatch,
             userId,
             socialNetworkAPI.unFollowUser(userId),
-            toggleFollowingStatus(userId, false),
+            unFollow(userId)
         )
     }
 }
 
-const followingStatusFlow = async (
+const followUnfollowFlow = async (
     dispatch: Dispatch,
     userId: number,
-    apiRequest: any,
-    actionCreator: any,
+    apiRequest: Promise<AxiosResponse>,
+    actionCreator: ReturnType<typeof follow> | ReturnType<typeof unFollow>,
 ) => {
     dispatch(toggleFollowingStatusRequest(true, userId))
     try {
@@ -277,10 +289,11 @@ export type MessageType = {
 export type ActionProfilePageType =
     | ReturnType<typeof newMessageText>
     | ReturnType<typeof newMessage>
-    | ReturnType<typeof toggleFollowingStatus>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof profileUserData>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
     | ReturnType<typeof toggleFollowingStatusRequest>
     | ReturnType<typeof setUserStatus>

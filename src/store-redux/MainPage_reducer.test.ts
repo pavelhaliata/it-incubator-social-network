@@ -5,7 +5,7 @@ import {
 	ProfilePageInitialStateType,
 	profilePageReducer,
 	setUsers,
-	toggleFollowingStatusRequest, toggleFollowingStatus
+	toggleFollowingStatusRequest, follow, unFollow
 } from './MainPage_reducer'
 import {UserProfileType} from "../api/social-network-api";
 const userId = 1
@@ -60,7 +60,7 @@ const userId = 1
   });
 
   test("user should be followed", () => {
-	const endState = profilePageReducer(startState, toggleFollowingStatus(startState.usersData[0].id, true));
+	const endState = profilePageReducer(startState, follow(startState.usersData[0].id));
 
 	expect(endState.usersData[0].followed).toBeTruthy();
 	expect(startState.usersData[0].followed).toBeFalsy();
@@ -91,7 +91,7 @@ const userId = 1
 		userStatus: ''
 	  };
 	
-	const endState = profilePageReducer(startState, toggleFollowingStatus(startState.usersData[0].id, false));
+	const endState = profilePageReducer(startState, unFollow(startState.usersData[0].id));
 	expect(endState.usersData[0].followed).toBeFalsy();
 	expect(startState.usersData[0].followed).toBeTruthy();
   });

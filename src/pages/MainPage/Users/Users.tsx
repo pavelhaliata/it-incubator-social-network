@@ -3,7 +3,7 @@ import {User} from "./User/User";
 import {UsersPropsType} from "./UsersContainer";
 import loading from "assets/images/loading-spinner-200px.svg"
 import {RequestStatus} from "app/app-reducer";
-import { createPages } from "utils/pagesCreator";
+import { pagesCreator } from "utils/pages-creator";
 
 
 export const Users = ({ usersData, setCurrentPage, currentPage, pageSize, totalUsersCount, 
@@ -13,7 +13,7 @@ followUser, unfollowUser, requestStatus, selectedCurrentUser }: UsersPropsType) 
 
     const pages: Array<number> = [];
 
-    createPages(pages, totalPage, currentPage)
+    pagesCreator(pages, totalPage, currentPage)
 
     return (
         <>
