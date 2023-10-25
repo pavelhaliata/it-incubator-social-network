@@ -1,16 +1,16 @@
-import { UserProfileType } from "api/social-network-api";
-import { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { getUserProfileAsync } from "store-redux/MainPage_reducer";
-import { AppRootState } from "store-redux/redux-store";
-import { Profile } from "./Profile";
+import { UserProfileType } from 'api/social-network-api'
+import { Component } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/MainPage_reducer'
+import { AppRootState } from 'store-redux/redux-store'
+import { Profile } from './Profile'
 
 class ProfileAsyncContainer extends Component<ProfilePropsType> {
 
     componentDidMount(){
         if(this.props.userId)
-        this.props.getProfileUserAsync(this.props.userId)
+        this.props.getUserProfileAsync(this.props.userId)
     }
 
     render() {
@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
 };
 
 export const ProfileContainer = compose(
-    connect(mapStateToProps,{getProfileUserAsync: getUserProfileAsync}))
+    connect(mapStateToProps,{getUserProfileAsync, uploadPhotoAsync}))
     (ProfileAsyncContainer);
 
 //types
@@ -39,7 +39,8 @@ type mapStatePropsType = {
     userProfile: UserProfileType
 };
 type mapDispatchPropsPropsType = {
-    getProfileUserAsync:(userId: number)=>void
+    getUserProfileAsync:(userId: number) => void
+    uploadPhotoAsync: (file: any) => void
 };
 
 export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType;

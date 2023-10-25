@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { ChangeEvent, Component } from 'react'
 import style from './profile.module.scss'
 import { ProfileStatusContainer } from 'components/profileStatus/ProfileStatusContainer'
 import { UserProfileType } from 'api/social-network-api'
@@ -14,10 +14,17 @@ import { NavLink } from 'react-router-dom'
 
 type PropsType = {
     userProfile: UserProfileType
+    uploadPhotoAsync: (file: any) => void
 }
 
 export class Profile extends Component<PropsType> {
 
+    uploadPhotoHandler(event: ChangeEvent<HTMLInputElement>) {
+        if (event.target && event.target.files && event.target.files.length) {
+            const file = event.target.files[0]
+            this.props.uploadPhotoAsync(file);
+        }
+    }
 
     render() {
         return (
@@ -28,6 +35,13 @@ export class Profile extends Component<PropsType> {
                             <h6 className={style.title}>Personal Info</h6>
                         </div>
                         <div className={style.block_content}>
+                            <div>
+                                <img src={this.props.userProfile.photos.small} alt='photo'/>
+                                {this.props.userProfile.photos.small}
+                            </div>
+                            <div>
+                                <input type='file' onChange={this.uploadPhotoHandler}/>
+                            </div>
                             <ul className={style.personal_info}>
                                 <li>
                                     <span className={style.title}>Name:</span>

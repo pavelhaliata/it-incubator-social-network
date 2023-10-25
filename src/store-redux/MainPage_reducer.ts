@@ -35,9 +35,9 @@ const initialState = {
             large: '',
         },
     } as UserProfileType,
+    userStatus: '' as string,
     selectedCurrentUser: [] as number[],
     followingStatusRequest: false as boolean,
-    userStatus: '' as string,
 }
 
 export const profilePageReducer = (
@@ -54,7 +54,7 @@ export const profilePageReducer = (
             if (state.newMessageTextData.trim() !== '') {
                 const message: MessageType = {
                     id: uuidv4(),
-                    avatar: 'https://html.crumina.net/html-olympus/img/author-main1.webp',
+                    avatar: state.userProfileData.photos.small,
                     name: 'James Spiegel',
                     message: state.newMessageTextData,
                     time: new Date().toLocaleTimeString().slice(0, -3),
@@ -114,6 +114,11 @@ export const profilePageReducer = (
                 ...state,
                 userStatus: action.textStatus,
             }
+        case 'main/UPLOAD-PHOTO':
+            return {
+                ...state,
+                userProfileData: {...state.userProfileData, photos: {small: action.photoFile, large: action.photoFile} }
+            }
         default:
             return state
     }
@@ -161,6 +166,8 @@ const setUserStatus = (textStatus: string) =>
         type: 'USER-STATUS',
         textStatus,
     }) as const
+
+const uploadPhoto = (photoFile: string) => ({type: 'main/UPLOAD-PHOTO', photoFile}) as const
 
 // thunks
 export const getUsersAsync = (currentPage: number, pageSize: number) => {
@@ -270,6 +277,21 @@ export const getUserStatusAsync = (userId: number) => {
     }
 }
 
+export const uploadPhotoAsync = (photoFile: any) => {
+    return async () => {
+        try {
+            const res = await socialNetworkAPI.uploadPhotoFile(photoFile)
+            console.log(res)
+            if(res.data.resultCode === 0){
+                console.log(res.data)
+            }
+            console.log(res.data)
+        }catch (error){
+            console.log(error)
+        }
+    }
+}
+
 // types
 export type ProfilePageInitialStateType = typeof initialState
 
@@ -296,4 +318,5 @@ export type ActionProfilePageType =
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof toggleFollowingStatusRequest>
+    | ReturnType<typeof uploadPhoto>
     | ReturnType<typeof setUserStatus>
