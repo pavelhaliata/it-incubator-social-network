@@ -12,8 +12,8 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
     }
 
     render() {
-        const { ...userProfile } = this.props
-        return <Profile {...userProfile} />
+        // const { ...userProfile } = this.props
+        return <Profile {...this.props} />
     }
 }
 

@@ -17,7 +17,7 @@ export class Profile extends Component<any> {
         console.log(this.props.userProfile.photos.small)
 
         if (event.target.files?.length) {
-            this.props.uploadPhotoAsync(event.target.files[0])
+            // this.props.uploadPhotoAsync(event.target.files[0])
         }
         // if (event.target && event.target.files && event.target.files.length) {
         //     const file = event.target.files[0]
