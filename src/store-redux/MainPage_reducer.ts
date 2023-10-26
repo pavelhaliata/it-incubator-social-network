@@ -93,13 +93,13 @@ export const profilePageReducer = (
         case 'FOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, {followed: true})
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true }),
             }
         }
         case 'UNFOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, {followed: false})
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false }),
             }
         }
         case 'FOLLOWING_STATUS_REQUEST':
@@ -117,7 +117,10 @@ export const profilePageReducer = (
         case 'main/UPLOAD-PHOTO':
             return {
                 ...state,
-                userProfileData: {...state.userProfileData, photos: {small: action.photoFile, large: action.photoFile} }
+                userProfileData: {
+                    ...state.userProfileData,
+                    photos: { small: action.photoFile, large: action.photoFile },
+                },
             }
         default:
             return state
@@ -167,7 +170,7 @@ const setUserStatus = (textStatus: string) =>
         textStatus,
     }) as const
 
-const uploadPhoto = (photoFile: string) => ({type: 'main/UPLOAD-PHOTO', photoFile}) as const
+const uploadPhoto = (photoFile: string) => ({ type: 'main/UPLOAD-PHOTO', photoFile }) as const
 
 // thunks
 export const getUsersAsync = (currentPage: number, pageSize: number) => {
@@ -190,10 +193,7 @@ export const getUserProfileAsync = (userId: number) => {
     }
 }
 
-export const updateUserProfileAsync = (
-    data: any,
-    submitProps: FormikHelpers<updateUserProfile>,
-) => {
+export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<updateUserProfile>) => {
     return async (dispatch: Dispatch) => {
         dispatch(setRequestStatus(RequestStatus.loading))
         try {
@@ -212,22 +212,12 @@ export const updateUserProfileAsync = (
 }
 export const followAsync = (userId: number) => {
     return (dispatch: Dispatch) => {
-        followUnfollowFlow(
-            dispatch,
-            userId,
-            socialNetworkAPI.followUser(userId),
-            follow(userId)
-        )
+        followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))
     }
 }
 export const unfollowAsync = (userId: number) => {
     return async (dispatch: Dispatch) => {
-        followUnfollowFlow(
-            dispatch,
-            userId,
-            socialNetworkAPI.unFollowUser(userId),
-            unFollow(userId)
-        )
+        followUnfollowFlow(dispatch, userId, socialNetworkAPI.unFollowUser(userId), unFollow(userId))
     }
 }
 
@@ -278,15 +268,16 @@ export const getUserStatusAsync = (userId: number) => {
 }
 
 export const uploadPhotoAsync = (photoFile: any) => {
+    debugger
     return async () => {
         try {
             const res = await socialNetworkAPI.uploadPhotoFile(photoFile)
             console.log(res)
-            if(res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 console.log(res.data)
             }
             console.log(res.data)
-        }catch (error){
+        } catch (error) {
             console.log(error)
         }
     }

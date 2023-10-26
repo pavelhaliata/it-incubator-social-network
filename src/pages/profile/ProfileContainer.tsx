@@ -6,41 +6,36 @@ import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/MainPage_redu
 import { AppRootState } from 'store-redux/redux-store'
 import { Profile } from './Profile'
 
-class ProfileAsyncContainer extends Component<ProfilePropsType> {
-
-    componentDidMount(){
-        if(this.props.userId)
-        this.props.getUserProfileAsync(this.props.userId)
+class ProfileContainerAsync extends Component<ProfilePropsType> {
+    componentDidMount() {
+        if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
     }
 
     render() {
-        const {...userProfile} = this.props
-
-        return (
-           <Profile {...userProfile}/>
-        );
+        const { ...userProfile } = this.props
+        return <Profile {...userProfile} />
     }
 }
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         userId: state.authData.id,
-        userProfile: state.profilePage.userProfileData
-    };
-};
+        userProfile: state.profilePage.userProfileData,
+    }
+}
 
-export const ProfileContainer = compose(
-    connect(mapStateToProps,{getUserProfileAsync, uploadPhotoAsync}))
-    (ProfileAsyncContainer);
+export const ProfileContainer = compose(connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync }))(
+    ProfileContainerAsync,
+)
 
 //types
 type mapStatePropsType = {
     userId: number | null
     userProfile: UserProfileType
-};
+}
 type mapDispatchPropsPropsType = {
-    getUserProfileAsync:(userId: number) => void
+    getUserProfileAsync: (userId: number) => void
     uploadPhotoAsync: (file: any) => void
-};
+}
 
-export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType;
+export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType

@@ -1,29 +1,28 @@
-import { ChangeEvent, Component } from 'react'
-import style from './profile.module.scss'
-import { ProfileStatusContainer } from 'components/profileStatus/ProfileStatusContainer'
-import { UserProfileType } from 'api/social-network-api'
-import twitter from 'assets/images/social-icons/icons8-twitter.svg'
 import facebook from 'assets/images/social-icons/icons8-facebook.svg'
+import github from 'assets/images/social-icons/icons8-github.svg'
+import instagram from 'assets/images/social-icons/icons8-instagram.svg'
+import website from 'assets/images/social-icons/icons8-internet-48.png'
+import twitter from 'assets/images/social-icons/icons8-twitter.svg'
 import vk from 'assets/images/social-icons/icons8-vk-com.svg'
 import youtube from 'assets/images/social-icons/icons8-youtube.svg'
-import instagram from 'assets/images/social-icons/icons8-instagram.svg'
-import github from 'assets/images/social-icons/icons8-github.svg'
-import website from 'assets/images/social-icons/icons8-internet-48.png'
 import mainLink from 'assets/images/social-icons/link_share_icon.svg'
+import { ProfileStatusContainer } from 'components/profileStatus/ProfileStatusContainer'
+import { ChangeEvent, Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import style from './profile.module.scss'
+import { ProfilePropsType } from './ProfileContainer'
 
-type PropsType = {
-    userProfile: UserProfileType
-    uploadPhotoAsync: (file: any) => void
-}
-
-export class Profile extends Component<PropsType> {
-
+export class Profile extends Component<any> {
     uploadPhotoHandler(event: ChangeEvent<HTMLInputElement>) {
-        if (event.target && event.target.files && event.target.files.length) {
-            const file = event.target.files[0]
-            this.props.uploadPhotoAsync(file);
+        console.log(this.props.userProfile.photos.small)
+
+        if (event.target.files?.length) {
+            this.props.uploadPhotoAsync(event.target.files[0])
         }
+        // if (event.target && event.target.files && event.target.files.length) {
+        //     const file = event.target.files[0]
+        //     this.props.uploadPhotoAsync(file)
+        // }
     }
 
     render() {
@@ -36,18 +35,16 @@ export class Profile extends Component<PropsType> {
                         </div>
                         <div className={style.block_content}>
                             <div>
-                                <img src={this.props.userProfile.photos.small} alt='photo'/>
+                                <img src={this.props.userProfile.photos.small} alt='photo' />
                                 {this.props.userProfile.photos.small}
                             </div>
                             <div>
-                                <input type='file' onChange={this.uploadPhotoHandler}/>
+                                <input type='file' onChange={this.uploadPhotoHandler} />
                             </div>
                             <ul className={style.personal_info}>
                                 <li>
                                     <span className={style.title}>Name:</span>
-                                    <span className={style.text}>
-                                        {this.props.userProfile.fullName}
-                                    </span>
+                                    <span className={style.text}>{this.props.userProfile.fullName}</span>
                                 </li>
                                 <li>
                                     <span className={style.title}>Status:</span>
@@ -57,7 +54,9 @@ export class Profile extends Component<PropsType> {
                                     {this.props.userProfile.lookingForAJob && <span>Open to work</span>}
                                 </li>
                             </ul>
-                            <NavLink className={style.edit_link} to={'/edit-profile'}>Edit Profile</NavLink>
+                            <NavLink className={style.edit_link} to={'/edit-profile'}>
+                                Edit Profile
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -70,9 +69,7 @@ export class Profile extends Component<PropsType> {
                             <ul className={style.personal_info}>
                                 <li>
                                     <span className={style.title}>About Me:</span>
-                                    <span className={style.text}>
-                                        {this.props.userProfile.aboutMe}
-                                    </span>
+                                    <span className={style.text}>{this.props.userProfile.aboutMe}</span>
                                 </li>
                                 <li>
                                     <span className={style.title}>My skills:</span>
@@ -89,47 +86,78 @@ export class Profile extends Component<PropsType> {
                         </div>
                         <div className={style.block_content}>
                             <ul className={style.menu}>
-                                {this.props.userProfile.contacts.facebook &&
+                                {this.props.userProfile.contacts.facebook && (
                                     <li className={style.item}>
-                                        <a target={'_blank'} rel='noreferrer'
-                                           href={this.props.userProfile.contacts.facebook}>
+                                        <a
+                                            target={'_blank'}
+                                            rel='noreferrer'
+                                            href={this.props.userProfile.contacts.facebook}
+                                        >
                                             <img src={facebook} alt='' />
                                         </a>
-                                    </li>}
-                                {this.props.userProfile.contacts.twitter &&
+                                    </li>
+                                )}
+                                {this.props.userProfile.contacts.twitter && (
                                     <li className={style.item}>
-                                        <a target={'_blank'} rel='noreferrer'
-                                           href={this.props.userProfile.contacts.twitter}>
+                                        <a
+                                            target={'_blank'}
+                                            rel='noreferrer'
+                                            href={this.props.userProfile.contacts.twitter}
+                                        >
                                             <img src={twitter} alt='' />
                                         </a>
-                                    </li>}
-                                {this.props.userProfile.contacts.instagram &&
+                                    </li>
+                                )}
+                                {this.props.userProfile.contacts.instagram && (
                                     <li className={style.item}>
-                                        <a target={'_blank'} rel='noreferrer'
-                                           href={this.props.userProfile.contacts.instagram}>
+                                        <a
+                                            target={'_blank'}
+                                            rel='noreferrer'
+                                            href={this.props.userProfile.contacts.instagram}
+                                        >
                                             <img src={instagram} alt='' />
                                         </a>
-                                    </li>}
-                                {this.props.userProfile.contacts.vk &&
+                                    </li>
+                                )}
+                                {this.props.userProfile.contacts.vk && (
                                     <li className={style.item}>
                                         <a target={'_blank'} rel='noreferrer' href={this.props.userProfile.contacts.vk}>
                                             <img src={vk} alt='' />
                                         </a>
-                                    </li>}
-                                <li className={style.item}><a target={'_blank'} rel='noreferrer'
-                                                              href={this.props.userProfile.contacts.youtube}><img
-                                    src={youtube} alt='' /></a></li>
-                                <li className={style.item}><a target={'_blank'} rel='noreferrer'
-                                                              href={this.props.userProfile.contacts.github}><img
-                                    src={github}
-                                    alt='' /></a>
+                                    </li>
+                                )}
+                                <li className={style.item}>
+                                    <a
+                                        target={'_blank'}
+                                        rel='noreferrer'
+                                        href={this.props.userProfile.contacts.youtube}
+                                    >
+                                        <img src={youtube} alt='' />
+                                    </a>
                                 </li>
-                                <li className={style.item}><a target={'_blank'} rel='noreferrer'
-                                                              href={this.props.userProfile.contacts.website}><img
-                                    src={website} alt='' /></a></li>
-                                <li className={style.item}><a target={'_blank'} rel='noreferrer'
-                                                              href={this.props.userProfile.contacts.mainLink}><img
-                                    src={mainLink} alt='' /></a></li>
+                                <li className={style.item}>
+                                    <a target={'_blank'} rel='noreferrer' href={this.props.userProfile.contacts.github}>
+                                        <img src={github} alt='' />
+                                    </a>
+                                </li>
+                                <li className={style.item}>
+                                    <a
+                                        target={'_blank'}
+                                        rel='noreferrer'
+                                        href={this.props.userProfile.contacts.website}
+                                    >
+                                        <img src={website} alt='' />
+                                    </a>
+                                </li>
+                                <li className={style.item}>
+                                    <a
+                                        target={'_blank'}
+                                        rel='noreferrer'
+                                        href={this.props.userProfile.contacts.mainLink}
+                                    >
+                                        <img src={mainLink} alt='' />
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

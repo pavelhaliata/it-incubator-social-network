@@ -33,15 +33,15 @@ export const socialNetworkAPI = {
     updateUserProfile(data: any) {
         return instance.put<ResponseType>('/profile', { data })
     },
-    uploadPhotoFile(file: any){
-        const data = new FormData()
-        data.append('file', file)
-        return instance.put<ResponseType>('/profile/photo', data, {
-            headers:{
-                'Content-Type': 'multipart/form-data'
-            }
+    uploadPhotoFile(file: any) {
+        const formData = new FormData()
+        formData.append('image', file)
+        return instance.postForm<ResponseType>('/profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
         })
-    }
+    },
 }
 
 export const authAPI = {
