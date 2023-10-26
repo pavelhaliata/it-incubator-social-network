@@ -10,19 +10,23 @@ import { ProfileStatusContainer } from 'components/profileStatus/ProfileStatusCo
 import { ChangeEvent, Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import style from './profile.module.scss'
-import { ProfilePropsType } from './ProfileContainer'
+import { UserProfileType } from '../../api/social-network-api'
 
-export class Profile extends Component<any> {
+type IPropsType = {
+    userProfile: UserProfileType
+    uploadPhotoAsync: (file: string | Blob) => void
+}
+
+export class Profile extends Component<IPropsType> {
+    constructor(props: IPropsType) {
+        super(props)
+
+        this.uploadPhotoHandler = this.uploadPhotoHandler.bind(this)
+    }
     uploadPhotoHandler(event: ChangeEvent<HTMLInputElement>) {
-        console.log(this.props.userProfile.photos.small)
-
         if (event.target.files?.length) {
-            // this.props.uploadPhotoAsync(event.target.files[0])
+            this.props.uploadPhotoAsync(event.target.files[0])
         }
-        // if (event.target && event.target.files && event.target.files.length) {
-        //     const file = event.target.files[0]
-        //     this.props.uploadPhotoAsync(file)
-        // }
     }
 
     render() {
@@ -35,8 +39,7 @@ export class Profile extends Component<any> {
                         </div>
                         <div className={style.block_content}>
                             <div>
-                                <img src={this.props.userProfile.photos.small} alt='photo' />
-                                {this.props.userProfile.photos.small}
+                                <img src={this.props.userProfile.photos.small} alt='photo'  style={{borderRadius: '50%'}}/>
                             </div>
                             <div>
                                 <input type='file' onChange={this.uploadPhotoHandler} />

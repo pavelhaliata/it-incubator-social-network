@@ -12,8 +12,8 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
     }
 
     render() {
-        // const { ...userProfile } = this.props
-        return <Profile {...this.props} />
+        const { ...userProfile} = this.props
+        return <Profile {...userProfile} />
     }
 }
 
@@ -35,7 +35,7 @@ type mapStatePropsType = {
 }
 type mapDispatchPropsPropsType = {
     getUserProfileAsync: (userId: number) => void
-    uploadPhotoAsync: (file: any) => void
+    uploadPhotoAsync: (file: string | Blob) => void
 }
 
 export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType
