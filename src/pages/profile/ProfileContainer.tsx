@@ -1,4 +1,5 @@
 import { UserProfileType } from 'api/social-network-api'
+import { RequestStatus, setErrorStatus } from 'app/app-reducer'
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -11,9 +12,13 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
         if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
     }
 
+    componentWillUnmount() {
+        this.props.setErrorStatus(null)
+    }
+
     render() {
-        const { ...userProfile} = this.props
-        return <Profile {...userProfile} />
+        const { ...userProfile } = this.props
+        return <Profile {...this.props} />
     }
 }
 
@@ -21,21 +26,26 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         userId: state.authData.id,
         userProfile: state.profilePage.userProfileData,
+        requestStatus: state.app.requestStatus,
+        errorMessage: state.app.error,
     }
 }
 
-export const ProfileContainer = compose(connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync }))(
-    ProfileContainerAsync,
-)
+export const ProfileContainer = compose(
+    connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync, setErrorStatus }),
+)(ProfileContainerAsync)
 
 //types
 type mapStatePropsType = {
     userId: number | null
     userProfile: UserProfileType
+    requestStatus: RequestStatus
+    errorMessage: string | null
 }
 type mapDispatchPropsPropsType = {
     getUserProfileAsync: (userId: number) => void
     uploadPhotoAsync: (file: string | Blob) => void
+    setErrorStatus: (errorMessage: string | null) => void
 }
 
 export type ProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType

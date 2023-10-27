@@ -11,10 +11,7 @@ const initialState = {
     requestStatus: RequestStatus.idle as RequestStatus,
 }
 
-export const appReducer = (
-    state: InitialStateType = initialState,
-    action: ActionType,
-): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case 'APP/SET-ERROR':
             return {

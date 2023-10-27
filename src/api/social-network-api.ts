@@ -1,47 +1,59 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    withCredentials: true, baseURL: process.env.REACT_APP_BASE_URL, headers: {
-        'API-KEY': process.env.REACT_APP_API_KEY
-    }
+    withCredentials: true,
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers: {
+        'API-KEY': process.env.REACT_APP_API_KEY,
+    },
 })
 
 export const socialNetworkAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`)
-    }, getUserProfile(userId: number) {
+    },
+    getUserProfile(userId: number) {
         return instance.get<UserProfileType>(`profile/${userId}`)
-    }, currentUserFollower(userId: number) {
+    },
+    currentUserFollower(userId: number) {
         return instance.get<boolean>(`/follow/${userId}`)
-    }, followUser(userId: number) {
+    },
+    followUser(userId: number) {
         return instance.post<ResponseType>(`/follow/${userId}`)
-    }, unFollowUser(userId: number) {
+    },
+    unFollowUser(userId: number) {
         return instance.delete<ResponseType>(`/follow/${userId}`)
-    }, updateUserStatus(textStatus: string) {
+    },
+    updateUserStatus(textStatus: string) {
         return instance.put<ResponseType<string>>('/profile/status', { status: textStatus })
-    }, getUserStatus(userId: number) {
+    },
+    getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
-    }, updateUserProfile(data: any) {
+    },
+    updateUserProfile(data: any) {
         return instance.put<ResponseType>('/profile', { data })
-    }, uploadPhotoFile(file: string | Blob) {
+    },
+    uploadPhotoFile(file: string | Blob) {
         const formData = new FormData()
         formData.append('image', file)
         return instance.postForm<ResponseType<uploadPhotoType>>('/profile/photo', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+                'Content-Type': 'multipart/form-data',
+            },
         })
-    }
+    },
 }
 
 export const authAPI = {
     getAuthData() {
         return instance.get<ResponseType<AuthUserDataType>>('auth/me')
-    }, login(data: LoginDataType) {
+    },
+    login(data: LoginDataType) {
         return instance.post<ResponseType<{ userId: number }>>('/auth/login', data)
-    }, logout() {
+    },
+    logout() {
         return instance.delete<ResponseType>('/auth/login')
-    }
+    },
 }
 
 // types

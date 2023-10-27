@@ -33,9 +33,9 @@ const mapStateToProps = (state: AppRootState) => {
         isInitialization: state.authData.isInitialization,
     }
 }
-export const AppContainer = compose<ComponentType>(
-    connect(mapStateToProps, { appInitializationAsync }),
-)(AppApiContainer)
+export const AppContainer = compose<ComponentType>(connect(mapStateToProps, { appInitializationAsync }))(
+    AppApiContainer,
+)
 
 // types
 type mapStatePropsType = {

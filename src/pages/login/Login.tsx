@@ -51,13 +51,7 @@ export const Login = (props: PropsType) => {
                         }}
                     >
                         <label htmlFor='email'>Email Address</label>
-                        <Field
-                            name='email'
-                            type='email'
-                            id='email'
-                            placeholder='Email@*'
-                            style={{ padding: '5px' }}
-                        />
+                        <Field name='email' type='email' id='email' placeholder='Email@*' style={{ padding: '5px' }} />
                         <span className={style.error}>
                             <ErrorMessage name='email' />
                         </span>
