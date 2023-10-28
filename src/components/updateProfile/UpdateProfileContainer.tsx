@@ -1,10 +1,14 @@
 import { FormikHelpers } from 'formik'
-import { Component } from 'react'
+import { Component, ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { updateUserProfileAsync } from 'store-redux/MainPage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
-import { UpdateProfile, updateUserProfile } from './UpdateProfile'
+import { updateUserProfile } from './UpdateProfile'
+import { withLazyLoading } from '../../hoc/withLazyLoading'
+
+const UpdateProfile = lazy(() => import('./UpdateProfile').then((module) => ({ default: module.UpdateProfile })))
+
 
 class asyncContainer extends Component<updateProfilePropsType> {
     render() {
@@ -18,9 +22,10 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     }
 }
 
-export const UpdateProfileContainer = compose(connect(mapStateToProps, { updateUserProfileAsync }))(
-    UpdateProfile,
-)
+export const UpdateProfileContainer = compose<ComponentType>(
+    connect(mapStateToProps, { updateUserProfileAsync }),
+    withLazyLoading)
+(UpdateProfile)
 
 //types
 type mapStatePropsType = {

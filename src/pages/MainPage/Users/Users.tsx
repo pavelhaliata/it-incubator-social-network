@@ -1,24 +1,24 @@
+import { lazy } from 'react'
 import style from './Users.module.scss'
-import { User } from './User/User'
 import { UsersPropsType } from './UsersContainer'
-import loading from 'assets/images/loading-spinner-200px.svg'
-import { RequestStatus } from 'app/app-reducer'
 import { pagesCreator } from 'utils/pages-creator'
 
+const User = lazy(() => import('./User/User').then((module) => ({ default: module.User })))
+
 export const Users = ({
-    usersData,
-    setCurrentPage,
-    currentPage,
-    pageSize,
-    totalUsersCount,
-    followUser,
-    unfollowUser,
-    requestStatus,
-    selectedCurrentUser,
-}: UsersPropsType) => {
+                          usersData,
+                          setCurrentPage,
+                          currentPage,
+                          pageSize,
+                          totalUsersCount,
+                          followUser,
+                          unfollowUser,
+                          requestStatus,
+                          selectedCurrentUser
+                      }: UsersPropsType) => {
     const totalPage = Math.ceil(totalUsersCount / pageSize)
 
-    const pages: Array<number> = []
+    const pages: number[] = []
 
     pagesCreator(pages, totalPage, currentPage)
 
@@ -37,11 +37,6 @@ export const Users = ({
                     </span>
                 ))}
             </div>
-            {requestStatus === RequestStatus.loading ? (
-                <div className={style.block_loading}>
-                    <img src={loading} />
-                </div>
-            ) : (
                 <div className={style.container_fluid}>
                     {usersData &&
                         usersData.map(user => {
@@ -66,7 +61,7 @@ export const Users = ({
                             )
                         })}
                 </div>
-            )}
+            )
             <div className={style.page_navigation}>
                 {pages.map(p => (
                     <span

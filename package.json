@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@redux-devtools/extension": "^3.2.5",
     "@types/uuid": "^9.0.1",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",

@@ -1,12 +1,15 @@
 import {AppRootState} from "store-redux/redux-store";
 import {connect} from "react-redux";
 import {RequestStatus, setHeaderTitle} from "app/app-reducer";
-import {User} from "./UserProfile";
 import {getUserProfileAsync, getUserStatusAsync} from "store-redux/MainPage_reducer";
 import {UserProfileType} from "api/social-network-api";
+import { compose } from 'redux'
+import { withLazyLoading } from '../../../hoc/withLazyLoading'
+import { ComponentType, lazy } from 'react'
 
+const User = lazy(() => import('./UserProfile')
+    .then((module) => ({ default: module.User })))
 
-export type UserPagePropsType = mapStatePropsType & mapDispatchPropsPropsType
 
 const mapStateToProps = (state: AppRootState) => {
     return {
@@ -16,10 +19,12 @@ const mapStateToProps = (state: AppRootState) => {
     };
 };
 
-export const UserPageContainer = connect(mapStateToProps,
-    { setHeaderTitle, getProfileUserAsync: getUserProfileAsync, getUserStatusAsync })(User);
+export const UserProfileContainer = compose<ComponentType>(connect(mapStateToProps,
+    { setHeaderTitle, getProfileUserAsync: getUserProfileAsync, getUserStatusAsync }), withLazyLoading)
+(User);
 
 // types
+
 type mapStatePropsType = {
     profileUserData: UserProfileType
     requestStatus: RequestStatus
@@ -30,3 +35,5 @@ type mapDispatchPropsPropsType = {
     getProfileUserAsync: (userId: number) => void
     getUserStatusAsync:(userId: number) => void
 }
+
+export type UserPagePropsType = mapStatePropsType & mapDispatchPropsPropsType

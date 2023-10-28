@@ -1,13 +1,15 @@
 import axios from 'axios'
 
+const API_KEY = 'bd4d8697c2213442afba131cd703e05a'
+
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_WEATHER_URL,
+    baseURL: 'http://api.openweathermap.org/data/2.5/',
 })
 
 export const weatherAPI = {
     getWeather(city: string) {
         return instance.get<WeatherType>(
-            `weather?q=${city}&appid=${process.env.REACT_APP_API_WEATHER_KEY}&units=metric`,
+            `weather?q=${city}&appid=${API_KEY}&units=metric`,
         )
     },
 }

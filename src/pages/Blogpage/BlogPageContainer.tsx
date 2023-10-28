@@ -1,27 +1,27 @@
-import {compose} from "redux";
-import {connect} from "react-redux";
-import {setHeaderTitle} from "app/app-reducer";
-import {PostDataType, createPost, setPostTextValue} from "store-redux/blogPage_reducer";
-import {AppRootState} from "store-redux/redux-store";
-import {BlogPage} from "./BlogPage";
-import {withAuthRedirect} from "hoc/withAuthRedirect";
-import {ComponentType} from "react";
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { setHeaderTitle } from 'app/app-reducer'
+import { createPost, PostDataType, setPostTextValue } from 'store-redux/blogPage_reducer'
+import { AppRootState } from 'store-redux/redux-store'
+import { ComponentType, lazy } from 'react'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { withLazyLoading } from '../../hoc/withLazyLoading'
+
+const BlogPage = lazy(() => import('./BlogPage')
+    .then((module) => ({ default: module.BlogPage })))
 
 const mapStateToProps = (state: AppRootState): MapStatePropsType => {
     return {
         postTextValue: state.blogPage.postTextValue,
-        postsData: state.blogPage.postsData,
-    };
-};
+        postsData: state.blogPage.postsData
+    }
+}
 
 export const BlogPageContainer = compose<ComponentType>(
-    connect(mapStateToProps, {
-        setPostTextValue,
-        createPost,
-        setHeaderTitle
-    }),
-    withAuthRedirect
-)(BlogPage);
+    connect(mapStateToProps, { setPostTextValue, createPost, setHeaderTitle }),
+    withLazyLoading,
+    withAuthRedirect)
+(BlogPage)
 
 
 // types

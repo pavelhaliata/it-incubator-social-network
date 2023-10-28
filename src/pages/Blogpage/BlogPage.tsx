@@ -32,6 +32,7 @@ export class BlogPage extends Component<BlogPagePropsType> {
                 <div className={style.form_inner}>
                     <div className={style.form_group}>
                         <textarea
+                            autoFocus={true}
                             className={style.input_text}
                             name='text'
                             value={this.props.postTextValue}

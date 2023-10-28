@@ -1,11 +1,13 @@
 import { UserProfileType } from 'api/social-network-api'
 import { RequestStatus, setErrorStatus } from 'app/app-reducer'
-import { Component } from 'react'
+import { Component, ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/MainPage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
-import { Profile } from './Profile'
+import { withLazyLoading } from '../../hoc/withLazyLoading'
+
+const Profile = lazy(() => import('./Profile').then((module) => ({ default: module.Profile })))
 
 class ProfileContainerAsync extends Component<ProfilePropsType> {
     componentDidMount() {
@@ -27,12 +29,13 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         userId: state.authData.id,
         userProfile: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
-        errorMessage: state.app.error,
+        errorMessage: state.app.error
     }
 }
 
-export const ProfileContainer = compose(
+export const ProfileContainer = compose<ComponentType>(
     connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync, setErrorStatus }),
+    withLazyLoading
 )(ProfileContainerAsync)
 
 //types

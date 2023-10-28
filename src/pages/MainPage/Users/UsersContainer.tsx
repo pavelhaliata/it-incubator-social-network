@@ -1,32 +1,34 @@
-import {Component} from "react";
-import {Users} from "./Users";
-import {connect} from "react-redux";
-import {AppRootState} from "store-redux/redux-store";
-import {followAsync, getUsersAsync, setCurrentPage, setTotalUsersCount, unfollowAsync, UserDomainType,
-} from "store-redux/MainPage_reducer";
-import { RequestStatus, setRequestStatus } from "app/app-reducer";
+import { Component, ComponentType, lazy } from 'react'
+import { connect } from 'react-redux'
+import { AppRootState } from 'store-redux/redux-store'
+import {
+    followAsync,
+    getUsersAsync,
+    setCurrentPage,
+    setTotalUsersCount,
+    unfollowAsync,
+    UserDomainType
+} from 'store-redux/MainPage_reducer'
+import { RequestStatus, setRequestStatus } from 'app/app-reducer'
+import { compose } from 'redux'
+import { withLazyLoading } from '../../../hoc/withLazyLoading'
+
+const Users = lazy(() => import('./Users').then((module) => ({ default: module.Users })))
 
 
 class UsersApiContainer extends Component<UsersPropsType> {
-  componentDidMount() {
-    this.props.getUsersAsync(this.props.currentPage, this.props.pageSize)
-  }
+    componentDidMount() {
+        this.props.getUsersAsync(this.props.currentPage, this.props.pageSize)
+    }
 
-  setCurrentPageHandler = (currentPage: number) => {
-    this.props.getUsersAsync(currentPage, this.props.pageSize)
-    this.props.setCurrentPage(currentPage)
-  };
+    setCurrentPageHandler = (currentPage: number) => {
+        this.props.getUsersAsync(currentPage, this.props.pageSize)
+        this.props.setCurrentPage(currentPage)
+    }
 
-  render() {
-      return (
-          <>
-              <Users
-                {...this.props}
-                setCurrentPage={this.setCurrentPageHandler}
-              />
-          </>
-      )
-  }
+    render() {
+        return <Users{...this.props} setCurrentPage={this.setCurrentPageHandler} />
+    }
 }
 
 
@@ -38,17 +40,18 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         totalUsersCount: state.profilePage.totalUsersCount,
         requestStatus: state.app.requestStatus,
         selectedCurrentUser: state.profilePage.selectedCurrentUser
-    };
-};
+    }
+}
 
-export const UsersContainer = connect(mapStateToProps, {
+export const UsersContainer = compose<ComponentType>(
+    connect(mapStateToProps, {
     followUser: followAsync,
     unfollowUser: unfollowAsync,
     getUsersAsync,
     setTotalUsersCount,
     setCurrentPage,
     setRequestStatus
-})(UsersApiContainer);
+}),withLazyLoading)(UsersApiContainer)
 
 // types
 export type UsersPropsType = mapStatePropsType & mapDispatchPropsPropsType;

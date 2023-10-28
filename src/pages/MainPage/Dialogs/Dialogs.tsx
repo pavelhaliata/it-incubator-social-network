@@ -37,6 +37,7 @@ export class Dialogs extends Component<DialogsPropsType> {
                 </div>
                 <div className={style.dialog_input}>
                     <textarea
+                        autoFocus={true}
                         className={style.input_message}
                         placeholder="Write message..."
                         value={this.props.messageTextValue}
