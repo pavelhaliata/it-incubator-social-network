@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/it-incubator-social-network/static/css/main.56f0d985.css",
-    "main.js": "/it-incubator-social-network/static/js/main.100b882e.js",
+    "main.js": "/it-incubator-social-network/static/js/main.718188ea.js",
     "static/css/316.26d8935a.chunk.css": "/it-incubator-social-network/static/css/316.26d8935a.chunk.css",
     "static/js/316.4ea1df70.chunk.js": "/it-incubator-social-network/static/js/316.4ea1df70.chunk.js",
     "static/css/560.894003f1.chunk.css": "/it-incubator-social-network/static/css/560.894003f1.chunk.css",
@@ -34,7 +34,7 @@
     "index.html": "/it-incubator-social-network/index.html",
     "static/media/icons8-facebook.svg": "/it-incubator-social-network/static/media/icons8-facebook.f8e2d43374926ed3c064613312f73f5b.svg",
     "main.56f0d985.css.map": "/it-incubator-social-network/static/css/main.56f0d985.css.map",
-    "main.100b882e.js.map": "/it-incubator-social-network/static/js/main.100b882e.js.map",
+    "main.718188ea.js.map": "/it-incubator-social-network/static/js/main.718188ea.js.map",
     "316.26d8935a.chunk.css.map": "/it-incubator-social-network/static/css/316.26d8935a.chunk.css.map",
     "316.4ea1df70.chunk.js.map": "/it-incubator-social-network/static/js/316.4ea1df70.chunk.js.map",
     "560.894003f1.chunk.css.map": "/it-incubator-social-network/static/css/560.894003f1.chunk.css.map",
@@ -58,6 +58,6 @@
   },
   "entrypoints": [
     "static/css/main.56f0d985.css",
-    "static/js/main.100b882e.js"
+    "static/js/main.718188ea.js"
   ]
 }
