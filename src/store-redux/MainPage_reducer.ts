@@ -6,6 +6,7 @@ import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-redu
 import { FormikHelpers } from 'formik'
 import { updateObjectInArray } from '../utils/object-helpers'
 import { AxiosResponse } from 'axios'
+import { AppRootState } from './redux-store'
 
 const initialState = {
     newMessageTextData: '' as string,
@@ -194,13 +195,14 @@ export const getUserProfileAsync = (userId: number) => {
 }
 
 export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<updateUserProfile>) => {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch, getState: AppRootState) => {
+        // const userId = getState.authData.id
         dispatch(setRequestStatus(RequestStatus.loading))
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
-                console.log(res.data)
-                // dispatch(profileUserData(data));
+
+                    // dispatch(getUserProfileAsync(userId))
                 dispatch(setRequestStatus(RequestStatus.succeed))
             } else {
                 submitProps.setStatus(res.data.messages[0])

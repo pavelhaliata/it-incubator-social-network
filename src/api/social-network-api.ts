@@ -30,8 +30,8 @@ export const socialNetworkAPI = {
     getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     },
-    updateUserProfile(data: any) {
-        return instance.put<ResponseType>('/profile', { data })
+    updateUserProfile(profile: any) {
+        return instance.put<ResponseType>('/profile', profile)
     },
     uploadPhotoFile(file: string | Blob) {
         const formData = new FormData()
