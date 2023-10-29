@@ -2,7 +2,7 @@
   "name": "it-incubator-social-network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Pavel-Vladimirovich.github.io/it-incubator-social-network/",
+  "homepage": "https://Pavel-Vladimirovich.github.io/it-incubator-social-network",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@redux-devtools/extension": "^3.2.5",
-    "@types/gh-pages": "^5.0.0",
     "@types/uuid": "^9.0.1",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
