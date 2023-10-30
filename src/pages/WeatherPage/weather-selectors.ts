@@ -1,6 +1,6 @@
-import {createSelector} from 'reselect'
-import {AppRootState} from "store-redux/redux-store";
-import {WeatherType} from "api/weather-api";
+import { createSelector } from 'reselect'
+import { AppRootState } from 'store-redux/redux-store'
+import { WeatherType } from 'api/weather-api'
 
 const weatherDataSelector = (state: AppRootState) => (state.weatherPage.weatherData)
 export const locationValueSelector = (state: AppRootState) => (state.weatherPage.locationValue)

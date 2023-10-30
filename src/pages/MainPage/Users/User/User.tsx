@@ -8,7 +8,7 @@ import {RequestStatus} from "app/app-reducer";
 
 type UserPropsType = {
     requestStatus: RequestStatus;
-    selectedCurrentUser: Array<number>
+    selectedCurrentUser: number[]
     followUser: () => void;
     unFollowUser: () => void;
     avatar: string | null;

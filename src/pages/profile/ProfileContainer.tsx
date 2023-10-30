@@ -14,6 +14,12 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
         if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.userId !== this.props.userId) {
+            if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
+        }
+    }
+
     componentWillUnmount() {
         this.props.setErrorStatus(null)
     }
@@ -29,13 +35,13 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         userId: state.authData.id,
         userProfile: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
-        errorMessage: state.app.error,
+        errorMessage: state.app.error
     }
 }
 
 export const ProfileContainer = compose<ComponentType>(
     connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync, setErrorStatus }),
-    withLazyLoading,
+    withLazyLoading
 )(ProfileContainerAsync)
 
 //types

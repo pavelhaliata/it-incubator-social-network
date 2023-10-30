@@ -18,7 +18,7 @@ export const Login = (props: PropsType) => {
     const initialValues: LoginFormValues = {
         email: '',
         password: '',
-        rememberMe: false,
+        rememberMe: false
     }
 
     return (
@@ -27,14 +27,14 @@ export const Login = (props: PropsType) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh',
+                height: '100vh'
             }}
         >
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object({
                     email: Yup.string().email('Invalid email address').required('Required'),
-                    password: Yup.string().required('Required'),
+                    password: Yup.string().required('Required')
                 })}
                 onSubmit={(values, submitProps) => {
                     props.loginAsync(values, submitProps)
@@ -47,7 +47,7 @@ export const Login = (props: PropsType) => {
                             flexDirection: 'column',
                             gap: '5px',
                             maxWidth: '450px',
-                            width: '100%',
+                            width: '100%'
                         }}
                     >
                         <label htmlFor='email'>Email Address</label>
@@ -72,7 +72,7 @@ export const Login = (props: PropsType) => {
                             style={{
                                 display: 'flex',
                                 gap: '10px',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                         >
                             <Field name='rememberMe' type='checkbox' id='rememberMe' />
@@ -81,7 +81,7 @@ export const Login = (props: PropsType) => {
                                 type='submit'
                                 style={{
                                     padding: '5px 10px',
-                                    marginLeft: 'auto',
+                                    marginLeft: 'auto'
                                 }}
                             >
                                 Sign In

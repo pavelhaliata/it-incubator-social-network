@@ -7,6 +7,7 @@ import { FormikHelpers } from 'formik'
 import { updateObjectInArray } from '../utils/object-helpers'
 import { AxiosResponse } from 'axios'
 import { AppRootState } from './redux-store'
+import { Profile } from '../pages/profile/Profile'
 
 type ContactsType = {
     facebook: string
@@ -206,7 +207,8 @@ export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<upd
                 // dispatch(getUserProfileAsync(userId))
                 dispatch(setRequestStatus(RequestStatus.succeed))
             } else {
-                submitProps.setStatus(res.data.messages[0])
+                submitProps.setStatus(res.data.messages[1])
+                return Promise.reject(res.data.messages[1])
             }
         } catch (error: any) {
             console.warn(error)

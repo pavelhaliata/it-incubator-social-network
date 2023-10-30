@@ -25,7 +25,7 @@ export const UserProfileContainer = compose<ComponentType>(
 // types
 
 type mapStatePropsType = {
-    profileUserData: UserProfileType
+    userProfileData: UserProfileType
     requestStatus: RequestStatus
     userStatus: string
 }

@@ -1,4 +1,4 @@
-import { useFormik } from 'formik'
+import { Field, Form, Formik, FormikProps } from 'formik'
 import style from './style.module.scss'
 import { Button } from '../Button/Button'
 import { updateProfilePropsType } from './UpdateProfileContainer'
@@ -40,79 +40,88 @@ export function UpdateProfile(props: updateProfilePropsType) {
             twitter: '',
             website: '',
             youtube: '',
-            mainLink: '',
-        },
+            mainLink: ''
+        }
     }
 
     const contacts: { [index: string]: any } = props.userProfileData.contacts
 
-    const formik = useFormik({
-        initialValues: initialValues,
-        onSubmit: (values, submitProps) => {
-            submitProps.resetForm()
-            console.log(values)
-            props.updateUserProfileAsync(values, submitProps)
-            navigate('/profile')
-        },
-    })
     return (
         <div className={style.wrapper}>
-            <form onSubmit={formik.handleSubmit} className={style.form}>
-                <label htmlFor={props.userProfileData.fullName}>full Name</label>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={async (values, submitProps) => {
+                    props.updateUserProfileAsync(values, submitProps)
+                    try {
+                        console.log(values)
+                        // navigate('/profile')
+                        submitProps.resetForm()
+                    }catch (error){
+                        console.error()
+                    }
+                }}
+            >
+                {(props: FormikProps<updateUserProfile>) => (
+                    <Form className={style.form}>
+                        <label htmlFor='fullName'>full Name</label>
+                        <Field
+                            id='fullName'
+                            type='text'
+                            name='fullName'
+                            className={style.field} />
 
-                <input id='fullName' type='text' {...formik.getFieldProps('fullName')} className={style.field} />
-                <label htmlFor='lookingForAJob'>looking For A Job</label>
+                        <label htmlFor='lookingForAJob'>looking For A Job</label>
+                        <Field
+                            id='lookingForAJob'
+                            type='checkbox'
+                            name='lookingForAJob'
+                            className={style.field}
+                        />
 
-                <input
-                    id='lookingForAJob'
-                    type='checkbox'
-                    {...formik.getFieldProps('lookingForAJob')}
-                    className={style.field}
-                />
+                        <label htmlFor='lookingForAJobDescription'>Job Description</label>
+                        <Field
+                            id='lookingForAJobDescription'
+                            type='text'
+                            name='lookingForAJobDescription'
+                            className={style.field}
+                        />
 
-                <label htmlFor='lookingForAJobDescription'>Job Description</label>
+                        <label htmlFor='aboutMe'>about Me</label>
+                        <Field
+                            id='aboutMe'
+                            type='text'
+                            name='aboutMe'
+                            className={style.field} />
 
-                <input
-                    id='lookingForAJobDescription'
-                    type='text'
-                    {...formik.getFieldProps('lookingForAJobDescription')}
-                    className={style.field}
-                />
+                        {Object.keys(contacts).map(key => {
+                            return <Contacts key={key} contactTitle={key} />
+                        })}
 
-                <label htmlFor='aboutMe'>about Me</label>
+                        {props.status && <span style={{ color: 'red' }}>{props.status}</span>}
 
-                <input id='aboutMe' type='text' {...formik.getFieldProps('aboutMe')} className={style.field} />
-                {/* {Object.keys(contacts).map(key => {
-                    return <Contact key={key} contactTitle={key} contactValue={contacts[key]} formik={formik} />
-                })} */}
-
-                {formik.status ? <span style={{ color: 'red' }}>{formik.status}</span> : null}
-
-                <Button type='submit' className={style.btn}>
-                    Submit
-                </Button>
-            </form>
+                        <Button type='submit' className={style.btn}>
+                            Submit
+                        </Button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     )
 }
 
 type ContactPropsType = {
     contactTitle: string
-    contactValue: string
-    formik: any
 }
-const Contact = ({ contactTitle, contactValue, formik }: ContactPropsType) => {
-    return (
-        <div style={{ display: 'flex', gap: '5px' }}>
-            <label htmlFor={contactTitle}>{contactTitle}</label>
 
-            <input
+const Contacts = ({ contactTitle }: ContactPropsType) => {
+    return (
+        <>
+            <label htmlFor={contactTitle}>{contactTitle}</label>
+            <Field
                 id={contactTitle}
-                placeholder={contactValue}
-                type='text'
-                {...formik.getFieldProps({ contactTitle })}
-                className={style.field}
-            />
-        </div>
+                type={contactTitle}
+                name={`contacts.${contactTitle}`}
+                className={style.field} />
+        </>
     )
 }
