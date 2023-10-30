@@ -7,14 +7,13 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     unfollowAsync,
-    UserDomainType
+    UserDomainType,
 } from 'store-redux/MainPage_reducer'
 import { RequestStatus, setRequestStatus } from 'app/app-reducer'
 import { compose } from 'redux'
 import { withLazyLoading } from '../../../hoc/withLazyLoading'
 
-const Users = lazy(() => import('./Users').then((module) => ({ default: module.Users })))
-
+const Users = lazy(() => import('./Users').then(module => ({ default: module.Users })))
 
 class UsersApiContainer extends Component<UsersPropsType> {
     componentDidMount() {
@@ -27,10 +26,9 @@ class UsersApiContainer extends Component<UsersPropsType> {
     }
 
     render() {
-        return <Users{...this.props} setCurrentPage={this.setCurrentPageHandler} />
+        return <Users {...this.props} setCurrentPage={this.setCurrentPageHandler} />
     }
 }
-
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
@@ -39,36 +37,38 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         currentPage: state.profilePage.currentPage,
         totalUsersCount: state.profilePage.totalUsersCount,
         requestStatus: state.app.requestStatus,
-        selectedCurrentUser: state.profilePage.selectedCurrentUser
+        selectedCurrentUser: state.profilePage.selectedCurrentUser,
     }
 }
 
 export const UsersContainer = compose<ComponentType>(
     connect(mapStateToProps, {
-    followUser: followAsync,
-    unfollowUser: unfollowAsync,
-    getUsersAsync,
-    setTotalUsersCount,
-    setCurrentPage,
-    setRequestStatus
-}),withLazyLoading)(UsersApiContainer)
+        followUser: followAsync,
+        unfollowUser: unfollowAsync,
+        getUsersAsync,
+        setTotalUsersCount,
+        setCurrentPage,
+        setRequestStatus,
+    }),
+    withLazyLoading,
+)(UsersApiContainer)
 
 // types
-export type UsersPropsType = mapStatePropsType & mapDispatchPropsPropsType;
+export type UsersPropsType = mapStatePropsType & mapDispatchPropsPropsType
 
 type mapStatePropsType = {
-    usersData: Array<UserDomainType>;
-    pageSize: number;
-    currentPage: number;
-    totalUsersCount: number;
-    requestStatus: RequestStatus;
+    usersData: Array<UserDomainType>
+    pageSize: number
+    currentPage: number
+    totalUsersCount: number
+    requestStatus: RequestStatus
     selectedCurrentUser: Array<number>
-};
+}
 type mapDispatchPropsPropsType = {
-    followUser: (userId: number) => void;
-    unfollowUser: (userId: number) => void;
-    getUsersAsync: (currentPage: number, pageSize: number) => void;
-    setTotalUsersCount: (totalCount: number) => void;
-    setCurrentPage: (currentPage: number) => void;
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
+    getUsersAsync: (currentPage: number, pageSize: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    setCurrentPage: (currentPage: number) => void
     setRequestStatus: (status: RequestStatus) => void
-};
+}

@@ -6,9 +6,9 @@ import { updateUserProfileAsync } from 'store-redux/MainPage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
 import { updateUserProfile } from './UpdateProfile'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
+import { UserProfileType } from 'api/social-network-api'
 
-const UpdateProfile = lazy(() => import('./UpdateProfile').then((module) => ({ default: module.UpdateProfile })))
-
+const UpdateProfile = lazy(() => import('./UpdateProfile').then(module => ({ default: module.UpdateProfile })))
 
 class asyncContainer extends Component<updateProfilePropsType> {
     render() {
@@ -19,17 +19,19 @@ class asyncContainer extends Component<updateProfilePropsType> {
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         userId: state.authData.id ? state.authData.id : 0,
+        userProfileData: state.profilePage.userProfileData,
     }
 }
 
 export const UpdateProfileContainer = compose<ComponentType>(
     connect(mapStateToProps, { updateUserProfileAsync }),
-    withLazyLoading)
-(UpdateProfile)
+    withLazyLoading,
+)(UpdateProfile)
 
 //types
 type mapStatePropsType = {
     userId: number
+    userProfileData: UserProfileType
 }
 type mapDispatchPropsPropsType = {
     updateUserProfileAsync: (data: any, submitProps: FormikHelpers<updateUserProfile>) => void

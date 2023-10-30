@@ -8,6 +8,17 @@ import { updateObjectInArray } from '../utils/object-helpers'
 import { AxiosResponse } from 'axios'
 import { AppRootState } from './redux-store'
 
+type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+
 const initialState = {
     newMessageTextData: '' as string,
     messagesData: [] as Array<MessageType>,
@@ -17,16 +28,7 @@ const initialState = {
     totalUsersCount: 0 as number,
     userProfileData: {
         aboutMe: '',
-        contacts: {
-            facebook: '',
-            website: '',
-            vk: '',
-            twitter: '',
-            instagram: '',
-            youtube: '',
-            github: '',
-            mainLink: '',
-        },
+        contacts: {} as ContactsType,
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
@@ -201,8 +203,7 @@ export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<upd
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
-
-                    // dispatch(getUserProfileAsync(userId))
+                // dispatch(getUserProfileAsync(userId))
                 dispatch(setRequestStatus(RequestStatus.succeed))
             } else {
                 submitProps.setStatus(res.data.messages[0])

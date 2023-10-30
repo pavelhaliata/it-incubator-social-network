@@ -4,43 +4,47 @@ import { Button } from '../Button/Button'
 import { updateProfilePropsType } from './UpdateProfileContainer'
 import { useNavigate } from 'react-router-dom'
 
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
 export type updateUserProfile = {
     aboutMe: string
-    // userId: number
+    userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    // contacts: {
-    //     github: string
-    //     vk: string
-    //     facebook: string
-    //     instagram: string
-    //     twitter: string
-    //     website: string
-    //     youtube: string
-    //     mainLink: string
-    // }
+    contacts: ContactsType
 }
 
 export function UpdateProfile(props: updateProfilePropsType) {
-    const navigate =  useNavigate()
+    const navigate = useNavigate()
     const initialValues: updateUserProfile = {
         aboutMe: '',
-        // userId: props.userId,
+        userId: props.userProfileData.userId,
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
-        // contacts: {
-        //     github: '',
-        //     vk: '',
-        //     facebook: '',
-        //     instagram: '',
-        //     twitter: '',
-        //     website: '',
-        //     youtube: '',
-        //     mainLink: ''
-        // }
+        contacts: {
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: '',
+        },
     }
+
+    const contacts: { [index: string]: any } = props.userProfileData.contacts
 
     const formik = useFormik({
         initialValues: initialValues,
@@ -49,19 +53,14 @@ export function UpdateProfile(props: updateProfilePropsType) {
             console.log(values)
             props.updateUserProfileAsync(values, submitProps)
             navigate('/profile')
-        }
+        },
     })
     return (
         <div className={style.wrapper}>
             <form onSubmit={formik.handleSubmit} className={style.form}>
-                <label htmlFor='fullName'>full Name</label>
+                <label htmlFor={props.userProfileData.fullName}>full Name</label>
 
-                <input
-                    id='fullName'
-                    type='text'
-                    {...formik.getFieldProps('fullName')}
-                    className={style.field}
-                />
+                <input id='fullName' type='text' {...formik.getFieldProps('fullName')} className={style.field} />
                 <label htmlFor='lookingForAJob'>looking For A Job</label>
 
                 <input
@@ -82,12 +81,10 @@ export function UpdateProfile(props: updateProfilePropsType) {
 
                 <label htmlFor='aboutMe'>about Me</label>
 
-                <input
-                    id='aboutMe'
-                    type='text'
-                    {...formik.getFieldProps('aboutMe')}
-                    className={style.field}
-                />
+                <input id='aboutMe' type='text' {...formik.getFieldProps('aboutMe')} className={style.field} />
+                {/* {Object.keys(contacts).map(key => {
+                    return <Contact key={key} contactTitle={key} contactValue={contacts[key]} formik={formik} />
+                })} */}
 
                 {formik.status ? <span style={{ color: 'red' }}>{formik.status}</span> : null}
 
@@ -95,6 +92,27 @@ export function UpdateProfile(props: updateProfilePropsType) {
                     Submit
                 </Button>
             </form>
+        </div>
+    )
+}
+
+type ContactPropsType = {
+    contactTitle: string
+    contactValue: string
+    formik: any
+}
+const Contact = ({ contactTitle, contactValue, formik }: ContactPropsType) => {
+    return (
+        <div style={{ display: 'flex', gap: '5px' }}>
+            <label htmlFor={contactTitle}>{contactTitle}</label>
+
+            <input
+                id={contactTitle}
+                placeholder={contactValue}
+                type='text'
+                {...formik.getFieldProps({ contactTitle })}
+                className={style.field}
+            />
         </div>
     )
 }

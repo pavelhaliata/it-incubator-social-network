@@ -1,5 +1,5 @@
+import { ComponentType, Suspense } from 'react'
 import loadingSpinner from '../assets/images/loading-spinner-200px.svg'
-import React, { ComponentType, ReactNode, Suspense } from 'react'
 
 const LoadingIcon = () => {
     const style = {
@@ -7,17 +7,20 @@ const LoadingIcon = () => {
         height: '100vh',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
-    return <div style={style}><img src={loadingSpinner} alt='loading' /></div>
+    return (
+        <div style={style}>
+            <img src={loadingSpinner} alt='loading' />
+        </div>
+    )
 }
 
-
-export function withLazyLoading<T> (Component: ComponentType<T>) {
+export function withLazyLoading<T>(Component: ComponentType<T>) {
     const Lazy = (props: any) => {
         return (
             <Suspense fallback={<LoadingIcon />}>
-                <Component {...props as T & {}}/>
+                <Component {...(props as T & {})} />
             </Suspense>
         )
     }

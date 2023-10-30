@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
 import thunk from 'redux-thunk'
-import { composeWithDevTools } from '@redux-devtools/extension';
+import { composeWithDevTools } from '@redux-devtools/extension'
 import { profilePageReducer } from './MainPage_reducer'
 import { blogPageReducer } from './blogPage_reducer'
 import { weatherPageReducer } from './weatherPage_reducer'

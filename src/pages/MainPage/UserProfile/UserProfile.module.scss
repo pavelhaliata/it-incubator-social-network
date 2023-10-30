@@ -7,7 +7,6 @@
 
 .card {
   max-width: 550px;
-  height: 350px;
   width: 100%;
   border-radius: .3rem;
   padding: 10px;
@@ -97,10 +96,6 @@
 }
 
 .job_container {
-  // border: #32e4cd 1px solid;
-  //display: flex;
-  justify-content: center;
-  gap: 10px;
   margin-bottom: 10px;
 
   h6 {
@@ -115,7 +110,13 @@
 
 }
 
-.job_description {}
+.job_description {
+
+}
+.aboutMe{
+  border-bottom: #b4b4b4 1px solid;
+  padding-bottom: 5px;
+}
 
 .contacts {
   border-top: #b4b4b4 1px solid;

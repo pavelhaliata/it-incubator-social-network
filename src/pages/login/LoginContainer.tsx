@@ -8,8 +8,7 @@ import { FormikHelpers } from 'formik'
 import { compose } from 'redux'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
 import { ComponentType, lazy } from 'react'
-const Login = lazy(()=>import('./Login').then((module)=>({default: module.Login})))
-
+const Login = lazy(() => import('./Login').then(module => ({ default: module.Login })))
 
 const LoginAsyncContainer = (props: LoginPropsType) => {
     const { isLogin, ...restProps } = props
@@ -27,9 +26,8 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
 }
 export const LoginContainer = compose<ComponentType>(
     connect(mapStateToProps, { loginAsync }),
-    withLazyLoading)
-(LoginAsyncContainer)
-
+    withLazyLoading,
+)(LoginAsyncContainer)
 
 //types
 type mapStatePropsType = {

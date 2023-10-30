@@ -1,9 +1,8 @@
-import React from "react";
-import {ActionProfilePageType} from "../store-redux/MainPage_reducer";
-import {ActionCreatorBlogPageType} from "../store-redux/blogPage_reducer";
-import {AppRootState} from "../store-redux/redux-store";
-import {Store} from "redux";
-
+import React from 'react'
+import { ActionProfilePageType } from '../store-redux/MainPage_reducer'
+import { ActionCreatorBlogPageType } from '../store-redux/blogPage_reducer'
+import { AppRootState } from '../store-redux/redux-store'
+import { Store } from 'redux'
 
 export type ActionCreatorsTypes = ActionProfilePageType | ActionCreatorBlogPageType
 
@@ -14,10 +13,6 @@ type ProviderType = {
     children: React.ReactNode
 }
 
-export const Provider = ({store, children}: ProviderType) => {
-    return (
-        <StoreContext.Provider value={store}>
-            {children}
-        </StoreContext.Provider>
-    )
+export const Provider = ({ store, children }: ProviderType) => {
+    return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }
