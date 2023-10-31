@@ -15,9 +15,9 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.userId !== this.props.userId) {
-            if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
-        }
+        // if (prevProps.userId !== this.props.userId) {
+        //     if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
+        // }
     }
 
     componentWillUnmount() {

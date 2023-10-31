@@ -4,7 +4,7 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
     headers: {
-        'API-KEY': '46bf5cab-c958-45f9-89c4-0ee6d1b7ed40'
+        'API-KEY': '46bf5cab-c958-45f9-89c4-0ee6d1b7ed40',
     },
 })
 
@@ -30,7 +30,7 @@ export const socialNetworkAPI = {
     getUserStatus(userId: number) {
         return instance.get<string>(`/profile/status/${userId}`)
     },
-    updateUserProfile(profile: any) {
+    updateUserProfile(profile: UpdateUserProfileType) {
         return instance.put<ResponseType>('/profile', profile)
     },
     uploadPhotoFile(file: string | Blob) {
@@ -54,6 +54,9 @@ export const authAPI = {
     logout() {
         return instance.delete<ResponseType>('/auth/login')
     },
+    getCaptchaUrl() {
+        return instance.get('/security/get-captcha-url')
+    },
 }
 
 // types
@@ -61,6 +64,7 @@ export type LoginDataType = {
     email: string
     password: string
     rememberMe?: boolean
+    captcha?: null | string
 }
 
 export type UserType = {
@@ -99,6 +103,24 @@ export type UserProfileType = {
     photos: {
         small: string
         large: string
+    }
+}
+
+export type UpdateUserProfileType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
     }
 }
 

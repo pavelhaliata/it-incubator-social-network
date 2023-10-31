@@ -3,6 +3,8 @@ import { setErrorStatus } from '../app/app-reducer'
 import { Dispatch } from 'redux'
 import { FormikHelpers } from 'formik'
 import { LoginFormValues } from 'pages/login/Login'
+import { ThunkAction } from 'redux-thunk'
+import { AppRootState } from './redux-store'
 
 const initialState = {
     id: null as number | null,
@@ -10,24 +12,30 @@ const initialState = {
     login: null as string | null,
     isLogin: false as boolean,
     isInitialization: false as boolean,
+    captchaUrl: null as string | null,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case 'AUTH_USER_DATA':
+        case 'auth/USER_DATA':
             return {
                 ...state,
                 ...action.data,
             }
-        case 'AUTH_LOGIN':
+        case 'auth/LOGIN':
             return {
                 ...state,
                 isLogin: action.status,
             }
-        case 'AUTH_INITIALIZATION':
+        case 'auth/INITIALIZATION':
             return {
                 ...state,
                 isInitialization: action.status,
+            }
+        case 'auth/CAPTCHA':
+            return {
+                ...state,
+                captchaUrl: action.payload.url,
             }
         default:
             return state
@@ -37,15 +45,16 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 // actions
 const setAuthUserData = (data: AuthUserDataType) =>
     ({
-        type: 'AUTH_USER_DATA',
+        type: 'auth/USER_DATA',
         data,
     }) as const
 
-const isLogin = (status: boolean) => ({ type: 'AUTH_LOGIN', status }) as const
-const Initialization = (status: boolean) => ({ type: 'AUTH_INITIALIZATION', status }) as const
+const isLogin = (status: boolean) => ({ type: 'auth/LOGIN', status }) as const
+const Initialization = (status: boolean) => ({ type: 'auth/INITIALIZATION', status }) as const
+const captchaUrl = (url: string | null) => ({ type: 'auth/CAPTCHA', payload: { url } }) as const
 
 // thunks
-export const appInitializationAsync = () => {
+export const appInitializationAsync = (): ThunkAction<void, AppRootState, unknown, ActionType> => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await authAPI.getAuthData()
@@ -54,7 +63,7 @@ export const appInitializationAsync = () => {
                 dispatch(setAuthUserData(res.data.data))
             } else {
                 dispatch(isLogin(false))
-                // dispatch(setErrorStatus(res.data.messages[0]));
+                dispatch(setErrorStatus(res.data.messages[0]))
                 console.warn(res.data.messages[0])
             }
         } catch (error) {
@@ -65,16 +74,22 @@ export const appInitializationAsync = () => {
         }
     }
 }
-export const loginAsync = (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => {
-    return async (dispatch: Dispatch) => {
+export const loginAsync = (
+    data: LoginDataType,
+    submitProps: FormikHelpers<LoginFormValues>,
+): ThunkAction<void, AppRootState, unknown, ActionType> => {
+    return async (dispatch: Dispatch<any>) => {
         try {
             const res = await authAPI.login(data)
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(true))
+                dispatch(setErrorStatus(null))
             } else {
+                if (res.data.resultCode === 10) {
+                    dispatch(getCaptchaUrlAsync())
+                }
                 dispatch(isLogin(false))
-                // dispatch(setErrorStatus(res.data.messages[0]));
-                console.warn(res.data)
+                dispatch(setErrorStatus(res.data.messages[0]))
                 submitProps.setStatus(res.data.messages[0])
             }
         } catch (error) {
@@ -83,13 +98,14 @@ export const loginAsync = (data: LoginDataType, submitProps: FormikHelpers<Login
         }
     }
 }
-export const logoutAsync = () => {
+export const logoutAsync = (): ThunkAction<void, AppRootState, unknown, ActionType> => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await authAPI.logout()
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(false))
                 dispatch(setAuthUserData({ email: null, login: null, id: null }))
+                dispatch(captchaUrl(null))
             } else {
                 console.warn(res.data.messages)
             }
@@ -98,7 +114,24 @@ export const logoutAsync = () => {
         }
     }
 }
+export const getCaptchaUrlAsync = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await authAPI.getCaptchaUrl()
+            dispatch(captchaUrl(res.data.url))
+        } catch (error) {
+            console.warn(error)
+        }
+    }
+}
 
 // types
 type InitialStateType = typeof initialState
-type ActionType = ReturnType<typeof setAuthUserData> | ReturnType<typeof isLogin> | ReturnType<typeof Initialization>
+type ThuncAsynkType = typeof getCaptchaUrlAsync
+type ActionType =
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof isLogin>
+    | ReturnType<typeof Initialization>
+    | ReturnType<typeof captchaUrl>
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, ActionType>

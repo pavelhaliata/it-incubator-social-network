@@ -3,30 +3,11 @@ import style from './style.module.scss'
 import { Button } from '../Button/Button'
 import { updateProfilePropsType } from './UpdateProfileContainer'
 import { useNavigate } from 'react-router-dom'
-
-type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-
-export type updateUserProfile = {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-}
+import { UpdateUserProfileType } from 'api/social-network-api'
 
 export function UpdateProfile(props: updateProfilePropsType) {
     const navigate = useNavigate()
-    const initialValues: updateUserProfile = {
+    const initialValues: UpdateUserProfileType = {
         aboutMe: '',
         userId: props.userProfileData.userId,
         lookingForAJob: false,
@@ -40,8 +21,8 @@ export function UpdateProfile(props: updateProfilePropsType) {
             twitter: '',
             website: '',
             youtube: '',
-            mainLink: ''
-        }
+            mainLink: '',
+        },
     }
 
     const contacts: { [index: string]: any } = props.userProfileData.contacts
@@ -51,32 +32,24 @@ export function UpdateProfile(props: updateProfilePropsType) {
             <Formik
                 initialValues={initialValues}
                 onSubmit={async (values, submitProps) => {
-                    props.updateUserProfileAsync(values, submitProps)
+                    await props.updateUserProfileAsync(values, submitProps)
                     try {
-                        console.log(values)
-                        // navigate('/profile')
+                        navigate('/profile')
                         submitProps.resetForm()
-                    }catch (error){
-                        console.error()
+                    } catch (error) {
+                        submitProps.setStatus()
                     }
                 }}
             >
-                {(props: FormikProps<updateUserProfile>) => (
+                {(props: FormikProps<UpdateUserProfileType>) => (
                     <Form className={style.form}>
                         <label htmlFor='fullName'>full Name</label>
-                        <Field
-                            id='fullName'
-                            type='text'
-                            name='fullName'
-                            className={style.field} />
+                        <Field id='fullName' type='text' name='fullName' className={style.field} />
 
-                        <label htmlFor='lookingForAJob'>looking For A Job</label>
-                        <Field
-                            id='lookingForAJob'
-                            type='checkbox'
-                            name='lookingForAJob'
-                            className={style.field}
-                        />
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <Field id='lookingForAJob' type='checkbox' name='lookingForAJob' className={style.field} />
+                            <label htmlFor='lookingForAJob'>looking For A Job</label>
+                        </div>
 
                         <label htmlFor='lookingForAJobDescription'>Job Description</label>
                         <Field
@@ -87,11 +60,7 @@ export function UpdateProfile(props: updateProfilePropsType) {
                         />
 
                         <label htmlFor='aboutMe'>about Me</label>
-                        <Field
-                            id='aboutMe'
-                            type='text'
-                            name='aboutMe'
-                            className={style.field} />
+                        <Field id='aboutMe' type='text' name='aboutMe' className={style.field} />
 
                         {Object.keys(contacts).map(key => {
                             return <Contacts key={key} contactTitle={key} />
@@ -117,11 +86,7 @@ const Contacts = ({ contactTitle }: ContactPropsType) => {
     return (
         <>
             <label htmlFor={contactTitle}>{contactTitle}</label>
-            <Field
-                id={contactTitle}
-                type={contactTitle}
-                name={`contacts.${contactTitle}`}
-                className={style.field} />
+            <Field id={contactTitle} type={contactTitle} name={`contacts.${contactTitle}`} className={style.field} />
         </>
     )
 }

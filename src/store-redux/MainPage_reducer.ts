@@ -1,13 +1,11 @@
-import { updateUserProfile } from 'components/updateProfile/UpdateProfile'
+import { AxiosResponse } from 'axios'
+import { FormikHelpers } from 'formik'
 import { Dispatch } from 'redux'
 import { v4 as uuidv4 } from 'uuid'
-import { socialNetworkAPI, UserProfileType, UserType } from '../api/social-network-api'
+import { socialNetworkAPI, UpdateUserProfileType, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
-import { FormikHelpers } from 'formik'
 import { updateObjectInArray } from '../utils/object-helpers'
-import { AxiosResponse } from 'axios'
 import { AppRootState } from './redux-store'
-import { Profile } from '../pages/profile/Profile'
 
 type ContactsType = {
     facebook: string
@@ -197,18 +195,20 @@ export const getUserProfileAsync = (userId: number) => {
     }
 }
 
-export const updateUserProfileAsync = (data: any, submitProps: FormikHelpers<updateUserProfile>) => {
-    return async (dispatch: Dispatch, getState: AppRootState) => {
-        // const userId = getState.authData.id
+export const updateUserProfileAsync = (
+    data: UpdateUserProfileType,
+    submitProps: FormikHelpers<UpdateUserProfileType>,
+) => {
+    return async (dispatch: Dispatch<any>, getState: AppRootState) => {
+        console.log(getState.authData.email) //!!!!!!!!!!!!!!!!!!&&&&&&&&&?????????
         dispatch(setRequestStatus(RequestStatus.loading))
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
                 // dispatch(getUserProfileAsync(userId))
-                dispatch(setRequestStatus(RequestStatus.succeed))
             } else {
-                submitProps.setStatus(res.data.messages[1])
-                return Promise.reject(res.data.messages[1])
+                submitProps.setStatus(res.data.messages)
+                return Promise.reject(res.data.messages[0])
             }
         } catch (error: any) {
             console.warn(error)

@@ -6,19 +6,22 @@ import { Button } from 'components/Button/Button'
 
 type PropsType = {
     loginAsync: (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => void
+    captchaUrl: null | string
 }
 
 export interface LoginFormValues {
     email: string
     password: string
     rememberMe: boolean
+    captcha?: string
 }
 
-export const Login = (props: PropsType) => {
+export const Login = ({ captchaUrl, loginAsync }: PropsType) => {
     const initialValues: LoginFormValues = {
         email: '',
         password: '',
-        rememberMe: false
+        rememberMe: false,
+        captcha: '',
     }
 
     return (
@@ -27,17 +30,18 @@ export const Login = (props: PropsType) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh'
+                height: '100vh',
             }}
         >
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object({
                     email: Yup.string().email('Invalid email address').required('Required'),
-                    password: Yup.string().required('Required')
+                    password: Yup.string().required('Required'),
                 })}
                 onSubmit={(values, submitProps) => {
-                    props.loginAsync(values, submitProps)
+                    loginAsync(values, submitProps)
+                    // submitProps.resetForm()
                 }}
             >
                 {(props: FormikProps<LoginFormValues>) => (
@@ -47,7 +51,7 @@ export const Login = (props: PropsType) => {
                             flexDirection: 'column',
                             gap: '5px',
                             maxWidth: '450px',
-                            width: '100%'
+                            width: '100%',
                         }}
                     >
                         <label htmlFor='email'>Email Address</label>
@@ -72,7 +76,7 @@ export const Login = (props: PropsType) => {
                             style={{
                                 display: 'flex',
                                 gap: '10px',
-                                alignItems: 'center'
+                                alignItems: 'center',
                             }}
                         >
                             <Field name='rememberMe' type='checkbox' id='rememberMe' />
@@ -81,7 +85,7 @@ export const Login = (props: PropsType) => {
                                 type='submit'
                                 style={{
                                     padding: '5px 10px',
-                                    marginLeft: 'auto'
+                                    marginLeft: 'auto',
                                 }}
                             >
                                 Sign In
@@ -91,6 +95,26 @@ export const Login = (props: PropsType) => {
                         <div style={{ textAlign: 'center', height: '20px' }}>
                             {props.status && <span style={{ color: 'red' }}>{props.status}</span>}
                         </div>
+                        {captchaUrl && (
+                            <div
+                                style={{
+                                    marginTop: '15px',
+                                    width: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Field
+                                    name='captcha'
+                                    type='input'
+                                    placeholder='captcha*'
+                                    style={{ padding: '5px', width: '100%' }}
+                                />
+                                <img style={{ maxWidth: '300px' }} src={captchaUrl} />
+                                <span>please, enter the captcha</span>
+                            </div>
+                        )}
                     </Form>
                 )}
             </Formik>

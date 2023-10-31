@@ -22,6 +22,7 @@ export default store
 
 //types
 export type AppRootState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch
 
 //@ts-ignore
 window.store = store

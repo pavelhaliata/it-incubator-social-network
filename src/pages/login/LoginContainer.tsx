@@ -22,6 +22,7 @@ const LoginAsyncContainer = (props: LoginPropsType) => {
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         isLogin: state.authData.isLogin,
+        captchaUrl: state.authData.captchaUrl,
     }
 }
 export const LoginContainer = compose<ComponentType>(
@@ -32,6 +33,7 @@ export const LoginContainer = compose<ComponentType>(
 //types
 type mapStatePropsType = {
     isLogin: boolean
+    captchaUrl: null | string
 }
 type mapDispatchPropsPropsType = {
     loginAsync: (data: LoginDataType, submitProps: FormikHelpers<LoginFormValues>) => void

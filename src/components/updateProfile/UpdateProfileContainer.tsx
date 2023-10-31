@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { updateUserProfileAsync } from 'store-redux/MainPage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
-import { updateUserProfile } from './UpdateProfile'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
-import { UserProfileType } from 'api/social-network-api'
+import { UpdateUserProfileType, UserProfileType } from 'api/social-network-api'
 
 const UpdateProfile = lazy(() => import('./UpdateProfile').then(module => ({ default: module.UpdateProfile })))
 
@@ -34,7 +33,7 @@ type mapStatePropsType = {
     userProfileData: UserProfileType
 }
 type mapDispatchPropsPropsType = {
-    updateUserProfileAsync: (data: any, submitProps: FormikHelpers<updateUserProfile>) => void
+    updateUserProfileAsync: (data: any, submitProps: FormikHelpers<UpdateUserProfileType>) => void
 }
 
 export type updateProfilePropsType = mapStatePropsType & mapDispatchPropsPropsType
