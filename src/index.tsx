@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom/client'
+// import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, HashRouter } from 'react-router-dom'
 import '../src/styles/global.scss'
 import store from './store-redux/redux-store'
@@ -13,3 +14,4 @@ root.render(
         </Provider>
     </HashRouter>,
 )
+// serviceWorker.unregister();

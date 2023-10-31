@@ -57,7 +57,7 @@ export class Profile extends Component<ProfilePropsType> {
                                 </div>
                                 <div style={{ textAlign: 'center' }}>
                                     <img
-                                        src={this.props.userProfile.photos.small}
+                                        src={this.props.userProfileData.photos.small}
                                         alt='photo'
                                         style={{ borderRadius: '50%' }}
                                     />
@@ -68,11 +68,11 @@ export class Profile extends Component<ProfilePropsType> {
                                         <span className={style.text}>
                                             <ProfileStatusContainer />
                                         </span>
-                                        {this.props.userProfile.lookingForAJob && <span>Open to work</span>}
+                                        {this.props.userProfileData.lookingForAJob && <span>Open to work</span>}
                                     </li>
                                     <li>
                                         <span className={style.title}>Name:</span>
-                                        <span className={style.text}>{this.props.userProfile.fullName}</span>
+                                        <span className={style.text}>{this.props.userProfileData.fullName}</span>
                                     </li>
                                 </ul>
                                 <NavLink className={style.edit_link} to={'/edit-profile'}>
@@ -91,12 +91,12 @@ export class Profile extends Component<ProfilePropsType> {
                             <ul className={style.personal_info}>
                                 <li>
                                     <span className={style.title}>About Me:</span>
-                                    <span className={style.text}>{this.props.userProfile.aboutMe}</span>
+                                    <span className={style.text}>{this.props.userProfileData.aboutMe}</span>
                                 </li>
                                 <li>
                                     <span className={style.title}>My skills:</span>
                                     <span className={style.text}>
-                                        {this.props.userProfile.lookingForAJobDescription}
+                                        {this.props.userProfileData.lookingForAJobDescription}
                                     </span>
                                 </li>
                             </ul>
@@ -108,78 +108,74 @@ export class Profile extends Component<ProfilePropsType> {
                         </div>
                         <div className={style.block_content}>
                             <ul className={style.menu}>
-                                {this.props.userProfile.contacts.facebook && (
+                                {this.props.userProfileData.contacts.facebook && (
                                     <li className={style.item}>
                                         <a
                                             target={'_blank'}
                                             rel='noreferrer'
-                                            href={this.props.userProfile.contacts.facebook}
+                                            href={this.props.userProfileData.contacts.facebook}
                                         >
                                             <img src={facebook} alt='' />
                                         </a>
                                     </li>
                                 )}
-                                {this.props.userProfile.contacts.twitter && (
+                                {this.props.userProfileData.contacts.twitter && (
                                     <li className={style.item}>
-                                        <a
-                                            target={'_blank'}
-                                            rel='noreferrer'
-                                            href={this.props.userProfile.contacts.twitter}
-                                        >
+                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfileData.contacts.twitter}>
                                             <img src={twitter} alt='' />
                                         </a>
                                     </li>
                                 )}
-                                {this.props.userProfile.contacts.instagram && (
+                                {this.props.userProfileData.contacts.instagram && (
                                     <li className={style.item}>
                                         <a
                                             target={'_blank'}
                                             rel='noreferrer'
-                                            href={this.props.userProfile.contacts.instagram}
+                                            href={this.props.userProfileData.contacts.instagram}
                                         >
                                             <img src={instagram} alt='' />
                                         </a>
                                     </li>
                                 )}
-                                {this.props.userProfile.contacts.vk && (
+                                {this.props.userProfileData.contacts.vk && (
                                     <li className={style.item}>
-                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfile.contacts.vk}>
+                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfileData.contacts.vk}>
                                             <img src={vk} alt='' />
                                         </a>
                                     </li>
                                 )}
-                                <li className={style.item}>
-                                    <a
-                                        target={'_blank'}
-                                        rel='noreferrer'
-                                        href={this.props.userProfile.contacts.youtube}
-                                    >
-                                        <img src={youtube} alt='' />
-                                    </a>
-                                </li>
-                                <li className={style.item}>
-                                    <a target={'_blank'} rel='noreferrer' href={this.props.userProfile.contacts.github}>
-                                        <img src={github} alt='' />
-                                    </a>
-                                </li>
-                                <li className={style.item}>
-                                    <a
-                                        target={'_blank'}
-                                        rel='noreferrer'
-                                        href={this.props.userProfile.contacts.website}
-                                    >
-                                        <img src={website} alt='' />
-                                    </a>
-                                </li>
-                                <li className={style.item}>
-                                    <a
-                                        target={'_blank'}
-                                        rel='noreferrer'
-                                        href={this.props.userProfile.contacts.mainLink}
-                                    >
-                                        <img src={mainLink} alt='' />
-                                    </a>
-                                </li>
+                                {this.props.userProfileData.contacts.youtube && (
+                                    <li className={style.item}>
+                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfileData.contacts.youtube}>
+                                            <img src={youtube} alt='' />
+                                        </a>
+                                    </li>
+                                )}
+                                {this.props.userProfileData.contacts.github && (
+                                    <li className={style.item}>
+                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfileData.contacts.github}>
+                                            <img src={github} alt='' />
+                                        </a>
+                                    </li>
+                                )}
+                                {this.props.userProfileData.contacts.website && (
+                                    <li className={style.item}>
+                                        <a target={'_blank'} rel='noreferrer' href={this.props.userProfileData.contacts.website}>
+                                            <img src={website} alt='' />
+                                        </a>
+                                    </li>
+                                )}
+                                {this.props.userProfileData.contacts.mainLink && (
+                                    <li className={style.item}>
+                                        <a
+                                            target={'_blank'}
+                                            rel='noreferrer'
+                                            href={this.props.userProfileData.contacts.mainLink}
+                                        >
+                                            <img src={mainLink} alt='' />
+                                        </a>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     </div>

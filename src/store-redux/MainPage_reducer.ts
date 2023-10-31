@@ -200,7 +200,7 @@ export const updateUserProfileAsync = (
     submitProps: FormikHelpers<UpdateUserProfileType>,
 ) => {
     return async (dispatch: Dispatch<any>, getState: AppRootState) => {
-        console.log(getState.authData.email) //!!!!!!!!!!!!!!!!!!&&&&&&&&&?????????
+        // console.log(getState.authData.email)
         dispatch(setRequestStatus(RequestStatus.loading))
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)

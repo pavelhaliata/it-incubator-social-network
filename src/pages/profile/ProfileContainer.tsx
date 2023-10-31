@@ -25,7 +25,7 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
     }
 
     render() {
-        const { ...userProfile } = this.props
+        const { ...userProfileData } = this.props
         return <Profile {...this.props} />
     }
 }
@@ -33,7 +33,7 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         userId: state.authData.id,
-        userProfile: state.profilePage.userProfileData,
+        userProfileData: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
         errorMessage: state.app.error
     }
@@ -47,7 +47,7 @@ export const ProfileContainer = compose<ComponentType>(
 //types
 type mapStatePropsType = {
     userId: number | null
-    userProfile: UserProfileType
+    userProfileData: UserProfileType
     requestStatus: RequestStatus
     errorMessage: string | null
 }
