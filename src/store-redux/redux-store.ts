@@ -1,12 +1,12 @@
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
-import thunk from 'redux-thunk'
+import thunk, { ThunkAction } from 'redux-thunk'
 import { composeWithDevTools } from '@redux-devtools/extension'
-import { profilePageReducer } from './MainPage_reducer'
-import { blogPageReducer } from './blogPage_reducer'
-import { weatherPageReducer } from './weatherPage_reducer'
+import { MainPageActionsType, profilePageReducer } from './MainPage_reducer'
+import { BlogPageActionsType, blogPageReducer } from './blogPage_reducer'
+import { WeatherActionsType, weatherPageReducer } from './weatherPage_reducer'
 import { inputValueReducer } from './inputComponent_reducer'
-import { appReducer } from '../app/app-reducer'
-import { authReducer } from './auth_reducer'
+import { AppActionType, appReducer } from '../app/app-reducer'
+import { AuthActionsType, authReducer } from './auth_reducer'
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -22,7 +22,14 @@ export default store
 
 //types
 export type AppRootState = ReturnType<typeof rootReducer>
-export type AppDispatch = typeof store.dispatch
+type ApplicationActionsType = AppActionType | MainPageActionsType | AuthActionsType | BlogPageActionsType | WeatherActionsType
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    AppRootState,
+    unknown,
+    ApplicationActionsType
+>
 
 //@ts-ignore
 window.store = store

@@ -15,7 +15,7 @@ const initialState = {
     captchaUrl: null as string | null,
 }
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
         case 'auth/USER_DATA':
             return {
@@ -54,7 +54,7 @@ const Initialization = (status: boolean) => ({ type: 'auth/INITIALIZATION', stat
 const captchaUrl = (url: string | null) => ({ type: 'auth/CAPTCHA', payload: { url } }) as const
 
 // thunks
-export const appInitializationAsync = (): ThunkAction<void, AppRootState, unknown, ActionType> => {
+export const appInitializationAsync = (): ThunkAction<void, AppRootState, unknown, AuthActionsType> => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await authAPI.getAuthData()
@@ -77,7 +77,7 @@ export const appInitializationAsync = (): ThunkAction<void, AppRootState, unknow
 export const loginAsync = (
     data: LoginDataType,
     submitProps: FormikHelpers<LoginFormValues>,
-): ThunkAction<void, AppRootState, unknown, ActionType> => {
+): ThunkAction<void, AppRootState, unknown, AuthActionsType> => {
     return async (dispatch: Dispatch<any>) => {
         try {
             const res = await authAPI.login(data)
@@ -98,7 +98,7 @@ export const loginAsync = (
         }
     }
 }
-export const logoutAsync = (): ThunkAction<void, AppRootState, unknown, ActionType> => {
+export const logoutAsync = () => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await authAPI.logout()
@@ -127,11 +127,9 @@ export const getCaptchaUrlAsync = () => {
 
 // types
 type InitialStateType = typeof initialState
-type ThuncAsynkType = typeof getCaptchaUrlAsync
-type ActionType =
+
+export type AuthActionsType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof isLogin>
     | ReturnType<typeof Initialization>
     | ReturnType<typeof captchaUrl>
-
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, ActionType>

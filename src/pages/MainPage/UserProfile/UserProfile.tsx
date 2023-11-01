@@ -39,7 +39,7 @@ export const User = (props: UserPagePropsType) => {
                 <div className={`${style.card}`}>
                     {jobSearchStatus && <div className={style.jobSearchStatus}>open to work</div>}
                     <div className={style.card_body}>
-                        <img src={userAvatar} alt='Profile Image' />
+                        <img src={userAvatar} alt='avatar' />
                         <span className={style.name}>{props.userProfileData.fullName}</span>
                         {props.userStatus && (
                             <span className={style.status}>

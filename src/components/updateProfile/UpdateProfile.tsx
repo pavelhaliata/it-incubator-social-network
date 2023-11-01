@@ -21,8 +21,8 @@ export function UpdateProfile(props: updateProfilePropsType) {
             twitter: '',
             website: '',
             youtube: '',
-            mainLink: '',
-        },
+            mainLink: ''
+        }
     }
 
     const contacts: { [index: string]: any } = props.userProfileData.contacts
@@ -32,12 +32,12 @@ export function UpdateProfile(props: updateProfilePropsType) {
             <Formik
                 initialValues={initialValues}
                 onSubmit={async (values, submitProps) => {
-                    await props.updateUserProfileAsync(values, submitProps)
+                    const res = await props.updateUserProfileAsync(values, submitProps)
                     try {
                         navigate('/profile')
                         submitProps.resetForm()
                     } catch (error) {
-                        submitProps.setStatus()
+                        console.log(error)
                     }
                 }}
             >

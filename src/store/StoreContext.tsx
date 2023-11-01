@@ -1,10 +1,10 @@
 import React from 'react'
-import { ActionProfilePageType } from '../store-redux/MainPage_reducer'
-import { ActionCreatorBlogPageType } from '../store-redux/blogPage_reducer'
+import { MainPageActionsType } from '../store-redux/MainPage_reducer'
+import { BlogPageActionsType } from '../store-redux/blogPage_reducer'
 import { AppRootState } from '../store-redux/redux-store'
 import { Store } from 'redux'
 
-export type ActionCreatorsTypes = ActionProfilePageType | ActionCreatorBlogPageType
+export type ActionCreatorsTypes = MainPageActionsType | BlogPageActionsType
 
 export const StoreContext = React.createContext({} as Store<AppRootState, ActionCreatorsTypes>)
 

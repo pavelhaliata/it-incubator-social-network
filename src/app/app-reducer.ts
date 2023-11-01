@@ -11,19 +11,19 @@ const initialState = {
     requestStatus: RequestStatus.idle as RequestStatus,
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
-        case 'APP/SET-ERROR':
+        case 'app/SET-ERROR':
             return {
                 ...state,
                 error: action.errorMessage,
             }
-        case 'APP/SET-STATUS':
+        case 'app/SET-STATUS':
             return {
                 ...state,
                 requestStatus: action.status,
             }
-        case 'HEADER-PAGE-TITLE':
+        case 'app/HEADER-PAGE-TITLE':
             return {
                 ...state,
                 headerTitle: action.title,
@@ -36,19 +36,19 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 // actions
 export const setHeaderTitle = (title: string) =>
     ({
-        type: 'HEADER-PAGE-TITLE',
+        type: 'app/HEADER-PAGE-TITLE',
         title,
     }) as const
 
 export const setErrorStatus = (errorMessage: string | null) =>
     ({
-        type: 'APP/SET-ERROR',
+        type: 'app/SET-ERROR',
         errorMessage,
     }) as const
 
 export const setRequestStatus = (status: RequestStatus) =>
     ({
-        type: 'APP/SET-STATUS',
+        type: 'app/SET-STATUS',
         status,
     }) as const
 
@@ -57,6 +57,6 @@ type RequestStatusType = ReturnType<typeof setRequestStatus>
 type ErrorStatusType = ReturnType<typeof setErrorStatus>
 type HeaderTitleType = ReturnType<typeof setHeaderTitle>
 
-type ActionType = RequestStatusType | ErrorStatusType | HeaderTitleType
+export type AppActionType = RequestStatusType | ErrorStatusType | HeaderTitleType
 
 export type InitialStateType = typeof initialState

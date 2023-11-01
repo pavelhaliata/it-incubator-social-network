@@ -5,7 +5,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { socialNetworkAPI, UpdateUserProfileType, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
 import { updateObjectInArray } from '../utils/object-helpers'
-import { AppRootState } from './redux-store'
+import { AppRootState, AppThunk } from './redux-store'
+import App from '../app/App'
 
 type ContactsType = {
     facebook: string
@@ -44,7 +45,7 @@ const initialState = {
 
 export const profilePageReducer = (
     state: ProfilePageInitialStateType = initialState,
-    action: ActionProfilePageType,
+    action: MainPageActionsType,
 ): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
@@ -175,8 +176,8 @@ const setUserStatus = (textStatus: string) =>
 const uploadPhoto = (photoFile: string) => ({ type: 'main/UPLOAD-PHOTO', photoFile }) as const
 
 // thunks
-export const getUsersAsync = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+export const getUsersAsync = (currentPage: number, pageSize: number): AppThunk => {
+    return dispatch => {
         dispatch(setRequestStatus(RequestStatus.loading))
         socialNetworkAPI.getUsers(currentPage, pageSize).then(res => {
             dispatch(setUsers(res.data.items))
@@ -185,8 +186,8 @@ export const getUsersAsync = (currentPage: number, pageSize: number) => {
         })
     }
 }
-export const getUserProfileAsync = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserProfileAsync = (userId: number): AppThunk => {
+    return dispatch => {
         dispatch(setRequestStatus(RequestStatus.loading))
         socialNetworkAPI.getUserProfile(userId).then(res => {
             dispatch(profileUserData(res.data))
@@ -195,17 +196,14 @@ export const getUserProfileAsync = (userId: number) => {
     }
 }
 
-export const updateUserProfileAsync = (
-    data: UpdateUserProfileType,
-    submitProps: FormikHelpers<UpdateUserProfileType>,
-) => {
-    return async (dispatch: Dispatch<any>, getState: AppRootState) => {
-        // console.log(getState.authData.email)
-        dispatch(setRequestStatus(RequestStatus.loading))
+export const updateUserProfileAsync = (data: UpdateUserProfileType, submitProps: FormikHelpers<UpdateUserProfileType>,
+): AppThunk  => {
+   return async (dispatch, getState) => {
+            const userId = getState().authData.id
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
-                // dispatch(getUserProfileAsync(userId))
+                // userId !== null && dispatch(getUserProfileAsync(userId))
             } else {
                 submitProps.setStatus(res.data.messages)
                 return Promise.reject(res.data.messages[0])
@@ -215,13 +213,13 @@ export const updateUserProfileAsync = (
         }
     }
 }
-export const followAsync = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const followAsync = (userId: number): AppThunk => {
+    return (dispatch) => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))
     }
 }
-export const unfollowAsync = (userId: number) => {
-    return async (dispatch: Dispatch) => {
+export const unfollowAsync = (userId: number): AppThunk => {
+    return async (dispatch) => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.unFollowUser(userId), unFollow(userId))
     }
 }
@@ -246,8 +244,8 @@ const followUnfollowFlow = async (
     }
 }
 
-export const updateUserStatusAsync = (textStatus: string) => {
-    return async (dispatch: Dispatch) => {
+export const updateUserStatusAsync = (textStatus: string): AppThunk => {
+    return async (dispatch) => {
         try {
             const res = await socialNetworkAPI.updateUserStatus(textStatus)
             if (res.data.resultCode === 0) {
@@ -261,8 +259,8 @@ export const updateUserStatusAsync = (textStatus: string) => {
     }
 }
 
-export const getUserStatusAsync = (userId: number) => {
-    return async (dispatch: Dispatch) => {
+export const getUserStatusAsync = (userId: number): AppThunk => {
+    return async (dispatch) => {
         try {
             const res = await socialNetworkAPI.getUserStatus(userId)
             dispatch(setUserStatus(res.data))
@@ -272,8 +270,8 @@ export const getUserStatusAsync = (userId: number) => {
     }
 }
 
-export const uploadPhotoAsync = (photoFile: string | Blob) => {
-    return async (dispatch: Dispatch) => {
+export const uploadPhotoAsync = (photoFile: string | Blob): AppThunk => {
+    return async (dispatch) => {
         dispatch(setErrorStatus(null))
         try {
             const res = await socialNetworkAPI.uploadPhotoFile(photoFile)
@@ -304,7 +302,7 @@ export type MessageType = {
     time: string
 }
 
-export type ActionProfilePageType =
+export type MainPageActionsType =
     | ReturnType<typeof newMessageText>
     | ReturnType<typeof newMessage>
     | ReturnType<typeof setUsers>

@@ -7,7 +7,7 @@ const initialState = {
 
 export const blogPageReducer = (
     state: BlogPageInitialStateType = initialState,
-    action: ActionCreatorBlogPageType,
+    action: BlogPageActionsType,
 ): BlogPageInitialStateType => {
     switch (action.type) {
         case 'POST-TEXT-VALUE':
@@ -45,7 +45,7 @@ export const createPost = () => ({ type: 'CREATE-NEW-POST' }) as const
 
 // types
 
-export type ActionCreatorBlogPageType = ReturnType<typeof setPostTextValue> | ReturnType<typeof createPost>
+export type BlogPageActionsType = ReturnType<typeof setPostTextValue> | ReturnType<typeof createPost>
 
 export type PostDataType = {
     id: string

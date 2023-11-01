@@ -48,7 +48,7 @@ const initialState = {
 
 export const weatherPageReducer = (
     state: typeof initialState = initialState,
-    action: ActionCreatorWeatherType,
+    action: WeatherActionsType,
 ): typeof initialState => {
     switch (action.type) {
         case 'SET-WEATHER':
@@ -90,4 +90,4 @@ export const getActualWeather = (city: string) => {
 }
 
 // types
-type ActionCreatorWeatherType = ReturnType<typeof setWeather> | ReturnType<typeof setLocationValue>
+export type WeatherActionsType = ReturnType<typeof setWeather> | ReturnType<typeof setLocationValue>
