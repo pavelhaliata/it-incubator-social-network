@@ -17,7 +17,7 @@ const LoadingIcon = () => {
 }
 
 export function withLazyLoading<T>(Component: ComponentType<T>) {
-    const Lazy = (props: any) => {
+    const Lazy = (props: T) => {
         return (
             <Suspense fallback={<LoadingIcon />}>
                 <Component {...(props as T & {})} />
