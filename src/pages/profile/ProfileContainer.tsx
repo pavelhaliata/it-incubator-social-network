@@ -6,15 +6,18 @@ import { compose } from 'redux'
 import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/MainPage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
+import { Profile } from './Profile'
 
-const Profile = lazy(() => import('./Profile').then(module => ({ default: module.Profile })))
+// const Profile = lazy(() => import('./Profile').then(module => ({ default: module.Profile })))
 
 class ProfileContainerAsync extends Component<ProfilePropsType> {
     componentDidMount() {
+        console.log('did mount')
         if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
     }
 
     componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        console.log('did update')
         // if (prevProps.userId !== this.props.userId) {
         //     if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
         // }
@@ -25,14 +28,13 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
     }
 
     render() {
-        const { ...userProfileData } = this.props
         return <Profile {...this.props} />
     }
 }
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
-        userId: state.authData.id,
+        userId: state.profilePage.userProfileData.userId,
         userProfileData: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
         errorMessage: state.app.error,

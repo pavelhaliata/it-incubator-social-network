@@ -48,12 +48,12 @@ export const profilePageReducer = (
     action: MainPageActionsType,
 ): ProfilePageInitialStateType => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
+        case 'main/UPDATE-NEW-MESSAGE-TEXT':
             return {
                 ...state,
                 newMessageTextData: action.newText,
             }
-        case 'ADD_NEW_MESSAGE':
+        case 'main/ADD_NEW_MESSAGE':
             if (state.newMessageTextData.trim() !== '') {
                 const message: MessageType = {
                     id: uuidv4(),
@@ -69,7 +69,7 @@ export const profilePageReducer = (
                 }
             }
             return state
-        case 'SET-USERS':
+        case 'main/SET-USERS':
             return {
                 ...state,
                 usersData: action.usersData.map(i => ({
@@ -78,41 +78,41 @@ export const profilePageReducer = (
                     country: '',
                 })),
             }
-        case 'TOTAL-USERS-COUNT':
+        case 'main/TOTAL-USERS-COUNT':
             return {
                 ...state,
                 totalUsersCount: action.totalCount,
             }
-        case 'CURRENT-PAGE':
+        case 'main/CURRENT-PAGE':
             return {
                 ...state,
                 currentPage: action.currentPage,
             }
-        case 'USER-PROFILE':
+        case 'main/USER-PROFILE':
             return {
                 ...state,
                 userProfileData: action.profileUserData,
             }
-        case 'FOLLOW': {
+        case 'main/FOLLOW': {
             return {
                 ...state,
                 usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true }),
             }
         }
-        case 'UNFOLLOW': {
+        case 'main/UNFOLLOW': {
             return {
                 ...state,
                 usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false }),
             }
         }
-        case 'FOLLOWING_STATUS_REQUEST':
+        case 'main/FOLLOWING_STATUS_REQUEST':
             return {
                 ...state,
                 selectedCurrentUser: action.followingStatusRequest
                     ? [...state.selectedCurrentUser, action.userId]
                     : state.selectedCurrentUser.filter(i => i !== action.userId),
             }
-        case 'USER-STATUS':
+        case 'main/USER-STATUS':
             return {
                 ...state,
                 userStatus: action.textStatus,
@@ -131,45 +131,45 @@ export const profilePageReducer = (
 }
 
 // actions
-export const newMessageText = (newText: string) => ({ type: 'UPDATE-NEW-MESSAGE-TEXT', newText }) as const
+export const newMessageText = (newText: string) => ({ type: 'main/UPDATE-NEW-MESSAGE-TEXT', newText }) as const
 
-export const newMessage = () => ({ type: 'ADD_NEW_MESSAGE' }) as const
+export const newMessage = () => ({ type: 'main/ADD_NEW_MESSAGE' }) as const
 
-export const setUsers = (usersData: Array<UserType>) => ({ type: 'SET-USERS', usersData }) as const
+export const setUsers = (usersData: Array<UserType>) => ({ type: 'main/SET-USERS', usersData }) as const
 
-export const setTotalUsersCount = (totalCount: number) => ({ type: 'TOTAL-USERS-COUNT', totalCount }) as const
+export const setTotalUsersCount = (totalCount: number) => ({ type: 'main/TOTAL-USERS-COUNT', totalCount }) as const
 
-export const setCurrentPage = (currentPage: number) => ({ type: 'CURRENT-PAGE', currentPage }) as const
+export const setCurrentPage = (currentPage: number) => ({ type: 'main/CURRENT-PAGE', currentPage }) as const
 
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
-        type: 'USER-PROFILE',
+        type: 'main/USER-PROFILE',
         profileUserData,
     }) as const
 
 export const follow = (userId: number) =>
     ({
-        type: 'FOLLOW',
+        type: 'main/FOLLOW',
         payload: { userId },
     }) as const
 
 export const unFollow = (userId: number) =>
     ({
-        type: 'UNFOLLOW',
+        type: 'main/UNFOLLOW',
         payload: { userId },
     }) as const
 
 // необходимо для дизейбла кнопки
 export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, userId: number) =>
     ({
-        type: 'FOLLOWING_STATUS_REQUEST',
+        type: 'main/FOLLOWING_STATUS_REQUEST',
         followingStatusRequest,
         userId,
     }) as const
 
 const setUserStatus = (textStatus: string) =>
     ({
-        type: 'USER-STATUS',
+        type: 'main/USER-STATUS',
         textStatus,
     }) as const
 

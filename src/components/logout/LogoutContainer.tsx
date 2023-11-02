@@ -9,11 +9,6 @@ const LogoutAsyncContainer = (props: LogoutPropsType) => {
 
     const { isLogin, ...restProps } = props
 
-    // if (!isLogin) {
-    //     return (
-    //         <Navigate to='/login' />
-    //     )
-    // }
     return (
         <Logout {...restProps} />
     )
