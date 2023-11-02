@@ -35,7 +35,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         userId: state.authData.id,
         userProfileData: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
-        errorMessage: state.app.error
+        errorMessage: state.app.error,
     }
 }
 

@@ -36,7 +36,7 @@ export const socialNetworkAPI = {
     uploadPhotoFile(file: string | Blob) {
         const formData = new FormData()
         formData.append('image', file)
-        return instance.postForm<ResponseType<uploadPhotoType>>('/profile/photo', formData, {
+        return instance.postForm<ResponseType<PhotoType>>('/profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -79,9 +79,16 @@ export type UserType = {
 }
 
 type ResponseUsersType = {
-    items: Array<UserType>
+    items: UserType[]
     totalCount: number
     error: string
+}
+
+type PhotoType = {
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 export type UserProfileType = {
@@ -128,13 +135,6 @@ export type AuthUserDataType = {
     id: number | null
     email: string | null
     login: string | null
-}
-
-type uploadPhotoType = {
-    photos: {
-        small: string
-        large: string
-    }
 }
 
 type ResponseType<T = {}> = {

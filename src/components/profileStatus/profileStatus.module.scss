@@ -1,7 +1,13 @@
 .status{
+	padding: 0 5px;
 	cursor: pointer;
 	user-select: none;
-	// border: 1px solid var(--primary-color);
+	border-bottom: 1px solid transparent;
+	transition: all .3s;
+}
+.status:hover{
+	color: var(--primary-color);
+	border-bottom: 1px solid var(--primary-color);
 }
 .input{
 	border: none;

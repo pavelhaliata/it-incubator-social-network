@@ -8,21 +8,21 @@ import { UpdateUserProfileType } from 'api/social-network-api'
 export function UpdateProfile(props: updateProfilePropsType) {
     const navigate = useNavigate()
     const initialValues: UpdateUserProfileType = {
-        aboutMe: '',
+        aboutMe: props.userProfileData.aboutMe,
         userId: props.userProfileData.userId,
-        lookingForAJob: false,
-        lookingForAJobDescription: '',
-        fullName: '',
+        lookingForAJob: props.userProfileData.lookingForAJob,
+        lookingForAJobDescription: props.userProfileData.lookingForAJobDescription,
+        fullName: props.userProfileData.fullName,
         contacts: {
-            github: '',
-            vk: '',
-            facebook: '',
-            instagram: '',
-            twitter: '',
-            website: '',
-            youtube: '',
-            mainLink: ''
-        }
+            github: props.userProfileData.contacts.github,
+            vk: props.userProfileData.contacts.vk,
+            facebook: props.userProfileData.contacts.facebook,
+            instagram: props.userProfileData.contacts.instagram,
+            twitter: props.userProfileData.contacts.twitter,
+            website: props.userProfileData.contacts.website,
+            youtube: props.userProfileData.contacts.youtube,
+            mainLink: props.userProfileData.contacts.mainLink,
+        },
     }
 
     const contacts: { [index: string]: any } = props.userProfileData.contacts
@@ -32,12 +32,11 @@ export function UpdateProfile(props: updateProfilePropsType) {
             <Formik
                 initialValues={initialValues}
                 onSubmit={async (values, submitProps) => {
-                    const res = await props.updateUserProfileAsync(values, submitProps)
                     try {
+                        await props.updateUserProfileAsync(values, submitProps)
                         navigate('/profile')
-                        submitProps.resetForm()
                     } catch (error) {
-                        console.log(error)
+                        console.warn(error)
                     }
                 }}
             >
@@ -66,8 +65,14 @@ export function UpdateProfile(props: updateProfilePropsType) {
                             return <Contacts key={key} contactTitle={key} />
                         })}
 
-                        {props.status && <span style={{ color: 'red' }}>{props.status}</span>}
-
+                        <ul>
+                            {props.status &&
+                                props.status.map((item: string, index: number) => (
+                                    <li style={{ color: 'red' }} key={index}>
+                                        {item}
+                                    </li>
+                                ))}
+                        </ul>
                         <Button type='submit' className={style.btn}>
                             Submit
                         </Button>

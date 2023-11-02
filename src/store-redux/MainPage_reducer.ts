@@ -196,17 +196,19 @@ export const getUserProfileAsync = (userId: number): AppThunk => {
     }
 }
 
-export const updateUserProfileAsync = (data: UpdateUserProfileType, submitProps: FormikHelpers<UpdateUserProfileType>,
-): AppThunk  => {
-   return async (dispatch, getState) => {
-            const userId = getState().authData.id
+export const updateUserProfileAsync = (
+    data: UpdateUserProfileType,
+    submitProps: FormikHelpers<UpdateUserProfileType>,
+): AppThunk => {
+    return async (dispatch, getState) => {
+        const userId = getState().authData.id
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
                 // userId !== null && dispatch(getUserProfileAsync(userId))
             } else {
                 submitProps.setStatus(res.data.messages)
-                return Promise.reject(res.data.messages[0])
+                return Promise.reject(res.data.messages)
             }
         } catch (error: any) {
             console.warn(error)
@@ -214,12 +216,12 @@ export const updateUserProfileAsync = (data: UpdateUserProfileType, submitProps:
     }
 }
 export const followAsync = (userId: number): AppThunk => {
-    return (dispatch) => {
+    return dispatch => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))
     }
 }
 export const unfollowAsync = (userId: number): AppThunk => {
-    return async (dispatch) => {
+    return async dispatch => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.unFollowUser(userId), unFollow(userId))
     }
 }
@@ -245,7 +247,7 @@ const followUnfollowFlow = async (
 }
 
 export const updateUserStatusAsync = (textStatus: string): AppThunk => {
-    return async (dispatch) => {
+    return async dispatch => {
         try {
             const res = await socialNetworkAPI.updateUserStatus(textStatus)
             if (res.data.resultCode === 0) {
@@ -260,7 +262,7 @@ export const updateUserStatusAsync = (textStatus: string): AppThunk => {
 }
 
 export const getUserStatusAsync = (userId: number): AppThunk => {
-    return async (dispatch) => {
+    return async dispatch => {
         try {
             const res = await socialNetworkAPI.getUserStatus(userId)
             dispatch(setUserStatus(res.data))
@@ -271,12 +273,12 @@ export const getUserStatusAsync = (userId: number): AppThunk => {
 }
 
 export const uploadPhotoAsync = (photoFile: string | Blob): AppThunk => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(setErrorStatus(null))
         try {
             const res = await socialNetworkAPI.uploadPhotoFile(photoFile)
             if (res.data.resultCode === 0) {
-                dispatch(uploadPhoto(res.data.data.photos.small))
+                dispatch(uploadPhoto(res.data.data.photos.large))
             } else {
                 dispatch(setErrorStatus(res.data.messages[0]))
             }
