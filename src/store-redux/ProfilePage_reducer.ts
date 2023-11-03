@@ -8,17 +8,6 @@ import { updateObjectInArray } from '../utils/object-helpers'
 import { AppRootState, AppThunk } from './redux-store'
 import App from '../app/App'
 
-type ContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-}
-
 const initialState = {
     newMessageTextData: '' as string,
     messagesData: [] as Array<MessageType>,
@@ -28,7 +17,16 @@ const initialState = {
     totalUsersCount: 0 as number,
     userProfileData: {
         aboutMe: '',
-        contacts: {} as ContactsType,
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
+        },
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
@@ -196,25 +194,21 @@ export const getUserProfileAsync = (userId: number): AppThunk => {
     }
 }
 
-export const updateUserProfileAsync = (
-    data: UpdateUserProfileType,
-    submitProps: FormikHelpers<UpdateUserProfileType>,
-): AppThunk => {
-    return async (dispatch, getState) => {
+export const updateUserProfileAsync =
+    (data: UpdateUserProfileType): AppThunk =>
+    async (dispatch, getState) => {
         const userId = getState().authData.id
         try {
             const res = await socialNetworkAPI.updateUserProfile(data)
             if (res.data.resultCode === 0) {
-                // userId !== null && dispatch(getUserProfileAsync(userId))
+                userId !== null && dispatch(getUserProfileAsync(userId))
             } else {
-                submitProps.setStatus(res.data.messages)
                 return Promise.reject(res.data.messages)
             }
         } catch (error: any) {
             console.warn(error)
         }
     }
-}
 export const followAsync = (userId: number): AppThunk => {
     return dispatch => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))

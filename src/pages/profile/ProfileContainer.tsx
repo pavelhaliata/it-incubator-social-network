@@ -3,24 +3,15 @@ import { RequestStatus, setErrorStatus } from 'app/app-reducer'
 import { Component, ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/MainPage_reducer'
+import { getUserProfileAsync, uploadPhotoAsync } from 'store-redux/ProfilePage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
-import { withLazyLoading } from '../../hoc/withLazyLoading'
-import { Profile } from './Profile'
+import { withLazyLoading } from 'hoc/withLazyLoading'
 
-// const Profile = lazy(() => import('./Profile').then(module => ({ default: module.Profile })))
+const Profile = lazy(() => import('./Profile').then(module => ({ default: module.Profile })))
 
 class ProfileContainerAsync extends Component<ProfilePropsType> {
     componentDidMount() {
-        console.log('did mount')
         if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
-    }
-
-    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        console.log('did update')
-        // if (prevProps.userId !== this.props.userId) {
-        //     if (this.props.userId) this.props.getUserProfileAsync(this.props.userId)
-        // }
     }
 
     componentWillUnmount() {
@@ -34,7 +25,7 @@ class ProfileContainerAsync extends Component<ProfilePropsType> {
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
-        userId: state.profilePage.userProfileData.userId,
+        userId: state.authData.id,
         userProfileData: state.profilePage.userProfileData,
         requestStatus: state.app.requestStatus,
         errorMessage: state.app.error,
@@ -43,7 +34,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
 
 export const ProfileContainer = compose<ComponentType>(
     connect(mapStateToProps, { getUserProfileAsync, uploadPhotoAsync, setErrorStatus }),
-    withLazyLoading
+    withLazyLoading,
 )(ProfileContainerAsync)
 
 //types

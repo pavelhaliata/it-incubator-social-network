@@ -8,7 +8,7 @@ import {
     setTotalUsersCount,
     unfollowAsync,
     UserDomainType,
-} from 'store-redux/MainPage_reducer'
+} from 'store-redux/ProfilePage_reducer'
 import { RequestStatus, setRequestStatus } from 'app/app-reducer'
 import { compose } from 'redux'
 import { withLazyLoading } from '../../../hoc/withLazyLoading'

@@ -14,7 +14,6 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
     }
 
     componentDidMount() {
-        // debugger
         if (this.props.userAuthorizedId) {
             this.props.getUserStatusAsync(this.props.userAuthorizedId)
         }

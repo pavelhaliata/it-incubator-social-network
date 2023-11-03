@@ -1,5 +1,5 @@
 import React from 'react'
-import { MainPageActionsType } from '../store-redux/MainPage_reducer'
+import { MainPageActionsType } from '../store-redux/ProfilePage_reducer'
 import { BlogPageActionsType } from '../store-redux/blogPage_reducer'
 import { AppRootState } from '../store-redux/redux-store'
 import { Store } from 'redux'

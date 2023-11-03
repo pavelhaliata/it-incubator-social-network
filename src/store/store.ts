@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { profilePageReducer } from '../store-redux/MainPage_reducer'
+import { profilePageReducer } from '../store-redux/ProfilePage_reducer'
 import { blogPageReducer } from '../store-redux/blogPage_reducer'
 import { ActionCreatorsTypes } from './StoreContext'
 

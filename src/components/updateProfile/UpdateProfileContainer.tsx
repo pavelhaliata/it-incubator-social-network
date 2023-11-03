@@ -1,11 +1,11 @@
-import { UpdateUserProfileType, UserProfileType } from 'api/social-network-api'
+import { UpdateUserProfileType } from 'api/social-network-api'
 import { FormikHelpers } from 'formik'
 import { ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { updateUserProfileAsync } from 'store-redux/MainPage_reducer'
+import { updateUserProfileAsync } from 'store-redux/ProfilePage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
-import { withLazyLoading } from '../../hoc/withLazyLoading'
+import { withLazyLoading } from 'hoc/withLazyLoading'
 
 const UpdateProfile = lazy(() => import('./UpdateProfile').then(module => ({ default: module.UpdateProfile })))
 
@@ -24,7 +24,7 @@ export const UpdateProfileContainer = compose<ComponentType>(
 //types
 type mapStatePropsType = {
     userId: number
-    userProfileData: UserProfileType
+    userProfileData: UpdateUserProfileType
 }
 type mapDispatchPropsPropsType = {
     updateUserProfileAsync: (data: UpdateUserProfileType, submitProps: FormikHelpers<UpdateUserProfileType>) => void

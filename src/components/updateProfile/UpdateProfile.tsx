@@ -9,7 +9,7 @@ export function UpdateProfile(props: updateProfilePropsType) {
     const navigate = useNavigate()
     const initialValues: UpdateUserProfileType = {
         aboutMe: props.userProfileData.aboutMe,
-        userId: props.userProfileData.userId,
+        userId: props.userId,
         lookingForAJob: props.userProfileData.lookingForAJob,
         lookingForAJobDescription: props.userProfileData.lookingForAJobDescription,
         fullName: props.userProfileData.fullName,
@@ -36,7 +36,7 @@ export function UpdateProfile(props: updateProfilePropsType) {
                         await props.updateUserProfileAsync(values, submitProps)
                         navigate('/profile')
                     } catch (error) {
-                        console.warn(error)
+                        submitProps.setStatus(error)
                     }
                 }}
             >
@@ -73,8 +73,13 @@ export function UpdateProfile(props: updateProfilePropsType) {
                                     </li>
                                 ))}
                         </ul>
-                        <Button type='submit' className={style.btn}>
-                            Submit
+                        <Button type='submit'>Submit</Button>
+                        <Button
+                            onClick={() => {
+                                navigate('/profile')
+                            }}
+                        >
+                            cancel
                         </Button>
                     </Form>
                 )}

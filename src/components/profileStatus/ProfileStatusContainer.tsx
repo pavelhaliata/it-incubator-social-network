@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { AppRootState } from 'store-redux/redux-store'
 import { ProfileStatus } from './ProfileStatus'
-import { getUserStatusAsync, updateUserStatusAsync } from 'store-redux/MainPage_reducer'
+import { getUserStatusAsync, updateUserStatusAsync } from 'store-redux/ProfilePage_reducer'
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {

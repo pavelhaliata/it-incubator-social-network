@@ -17,7 +17,7 @@ function App() {
             <Route path='/login' element={<LoginContainer />} />
             <Route path='/' element={<Layout />}>
                 <Route path='/' element={<MainPageContainer />}>
-                    <Route path='profile' element={<ProfileContainer />}/>
+                    <Route path='profile' element={<ProfileContainer />} />
                     <Route path='edit-profile' element={<UpdateProfileContainer />} />
                     <Route path='dialogs' element={<DialogsContainer />} />
                     <Route path='friends' element={<UsersContainer />} />

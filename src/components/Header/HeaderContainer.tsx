@@ -4,7 +4,7 @@ import { Header } from './Header'
 import { AuthUserDataType } from 'api/social-network-api'
 import { Component } from 'react'
 import { appInitializationAsync } from 'store-redux/auth_reducer'
-import { getUserStatusAsync } from 'store-redux/MainPage_reducer'
+import { getUserStatusAsync } from 'store-redux/ProfilePage_reducer'
 
 // HeaderApiContainer
 class HeaderApiContainer extends Component<HeaderPropsType> {

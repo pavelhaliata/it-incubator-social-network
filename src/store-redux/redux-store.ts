@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
 import thunk, { ThunkAction } from 'redux-thunk'
 import { composeWithDevTools } from '@redux-devtools/extension'
-import { MainPageActionsType, profilePageReducer } from './MainPage_reducer'
+import { MainPageActionsType, profilePageReducer } from './ProfilePage_reducer'
 import { BlogPageActionsType, blogPageReducer } from './blogPage_reducer'
 import { WeatherActionsType, weatherPageReducer } from './weatherPage_reducer'
 import { inputValueReducer } from './inputComponent_reducer'

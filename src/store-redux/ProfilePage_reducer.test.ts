@@ -7,7 +7,7 @@ import {
     toggleFollowingStatusRequest,
     follow,
     unFollow,
-} from './MainPage_reducer'
+} from './ProfilePage_reducer'
 import { UserProfileType } from '../api/social-network-api'
 const userId = 1
 

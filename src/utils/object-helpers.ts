@@ -1,4 +1,4 @@
-import { UserDomainType } from '../store-redux/MainPage_reducer'
+import { UserDomainType } from '../store-redux/ProfilePage_reducer'
 
 export const updateObjectInArray = (
     items: UserDomainType[],
