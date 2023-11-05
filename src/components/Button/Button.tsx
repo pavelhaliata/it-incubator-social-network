@@ -6,7 +6,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<
     HTMLButtonElement
 > & {
     onClick?: () => void
-    status?: boolean
+    disabled?: boolean
 }
 
 export class Button extends Component<DefaultButtonPropsType> {
@@ -16,10 +16,10 @@ export class Button extends Component<DefaultButtonPropsType> {
                 type={this.props.type}
                 style={this.props.style}
                 className={`${this.props.className} ${style.button} ${
-                    this.props.status && style.status
+                    this.props.disabled && style.disabled
                 }`}
                 onClick={this.props.onClick}
-                disabled={this.props.status}
+                disabled={ this.props.disabled}
             >
                 {this.props.children}
             </button>

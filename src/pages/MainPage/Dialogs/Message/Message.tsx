@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import style from './Message.module.scss'
+import { ChatMessageType } from '../Dialogs'
 
-export type MessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
 
-export const Message = (props: MessageType) => {
+
+export const Message = (props: ChatMessageType) => {
     return (
         <div className={style.message}>
             <div className={style.message__avatar}>

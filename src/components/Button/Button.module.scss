@@ -1,5 +1,5 @@
 .button {
-	background-color: #ff5e3a;
+	background-color: var(--primary-color);
 	color: #fff;
 	padding: 0.8rem;
 	border-radius: .3rem;
@@ -13,6 +13,7 @@
 	}
 }
 
-.button.status {
+.button.disabled {
 	cursor: progress !important;
+	background-color: var(--grey-light);
 }
