@@ -16,8 +16,8 @@ function createChannel() {
     ws?.removeEventListener('close', reConnectHandler) //отписываемся от предыдущего listener'а // ws?. проверка на null, если не null, то...
     ws?.close() // закрываем предыдущее соединение WebSocket'а
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-    ws?.addEventListener('close', reConnectHandler)
-    ws?.addEventListener('message', messageHandler) // Iam
+    ws.addEventListener('close', reConnectHandler)
+    ws.addEventListener('message', messageHandler) // Iam
 }
 
 export const chatAPI = {
@@ -36,11 +36,11 @@ export const chatAPI = {
 }
 
 // types
-export type ChatMessageType = {
+export type ChatMessageAPIType = {
     message: string
     photo: string
     userId: number
     userName: string
 }
 
-type SubscriberType = (message: ChatMessageType) => void
+type SubscriberType = (messages: ChatMessageAPIType[]) => void

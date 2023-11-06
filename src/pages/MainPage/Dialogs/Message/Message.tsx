@@ -1,7 +1,7 @@
-import { ChatMessageType } from 'api/chat-api'
+import { ChatMessageAPIType } from 'api/chat-api'
 import style from './Message.module.scss'
 
-export const Message = (props: ChatMessageType) => {
+export const Message = (props: ChatMessageAPIType) => {
     return (
         <div className={style.message}>
             <div className={style.message__avatar}>

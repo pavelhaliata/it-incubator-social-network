@@ -4,13 +4,14 @@ import { compose, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { withLazyLoading } from 'hoc/withLazyLoading'
 import { ComponentType, lazy } from 'react'
+import { ChatMessageType, startMessagesListeningAsync } from '../../../store-redux/chat_reducer'
 
 const Dialogs = lazy(() => import('./Dialogs').then(module => ({ default: module.Dialogs })))
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
         messageTextValue: state.profilePage.newMessageTextData,
-        messagesData: state.profilePage.messagesData,
+        messages: state.chat.messages
     }
 }
 
@@ -22,6 +23,10 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
         addNewMessage: () => {
             dispatch(newMessage())
         },
+        startMessagesListeningAsync: () => {
+            // @ts-ignore
+            dispatch(startMessagesListeningAsync())
+        }
     }
 }
 
@@ -34,11 +39,12 @@ export const DialogsContainer = compose<ComponentType>(
 
 type mapStatePropsType = {
     messageTextValue: string
-    messagesData: Array<MessageType>
+    messages: ChatMessageType[]
 }
 type mapDispatchPropsProps = {
     updateNewMessageText: (value: string) => void
     addNewMessage: () => void
+    startMessagesListeningAsync: ()=> void
 }
 
 export type DialogsPropsType = mapStatePropsType & mapDispatchPropsProps

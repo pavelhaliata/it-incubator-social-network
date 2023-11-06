@@ -4,18 +4,20 @@ import { DialogsPropsType } from './DialogsContainer'
 import { Message } from './Message/Message'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from 'components/Button/Button'
-import loading from '../../../assets/images/loading-pulse-200px.svg'
-import { ChatMessageType } from 'api/chat-api'
+import loading from 'assets/images/loading-pulse-200px.svg'
+import { ChatMessageAPIType } from 'api/chat-api'
 
 export const Dialogs = (props: DialogsPropsType) => {
     const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
-    const [messages, setMessages] = useState<ChatMessageType[]>([])
+    const [messages, setMessages] = useState<ChatMessageAPIType[]>([])
     const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const [inputValue, setInputValue] = useState<string>('')
     const ref = useRef<HTMLDivElement>(null)
     const [isClosed, setIsClosed] = useState<boolean>(false)
 
+
     useEffect(() => {
+        props.startMessagesListeningAsync()
         let ws: WebSocket
 
         const reConnectHandler = () => {
@@ -36,7 +38,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
             ws.addEventListener('close', reConnectHandler)
             ws.addEventListener('open', isClosedHandler)
-            setWsChannel(ws)
+            // setWsChannel(ws)
         }
         createChannel()
         return () => {
@@ -97,7 +99,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     </div>
                 ) : (
                     <div className={`${style.dialog_item} ${style.author}`}>
-                        {messages.map(item => {
+                        {props.messages.map(item => {
                             return (
                                 <Message
                                     key={uuidv4()}

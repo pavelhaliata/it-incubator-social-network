@@ -61,7 +61,6 @@ export const Users = ({
                         )
                     })}
             </div>
-            )
             <div className={style.page_navigation}>
                 {pages.map(p => (
                     <span

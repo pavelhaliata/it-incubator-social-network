@@ -7,7 +7,7 @@ import { WeatherActionsType, weatherPageReducer } from './weatherPage_reducer'
 import { inputValueReducer } from './inputComponent_reducer'
 import { AppActionType, appReducer } from '../app/app-reducer'
 import { AuthActionsType, authReducer } from './auth_reducer'
-import { chatReducer } from './chat_reducer'
+import { ChatActionsType, chatReducer } from './chat_reducer'
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -30,6 +30,7 @@ type ApplicationActionsType =
     | AuthActionsType
     | BlogPageActionsType
     | WeatherActionsType
+    | ChatActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, ApplicationActionsType>
 
