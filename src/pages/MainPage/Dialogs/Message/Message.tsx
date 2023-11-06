@@ -1,8 +1,5 @@
-import React from 'react'
+import { ChatMessageType } from 'api/chat-api'
 import style from './Message.module.scss'
-import { ChatMessageType } from '../Dialogs'
-
-
 
 export const Message = (props: ChatMessageType) => {
     return (

@@ -4,22 +4,14 @@ import { DialogsPropsType } from './DialogsContainer'
 import { Message } from './Message/Message'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from 'components/Button/Button'
-import loading from  '../../../assets/images/loading-pulse-200px.svg'
-
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
-
+import loading from '../../../assets/images/loading-pulse-200px.svg'
+import { ChatMessageType } from 'api/chat-api'
 
 export const Dialogs = (props: DialogsPropsType) => {
     const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
     const [messages, setMessages] = useState<ChatMessageType[]>([])
     const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const [inputValue, setInputValue] = useState<string>('')
-    const [timerId, setTimerId] = useState()
     const ref = useRef<HTMLDivElement>(null)
     const [isClosed, setIsClosed] = useState<boolean>(false)
 
@@ -33,11 +25,13 @@ export const Dialogs = (props: DialogsPropsType) => {
                 createChannel()
             }, 3000)
         }
-        const isClosedHandler = () => {setIsClosed(false)}
+        const isClosedHandler = () => {
+            setIsClosed(false)
+        }
 
         function createChannel() {
             ws?.removeEventListener('open', isClosedHandler)
-            ws?.removeEventListener('close', reConnectHandler ) //отписываемся от предыдущего listener'а // ws?. проверка на null, если не null, то...
+            ws?.removeEventListener('close', reConnectHandler) //отписываемся от предыдущего listener'а // ws?. проверка на null, если не null, то...
             ws?.close() // закрываем предыдущее соединение WebSocket'а
             ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
             ws.addEventListener('close', reConnectHandler)
@@ -45,7 +39,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             setWsChannel(ws)
         }
         createChannel()
-        return() => {
+        return () => {
             ws.removeEventListener('close', reConnectHandler)
             ws.close()
         }
@@ -66,14 +60,13 @@ export const Dialogs = (props: DialogsPropsType) => {
             wsChannel?.removeEventListener('message', messageHandler)
             wsChannel?.removeEventListener('open', readyStatusHandler)
         }
-
     }, [wsChannel])
 
     useEffect(() => {
         if (messages.length) {
             ref.current?.scrollIntoView({
                 behavior: 'smooth',
-                block: 'center'
+                block: 'center',
             })
         }
     }, [messages.length])
@@ -97,21 +90,27 @@ export const Dialogs = (props: DialogsPropsType) => {
     return (
         <>
             <div className={`${style.dialogs}`}>
-                {isClosed ? <div style={{display: 'flex', alignItems:'center'}}>connection lost... Reconnecting, pls, waiting... <img src={loading} width='34px' height='34px' alt='icon'/></div> :
-                <div className={`${style.dialog_item} ${style.author}`}>
-                    {messages.map(item => {
-                        return (
-                            <Message
-                                key={uuidv4()}
-                                userId={item.userId}
-                                userName={item.userName}
-                                photo={item.photo}
-                                message={item.message}
-                            />
-                        )
-                    })}
-                    <div ref={ref} />
-                </div>}
+                {isClosed ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        connection lost... Reconnecting, pls, waiting...{' '}
+                        <img src={loading} width='34px' height='34px' alt='icon' />
+                    </div>
+                ) : (
+                    <div className={`${style.dialog_item} ${style.author}`}>
+                        {messages.map(item => {
+                            return (
+                                <Message
+                                    key={uuidv4()}
+                                    userId={item.userId}
+                                    userName={item.userName}
+                                    photo={item.photo}
+                                    message={item.message}
+                                />
+                            )
+                        })}
+                        <div ref={ref} />
+                    </div>
+                )}
             </div>
             <div className={style.dialog_input}>
                 <textarea
@@ -122,7 +121,11 @@ export const Dialogs = (props: DialogsPropsType) => {
                     onChange={onChangeInputHandler}
                     onKeyDown={onKeyDownSendMessageHandler}
                 />
-                <Button disabled={wsChannel === null || readyStatus !== 'ready'} className={style.send_btn} onClick={sendMessageHandler}>
+                <Button
+                    disabled={wsChannel === null || readyStatus !== 'ready'}
+                    className={style.send_btn}
+                    onClick={sendMessageHandler}
+                >
                     Send
                 </Button>
             </div>

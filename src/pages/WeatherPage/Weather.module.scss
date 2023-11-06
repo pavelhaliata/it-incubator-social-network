@@ -37,8 +37,17 @@
 }
 
 .temperature_sensor {
-  font-size: 60px;
-
+  font-size: 4.5rem;
+  position: relative;
+}
+.temperature_sensor::after{
+  content:'o' ;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  position: relative;
+  top: -38px;
+  left: -5px;
 }
 
 .temperature_max_min {

@@ -7,6 +7,7 @@ import { WeatherActionsType, weatherPageReducer } from './weatherPage_reducer'
 import { inputValueReducer } from './inputComponent_reducer'
 import { AppActionType, appReducer } from '../app/app-reducer'
 import { AuthActionsType, authReducer } from './auth_reducer'
+import { chatReducer } from './chat_reducer'
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     blogPage: blogPageReducer,
     profilePage: profilePageReducer,
     weatherPage: weatherPageReducer,
+    chat: chatReducer
 })
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
@@ -22,14 +24,14 @@ export default store
 
 //types
 export type AppRootState = ReturnType<typeof rootReducer>
-type ApplicationActionsType = AppActionType | MainPageActionsType | AuthActionsType | BlogPageActionsType | WeatherActionsType
+type ApplicationActionsType =
+    | AppActionType
+    | MainPageActionsType
+    | AuthActionsType
+    | BlogPageActionsType
+    | WeatherActionsType
 
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    AppRootState,
-    unknown,
-    ApplicationActionsType
->
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, ApplicationActionsType>
 
 //@ts-ignore
 window.store = store
