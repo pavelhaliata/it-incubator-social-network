@@ -1,7 +1,8 @@
-import { ChatMessageAPIType } from 'api/chat-api'
+import { ChatMessageType } from 'api/chat-api'
 import style from './Message.module.scss'
+import React from 'react'
 
-export const Message = (props: ChatMessageAPIType) => {
+const Message = React.memo(function Message(props: ChatMessageType){
     return (
         <div className={style.message}>
             <div className={style.message__avatar}>
@@ -13,4 +14,6 @@ export const Message = (props: ChatMessageAPIType) => {
             </div>
         </div>
     )
-}
+})
+
+export default Message;

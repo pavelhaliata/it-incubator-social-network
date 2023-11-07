@@ -1,32 +1,33 @@
-import { MessageType, newMessage, newMessageText } from 'store-redux/ProfilePage_reducer'
 import { AppRootState } from 'store-redux/redux-store'
 import { compose, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { withLazyLoading } from 'hoc/withLazyLoading'
 import { ComponentType, lazy } from 'react'
-import { ChatMessageType, startMessagesListeningAsync } from '../../../store-redux/chat_reducer'
+import { sendMessageAsync, startMessagesListeningAsync, stopMessagesListeningAsync } from 'store-redux/chat_reducer'
+import { ChatMessageType } from 'api/chat-api'
 
 const Dialogs = lazy(() => import('./Dialogs').then(module => ({ default: module.Dialogs })))
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
-        messageTextValue: state.profilePage.newMessageTextData,
         messages: state.chat.messages
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
     return {
-        updateNewMessageText: (value: string) => {
-            dispatch(newMessageText(value))
-        },
-        addNewMessage: () => {
-            dispatch(newMessage())
-        },
-        startMessagesListeningAsync: () => {
+        startMessagesListening: () => {
             // @ts-ignore
             dispatch(startMessagesListeningAsync())
-        }
+        },
+        sendMessage: (message) => {
+            // @ts-ignore
+            dispatch(sendMessageAsync(message))
+        },
+        stopMessagesListening: () => {
+            // @ts-ignore
+            dispatch(stopMessagesListeningAsync())
+    }
     }
 }
 
@@ -38,13 +39,12 @@ export const DialogsContainer = compose<ComponentType>(
 //types
 
 type mapStatePropsType = {
-    messageTextValue: string
     messages: ChatMessageType[]
 }
 type mapDispatchPropsProps = {
-    updateNewMessageText: (value: string) => void
-    addNewMessage: () => void
-    startMessagesListeningAsync: ()=> void
+    startMessagesListening: ()=> void
+    stopMessagesListening: () => void
+    sendMessage: (message: string) => void
 }
 
 export type DialogsPropsType = mapStatePropsType & mapDispatchPropsProps

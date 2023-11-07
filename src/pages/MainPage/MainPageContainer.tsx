@@ -3,7 +3,7 @@ import {AppRootState} from "store-redux/redux-store";
 import {MainPage} from "./MainPage";
 import {setHeaderTitle} from "app/app-reducer";
 import {AuthUserDataType} from "api/social-network-api";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ComponentType} from "react";
 

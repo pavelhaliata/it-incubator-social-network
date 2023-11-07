@@ -1,46 +1,61 @@
-let subscribers = [] as SubscriberType[] //подписчики
 
 let ws: WebSocket | null = null
 
-const reConnectHandler = () => {
-    console.warn('Socket is closed. Reconnect will be attempted in 3 seconds.')
-    setTimeout(createChannel, 3000)
-}
+let subscribers = [] as SubscriberType[]
 
-const messageHandler = (messageEvent: MessageEvent) => {
-    const newMessages = JSON.parse(messageEvent.data)
-    subscribers.forEach(s => s(newMessages)) //каждому подписчику прокидываем функцию (callback: SubscriberType) => void
+const messagesHandler = (event: MessageEvent) => {
+    const newMessage: ChatMessageType[] = JSON.parse(event.data)
+    subscribers.forEach(sub => sub(newMessage))
 }
-
+const reConnect = () => {
+    ws?.removeEventListener('message', messagesHandler)
+    ws?.removeEventListener('close', reConnect)
+    setTimeout(()=>{
+        console.warn('Socket is closed. Reconnect will be attempted in 3 second.')
+        createChannel()
+    }, 3000)
+}
 function createChannel() {
-    ws?.removeEventListener('close', reConnectHandler) //отписываемся от предыдущего listener'а // ws?. проверка на null, если не null, то...
-    ws?.close() // закрываем предыдущее соединение WebSocket'а
+    ws?.removeEventListener('close', reConnect)
+    ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-    ws.addEventListener('close', reConnectHandler)
-    ws.addEventListener('message', messageHandler) // Iam
+    ws?.addEventListener('message', messagesHandler)
+    ws?.addEventListener('close', reConnect)
 }
+
 
 export const chatAPI = {
-    start() {
-        createChannel()
+    start(){
+      createChannel()
     },
-    subscribe(callback: SubscriberType) {
+    stop(){
+        subscribers = [] //?? а надо ли, если уже вызвали unsubscribe
+        removeEventListener('message', messagesHandler)
+        removeEventListener('close', reConnect)
+        ws?.close()
+    },
+    subscribe(callback: SubscriberType){
         subscribers.push(callback)
-        return () => {
-            subscribers = subscribers.filter(s => s !== callback) // два варианта отписаться
+        return ()=>{
+            subscribers.filter(s => s !== callback)
         }
     },
-    unsubscribe(callback: SubscriberType) {
-        subscribers = subscribers.filter(s => s !== callback) // два варианта отписаться
+    unsubscribe(callback: SubscriberType){
+        subscribers.filter(s => s !== callback)
     },
+    sendMessage(message: string){
+        ws?.send(message)
+    },
+
 }
 
 // types
-export type ChatMessageAPIType = {
+
+type SubscriberType = (messages: ChatMessageType[])=> void
+
+export type ChatMessageType = {
     message: string
     photo: string
     userId: number
     userName: string
 }
-
-type SubscriberType = (messages: ChatMessageAPIType[]) => void
