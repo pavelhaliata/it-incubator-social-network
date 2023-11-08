@@ -133,7 +133,7 @@ export const newMessageText = (newText: string) => ({ type: 'main/UPDATE-NEW-MES
 
 export const newMessage = () => ({ type: 'main/ADD_NEW_MESSAGE' }) as const
 
-export const setUsers = (usersData: Array<UserType>) => ({ type: 'main/SET-USERS', usersData }) as const
+export const setUsers = (usersData: UserType[]) => ({ type: 'main/SET-USERS', usersData }) as const
 
 export const setTotalUsersCount = (totalCount: number) => ({ type: 'main/TOTAL-USERS-COUNT', totalCount }) as const
 

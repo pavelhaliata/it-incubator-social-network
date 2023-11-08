@@ -11,7 +11,7 @@ import {
 } from 'store-redux/ProfilePage_reducer'
 import { RequestStatus, setRequestStatus } from 'app/app-reducer'
 import { compose } from 'redux'
-import { withLazyLoading } from '../../../hoc/withLazyLoading'
+import { withLazyLoading } from 'hoc/withLazyLoading'
 
 const Users = lazy(() => import('./Users').then(module => ({ default: module.Users })))
 

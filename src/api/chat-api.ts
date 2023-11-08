@@ -1,59 +1,86 @@
-
 let ws: WebSocket | null = null
 
-let subscribers = [] as SubscriberType[]
-
-const messagesHandler = (event: MessageEvent) => {
-    const newMessage: ChatMessageType[] = JSON.parse(event.data)
-    subscribers.forEach(sub => sub(newMessage))
+const subscribers = {
+    'messages-received': [] as MessagesReceivedSubscriberType[],
+    'status-changed': [] as StatusChangedSubscriberType[],
 }
 const reConnect = () => {
-    ws?.removeEventListener('message', messagesHandler)
-    ws?.removeEventListener('close', reConnect)
-    setTimeout(()=>{
+    cleanUp()
+    notifySubscriberAboutStatus('pending')
+    setTimeout(() => {
         console.warn('Socket is closed. Reconnect will be attempted in 3 second.')
         createChannel()
     }, 3000)
 }
-function createChannel() {
+
+const messagesHandler = (event: MessageEvent) => {
+    const newMessage: ChatMessageAPIType[] = JSON.parse(event.data)
+    subscribers['messages-received'].forEach(sub => sub(newMessage))
+}
+const openHandler = () => {
+    notifySubscriberAboutStatus('ready')
+}
+const errorHandler = () => {
+    notifySubscriberAboutStatus('error')
+    console.error('some error occurred')
+}
+const cleanUp = () => {
+    ws?.removeEventListener('message', messagesHandler)
     ws?.removeEventListener('close', reConnect)
-    ws?.close()
-    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-    ws?.addEventListener('message', messagesHandler)
-    ws?.addEventListener('close', reConnect)
+    ws?.removeEventListener('open', openHandler)
+    ws?.removeEventListener('error', errorHandler)
+}
+const notifySubscriberAboutStatus = (status: ChatStatusType) => {
+    subscribers['status-changed'].forEach(sub => sub(status))
 }
 
+function createChannel() {
+    cleanUp()
+    ws?.close()
+    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+    notifySubscriberAboutStatus('pending')
+    ws.addEventListener('message', messagesHandler)
+    ws.addEventListener('close', reConnect)
+    ws.addEventListener('open', openHandler)
+    ws.addEventListener('error', errorHandler)
+}
 
 export const chatAPI = {
-    start(){
-      createChannel()
+    start() {
+        createChannel()
     },
-    stop(){
-        subscribers = [] //?? а надо ли, если уже вызвали unsubscribe
-        removeEventListener('message', messagesHandler)
-        removeEventListener('close', reConnect)
+    stop() {
+        subscribers['messages-received'] = []
+        subscribers['status-changed'] = [] //?? а надо ли, если уже вызвали unsubscribe
+        cleanUp()
         ws?.close()
     },
-    subscribe(callback: SubscriberType){
-        subscribers.push(callback)
-        return ()=>{
-            subscribers.filter(s => s !== callback)
-        }
-    },
-    unsubscribe(callback: SubscriberType){
-        subscribers.filter(s => s !== callback)
-    },
-    sendMessage(message: string){
+    sendMessage(message: string) {
         ws?.send(message)
     },
-
+    subscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+        // @ts-ignore
+        subscribers[eventName].push(callback)
+        return () => {
+            // @ts-ignore
+            subscribers[eventName].filter(s => s !== callback)
+        }
+    },
+    unsubscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+        // @ts-ignore
+        subscribers[eventName].filter(s => s !== callback)
+    },
 }
 
 // types
+type EventsNamesType = 'messages-received' | 'status-changed'
 
-type SubscriberType = (messages: ChatMessageType[])=> void
+type MessagesReceivedSubscriberType = (messages: ChatMessageAPIType[]) => void
+type StatusChangedSubscriberType = (status: ChatStatusType) => void
 
-export type ChatMessageType = {
+export type ChatStatusType = 'pending' | 'ready' | 'error'
+
+export type ChatMessageAPIType = {
     message: string
     photo: string
     userId: number

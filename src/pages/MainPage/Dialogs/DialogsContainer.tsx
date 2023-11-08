@@ -1,38 +1,44 @@
-import { AppRootState } from 'store-redux/redux-store'
-import { compose, Dispatch } from 'redux'
-import { connect } from 'react-redux'
+import { ChatStatusType } from 'api/chat-api'
 import { withLazyLoading } from 'hoc/withLazyLoading'
 import { ComponentType, lazy } from 'react'
-import { sendMessageAsync, startMessagesListeningAsync, stopMessagesListeningAsync } from 'store-redux/chat_reducer'
-import { ChatMessageType } from 'api/chat-api'
+import { connect } from 'react-redux'
+import { compose, Dispatch } from 'redux'
+import {
+    ChatMessageType,
+    sendMessageAsync,
+    startMessagesListeningAsync,
+    stopMessagesListeningAsync,
+} from 'store-redux/chat_reducer'
+import { AppRootState } from 'store-redux/redux-store'
 
 const Dialogs = lazy(() => import('./Dialogs').then(module => ({ default: module.Dialogs })))
 
 const mapStateToProps = (state: AppRootState): mapStatePropsType => {
     return {
-        messages: state.chat.messages
+        messages: state.chat.messages,
+        status: state.chat.status,
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
-    return {
-        startMessagesListening: () => {
-            // @ts-ignore
-            dispatch(startMessagesListeningAsync())
-        },
-        sendMessage: (message) => {
-            // @ts-ignore
-            dispatch(sendMessageAsync(message))
-        },
-        stopMessagesListening: () => {
-            // @ts-ignore
-            dispatch(stopMessagesListeningAsync())
-    }
-    }
-}
+// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
+//     return {
+//         startMessagesListening: () => {
+//             // @ts-ignore
+//             dispatch(startMessagesListeningAsync())
+//         },
+//         sendMessage: message => {
+//             // @ts-ignore
+//             dispatch(sendMessageAsync(message))
+//         },
+//         stopMessagesListening: () => {
+//             // @ts-ignore
+//             dispatch(stopMessagesListeningAsync())
+//         },
+//     }
+// }
 
 export const DialogsContainer = compose<ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, { startMessagesListeningAsync, sendMessageAsync, stopMessagesListeningAsync }),
     withLazyLoading,
 )(Dialogs)
 
@@ -40,11 +46,12 @@ export const DialogsContainer = compose<ComponentType>(
 
 type mapStatePropsType = {
     messages: ChatMessageType[]
+    status: ChatStatusType
 }
 type mapDispatchPropsProps = {
-    startMessagesListening: ()=> void
-    stopMessagesListening: () => void
-    sendMessage: (message: string) => void
+    startMessagesListeningAsync: () => void
+    stopMessagesListeningAsync: () => void
+    sendMessageAsync: (message: string) => void
 }
 
 export type DialogsPropsType = mapStatePropsType & mapDispatchPropsProps

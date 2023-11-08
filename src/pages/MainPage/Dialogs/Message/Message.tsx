@@ -1,12 +1,13 @@
-import { ChatMessageType } from 'api/chat-api'
-import style from './Message.module.scss'
 import React from 'react'
+import { ChatMessageType } from 'store-redux/chat_reducer'
+import style from './Message.module.scss'
 
-const Message = React.memo(function Message(props: ChatMessageType){
+export const Message = React.memo(function Message(props: ChatMessageType) {
     return (
         <div className={style.message}>
             <div className={style.message__avatar}>
                 <img src={props.photo} alt={props.userName} />
+                <span>{props.userId}</span>
             </div>
             <div className={style.message__body}>
                 <div className={style.message__author}>{props.userName}</div>
@@ -15,5 +16,3 @@ const Message = React.memo(function Message(props: ChatMessageType){
         </div>
     )
 })
-
-export default Message;

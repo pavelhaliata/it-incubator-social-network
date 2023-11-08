@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     blogPage: blogPageReducer,
     profilePage: profilePageReducer,
     weatherPage: weatherPageReducer,
-    chat: chatReducer
+    chat: chatReducer,
 })
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
