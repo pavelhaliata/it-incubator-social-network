@@ -42,6 +42,9 @@ export const socialNetworkAPI = {
             },
         })
     },
+    findUser(value: string){
+        return instance.get('')
+    }
 }
 
 export const authAPI = {

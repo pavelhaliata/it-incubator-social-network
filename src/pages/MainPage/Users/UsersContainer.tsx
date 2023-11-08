@@ -2,12 +2,13 @@ import { Component, ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { AppRootState } from 'store-redux/redux-store'
 import {
+    findUserAsync,
     followAsync,
     getUsersAsync,
     setCurrentPage,
     setTotalUsersCount,
     unfollowAsync,
-    UserDomainType,
+    UserDomainType
 } from 'store-redux/ProfilePage_reducer'
 import { RequestStatus, setRequestStatus } from 'app/app-reducer'
 import { compose } from 'redux'
@@ -49,6 +50,7 @@ export const UsersContainer = compose<ComponentType>(
         setTotalUsersCount,
         setCurrentPage,
         setRequestStatus,
+        findUserAsync,
     }),
     withLazyLoading,
 )(UsersApiContainer)
@@ -71,4 +73,5 @@ type mapDispatchPropsPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     setCurrentPage: (currentPage: number) => void
     setRequestStatus: (status: RequestStatus) => void
+    findUserAsync: (value: string)=> void
 }

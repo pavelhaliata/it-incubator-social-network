@@ -1,12 +1,10 @@
 import { AxiosResponse } from 'axios'
-import { FormikHelpers } from 'formik'
 import { Dispatch } from 'redux'
 import { v4 as uuidv4 } from 'uuid'
 import { socialNetworkAPI, UpdateUserProfileType, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
 import { updateObjectInArray } from '../utils/object-helpers'
-import { AppRootState, AppThunk } from './redux-store'
-import App from '../app/App'
+import { AppThunk } from './redux-store'
 
 const initialState = {
     newMessageTextData: '' as string,
@@ -25,7 +23,7 @@ const initialState = {
             instagram: '',
             youtube: '',
             github: '',
-            mainLink: '',
+            mainLink: ''
         },
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -33,23 +31,23 @@ const initialState = {
         userId: 0,
         photos: {
             small: '',
-            large: '',
-        },
+            large: ''
+        }
     } as UserProfileType,
     userStatus: '' as string,
     selectedCurrentUser: [] as number[],
-    followingStatusRequest: false as boolean,
+    followingStatusRequest: false as boolean
 }
 
 export const profilePageReducer = (
     state: ProfilePageInitialStateType = initialState,
-    action: MainPageActionsType,
+    action: MainPageActionsType
 ): ProfilePageInitialStateType => {
     switch (action.type) {
         case 'main/UPDATE-NEW-MESSAGE-TEXT':
             return {
                 ...state,
-                newMessageTextData: action.newText,
+                newMessageTextData: action.newText
             }
         case 'main/ADD_NEW_MESSAGE':
             if (state.newMessageTextData.trim() !== '') {
@@ -58,12 +56,12 @@ export const profilePageReducer = (
                     avatar: state.userProfileData.photos.small,
                     name: 'James Spiegel',
                     message: state.newMessageTextData,
-                    time: new Date().toLocaleTimeString().slice(0, -3),
+                    time: new Date().toLocaleTimeString().slice(0, -3)
                 }
                 return {
                     ...state,
                     messagesData: [...state.messagesData, message],
-                    newMessageTextData: '',
+                    newMessageTextData: ''
                 }
             }
             return state
@@ -73,34 +71,34 @@ export const profilePageReducer = (
                 usersData: action.usersData.map(i => ({
                     ...i,
                     backgroundImg: '',
-                    country: '',
-                })),
+                    country: ''
+                }))
             }
         case 'main/TOTAL-USERS-COUNT':
             return {
                 ...state,
-                totalUsersCount: action.totalCount,
+                totalUsersCount: action.totalCount
             }
         case 'main/CURRENT-PAGE':
             return {
                 ...state,
-                currentPage: action.currentPage,
+                currentPage: action.currentPage
             }
         case 'main/USER-PROFILE':
             return {
                 ...state,
-                userProfileData: action.profileUserData,
+                userProfileData: action.profileUserData
             }
         case 'main/FOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true }),
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true })
             }
         }
         case 'main/UNFOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false }),
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false })
             }
         }
         case 'main/FOLLOWING_STATUS_REQUEST':
@@ -108,20 +106,20 @@ export const profilePageReducer = (
                 ...state,
                 selectedCurrentUser: action.followingStatusRequest
                     ? [...state.selectedCurrentUser, action.userId]
-                    : state.selectedCurrentUser.filter(i => i !== action.userId),
+                    : state.selectedCurrentUser.filter(i => i !== action.userId)
             }
         case 'main/USER-STATUS':
             return {
                 ...state,
-                userStatus: action.textStatus,
+                userStatus: action.textStatus
             }
         case 'main/UPLOAD-PHOTO':
             return {
                 ...state,
                 userProfileData: {
                     ...state.userProfileData,
-                    photos: { ...state.userProfileData.photos, small: action.photoFile },
-                },
+                    photos: { ...state.userProfileData.photos, small: action.photoFile }
+                }
             }
         default:
             return state
@@ -142,19 +140,19 @@ export const setCurrentPage = (currentPage: number) => ({ type: 'main/CURRENT-PA
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
         type: 'main/USER-PROFILE',
-        profileUserData,
+        profileUserData
     }) as const
 
 export const follow = (userId: number) =>
     ({
         type: 'main/FOLLOW',
-        payload: { userId },
+        payload: { userId }
     }) as const
 
 export const unFollow = (userId: number) =>
     ({
         type: 'main/UNFOLLOW',
-        payload: { userId },
+        payload: { userId }
     }) as const
 
 // необходимо для дизейбла кнопки
@@ -162,13 +160,13 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
     ({
         type: 'main/FOLLOWING_STATUS_REQUEST',
         followingStatusRequest,
-        userId,
+        userId
     }) as const
 
 const setUserStatus = (textStatus: string) =>
     ({
         type: 'main/USER-STATUS',
-        textStatus,
+        textStatus
     }) as const
 
 const uploadPhoto = (photoFile: string) => ({ type: 'main/UPLOAD-PHOTO', photoFile }) as const
@@ -196,19 +194,19 @@ export const getUserProfileAsync = (userId: number): AppThunk => {
 
 export const updateUserProfileAsync =
     (data: UpdateUserProfileType): AppThunk =>
-    async (dispatch, getState) => {
-        const userId = getState().authData.id
-        try {
-            const res = await socialNetworkAPI.updateUserProfile(data)
-            if (res.data.resultCode === 0) {
-                userId !== null && dispatch(getUserProfileAsync(userId))
-            } else {
-                return Promise.reject(res.data.messages)
+        async (dispatch, getState) => {
+            const userId = getState().authData.id
+            try {
+                const res = await socialNetworkAPI.updateUserProfile(data)
+                if (res.data.resultCode === 0) {
+                    userId !== null && dispatch(getUserProfileAsync(userId))
+                } else {
+                    return Promise.reject(res.data.messages)
+                }
+            } catch (error: any) {
+                console.warn(error)
             }
-        } catch (error: any) {
-            console.warn(error)
         }
-    }
 export const followAsync = (userId: number): AppThunk => {
     return dispatch => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))
@@ -224,7 +222,7 @@ const followUnfollowFlow = async (
     dispatch: Dispatch,
     userId: number,
     apiRequest: Promise<AxiosResponse>,
-    actionCreator: ReturnType<typeof follow> | ReturnType<typeof unFollow>,
+    actionCreator: ReturnType<typeof follow> | ReturnType<typeof unFollow>
 ) => {
     dispatch(toggleFollowingStatusRequest(true, userId))
     try {
@@ -278,6 +276,24 @@ export const uploadPhotoAsync = (photoFile: string | Blob): AppThunk => {
             }
         } catch (error) {
             console.log(error)
+        }
+    }
+}
+
+export const findUserAsync = (value: string): AppThunk => {
+    return async dispatch => {
+        dispatch(setRequestStatus(RequestStatus.loading))
+        try {
+            const res = await socialNetworkAPI.findUser(value)
+            if (res.data.resultCode === 0) {
+                dispatch(setRequestStatus(RequestStatus.succeed))
+            } else {
+                console.log('')
+            }
+        } catch (error) {
+            console.log(error)
+        }finally {
+            dispatch(setRequestStatus(RequestStatus.succeed))
         }
     }
 }
