@@ -22,7 +22,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
     // temperatureMin = Math.round(this.props.weatherData.main.temp_min);
     // humidity = this.props.weatherData.main.humidity;
     // feelsLike = Math.round(this.props.weatherData.main.feels_like);
-    icon = this.props.weatherData.weather[0].icon
+    // icon = this.props.weatherData.weather[0].icon
     // description = this.capitalizeFirstLetter(
     //     this.props.weatherData.weather[0].description
     // );
@@ -64,7 +64,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
                         <span>{Math.round(this.props.weatherData.main.temp_max)}&deg;</span>
                         <span>{Math.round(this.props.weatherData.main.temp_min)}&deg;</span>
                     </div>
-                    {this.icon && (
+                    {this.props.weatherData.weather[0].icon && (
                         <img
                             src={`http://openweathermap.org/img/wn/${this.props.weatherData.weather[0].icon}@2x.png`}
                             alt='icon'

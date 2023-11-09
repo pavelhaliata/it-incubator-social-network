@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios'
 import { Dispatch } from 'redux'
-import { v4 as uuidv4 } from 'uuid'
 import { socialNetworkAPI, UpdateUserProfileType, UserProfileType, UserType } from '../api/social-network-api'
 import { RequestStatus, setErrorStatus, setRequestStatus } from '../app/app-reducer'
 import { updateObjectInArray } from '../utils/object-helpers'
@@ -23,7 +22,7 @@ const initialState = {
             instagram: '',
             youtube: '',
             github: '',
-            mainLink: ''
+            mainLink: '',
         },
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -31,74 +30,53 @@ const initialState = {
         userId: 0,
         photos: {
             small: '',
-            large: ''
-        }
+            large: '',
+        },
     } as UserProfileType,
     userStatus: '' as string,
     selectedCurrentUser: [] as number[],
-    followingStatusRequest: false as boolean
+    followingStatusRequest: false as boolean,
 }
 
 export const profilePageReducer = (
     state: ProfilePageInitialStateType = initialState,
-    action: MainPageActionsType
+    action: MainPageActionsType,
 ): ProfilePageInitialStateType => {
     switch (action.type) {
-        case 'main/UPDATE-NEW-MESSAGE-TEXT':
-            return {
-                ...state,
-                newMessageTextData: action.newText
-            }
-        case 'main/ADD_NEW_MESSAGE':
-            if (state.newMessageTextData.trim() !== '') {
-                const message: MessageType = {
-                    id: uuidv4(),
-                    avatar: state.userProfileData.photos.small,
-                    name: 'James Spiegel',
-                    message: state.newMessageTextData,
-                    time: new Date().toLocaleTimeString().slice(0, -3)
-                }
-                return {
-                    ...state,
-                    messagesData: [...state.messagesData, message],
-                    newMessageTextData: ''
-                }
-            }
-            return state
         case 'main/SET-USERS':
             return {
                 ...state,
                 usersData: action.usersData.map(i => ({
                     ...i,
                     backgroundImg: '',
-                    country: ''
-                }))
+                    country: '',
+                })),
             }
         case 'main/TOTAL-USERS-COUNT':
             return {
                 ...state,
-                totalUsersCount: action.totalCount
+                totalUsersCount: action.totalCount,
             }
         case 'main/CURRENT-PAGE':
             return {
                 ...state,
-                currentPage: action.currentPage
+                currentPage: action.currentPage,
             }
         case 'main/USER-PROFILE':
             return {
                 ...state,
-                userProfileData: action.profileUserData
+                userProfileData: action.profileUserData,
             }
         case 'main/FOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true })
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: true }),
             }
         }
         case 'main/UNFOLLOW': {
             return {
                 ...state,
-                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false })
+                usersData: updateObjectInArray(state.usersData, action.payload.userId, { followed: false }),
             }
         }
         case 'main/FOLLOWING_STATUS_REQUEST':
@@ -106,20 +84,20 @@ export const profilePageReducer = (
                 ...state,
                 selectedCurrentUser: action.followingStatusRequest
                     ? [...state.selectedCurrentUser, action.userId]
-                    : state.selectedCurrentUser.filter(i => i !== action.userId)
+                    : state.selectedCurrentUser.filter(i => i !== action.userId),
             }
         case 'main/USER-STATUS':
             return {
                 ...state,
-                userStatus: action.textStatus
+                userStatus: action.textStatus,
             }
         case 'main/UPLOAD-PHOTO':
             return {
                 ...state,
                 userProfileData: {
                     ...state.userProfileData,
-                    photos: { ...state.userProfileData.photos, small: action.photoFile }
-                }
+                    photos: { ...state.userProfileData.photos, small: action.photoFile },
+                },
             }
         default:
             return state
@@ -127,9 +105,6 @@ export const profilePageReducer = (
 }
 
 // actions
-export const newMessageText = (newText: string) => ({ type: 'main/UPDATE-NEW-MESSAGE-TEXT', newText }) as const
-
-export const newMessage = () => ({ type: 'main/ADD_NEW_MESSAGE' }) as const
 
 export const setUsers = (usersData: UserType[]) => ({ type: 'main/SET-USERS', usersData }) as const
 
@@ -140,19 +115,19 @@ export const setCurrentPage = (currentPage: number) => ({ type: 'main/CURRENT-PA
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
         type: 'main/USER-PROFILE',
-        profileUserData
+        profileUserData,
     }) as const
 
 export const follow = (userId: number) =>
     ({
         type: 'main/FOLLOW',
-        payload: { userId }
+        payload: { userId },
     }) as const
 
 export const unFollow = (userId: number) =>
     ({
         type: 'main/UNFOLLOW',
-        payload: { userId }
+        payload: { userId },
     }) as const
 
 // необходимо для дизейбла кнопки
@@ -160,22 +135,22 @@ export const toggleFollowingStatusRequest = (followingStatusRequest: boolean, us
     ({
         type: 'main/FOLLOWING_STATUS_REQUEST',
         followingStatusRequest,
-        userId
+        userId,
     }) as const
 
 const setUserStatus = (textStatus: string) =>
     ({
         type: 'main/USER-STATUS',
-        textStatus
+        textStatus,
     }) as const
 
 const uploadPhoto = (photoFile: string) => ({ type: 'main/UPLOAD-PHOTO', photoFile }) as const
 
 // thunks
-export const getUsersAsync = (currentPage: number, pageSize: number): AppThunk => {
+export const getUsersAsync = (currentPage: number, pageSize: number, term?: string): AppThunk => {
     return dispatch => {
         dispatch(setRequestStatus(RequestStatus.loading))
-        socialNetworkAPI.getUsers(currentPage, pageSize).then(res => {
+        socialNetworkAPI.getUsers(currentPage, pageSize, term).then(res => {
             dispatch(setUsers(res.data.items))
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setRequestStatus(RequestStatus.succeed))
@@ -194,19 +169,19 @@ export const getUserProfileAsync = (userId: number): AppThunk => {
 
 export const updateUserProfileAsync =
     (data: UpdateUserProfileType): AppThunk =>
-        async (dispatch, getState) => {
-            const userId = getState().authData.id
-            try {
-                const res = await socialNetworkAPI.updateUserProfile(data)
-                if (res.data.resultCode === 0) {
-                    userId !== null && dispatch(getUserProfileAsync(userId))
-                } else {
-                    return Promise.reject(res.data.messages)
-                }
-            } catch (error: any) {
-                console.warn(error)
+    async (dispatch, getState) => {
+        const userId = getState().authData.id
+        try {
+            const res = await socialNetworkAPI.updateUserProfile(data)
+            if (res.data.resultCode === 0) {
+                userId !== null && dispatch(getUserProfileAsync(userId))
+            } else {
+                return Promise.reject(res.data.messages)
             }
+        } catch (error: any) {
+            console.warn(error)
         }
+    }
 export const followAsync = (userId: number): AppThunk => {
     return dispatch => {
         followUnfollowFlow(dispatch, userId, socialNetworkAPI.followUser(userId), follow(userId))
@@ -222,7 +197,7 @@ const followUnfollowFlow = async (
     dispatch: Dispatch,
     userId: number,
     apiRequest: Promise<AxiosResponse>,
-    actionCreator: ReturnType<typeof follow> | ReturnType<typeof unFollow>
+    actionCreator: ReturnType<typeof follow> | ReturnType<typeof unFollow>,
 ) => {
     dispatch(toggleFollowingStatusRequest(true, userId))
     try {
@@ -292,7 +267,7 @@ export const findUserAsync = (value: string): AppThunk => {
             }
         } catch (error) {
             console.log(error)
-        }finally {
+        } finally {
             dispatch(setRequestStatus(RequestStatus.succeed))
         }
     }
@@ -315,8 +290,6 @@ export type MessageType = {
 }
 
 export type MainPageActionsType =
-    | ReturnType<typeof newMessageText>
-    | ReturnType<typeof newMessage>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
@@ -326,3 +299,5 @@ export type MainPageActionsType =
     | ReturnType<typeof toggleFollowingStatusRequest>
     | ReturnType<typeof uploadPhoto>
     | ReturnType<typeof setUserStatus>
+
+// time: new Date().toLocaleTimeString().slice(0, -3)

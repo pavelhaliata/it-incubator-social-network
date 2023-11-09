@@ -69,9 +69,9 @@ type mapStatePropsType = {
 type mapDispatchPropsPropsType = {
     followUser: (userId: number) => void
     unfollowUser: (userId: number) => void
-    getUsersAsync: (currentPage: number, pageSize: number) => void
+    getUsersAsync: (currentPage: number, pageSize: number, term?: string) => void
     setTotalUsersCount: (totalCount: number) => void
     setCurrentPage: (currentPage: number) => void
     setRequestStatus: (status: RequestStatus) => void
-    findUserAsync: (value: string)=> void
+    findUserAsync: (value: string) => void
 }

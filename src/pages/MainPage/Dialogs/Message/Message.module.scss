@@ -3,11 +3,14 @@
     align-items: flex-end;
     gap: 20px;
     margin-bottom: 20px;
-    // border: 1px solid ;
+    color: black;
+}
+
+.message__header{
+    position: relative;
 }
 
 .message__avatar {
-    border: #E5E5EA solid 1px;
     max-width: 52px;
     max-height: 52px;
     border-radius: 50%;
@@ -15,13 +18,22 @@
     position: relative;
     z-index: 2;
     img {
-       max-width: 100%;
-        object-fit: cover;
-        object-position: center;
+        max-width: 100%;
     }
 }
 
-
+.message__authorId{
+    font-size: .7rem;
+    text-align: center;
+    margin-top: 5px;
+    cursor: default;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    span{
+        font-weight: 600;
+    }
+}
 
 .message__body {
     max-width: 300px;
@@ -63,7 +75,7 @@
 }
 
 .message__text {
-    color: black;
+   
     font-size: 1.1rem;
     margin-bottom: 5px;
 }

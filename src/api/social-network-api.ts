@@ -9,8 +9,9 @@ const instance = axios.create({
 })
 
 export const socialNetworkAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+    getUsers(currentPage: number, pageSize: number, term: string = '') {
+        return instance.get<ResponseUsersType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
     },
     getUserProfile(userId: number) {
         return instance.get<UserProfileType>(`profile/${userId}`)
@@ -42,9 +43,9 @@ export const socialNetworkAPI = {
             },
         })
     },
-    findUser(value: string){
+    findUser(value: string) {
         return instance.get('')
-    }
+    },
 }
 
 export const authAPI = {

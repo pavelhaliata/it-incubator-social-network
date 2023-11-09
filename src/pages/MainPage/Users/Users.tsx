@@ -1,30 +1,32 @@
+import { RequestStatus } from 'app/app-reducer'
+import { Field, Formik } from 'formik'
 import { ChangeEvent, lazy, useState } from 'react'
+import { pagesCreator } from 'utils/pages-creator'
 import style from './Users.module.scss'
 import { UsersPropsType } from './UsersContainer'
-import { pagesCreator } from 'utils/pages-creator'
-import { RequestStatus, setRequestStatus } from '../../../app/app-reducer'
 
 const User = lazy(() => import('./User/User').then(module => ({ default: module.User })))
 
 export const Users = ({
-                          usersData,
-                          setCurrentPage,
-                          currentPage,
-                          pageSize,
-                          totalUsersCount,
-                          followUser,
-                          unfollowUser,
-                          requestStatus,
-                          selectedCurrentUser,
-                          findUserAsync
-                      }: UsersPropsType) => {
+    usersData,
+    setCurrentPage,
+    currentPage,
+    pageSize,
+    totalUsersCount,
+    followUser,
+    unfollowUser,
+    requestStatus,
+    selectedCurrentUser,
+    getUsersAsync,
+}: UsersPropsType) => {
+    const [inputValue, setInputValue] = useState('')
+    const [timerId, setTimerId] = useState<number | undefined>(undefined)
+
     const totalPage = Math.ceil(totalUsersCount / pageSize)
 
     const pages: number[] = []
 
     pagesCreator(pages, totalPage, currentPage)
-    const [inputValue, setInputValue] = useState('')
-    const [timerId, setTimerId] = useState<number | undefined>(undefined)
 
     const onChangeTextHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.currentTarget.value)
@@ -33,17 +35,17 @@ export const Users = ({
         const valueToLog = event.currentTarget.value
 
         const id = setTimeout(() => {
-            findUserAsync(valueToLog)
+            getUsersAsync(currentPage, pageSize, valueToLog)
         }, 1500)
 
         setTimerId(+id)
     }
 
-
     return (
         <>
             <input onChange={onChangeTextHandler} value={inputValue} />
-            { requestStatus === RequestStatus.loading && <span>...search user</span>}
+            <UsersSearchForm currentPage={currentPage} pageSize={pageSize} getUsersAsync={getUsersAsync} />
+            {requestStatus === RequestStatus.loading && <span>...search users</span>}
             <div className={style.page_navigation}>
                 {pages.map(p => (
                     <span
@@ -95,5 +97,38 @@ export const Users = ({
                 ))}
             </div>
         </>
+    )
+}
+
+const UsersSearchForm = (props: {
+    currentPage: number
+    pageSize: number
+    getUsersAsync: (currentPage: number, pageSize: number, term?: string) => void
+}) => {
+    const initialValue = {
+        term: '',
+        onliFriends: false,
+    }
+    return (
+        <Formik
+            initialValues={{ value: '' }}
+            onSubmit={({ value }, formikBag) => {
+                setTimeout(() => {
+                    console.log(value)
+                    props.getUsersAsync(props.currentPage, props.pageSize, value)
+                }, 1500)
+            }}
+        >
+            {({ values, handleChange, submitForm }) => (
+                <Field
+                    name='value'
+                    value={values.value}
+                    onChange={(e: any) => {
+                        handleChange(e)
+                        submitForm()
+                    }}
+                />
+            )}
+        </Formik>
     )
 }

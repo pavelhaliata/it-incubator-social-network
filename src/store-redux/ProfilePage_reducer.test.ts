@@ -1,6 +1,4 @@
 import {
-    newMessage,
-    newMessageText,
     ProfilePageInitialStateType,
     profilePageReducer,
     setUsers,
@@ -36,30 +34,6 @@ const startState: ProfilePageInitialStateType = {
     followingStatusRequest: false,
     userStatus: '',
 }
-test('dialog text should be added', () => {
-    const endState = profilePageReducer(startState, newMessageText('some text'))
-    expect(endState.newMessageTextData).toBe('some text')
-    expect(startState.newMessageTextData).toBe('')
-})
-
-test('dialog message should be added', () => {
-    const startState: ProfilePageInitialStateType = {
-        messagesData: [],
-        newMessageTextData: 'some text',
-        usersData: [],
-        currentPage: 1,
-        pageSize: 5,
-        totalUsersCount: 20,
-        userProfileData: {} as UserProfileType,
-        selectedCurrentUser: [] as Array<number>,
-        followingStatusRequest: false,
-        userStatus: '',
-    }
-
-    const endState = profilePageReducer(startState, newMessage())
-    expect(endState.messagesData.length).toBe(1)
-    expect(startState.messagesData.length).toBe(0)
-})
 
 test('user should be followed', () => {
     const endState = profilePageReducer(startState, follow(startState.usersData[0].id))
