@@ -35,3 +35,19 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.searchForm{
+    max-width: 350px;
+    width: 100%;
+    
+    border: transparent 1px solid;
+    border-radius: .3rem;
+    padding: 5px;
+    transition: all .3s;
+    &:hover{
+        border: var(--primary-color) 1px solid;
+    }
+    &:focus{
+        border: var(--primary-color) 1px solid;
+    }
+}

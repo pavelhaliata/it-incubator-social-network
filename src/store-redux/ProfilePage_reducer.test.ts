@@ -5,6 +5,7 @@ import {
     toggleFollowingStatusRequest,
     follow,
     unFollow,
+    usersFilterType,
 } from './ProfilePage_reducer'
 import { UserProfileType } from '../api/social-network-api'
 const userId = 1
@@ -33,6 +34,10 @@ const startState: ProfilePageInitialStateType = {
     selectedCurrentUser: [] as Array<number>,
     followingStatusRequest: false,
     userStatus: '',
+    usersFilter: {
+        term: '',
+        friends: null,
+    } as usersFilterType,
 }
 
 test('user should be followed', () => {
@@ -67,6 +72,10 @@ test('user should be unfollowed', () => {
         selectedCurrentUser: [] as Array<number>,
         followingStatusRequest: false,
         userStatus: '',
+        usersFilter: {
+            term: '',
+            friends: null,
+        } as usersFilterType,
     }
 
     const endState = profilePageReducer(startState, unFollow(startState.usersData[0].id))

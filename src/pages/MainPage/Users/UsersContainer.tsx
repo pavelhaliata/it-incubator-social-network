@@ -2,13 +2,13 @@ import { Component, ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
 import { AppRootState } from 'store-redux/redux-store'
 import {
-    findUserAsync,
     followAsync,
     getUsersAsync,
     setCurrentPage,
     setTotalUsersCount,
     unfollowAsync,
-    UserDomainType
+    UserDomainType,
+    usersFilterType,
 } from 'store-redux/ProfilePage_reducer'
 import { RequestStatus, setRequestStatus } from 'app/app-reducer'
 import { compose } from 'redux'
@@ -18,12 +18,11 @@ const Users = lazy(() => import('./Users').then(module => ({ default: module.Use
 
 class UsersApiContainer extends Component<UsersPropsType> {
     componentDidMount() {
-        this.props.getUsersAsync(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersAsync(this.props.currentPage, this.props.pageSize, this.props.usersFilter)
     }
 
     setCurrentPageHandler = (currentPage: number) => {
-        this.props.getUsersAsync(currentPage, this.props.pageSize)
-        this.props.setCurrentPage(currentPage)
+        this.props.getUsersAsync(currentPage, this.props.pageSize, this.props.usersFilter)
     }
 
     render() {
@@ -39,6 +38,7 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         totalUsersCount: state.profilePage.totalUsersCount,
         requestStatus: state.app.requestStatus,
         selectedCurrentUser: state.profilePage.selectedCurrentUser,
+        usersFilter: state.profilePage.usersFilter,
     }
 }
 
@@ -50,7 +50,6 @@ export const UsersContainer = compose<ComponentType>(
         setTotalUsersCount,
         setCurrentPage,
         setRequestStatus,
-        findUserAsync,
     }),
     withLazyLoading,
 )(UsersApiContainer)
@@ -65,13 +64,13 @@ type mapStatePropsType = {
     totalUsersCount: number
     requestStatus: RequestStatus
     selectedCurrentUser: Array<number>
+    usersFilter: any
 }
 type mapDispatchPropsPropsType = {
     followUser: (userId: number) => void
     unfollowUser: (userId: number) => void
-    getUsersAsync: (currentPage: number, pageSize: number, term?: string) => void
+    getUsersAsync: (currentPage: number, pageSize: number, filter: usersFilterType) => void
     setTotalUsersCount: (totalCount: number) => void
     setCurrentPage: (currentPage: number) => void
     setRequestStatus: (status: RequestStatus) => void
-    findUserAsync: (value: string) => void
 }

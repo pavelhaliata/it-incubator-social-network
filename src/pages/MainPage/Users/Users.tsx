@@ -1,6 +1,9 @@
 import { RequestStatus } from 'app/app-reducer'
 import { Field, Formik } from 'formik'
 import { ChangeEvent, lazy, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { usersFilterType } from 'store-redux/ProfilePage_reducer'
+import { AppRootState } from 'store-redux/redux-store'
 import { pagesCreator } from 'utils/pages-creator'
 import style from './Users.module.scss'
 import { UsersPropsType } from './UsersContainer'
@@ -19,31 +22,14 @@ export const Users = ({
     selectedCurrentUser,
     getUsersAsync,
 }: UsersPropsType) => {
-    const [inputValue, setInputValue] = useState('')
-    const [timerId, setTimerId] = useState<number | undefined>(undefined)
-
     const totalPage = Math.ceil(totalUsersCount / pageSize)
 
     const pages: number[] = []
 
     pagesCreator(pages, totalPage, currentPage)
 
-    const onChangeTextHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.currentTarget.value)
-        clearInterval(timerId)
-
-        const valueToLog = event.currentTarget.value
-
-        const id = setTimeout(() => {
-            getUsersAsync(currentPage, pageSize, valueToLog)
-        }, 1500)
-
-        setTimerId(+id)
-    }
-
     return (
         <>
-            <input onChange={onChangeTextHandler} value={inputValue} />
             <UsersSearchForm currentPage={currentPage} pageSize={pageSize} getUsersAsync={getUsersAsync} />
             {requestStatus === RequestStatus.loading && <span>...search users</span>}
             <div className={style.page_navigation}>
@@ -103,31 +89,53 @@ export const Users = ({
 const UsersSearchForm = (props: {
     currentPage: number
     pageSize: number
-    getUsersAsync: (currentPage: number, pageSize: number, term?: string) => void
+    getUsersAsync: (currentPage: number, pageSize: number, filter: usersFilterType) => void
 }) => {
+    const term = useSelector((state: AppRootState) => state.profilePage.usersFilter.term)
+    const friends = useSelector((state: AppRootState) => state.profilePage.usersFilter.friends)
+    const [timerId, setTimerId] = useState<number | undefined>(undefined)
+
     const initialValue = {
-        term: '',
-        onliFriends: false,
-    }
+        term: term,
+        friends: friends,
+    } as usersFilterType
     return (
         <Formik
-            initialValues={{ value: '' }}
-            onSubmit={({ value }, formikBag) => {
-                setTimeout(() => {
-                    console.log(value)
-                    props.getUsersAsync(props.currentPage, props.pageSize, value)
+            initialValues={initialValue}
+            onSubmit={(values, formikBag) => {
+                clearInterval(timerId)
+                const id = setTimeout(() => {
+                    props.getUsersAsync(1, props.pageSize, values)
                 }, 1500)
+                setTimerId(+id)
             }}
         >
             {({ values, handleChange, submitForm }) => (
-                <Field
-                    name='value'
-                    value={values.value}
-                    onChange={(e: any) => {
-                        handleChange(e)
-                        submitForm()
-                    }}
-                />
+                <>
+                    <Field
+                        className={style.searchForm}
+                        name='term'
+                        value={values.term}
+                        placeholder={'find friends'}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                            handleChange(e)
+                            submitForm()
+                        }}
+                    />
+                    <Field
+                        as='select'
+                        name='friends'
+                        value={values.friends}
+                        onChange={(e: any) => {
+                            handleChange(e)
+                            submitForm()
+                        }}
+                    >
+                        <option value='null'>All</option>
+                        <option value='true'>Only followed</option>
+                        <option value='false'>Only unfollowed</option>
+                    </Field>
+                </>
             )}
         </Formik>
     )

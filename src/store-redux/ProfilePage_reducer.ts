@@ -11,6 +11,10 @@ const initialState = {
     usersData: [] as UserDomainType[],
     pageSize: 52 as number,
     currentPage: 1 as number,
+    usersFilter: {
+        term: '',
+        friends: null,
+    } as usersFilterType,
     totalUsersCount: 0 as number,
     userProfileData: {
         aboutMe: '',
@@ -62,6 +66,11 @@ export const profilePageReducer = (
                 ...state,
                 currentPage: action.currentPage,
             }
+        case 'main/USERS-FILTER':
+            return {
+                ...state,
+                usersFilter: action.payload.filter,
+            }
         case 'main/USER-PROFILE':
             return {
                 ...state,
@@ -112,6 +121,8 @@ export const setTotalUsersCount = (totalCount: number) => ({ type: 'main/TOTAL-U
 
 export const setCurrentPage = (currentPage: number) => ({ type: 'main/CURRENT-PAGE', currentPage }) as const
 
+export const setUsersFilter = (filter: usersFilterType) => ({ type: 'main/USERS-FILTER', payload: { filter } }) as const
+
 export const profileUserData = (profileUserData: UserProfileType) =>
     ({
         type: 'main/USER-PROFILE',
@@ -147,25 +158,35 @@ const setUserStatus = (textStatus: string) =>
 const uploadPhoto = (photoFile: string) => ({ type: 'main/UPLOAD-PHOTO', photoFile }) as const
 
 // thunks
-export const getUsersAsync = (currentPage: number, pageSize: number, term?: string): AppThunk => {
-    return dispatch => {
+export const getUsersAsync =
+    (currentPage: number, pageSize: number, filter: usersFilterType): AppThunk =>
+    async dispatch => {
         dispatch(setRequestStatus(RequestStatus.loading))
-        socialNetworkAPI.getUsers(currentPage, pageSize, term).then(res => {
+        dispatch(setCurrentPage(currentPage))
+        dispatch(setUsersFilter(filter))
+        try {
+            const res = await socialNetworkAPI.getUsers(currentPage, pageSize, filter.term, filter.friends)
             dispatch(setUsers(res.data.items))
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setRequestStatus(RequestStatus.succeed))
-        })
+        } catch (error) {
+            console.warn(error)
+            dispatch(setRequestStatus(RequestStatus.failed))
+        }
     }
-}
-export const getUserProfileAsync = (userId: number): AppThunk => {
-    return dispatch => {
+export const getUserProfileAsync =
+    (userId: number): AppThunk =>
+    async dispatch => {
         dispatch(setRequestStatus(RequestStatus.loading))
-        socialNetworkAPI.getUserProfile(userId).then(res => {
+        try {
+            const res = await socialNetworkAPI.getUserProfile(userId)
             dispatch(profileUserData(res.data))
             dispatch(setRequestStatus(RequestStatus.succeed))
-        })
+        } catch (error) {
+            console.warn(error)
+            dispatch(setRequestStatus(RequestStatus.failed))
+        }
     }
-}
 
 export const updateUserProfileAsync =
     (data: UpdateUserProfileType): AppThunk =>
@@ -255,27 +276,7 @@ export const uploadPhotoAsync = (photoFile: string | Blob): AppThunk => {
     }
 }
 
-export const findUserAsync = (value: string): AppThunk => {
-    return async dispatch => {
-        dispatch(setRequestStatus(RequestStatus.loading))
-        try {
-            const res = await socialNetworkAPI.findUser(value)
-            if (res.data.resultCode === 0) {
-                dispatch(setRequestStatus(RequestStatus.succeed))
-            } else {
-                console.log('')
-            }
-        } catch (error) {
-            console.log(error)
-        } finally {
-            dispatch(setRequestStatus(RequestStatus.succeed))
-        }
-    }
-}
-
 // types
-export type ProfilePageInitialStateType = typeof initialState
-
 export type UserDomainType = UserType & {
     backgroundImg: string
     country: string
@@ -289,6 +290,12 @@ export type MessageType = {
     time: string
 }
 
+export type usersFilterType = {
+    term: string
+    friends: null | boolean
+}
+export type ProfilePageInitialStateType = typeof initialState
+
 export type MainPageActionsType =
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setTotalUsersCount>
@@ -299,5 +306,6 @@ export type MainPageActionsType =
     | ReturnType<typeof toggleFollowingStatusRequest>
     | ReturnType<typeof uploadPhoto>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setUsersFilter>
 
 // time: new Date().toLocaleTimeString().slice(0, -3)
