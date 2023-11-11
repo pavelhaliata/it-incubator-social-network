@@ -1,102 +1,115 @@
-import {ChangeEvent, useEffect, useState} from "react"
-import {Button} from "../../components/Button/Button"
-import style from "./Weather.module.scss"
+import { ChangeEvent, Component, KeyboardEvent } from 'react'
+import { Button } from '../../components/Button/Button'
+import style from './Weather.module.scss'
+import { WeatherPagePropsType } from './WeatherPageContainer'
 
-
-type WeatherPropsType = {
-    setStatePage: (value: string) => void
-}
-
-
-export const WeatherPage = ({setStatePage}: WeatherPropsType) => {
-
-    const date = new Date();
-    const today = date.toLocaleString('en-us', {day: 'numeric', weekday: 'long', month: 'long'})
-
-    const [title, setTitle] = useState('')
-    const [error, setError] = useState<boolean>(false)
-    const [city, setCity] = useState('Minsk')
-    const [weatherInfo, setWeatherInfo] = useState(
-        {
-            name: '',
-            main: {
-                feels_like: 0,
-                humidity: 0,
-                temp: 0,
-                temp_max: 0,
-                temp_min: 0,
-            },
-            weather: [{
-                description: '',
-                icon: '',
-            }],
-            cod: '',
-            message: ''
-        }
-    )
-    const temperature = Math.round(weatherInfo.main.temp_max)
-    const temperatureMax = Math.round(weatherInfo.main.temp_min)
-    const temperatureMin = Math.round(weatherInfo.main.temp)
-    const humidity = weatherInfo.main.humidity
-    const feelsLike = Math.round(weatherInfo.main.feels_like)
-    const icon = weatherInfo.weather[0].icon
-    const description = capitalizeFirstLetter(weatherInfo.weather[0].description)
-
-
-    function capitalizeFirstLetter(word: string) {
-        return word.split(' ').map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(' ')
+export class WeatherPage extends Component<WeatherPagePropsType> {
+    componentDidMount() {
+        document.title = 'Newsfeed'
+        this.props.setHeaderTitle('newsfeed')
+        this.props.getActualWeather('Minsk')
     }
 
-
-    useEffect(() => {
-        document.title = "Weather Page";
-        setStatePage('weatherpage')
-    }, [city])
-
-    const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle('')
-        setTitle(event.currentTarget.value)
+    capitalizeFirstLetter = (word: string) => {
+        return word
+            .split(' ')
+            .map(i => i.charAt(0).toUpperCase() + i.slice(1))
+            .join(' ')
     }
-    const onClickHandler = () => {
-        if (title.trim() !== '') {
-            setCity(title)
-            setTitle('')
+
+    // temperature = Math.round(this.props.weatherData.main.temp);
+    // temperatureMax= Math.round(this.props.weatherData.main.temp_max)
+    // temperatureMin = Math.round(this.props.weatherData.main.temp_min);
+    // humidity = this.props.weatherData.main.humidity;
+    // feelsLike = Math.round(this.props.weatherData.main.feels_like);
+    // icon = this.props.weatherData.weather[0].icon
+    // description = this.capitalizeFirstLetter(
+    //     this.props.weatherData.weather[0].description
+    // );
+    // windSpeed = this.props.weatherData.wind.speed.toFixed(1);
+
+    date = new Date()
+    today = this.date.toLocaleString('en-us', {
+        day: 'numeric',
+        weekday: 'long',
+        month: 'long',
+    })
+    onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        this.props.setLocationValue(event.currentTarget.value)
+    }
+
+    onClickHandler = () => {
+        if (this.props.locationValue.trim() !== '') {
+            this.props.getActualWeather(this.props.locationValue)
+            this.props.setLocationValue('')
         }
         return
     }
+    onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.ctrlKey && e.key === 'Enter') {
+            if (this.props.locationValue.trim() !== '') {
+                this.props.getActualWeather(this.props.locationValue)
+                this.props.setLocationValue('')
+            }
+        }
+    }
 
-    return (
-
-        <div>
+    render() {
+        return (
             <div className={style.weather}>
-                {error ? <span>city not found</span> :
-                    <>
-                        <div className={style.weather__now}>
-                            <div className={style.temperature_sensor}>{temperature}&deg;</div>
-                            <div className={style.temperature_max_min}>
-                                <span>{temperatureMax}&deg;</span>
-                                <span>{temperatureMin}&deg;</span>
-                            </div>
-                            {icon ?
-                                <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                                     alt="icon"/> : "...loading"}
-                        </div>
-                        <div className={style.weather_description}>
-                            <div>{description}</div>
-                            <span>Real Feel: <span>{feelsLike}&deg;</span></span>
-                            <span>Humidity: <span>{humidity}&deg;</span></span>
-                        </div>
-                        <div className={style.date}>
-                            <div>{today}th</div>
-                            <div>{weatherInfo.name}</div>
-                        </div>
-                    </>}
-                <div className={style.search_place}>
-                    <input className={style.input_location} type="text" value={title} onChange={onChangeValueHandler}
-                           placeholder="City search..."/>
-                    <Button className={style.search_btn} callback={onClickHandler}><span>Enter</span></Button>
+                <span className={this.props.errorStatus ? style.error : ''}>{this.props.errorStatus}</span>
+                <div className={style.weather__now}>
+                    <div className={style.temperature_sensor}>{Math.round(this.props.weatherData.main.temp)}</div>
+                    <div className={style.temperature_max_min}>
+                        <span>{Math.round(this.props.weatherData.main.temp_max)}&deg;</span>
+                        <span>{Math.round(this.props.weatherData.main.temp_min)}&deg;</span>
+                    </div>
+                    {this.props.weatherData.weather[0].icon && (
+                        <img
+                            src={`http://openweathermap.org/img/wn/${this.props.weatherData.weather[0].icon}@2x.png`}
+                            alt='icon'
+                        />
+                    )}
                 </div>
+                <div className={style.weather_description}>
+                    <div>{this.capitalizeFirstLetter(this.props.weatherData.weather[0].description)}</div>
+                    <span>
+                        Real Feel: <span>{Math.round(this.props.weatherData.main.feels_like)}&deg;</span>
+                    </span>
+                    <span>
+                        Humidity: <span>{this.props.weatherData.main.humidity}&deg;</span>
+                    </span>
+                    <span>
+                        Wind: <span>{this.props.weatherData.wind.speed.toFixed(1)} m/s</span>
+                    </span>
+                </div>
+                <ul className='weekly-forecast'>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <div className={style.date_and_place}>
+                    <div>{this.today}th</div>
+                    <div>{this.props.weatherData.name}</div>
+                </div>
+                <form onSubmit={e => e.preventDefault()} className={style.search_place}>
+                    <input
+                        className={style.input_text}
+                        type='text'
+                        value={this.props.locationValue}
+                        onChange={this.onChangeValueHandler}
+                        onKeyDown={this.onKeyDownHandler}
+                        placeholder={this.props.errorStatus ? this.props.errorStatus : 'City search...'}
+                    />
+                    <Button className={style.search_btn} onClick={this.onClickHandler}>
+                        <span>Enter</span>
+                    </Button>
+                </form>
             </div>
-        </div>
-    )
-} 
+        )
+    }
+}

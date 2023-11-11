@@ -1,66 +1,39 @@
-import { newPostAC, newPostTextAC, PostDataType} from "../../redux/blogPage_reducer";
-import {AppStateType } from "../../redux/redux-store";
-import {Dispatch } from "redux";
-import {connect} from "react-redux";
-import {headerTitleAC} from "../../redux/headerComponent_reducer";
-import {BlogPage} from "./Blogpage";
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { setHeaderTitle } from 'app/app-reducer'
+import { createPost, PostDataType, setPostTextValue } from 'store-redux/blogPage_reducer'
+import { AppRootState } from 'store-redux/redux-store'
+import { ComponentType, lazy } from 'react'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { withLazyLoading } from '../../hoc/withLazyLoading'
 
+const BlogPage = lazy(() => import('./BlogPage')
+    .then((module) => ({ default: module.BlogPage })))
 
-
-
-// const BlogPageContainer_block = ({store}: BlogPageContainerProps) => {
-//   const state: StateDataType = store.getState();
-//
-//   useEffect(() => {
-//     document.title = "My Blog";
-//     //setStatePage("blogpage");
-//   }, []);
-//
-//   const updatePostText = (value: string) => {
-//     store.dispatch(newPostTextActionCreator(value));
-//   };
-//   const addNewPost = () => {
-//     store.dispatch(newPostActionCreator());
-//   };
-//
-//   return (
-//     <>
-//       <BlogPage
-//         postTextValue={state.blogPage.newPostTextData}
-//         postsData={state.blogPage.postsData}
-//         updatePostText={updatePostText}
-//         addNewPost={addNewPost}
-//       />
-//     </>
-//   );
-// };
-//==================================================================
-//!!! типизация state из redux/store
-/// узнать как лучше типизировать, экспортировать initialStateType или таким образом
-type MapStatePropsType = { 
-  postTextValue: string,
-  postsData: Array<PostDataType>
+const mapStateToProps = (state: AppRootState): MapStatePropsType => {
+    return {
+        postTextValue: state.blogPage.postTextValue,
+        postsData: state.blogPage.postsData
+    }
 }
+
+export const BlogPageContainer = compose<ComponentType>(
+    connect(mapStateToProps, { setPostTextValue, createPost, setHeaderTitle }),
+    withLazyLoading,
+    withAuthRedirect)
+(BlogPage)
+
+
+// types
+type MapStatePropsType = {
+    postTextValue: string;
+    postsData: Array<PostDataType>;
+};
 
 type MapDispatchPropsType = {
-  updatePostText: (value: string) => void
-  addNewPost: ()=> void
-  setupHeaderTitle: (title: string) => void
-}
-
-export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType
-
-const mapStateToProps = (state: AppStateType ): MapStatePropsType => {
-  return {
-    postTextValue: state.blogPage.newPostTextData,
-    postsData: state.blogPage.postsData
-  }; 
+    setPostTextValue: (value: string) => void;
+    createPost: () => void;
+    setHeaderTitle: (title: string) => void;
 };
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-  return {
-    updatePostText: (value: string) => {dispatch(newPostTextAC(value))},
-    addNewPost: () => {dispatch(newPostAC())},
-    setupHeaderTitle: (title: string) => {dispatch(headerTitleAC(title))},
-  };
-};
-export const BlogPageContainer = connect(mapStateToProps, mapDispatchToProps )(BlogPage);
+
+export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType;

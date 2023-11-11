@@ -1,0 +1,17 @@
+.wrapper{
+  background-color: var(--white-color);
+}
+
+.form{
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 450px;
+  width: 100%;
+}
+
+.field{
+  padding: 5px;
+}

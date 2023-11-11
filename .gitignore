@@ -24,5 +24,4 @@ yarn-error.log*
 
 # vs code
 /.vscode
-# webstorm
-.idea/
+/.idea

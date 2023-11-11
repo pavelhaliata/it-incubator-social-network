@@ -1,13 +1,19 @@
 .button {
-	background-color: #ff5e3a;
+	background-color: var(--primary-color);
 	color: #fff;
 	padding: 0.8rem;
+	border-radius: .3rem;
 	font-size: .8rem;
 	transition: .3s all ease;
-	border-radius: .3rem;
+	border: none;
 
 	&:hover {
 		cursor: pointer;
 		background-color: #fd3e12;
 	}
+}
+
+.button.disabled {
+	cursor: progress !important;
+	background-color: var(--grey-light);
 }
