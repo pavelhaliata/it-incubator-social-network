@@ -7,7 +7,7 @@ import { Component } from 'react'
 
 export class BlogPage extends Component<BlogPagePropsType> {
     componentDidMount() {
-        document.title = 'Blog page'
+        document.title = 'Blog page page blog'
         this.props.setHeaderTitle('blog page')
     }
 
