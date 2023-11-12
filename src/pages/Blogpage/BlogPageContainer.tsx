@@ -7,7 +7,7 @@ import { ComponentType, lazy } from 'react'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
 
-const BlogPage = lazy(() => import('./BlogPage')
+const BlogPage = lazy(() => import('./Blogpage')
     .then((module) => ({ default: module.BlogPage })))
 
 const mapStateToProps = (state: AppRootState): MapStatePropsType => {
