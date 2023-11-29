@@ -16,6 +16,7 @@ export class Input extends Component<InputPropsType & IPropsType> {
     onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         if (this.props.setInputValue) this.props.setInputValue(event.currentTarget.value)
     }
+
     render() {
         return (
             <form
