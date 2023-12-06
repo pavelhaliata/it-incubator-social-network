@@ -4,6 +4,7 @@ import style from './Button.module.scss'
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
     onClick?: () => void
     disabled?: boolean
+    label: string
 }
 
 export class Button extends Component<DefaultButtonPropsType> {
@@ -16,7 +17,7 @@ export class Button extends Component<DefaultButtonPropsType> {
                 onClick={this.props.onClick}
                 disabled={this.props.disabled}
             >
-                {this.props.children}
+                {this.props.label}
             </button>
         )
     }

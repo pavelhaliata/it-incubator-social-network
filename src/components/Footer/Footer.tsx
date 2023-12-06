@@ -1,23 +1,15 @@
-import React from "react";
-import s from "./Footer.module.scss";
+import s from './Footer.module.scss'
 
-interface IProps{
+interface IProps {
     className: string
 }
 
-function Footer({className}:IProps){
-
-   
-    
-
-    return(
+function Footer({ className }: IProps) {
+    return (
         <div className={`${s.container} ${className}`}>
-            <div className={s.footer}>
-                footer will be here
-            </div>
+            <div className={s.footer}>footer will be here</div>
         </div>
-    );
+    )
 }
 
-
-export default Footer;
+export default Footer
