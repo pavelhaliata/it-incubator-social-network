@@ -1,5 +1,5 @@
 import { ChangeEvent, Component, KeyboardEvent } from 'react'
-import { Button } from '../../components/Button/Button'
+import { Button } from 'components/Button/Button'
 import style from './Weather.module.scss'
 import { WeatherPagePropsType } from './WeatherPageContainer'
 
