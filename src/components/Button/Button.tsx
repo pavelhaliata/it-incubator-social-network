@@ -1,24 +1,35 @@
-import { Component, ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 import style from './Button.module.scss'
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+    /** Button action */
     onClick?: () => void
+    /** Button state */
     disabled?: boolean
+    /** Button name */
     label: string
+    /** Button options */
+    variant?: 'contained' | 'outlined'
 }
-
-export class Button extends Component<DefaultButtonPropsType> {
-    render() {
-        return (
-            <button
-                type={this.props.type}
-                style={this.props.style}
-                className={`${this.props.className} ${style.button} ${this.props.disabled && style.disabled}`}
-                onClick={this.props.onClick}
-                disabled={this.props.disabled}
-            >
-                {this.props.label}
-            </button>
-        )
-    }
+/** Primary UI Component Button */
+export const Button = ({
+    onClick,
+    disabled = false,
+    label,
+    variant = 'contained',
+    ...props
+}: DefaultButtonPropsType) => {
+    return (
+        <button
+            type={props.type}
+            style={props.style}
+            className={`${props.className} ${style.button} ${disabled && style.disabled} ${
+                variant === 'outlined' ? style.outlined : style.contained
+            }`}
+            onClick={onClick}
+            disabled={disabled}
+        >
+            {label}
+        </button>
+    )
 }

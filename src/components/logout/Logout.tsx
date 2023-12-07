@@ -1,19 +1,13 @@
-import { Button } from "components/Button/Button";
-import { Component } from "react";
-import { LogoutPropsType } from "./LogoutContainer";
+import { Button } from 'components/Button/Button'
+import { Component } from 'react'
+import { LogoutPropsType } from './LogoutContainer'
 
-type PropsType = {
-	logoutAsync: () => void
+export class Logout extends Component<LogoutPropsType> {
+    render() {
+        return (
+            <>
+                <Button label={'Logout'} onClick={this.props.logoutAsync} />
+            </>
+        )
+    }
 }
-
-export class Logout extends Component<PropsType> {
-
-	render() {
-		return (
-			<>
-				<Button onClick={this.props.logoutAsync}>Logout</Button>
-			</>
-		);
-	}
-}
-

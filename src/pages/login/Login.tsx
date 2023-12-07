@@ -41,7 +41,6 @@ export const Login = ({ captchaUrl, loginAsync }: PropsType) => {
                 })}
                 onSubmit={(values, submitProps) => {
                     loginAsync(values, submitProps)
-                    // submitProps.resetForm()
                 }}
             >
                 {(props: FormikProps<LoginFormValues>) => (
@@ -82,14 +81,13 @@ export const Login = ({ captchaUrl, loginAsync }: PropsType) => {
                             <Field name='rememberMe' type='checkbox' id='rememberMe' />
                             <label htmlFor='rememberMe'> Remember Me</label>
                             <Button
+                                label='Sign In'
                                 type='submit'
                                 style={{
                                     padding: '5px 10px',
                                     marginLeft: 'auto',
                                 }}
-                            >
-                                Sign In
-                            </Button>
+                            />
                         </div>
 
                         <div style={{ textAlign: 'center', height: '20px' }}>

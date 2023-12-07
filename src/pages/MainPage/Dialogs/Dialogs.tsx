@@ -84,9 +84,12 @@ export const Dialogs = (props: DialogsPropsType) => {
                     onChange={onChangeInputHandler}
                     onKeyDown={onKeyDownSendMessageHandler}
                 />
-                <Button disabled={props.status !== 'ready'} className={style.send_btn} onClick={sendMessageHandler}>
-                    Send
-                </Button>
+                <Button
+                    label='Send'
+                    disabled={props.status !== 'ready'}
+                    className={style.send_btn}
+                    onClick={sendMessageHandler}
+                />
             </div>
         </>
     )

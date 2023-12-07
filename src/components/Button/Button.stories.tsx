@@ -4,19 +4,27 @@ import 'styles/global.scss'
 import { Button } from './Button'
 
 const meta: Meta<typeof Button> = {
+    title: 'Components/Button',
     component: Button,
+    tags: ['autodocs'],
+    args: {
+        label: 'Click Me!',
+    },
 }
 
-// const callback = action('on click')
-
 export default meta
+
 type Story = StoryObj<typeof Button>
 
 export const Primary: Story = {
     args: {
-        label: 'Click Me!',
-        disabled: false,
         onClick: action('on click event'),
-        style: {},
+        disabled: false,
+    },
+}
+Primary.argTypes = {
+    variant: {
+        control: { type: 'radio' },
+        options: ['contained', 'outlined'],
     },
 }
