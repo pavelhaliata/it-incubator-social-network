@@ -7,33 +7,31 @@ import { ComponentType, lazy } from 'react'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { withLazyLoading } from '../../hoc/withLazyLoading'
 
-const BlogPage = lazy(() => import('./Blogpage')
-    .then((module) => ({ default: module.BlogPage })))
+const BlogPage = lazy(() => import('./BlogPage').then(module => ({ default: module.BlogPage })))
 
 const mapStateToProps = (state: AppRootState): MapStatePropsType => {
     return {
         postTextValue: state.blogPage.postTextValue,
-        postsData: state.blogPage.postsData
+        postsData: state.blogPage.postsData,
     }
 }
 
 export const BlogPageContainer = compose<ComponentType>(
     connect(mapStateToProps, { setPostTextValue, createPost, setHeaderTitle }),
     withLazyLoading,
-    withAuthRedirect)
-(BlogPage)
-
+    withAuthRedirect,
+)(BlogPage)
 
 // types
 type MapStatePropsType = {
-    postTextValue: string;
-    postsData: Array<PostDataType>;
-};
+    postTextValue: string
+    postsData: Array<PostDataType>
+}
 
 type MapDispatchPropsType = {
-    setPostTextValue: (value: string) => void;
-    createPost: () => void;
-    setHeaderTitle: (title: string) => void;
-};
+    setPostTextValue: (value: string) => void
+    createPost: () => void
+    setHeaderTitle: (title: string) => void
+}
 
-export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType;
+export type BlogPagePropsType = MapStatePropsType & MapDispatchPropsType
