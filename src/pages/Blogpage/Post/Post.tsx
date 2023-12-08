@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import styles from './post.module.scss'
+import styles from './Post.module.scss'
 
 type PostPropsType = {
     /** User Post */
