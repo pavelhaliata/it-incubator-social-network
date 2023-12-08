@@ -12,10 +12,7 @@ export class Header extends Component<HeaderPropsType> {
                     <h6>{this.props.headerTitle}</h6>
                 </div>
                 <div className={style.header_wrapper}>
-                    <Input
-                        placeholder='Search here people or pages...'
-                        className={style.header_search_bar}
-                    />
+                    <Input placeholder='Search here people or pages...' className={style.header_search_bar} />
                     <div className={style.header_control_block}>
                         <div className={style.author_page}>
                             <div className={style.author_thumb}>
@@ -26,9 +23,7 @@ export class Header extends Component<HeaderPropsType> {
                                 <span className={`${style.icon_status} ${style.online}`}></span>
                             </div>
                             <a href='#' className={style.author_name}>
-                                <div className={style.author_title}>
-                                    {this.props.authUserData.login}
-                                </div>
+                                <div className={style.author_title}>{this.props.authUserData.login}</div>
                                 <div className={style.author_subtitle}>space cowboy</div>
                             </a>
                         </div>

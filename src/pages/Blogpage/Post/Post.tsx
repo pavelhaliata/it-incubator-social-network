@@ -1,12 +1,14 @@
 import { Component } from 'react'
-import styles from './Post.module.scss'
+import styles from './post.module.scss'
 
 type PostPropsType = {
+    /** User Post */
     post: string
+    /** Time Post */
     time: string
 }
-
-export class Post extends Component<PostPropsType, any> {
+/** UI Component Post */
+export class Post extends Component<PostPropsType> {
     render() {
         return (
             <div className={styles.wrapper}>
@@ -14,7 +16,6 @@ export class Post extends Component<PostPropsType, any> {
                     <div className={styles.post_author}></div>
                     <p>{this.props.post}</p>
                     <span>{this.props.time}</span>
-                    <div className={styles.post_additional_info}></div>
                 </article>
             </div>
         )

@@ -1,14 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import 'styles/global.scss'
 import { Input } from './Input'
 
 const meta: Meta<typeof Input> = {
-    title: 'example components/input',
+    title: 'example components/Input',
     component: Input,
-    parameters: {
-        layout: 'fullscreen',
-    },
-    argTypes: {},
+    tags: ['autodocs'],
 }
 
 export default meta
@@ -16,7 +12,6 @@ type Story = StoryObj<typeof Input>
 
 export const InputValue: Story = {
     args: {
-        placeholder: 'please, input text',
+        placeholder: 'input text...',
     },
 }
-InputValue.argTypes = {}
