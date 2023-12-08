@@ -1,17 +1,19 @@
 
-.form {
+.form_inner {
     max-width: 450px;
     padding: 15px;
     background-color: #fff;
     border-radius: 5px;
     border: 1px solid #e6ecf5;
     margin-bottom: 15px;
-
+    display: flex;
+    flex-direction: column;
 }
 
-.form_body {
+.form_group {
     border-bottom: #e6ecf5 1px solid;
     margin-bottom: 15px;
+    flex: 1 1 auto;
 }
 
 .input_text {
@@ -23,8 +25,11 @@
 
 .form_button {
     display: flex;
-    justify-content: end;
+    & .block_btn{
+        margin-left: auto;
+    }
 }
 .post_items {
-
+    display: flex;
+    flex-direction: column;
 }
