@@ -2,10 +2,14 @@ import { ChangeEvent, Component, KeyboardEvent } from 'react'
 import { InputPropsType } from './InputContainer'
 
 type IPropsType = {
+    /** Placeholder */
     placeholder?: string
+    /** Input value */
     inputValue?: string
+    /** Class Name */
     className?: string
 }
+/** Simple UI Component Input */
 
 export class Input extends Component<InputPropsType & IPropsType> {
     onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -16,6 +20,7 @@ export class Input extends Component<InputPropsType & IPropsType> {
     onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         if (this.props.setInputValue) this.props.setInputValue(event.currentTarget.value)
     }
+
     render() {
         return (
             <form

@@ -1,5 +1,5 @@
 import { ChangeEvent, Component, KeyboardEvent } from 'react'
-import { Button } from '../../components/Button/Button'
+import { Button } from 'components/Button/Button'
 import style from './Weather.module.scss'
 import { WeatherPagePropsType } from './WeatherPageContainer'
 
@@ -105,9 +105,7 @@ export class WeatherPage extends Component<WeatherPagePropsType> {
                         onKeyDown={this.onKeyDownHandler}
                         placeholder={this.props.errorStatus ? this.props.errorStatus : 'City search...'}
                     />
-                    <Button className={style.search_btn} onClick={this.onClickHandler}>
-                        <span>Enter</span>
-                    </Button>
+                    <Button label='Find city' className={style.search_btn} onClick={this.onClickHandler} />
                 </form>
             </div>
         )

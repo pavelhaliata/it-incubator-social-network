@@ -9,17 +9,13 @@ const instance = axios.create({
 })
 
 export const socialNetworkAPI = {
-    // eslint-disable-next-line @typescript-eslint/no-inferrable-types, @typescript-eslint/no-unused-vars
-    getUsers(currentPage: number = 1, pageSize: number = 52, term: string = '', friends: null | boolean = null) {
+    getUsers(currentPage = 1, pageSize = 52, term = '', friends: null | boolean = null) {
         return instance.get<ResponseUsersType>(
             `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friends === null ? '' : `&friend=${friends}`),
         )
     },
     getUserProfile(userId: number) {
         return instance.get<UserProfileType>(`profile/${userId}`)
-    },
-    currentUserFollower(userId: number) {
-        return instance.get<boolean>(`/follow/${userId}`)
     },
     followUser(userId: number) {
         return instance.post<ResponseType>(`/follow/${userId}`)
@@ -44,10 +40,7 @@ export const socialNetworkAPI = {
                 'Content-Type': 'multipart/form-data',
             },
         })
-    },
-    findUser(value: string) {
-        return instance.get('')
-    },
+    }
 }
 
 export const authAPI = {

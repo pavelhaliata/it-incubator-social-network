@@ -1,19 +1,31 @@
 .button {
-	background-color: var(--primary-color);
 	color: #fff;
 	padding: 0.8rem;
 	border-radius: .3rem;
 	font-size: .8rem;
 	transition: .3s all ease;
-	border: none;
+	border: 1px solid transparent;
 
 	&:hover {
 		cursor: pointer;
 		background-color: #fd3e12;
 	}
 }
+.outlined{
+	border: 1px solid var(--primary-color);
+	color: var(--primary-color);
+	background-color: transparent;
+	&:hover {
+		color: var(--white-color);
+	}
+}
+.contained{
+	background-color: var(--primary-color);
+}
 
 .button.disabled {
-	cursor: progress !important;
+	cursor: default;
 	background-color: var(--grey-light);
+	border: 1px solid transparent;
+	color: var(--white-color);
 }

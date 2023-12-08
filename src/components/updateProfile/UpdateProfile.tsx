@@ -73,14 +73,13 @@ export function UpdateProfile(props: updateProfilePropsType) {
                                     </li>
                                 ))}
                         </ul>
-                        <Button type='submit'>Submit</Button>
+                        <Button label='Submit' type='submit' />
                         <Button
+                            label='Cancel'
                             onClick={() => {
                                 navigate('/profile')
                             }}
-                        >
-                            cancel
-                        </Button>
+                        />
                     </Form>
                 )}
             </Formik>
