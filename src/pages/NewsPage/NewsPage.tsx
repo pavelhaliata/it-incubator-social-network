@@ -1,24 +1,13 @@
-import React, {Component} from 'react';
-import style from "./Newapage.module.scss";
+import { Component } from "react";
 
-type NewsPagePropsType = {
-  
-};
+type NewsPagePropsType = {};
 
 export class NewsPage extends Component<NewsPagePropsType, any> {
-	componentDidMount() {
-		console.log('did mount')
-		document.title = "News Page";
-	}
-	componentDidUpdate(prevProps: Readonly<NewsPagePropsType>, prevState: Readonly<any>, snapshot?: any) {
-		console.log('did update')
-	}
+  componentDidMount() {
+    document.title = "News Page";
+  }
 
-	render() {
-		return (
-			<div>
-				content coming soon...
-			</div>
-		);
-	};
-};
+  render() {
+    return <div>content coming soon...</div>;
+  }
+}

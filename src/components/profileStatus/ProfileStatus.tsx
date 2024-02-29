@@ -18,7 +18,8 @@ export class ProfileStatus extends Component<ProfileStatusPropsType> {
             this.props.getUserStatusAsync(this.props.userAuthorizedId)
         }
     }
-    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: stateType) {
+
+    componentDidUpdate(prevProps: ProfileStatusPropsType) {
         if (prevProps.userStatus !== this.props.userStatus) {
             this.setState({
                 value: this.props.userStatus,
