@@ -5,11 +5,7 @@ interface IProps {
 }
 
 function Footer({ className }: IProps) {
-    return (
-        <div className={`${s.container} ${className}`}>
-            <div className={s.footer}>footer will be here</div>
-        </div>
-    )
+    return <div className={`${s.container} ${className}`}></div>
 }
 
 export default Footer
