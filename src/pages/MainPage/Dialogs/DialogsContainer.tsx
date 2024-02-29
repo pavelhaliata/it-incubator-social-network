@@ -2,7 +2,7 @@ import { ChatStatusType } from 'api/chat-api'
 import { withLazyLoading } from 'hoc/withLazyLoading'
 import { ComponentType, lazy } from 'react'
 import { connect } from 'react-redux'
-import { compose, Dispatch } from 'redux'
+import { compose } from 'redux'
 import {
     ChatMessageType,
     sendMessageAsync,
@@ -19,24 +19,6 @@ const mapStateToProps = (state: AppRootState): mapStatePropsType => {
         status: state.chat.status,
     }
 }
-
-// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsProps => {
-//     return {
-//         startMessagesListening: () => {
-//             // @ts-ignore
-//             dispatch(startMessagesListeningAsync())
-//         },
-//         sendMessage: message => {
-//             // @ts-ignore
-//             dispatch(sendMessageAsync(message))
-//         },
-//         stopMessagesListening: () => {
-//             // @ts-ignore
-//             dispatch(stopMessagesListeningAsync())
-//         },
-//     }
-// }
-
 export const DialogsContainer = compose<ComponentType>(
     connect(mapStateToProps, { startMessagesListeningAsync, sendMessageAsync, stopMessagesListeningAsync }),
     withLazyLoading,
