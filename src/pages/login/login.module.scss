@@ -1,4 +1,13 @@
-.error{
-	color: var(--primary-color);
-	height: 18px;
+.error {
+  color: var(--primary-color);
+  height: 18px;
+}
+
+.link {
+  color: var(--primary-color);
+  transition: all .3s;
+
+  &:hover {
+    border-bottom: 1px solid var(--primary-color);
+  }
 }
